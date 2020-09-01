@@ -5,11 +5,10 @@ import dsb.web.service.SignupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
+@SessionAttributes("customerBean2")
 public class SignUpController {
 
     private SignupService signupService;
@@ -28,14 +27,21 @@ public class SignUpController {
 
     @PostMapping("customerCompleted")
     public String handlerCustomerCompleted (@ModelAttribute CustomerBean cb, Model model) {
-        model.addAttribute("customerBean", cb);
+        model.addAttribute("customerBean2", cb);
         return "signUpConfirm";
-
-
-//        signupService.saveCustomerAndAddress(cb);
-//
-//        return "index";
     }
+
+    @GetMapping("customerConfirmed")
+    public String handlerCustomerConfirmed(Model model) {
+        CustomerBean cb = (CustomerBean) model.getAttribute("customerBean2");
+        signupService.saveCustomerAndAddress(cb);
+
+        return "index";
+    }
+
+
+
+
 
 
 
