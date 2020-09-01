@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body th:object="${customerBean2}">
+    <h1>bevestiging signup</h1>
+
+
+
+    <div id="surname">
+        <p>Achternaam: <span th:text="*{surname}"/></p>
+    </div>
+    <a href="customerConfirmed">Klik hier voor bevestigen</a>
+
+
+
+</body>
+</html>

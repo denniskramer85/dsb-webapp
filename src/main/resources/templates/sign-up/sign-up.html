@@ -4,12 +4,28 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!-- external sheet doesnt work-->
+    <style>
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+
+
 </head>
 <body>
     <h1 id="pageTitle">Vul uw gegevens in en word klant bij DIRK!</h1>
 
     <form method="POST" th:object="${customerBean}" th:action="@{customerCompleted}">
-
 
         <table>
             <tr>
@@ -17,7 +33,7 @@
                     <p>Achternaam</p>
                 </td>
                 <td>
-                    <input type="text" name="surname" th:field="*{surname}">
+                    <input type="text" name="surname" th:field="*{surname}" required>
                 </td>
             </tr>
 
@@ -35,7 +51,7 @@
                     <p>Voorletters</p>
                 </td>
                 <td>
-                    <input type="text" name="initials" th:field="*{initials}">
+                    <input type="text" name="initials" th:field="*{initials}" required>
                 </td>
             </tr>
 
@@ -45,7 +61,7 @@
                     <p>Straat</p>
                 </td>
                 <td>
-                    <input type="text" name="street" th:field="*{street}">
+                    <input type="text" name="street" th:field="*{street}" required>
                 </td>
             </tr>
 
@@ -54,7 +70,7 @@
                     <p>Huisnummer</p>
                 </td>
                 <td>
-                    <input type="text" name="houseNumber" th:field="*{houseNumber}">
+                    <input type="number" name="houseNumber" th:field="*{houseNumber}" required>
                 </td>
             </tr>
 
@@ -72,7 +88,7 @@
                     <p>Postcode</p>
                 </td>
                 <td>
-                    <input type="text" name="zipCode" th:field="*{zipCode}">
+                    <input type="text" name="zipCode" th:field="*{zipCode}" required>
                 </td>
             </tr>
 
@@ -81,7 +97,7 @@
                     <p>Plaats</p>
                 </td>
                 <td>
-                    <input type="text" name="city" th:field="*{city}">
+                    <input type="text" name="city" th:field="*{city}" required>
                 </td>
             </tr>
 
@@ -91,7 +107,7 @@
                     <p>BSN-nummer</p>
                 </td>
                 <td>
-                    <input type="text" name="socialSecurityNo" th:field="*{socialSecurityNo}">
+                    <input type="number" name="socialSecurityNo" th:field="*{socialSecurityNo}" required>
                 </td>
             </tr>
 
@@ -101,7 +117,7 @@
                     <p>Gebruikersnaam</p>
                 </td>
                 <td>
-                    <input type="text" name="userName" th:field="*{username}">
+                    <input type="text" name="userName" th:field="*{username}" required>
                 </td>
             </tr>
 
@@ -110,16 +126,13 @@
                     <p>Wachtwoord</p>
                 </td>
                 <td>
-                    <input type="password" name="password" th:field="*{password}">
+                    <input type="password" name="password" th:field="*{password}" required>
                 </td>
             </tr>
-
         </table>
 
-
         <input type="submit" value="Bevestigen">
+        <input type="button" value="Annuleren" onclick="location.href='/'">
     </form>
-
-
 </body>
 </html>
