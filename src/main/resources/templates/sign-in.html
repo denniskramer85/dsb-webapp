@@ -15,17 +15,17 @@
         </div>
     </span>
 
-    <form method="post" th:action="@{sign-in}" class="needs-validation" novalidate>
+    <form method="post" th:object="${loginBean}" th:action="@{sign-in}" class="needs-validation" novalidate>
         <div class="form-group">
             <label for="input_username">Gebruikersnaam</label>
-            <input type="text" class="form-control" id="input_username" name="input_username" th:value="${username}" placeholder="Voer wachtwoord in" required>
+            <input type="text" class="form-control" id="input_username" name="input_username" th:field="*{username}" th:value="${username}" placeholder="Voer wachtwoord in" required>
             <div class="invalid-feedback">
                 Vul alstublieft een gebruikersnaam in!
             </div>
         </div>
         <div class="form-group">
             <label for="input_password">Wachtwoord</label>
-            <input type="text" class="form-control" id="input_password" name="input_password" th:value="${password}" placeholder="Voer gebruikersnaam in" required>
+            <input type="text" class="form-control" id="input_password" name="input_password" th:field="*{password}" th:value="${password}" placeholder="Voer gebruikersnaam in" required>
             <div class="invalid-feedback">
                 Vul alstublieft een wachtwoord in!
             </div>
