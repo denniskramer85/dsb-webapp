@@ -5,8 +5,15 @@
     <title>Title</title>
 </head>
 <body th:object="${customerBean}">
-<h1>bevestiging signup</h1>
-<p>achternaam is: <span th:text="*{surname}"/></p>
+    <h1>bevestiging signup</h1>
+
+
+
+    <div id="surname">
+        <p>Achternaam: <span th:text="*{surname}"/></p>
+
+    </div>
+
 
 
 </body>
