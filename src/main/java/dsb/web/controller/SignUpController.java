@@ -28,10 +28,13 @@ public class SignUpController {
 
     @PostMapping("customerCompleted")
     public String handlerCustomerCompleted (@ModelAttribute CustomerBean cb, Model model) {
+        model.addAttribute("customerBean", cb);
+        return "signUpConfirm";
 
-        signupService.saveCustomerAndAddress(cb);
 
-        return "index";
+//        signupService.saveCustomerAndAddress(cb);
+//
+//        return "index";
     }
 
 
