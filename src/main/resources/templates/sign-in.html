@@ -14,20 +14,46 @@
             Gebruikersnaam en/of wachtwoord incorrect. Probeer het nog eens.
         </div>
     </span>
-    <form method="post" th:action="@{sign-in}" >
-        <table>
-            <tr>
-                <td>Username:</td><td><input type="text" name="input_username" th:value="${username}"></td>
-            </tr>
-            <tr>
-                <td>Password:</td><td><input type="password" name="input_password" th:value="${password}"></td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="Login"></td>
-            </tr>
-        </table>
+
+    <form method="post" th:action="@{sign-in}" class="needs-validation" novalidate>
+        <div class="form-group">
+            <label for="input_username">Gebruikersnaam</label>
+            <input type="text" class="form-control" id="input_username" name="input_username" th:value="${username}" placeholder="Voer wachtwoord in" required>
+            <div class="invalid-feedback">
+                Vul alstublieft een gebruikersnaam in!
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input_password">Wachtwoord</label>
+            <input type="text" class="form-control" id="input_password" name="input_password" th:value="${password}" placeholder="Voer gebruikersnaam in" required>
+            <div class="invalid-feedback">
+                Vul alstublieft een wachtwoord in!
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
+
+<script>
+    // Check whether both fields are filled, if not, show custom errors
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            // Fetch all the forms to be validated
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
 
 </body>
 </html>
