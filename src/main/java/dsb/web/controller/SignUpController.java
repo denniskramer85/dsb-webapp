@@ -28,13 +28,17 @@ public class SignUpController {
     @PostMapping("customerCompleted")
     public String handlerCustomerCompleted (@ModelAttribute CustomerBean cb, Model model) {
         model.addAttribute("customerBean2", cb);
+
+        //servertjek op volledig, nummers, BSN
+        //signupService.serverCheck(cb);
+
         return "signUpConfirm";
     }
 
     @GetMapping("customerConfirmed")
     public String handlerCustomerConfirmed(Model model) {
-        CustomerBean cb = (CustomerBean) model.getAttribute("customerBean2");
-        signupService.saveCustomerAndAddress(cb);
+        CustomerBean cb2 = (CustomerBean) model.getAttribute("customerBean2");
+        signupService.saveCustomerAndAddress(cb2);
 
 
 
