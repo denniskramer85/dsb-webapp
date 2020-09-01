@@ -22,7 +22,7 @@ public class SignUpController {
     @GetMapping("sign-up")
     public String handlerSignUp (Model model) {
         model.addAttribute("customerBean", new CustomerBean());
-        return "sign-up";
+        return "sign-up/sign-up";
     }
 
     @PostMapping("customerCompleted")
@@ -35,6 +35,8 @@ public class SignUpController {
     public String handlerCustomerConfirmed(Model model) {
         CustomerBean cb = (CustomerBean) model.getAttribute("customerBean2");
         signupService.saveCustomerAndAddress(cb);
+
+
 
         return "index";
     }
