@@ -45,6 +45,12 @@ public class SignUpController {
         return "index";
     }
 
+    // Tijdelijke handler voor postcodetest
+    @GetMapping("postcode")
+    public String postcodeTestHandler() {
+        return "postcode";
+    }
+
 
 
 
