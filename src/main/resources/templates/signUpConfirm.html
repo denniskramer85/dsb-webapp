@@ -4,66 +4,69 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body th:object="${customerBean2}">
-<h1>bevestiging signup</h1>
+<body>
 
 
+    <h1>bevestiging signup</h1>
 
-<div>
 
-    <div id="personalData">
-        <div id="surname">
-            <p>Achternaam: <span th:text="*{surname}"/></p>
+<!--<form method="POST" th:object="${customerBean2}" th:action="@{customerDataChange}">-->
+
+
+    <div>
+
+        <div id="personalData">
+            <div id="surname">
+                <p>Achternaam: <span th:text="*{surname}"/></p>
+            </div>
+            <div id="inserts">
+                <p>Tussenvoegsels: <span th:text="*{inserts}"/></p>
+            </div>
+            <div id="initials">
+                <p>Initialen: <span th:text="*{initials}"/></p>
+            </div>
+            <div id="BSN">
+                <p>BSN-nummer: <span th:text="*{socialSecurityNo}"/></p>
+            </div>
         </div>
-        <div id="inserts">
-            <p>Tussenvoegsels: <span th:text="*{inserts}"/></p>
+
+
+        <div id="address">
+            <div id="street">
+                <p>Straat: <span th:text="*{street}"/></p>
+            </div>
+            <div id="houseNumber">
+                <p>Nr: <span th:text="*{houseNumber}"/></p>
+            </div>
+            <div id="affixes">
+                <p>Toevoeging: <span th:text="*{affixes}"/></p>
+            </div>
+            <div id="zipCode">
+                <p>Postcode: <span th:text="*{zipCode}"/></p>
+            </div>
+            <div id="city">
+                <p>Woonplaats: <span th:text="*{city}"/></p>
+            </div>
         </div>
-        <div id="initials">
-            <p>Initialen: <span th:text="*{initials}"/></p>
+
+
+        <div id="userData">
+            <div id="username">
+                <p>Gebruikersnaam: <span th:text="*{username}"/></p>
+            </div>
+            <div id="password">
+                <p>Wachtwoord: <span th:text="*{password}"/></p>
+            </div>
         </div>
-        <div id="BSN">
-            <p>BSN-nummer: <span th:text="*{socialSecurityNo}"/></p>
-        </div>
+
     </div>
 
+    <input type="button" value="Bevestigen" onclick="location.href='customerConfirmed'">
+    <input type="button" value="Wijzigen" onclick="location.href='customerDataChange'">
 
-    <div id="address">
-        <div id="street">
-            <p>Straat: <span th:text="*{street}"/></p>
-        </div>
-        <div id="houseNumber">
-            <p>Nr: <span th:text="*{houseNumber}"/></p>
-        </div>
-        <div id="affixes">
-            <p>Toevoeging: <span th:text="*{affixes}"/></p>
-        </div>
-        <div id="zipCode">
-            <p>Postcode: <span th:text="*{zipCode}"/></p>
-        </div>
-        <div id="city">
-            <p>Woonplaats: <span th:text="*{city}"/></p>
-        </div>
-    </div>
+    <!--<input type="submit" value="Wijzigen">-->
 
-
-    <div id="userData">
-        <div id="username">
-            <p>Gebruikersnaam: <span th:text="*{username}"/></p>
-        </div>
-        <div id="password">
-            <p>Wachtwoord: <span th:text="*{password}"/></p>
-        </div>
-    </div>
-
-</div>
-
-
-
-
-
-
-<a href="customerConfirmed">Klik hier voor bevestigen</a>
-<input type="button" value="wijzigen" onclick="location.href='sign-up'"> // bean meegeven
+    <!--</form>-->
 
 
 
