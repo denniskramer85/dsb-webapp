@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
@@ -29,18 +30,18 @@ public class SignInController {
     }
 
     @PostMapping("sign-in")
-    public String signInHandler(
+    public ModelAndView signInHandler(
             @ModelAttribute LoginBean loginBean,
             Model model) {
         Customer loginCustomer = signInService.checkCredentials(loginBean.getUsername(), loginBean.getPassword());
         if (loginCustomer != null) {
             model.addAttribute("loggedInCustomer", loginCustomer);
-            return "account_overview";
+            return new ModelAndView("redirect:/account_overview");
         } else {
             model.addAttribute("username", loginBean.getUsername());
             model.addAttribute("password", loginBean.getPassword());
             model.addAttribute("loginFailed", "true");
-            return "sign-in";
+            return new ModelAndView("sign-in");
         }
     }
 }
