@@ -23,8 +23,9 @@ public class SignupService {
         this.addressRepository = addressRepository;
     }
 
-    public void saveCustomerAndAddress (CustomerBean cb) {
 
+    /** create domain Customer form bean and save in db **/
+    public Customer createAndSaveCustomer(CustomerBean cb) {
         Address address = new Address(cb.getStreet(), cb.getHouseNumber(),
                 cb.getAffixes(), cb.getZipCode(), cb.getCity());
 
@@ -34,7 +35,12 @@ public class SignupService {
 
         customerRepository.save(customer);
         System.out.println("klant met achternaam " + customer.getSurname() + " is opgeslagen");
+
+        return customer;
     }
+
+
+
 
     public void serverCheck(CustomerBean cb) {
 
