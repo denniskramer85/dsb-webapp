@@ -35,7 +35,8 @@ public class SignUpController {
         CustomerBean cb2 = (CustomerBean) model.getAttribute("customerBean2");
         model.addAttribute("customerBean", cb2);
 
-        return "sign-up";
+        //return "sign-up";
+        return "postcode2";
     }
 
 
