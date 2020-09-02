@@ -5,7 +5,6 @@
     <title>Title</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-
     <!-- external sheet doesnt work-->
     <style>
         /* Chrome, Safari, Edge, Opera */
@@ -27,17 +26,17 @@
             margin-top: 5px;
 
         }
-    </style>
 
+    </style>
 
 
 </head>
 <body>
-    <h1 id="pageTitle">Vul uw gegevens in en word klant bij DIRK!</h1>
+<h1 id="pageTitle">Vul uw gegevens in en word klant bij DIRK!</h1>
 
-    <form method="POST" th:object="${customerBean2}" th:action="@{customerCompleted}">
+<form method="POST" th:object="${customerBean}" th:action="@{customerCompleted}">
 
-        <div>
+    <div>
 
         <div id="surname">
             <p>Achternaam:</strong> <input type="text" name="surname" th:field="*{surname}"></p>
@@ -73,11 +72,10 @@
             <p>Wachtwoord:<input type="password" name="password" th:field="*{password}"> </p>
         </div>
 
-        </div>
+    </div>
 
-        <input type="submit" value="Bevestigen">
-        <input type="button" value="Annuleren" onclick="location.href='/'">
-
-    </form>
+    <input type="submit" value="Bevestigen">
+    <input type="button" value="Annuleren" onclick="location.href='/'">
+</form>
 </body>
 </html>
