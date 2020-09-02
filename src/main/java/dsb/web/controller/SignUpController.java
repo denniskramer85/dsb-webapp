@@ -41,6 +41,15 @@ public class SignUpController {
 
     }
 
+
+    @GetMapping("cancelRegistration")
+    public String handleCancelRegistration (Model model) {
+        model.addAttribute("customerBean2", new CustomerBean());
+        return "index";
+    }
+
+
+
     @PostMapping("customerCompleted")
     public String handlerCustomerCompleted (@ModelAttribute CustomerBean cb, Model model) {
         model.addAttribute("customerBean2", cb);
@@ -65,7 +74,6 @@ public class SignUpController {
 //        return "redirect:sign-up";
 //
 //    }
-
 
 
 

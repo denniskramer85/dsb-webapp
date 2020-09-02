@@ -40,50 +40,50 @@
     <div>
         <div id="personalData">
             <div id="surname">
-                <p>Achternaam: <input type="text" name="surname" th:field="*{surname}"></p>
+                <p>Achternaam: <input type="text" name="surname" th:field="*{surname}" required></p>
             </div>
             <div id="inserts">
                 <p>Tussenvoegsels: <input type="text" name="inserts" th:field="*{inserts}"></p>
             </div>
             <div id="initials">
-                <p>Initialen: <input type="text" name="initials" th:field="*{initials}"></p>
+                <p>Initialen: <input type="text" name="initials" th:field="*{initials}" required></p>
             </div>
             <div id="BSN">
-                <p>BSN-nummer: <input type="text" name="socialSecurityNo" th:field="*{socialSecurityNo}"></p>
+                <p>BSN-nummer: <input type="number" name="socialSecurityNo" th:field="*{socialSecurityNo}" required></p>
             </div>
         </div>
 
 
         <div id="address">
             <div id="street">
-                <p>Straat: <input type="text" name="street" th:field="*{street}"></p>
+                <p>Straat: <input type="text" name="street" th:field="*{street}" required></p>
             </div>
             <div id="houseNumber">
-                <p>Nr: <input type="text" name="houseNumber" th:field="*{houseNumber}"></p>
+                <p>Nr: <input type="number" name="houseNumber" th:field="*{houseNumber}" required></p>
             </div>
             <div id="affixes">
                 <p>Toevoeging: <input type="text" name="affixes" th:field="*{affixes}"></p>
             </div>
             <div id="zipCode">
-                <p>Postcode: <input type="text" name="zipCode" th:field="*{zipCode}"></p>
+                <p>Postcode: <input type="text" name="zipCode" th:field="*{zipCode}" required></p>
             </div>
             <div id="city">
-                <p>Woonplaats: <input type="text" name="city" th:field="*{city}"></p>
+                <p>Woonplaats: <input type="text" name="city" th:field="*{city}" required></p>
             </div>
         </div>
 
         <div id="userData">
             <div id="username">
-                <p>Gebruikersnaam: <input type="text" name="userName" th:field="*{username}"></p>
+                <p>Gebruikersnaam: <input type="text" name="userName" th:field="*{username}" required></p>
             </div>
             <div id="password">
-                <p>Wachtwoord:<input type="password" name="password" th:field="*{password}"></p>
+                <p>Wachtwoord:<input type="password" name="password" th:field="*{password}" required></p>
             </div>
         </div>
     </div>
 
     <input type="submit" value="Bevestigen">
-    <input type="button" value="Annuleren" onclick="location.href='/'">
+    <input type="button" value="Annuleren" onclick="location.href='cancelRegistration'">
 </form>
 </body>
 </html>
