@@ -78,6 +78,7 @@ public class SignUpController {
         /** add domain Customer to session/model **/
         model.addAttribute("loggedInCustomer", customer);
 
+        model.addAttribute("customerBean2", new CustomerBean());
 
 
 
