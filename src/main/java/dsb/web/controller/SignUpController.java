@@ -43,7 +43,7 @@ public class SignUpController {
 
 
     @GetMapping("cancelRegistration")
-    public String handleCancelRegistration (Model model) {
+    public String handlerCancelRegistration(Model model) {
         model.addAttribute("customerBean2", new CustomerBean());
         return "index";
     }
@@ -60,20 +60,6 @@ public class SignUpController {
 
         return "signUpConfirm";
     }
-
-
-//    @GetMapping("customerDataChange")
-//    public String handlerCustomerDataChange(@ModelAttribute CustomerBean cb, Model model) {
-//
-//
-//        System.out.println("methode doet t");
-//
-//        CustomerBean cb2 = (CustomerBean) model.getAttribute("customerBean2");
-//
-//
-//        return "redirect:sign-up";
-//
-//    }
 
 
 
