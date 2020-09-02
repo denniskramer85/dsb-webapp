@@ -22,8 +22,23 @@ public class SignUpController {
 
     @GetMapping("sign-up")
     public String handlerSignUp (Model model) {
-        model.addAttribute("customerBean", new CustomerBean());
+
+
+        //session uitlezen
+        CustomerBean cb2 = (CustomerBean) model.getAttribute("customerBean2");
+
+        if (cb2 == null) {
+            System.out.println("hij is leeg");
+            model.addAttribute("customerBean", new CustomerBean());
+
+        } else {
+            System.out.println("hij is vol");
+            model.addAttribute("customerBean", cb2);
+        }
+
         return "sign-up";
+
+
     }
 
     @PostMapping("customerCompleted")
@@ -38,18 +53,18 @@ public class SignUpController {
     }
 
 
-    @GetMapping("customerDataChange")
-    public String handlerCustomerDataChange(@ModelAttribute CustomerBean cb, Model model) {
-
-
-        System.out.println("methode doet t");
-
-        CustomerBean cb2 = (CustomerBean) model.getAttribute("customerBean2");
-
-
-        return "sign-up";
-
-    }
+//    @GetMapping("customerDataChange")
+//    public String handlerCustomerDataChange(@ModelAttribute CustomerBean cb, Model model) {
+//
+//
+//        System.out.println("methode doet t");
+//
+//        CustomerBean cb2 = (CustomerBean) model.getAttribute("customerBean2");
+//
+//
+//        return "redirect:sign-up";
+//
+//    }
 
 
 

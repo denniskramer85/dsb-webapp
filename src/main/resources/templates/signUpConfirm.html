@@ -4,13 +4,10 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+<body th:object="${customerBean2}">
 
 
     <h1>bevestiging signup</h1>
-
-
-<!--<form method="POST" th:object="${customerBean2}" th:action="@{customerDataChange}">-->
 
 
     <div>
@@ -62,12 +59,7 @@
     </div>
 
     <input type="button" value="Bevestigen" onclick="location.href='customerConfirmed'">
-    <input type="button" value="Wijzigen" onclick="location.href='customerDataChange'">
-
-    <!--<input type="submit" value="Wijzigen">-->
-
-    <!--</form>-->
-
+    <input type="button" value="Wijzigen" onclick="location.href='sign-up'">
 
 
 </body>
