@@ -61,8 +61,6 @@ public class SignUpController {
         return "signUpConfirm";
     }
 
-
-
     @GetMapping("customerConfirmed")
     public String handlerCustomerConfirmed(Model model) {
         CustomerBean cb2 = (CustomerBean) model.getAttribute("customerBean2");
