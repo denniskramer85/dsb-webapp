@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Postcode Test</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+    <a class="navbar-brand" href="index">
+        <img th:src="@{/static/images/logo_big.png}" height="40" class="d-inline-block align-top" alt="">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="sign-up">Klant worden</a>
+            <a class="nav-item nav-link" href="sign-in">Inloggen</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <br/>
+    <br/>
+    <br/>
+    <form method="post">
+        <div class="form-group">
+            <label for="zipcode">Postcode</label>
+            <input type="text" class="form-control" id="zipcode" name="zipcode" onkeyup="retrieve_address('zipcode',this.value)">
+        </div>
+        <div class="form-group">
+            <label for="housenumber">Huisnummer</label>
+            <input type="text" class="form-control" id="housenumber" name="housember" onkeyup="retrieve_address('housenumber', this.value)">
+        </div>
+        <div class="form-group">
+            <label for="affix">Toevoeging</label>
+            <input type="text" class="form-control" id="affix" name="affix" onkeyup="retrieve_address('affix', this.value)">
+        </div>
+        <div class="form-group">
+            <label for="affix">Straat</label>
+            <input type="text" class="form-control" id="street" name="street" disabled>
+        </div>
+        <div class="form-group">
+            <label for="city">Stad</label>
+            <input type="text" class="form-control" id="city" name="city" disabled>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<script>
+    // Code for retrieving ZIP information from bwnr.nl API
+    // Declare empty variables
+    var zipcode = "";
+    var housenumber= "";
+    var affix = "";
+
+    function retrieve_address(id, value) {
+        console.log("Methode wordt aangeroepen")
+        // Load form data into variables
+        // Return if no valid input (yet)
+        if (id == "zipcode") {
+            var zip = value.trim();
+            console.log(zip);
+            // Check for minimum of 6 characters
+            if (zip.length < 6) {
+                return;
+            }
+            // Check for numeric value of >1000
+            var zip_numeric = zip.substr(0,4);
+            if (parseFloat(zip_numeric) < 1000) {
+                return;
+            }
+            // Check if last 2 characters are alphabetical
+            var zip_alpha = zip.substr(-2);
+            if (zip_alpha.charCodeAt(0) < 65 || zip_alpha.charCodeAt(0) > 122 || zip_alpha.charCodeAt(1) < 65 || zip_alpha.charCodeAt(1) > 122) {
+                return;
+            }
+            // Concatenate final zipcode
+            zipcode = zip_numeric + zip_alpha.toUpperCase();
+            document.getElementById("zipcode").value = zipcode;
+        }
+        if (id == "housenumber") {
+            // Check if housenumber is not empty and >0
+            housenumber = parseFloat(value);
+            if (!housenumber || housenumber == 0) {
+                return;
+            }
+            document.getElementById("housenumber").value = housenumber;
+        }
+        if (id == "affix") {
+            affix = value.trim();
+            document.getElementById("affix").value = affix;
+        }
+        if (!housenumber) {
+            return;
+        }
+
+        // Create API url
+        var apiRequest = "https://bwnr.nl/postcode.php?pc="+zipcode+"&hn="+housenumber+"&tv="+affix+"&tg=data";
+        var xmlHttpRequest = new XMLHttpRequest();
+
+        // Catch responses
+        xmlHttpRequest.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var rString = this.responseText;
+                if (rString == "Geen resultaat.") {
+                    return;
+                }
+                if (rString == "Input onvolledig.") {
+                    return;
+                }
+                if (rString == "Onbekende API Key.") {
+                    return;
+                }
+                if (rString == "Over quota") {
+                    return;
+                }
+
+                // Autofill responses
+                var aResponse = rString.split(";");
+                document.getElementById("street").value = aResponse[0];
+                document.getElementById("city").value = aResponse[1];
+            }
+        }
+
+        // Execute API request
+        xmlHttpRequest.open("GET", apiRequest, true);
+        xmlHttpRequest.send();
+    }
+</script>
+
+
+
+
+</body>
+</html>

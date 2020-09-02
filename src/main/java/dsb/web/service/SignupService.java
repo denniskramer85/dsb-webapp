@@ -8,6 +8,9 @@ import dsb.web.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
+import java.util.List;
+
 @Service
 public class SignupService {
 
@@ -20,8 +23,9 @@ public class SignupService {
         this.addressRepository = addressRepository;
     }
 
-    public void saveCustomerAndAddress (CustomerBean cb) {
 
+    /** create domain Customer form bean and save in db **/
+    public Customer createAndSaveCustomer(CustomerBean cb) {
         Address address = new Address(cb.getStreet(), cb.getHouseNumber(),
                 cb.getAffixes(), cb.getZipCode(), cb.getCity());
 
@@ -31,6 +35,54 @@ public class SignupService {
 
         customerRepository.save(customer);
         System.out.println("klant met achternaam " + customer.getSurname() + " is opgeslagen");
+
+        return customer;
     }
+
+
+
+
+    public void serverCheck(CustomerBean cb) {
+
+//        //lijst met alle attribs
+//        Field[] fields = cb.getClass().getDeclaredFields();
+//
+//
+//        for (Field f : fields) {
+//            if (f.get(this) == null) System.out.println("xxx");
+//        }
+
+    }
+
+
+
+        /*
+    NIET LEEG
+    alles behalve inserts en affixes
+
+    NUMMER
+    housenumber en socSec
+
+    BSN
+
+
+
+    private String surname;
+    private String inserts;
+    private String initials;
+    private String street;
+    private Integer houseNumber;
+    private String affixes;
+    private String zipCode;
+    private String city;
+    private Integer socialSecurityNo;
+    private String username;
+    private String password;
+
+        */
+
+
+
+
 
 }
