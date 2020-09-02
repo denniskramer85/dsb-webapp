@@ -7,23 +7,19 @@ import dsb.web.service.SignInService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 @Controller
+@SessionAttributes("loggedInCustomer")
 public class SignInController {
     private SignInService signInService;
-    private CustomerRepository customerRepository;
 
     @Autowired
-    public SignInController(SignInService signInService, CustomerRepository customerRepository) {
+    public SignInController(SignInService signInService) {
         this.signInService = signInService;
-        this.customerRepository = customerRepository;
     }
 
     @GetMapping("sign-in")
@@ -38,7 +34,7 @@ public class SignInController {
             Model model) {
         Customer loginCustomer = signInService.checkCredentials(loginBean.getUsername(), loginBean.getPassword());
         if (loginCustomer != null) {
-            model.addAttribute("username", loginCustomer.getUsername());
+            model.addAttribute("loggedInCustomer", loginCustomer);
             return "account_overview";
         } else {
             model.addAttribute("username", loginBean.getUsername());
