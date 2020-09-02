@@ -20,32 +20,22 @@ public class SignUpController {
     }
 
 
-    @GetMapping("sign-up")
-    public String handlerSignUp (Model model) {
 
-
-        //session uitlezen
-        CustomerBean cb2 = (CustomerBean) model.getAttribute("customerBean2");
-
-        if (cb2 == null) {
-            System.out.println("hij is leeg");
-            model.addAttribute("customerBean", new CustomerBean());
-
-        } else {
-            System.out.println("hij is vol");
-            model.addAttribute("customerBean", cb2);
-        }
-
-        return "sign-up";
-
-
+    @GetMapping("pre-sign-up")
+    public String emptyCustomerDataInSession (Model model) {
+        model.addAttribute("customerBean2", new CustomerBean());
+        return "redirect:sign-up";
     }
 
 
-    @GetMapping("cancelRegistration")
-    public String handlerCancelRegistration(Model model) {
-        model.addAttribute("customerBean2", new CustomerBean());
-        return "index";
+    @GetMapping("sign-up")
+    public String handlerSignUp (Model model) {
+
+        //session uitlezen
+        CustomerBean cb2 = (CustomerBean) model.getAttribute("customerBean2");
+        model.addAttribute("customerBean", cb2);
+
+        return "sign-up";
     }
 
 
@@ -69,8 +59,6 @@ public class SignUpController {
 
         /** add domain Customer to session/model **/
         model.addAttribute("loggedInCustomer", customer);
-
-        model.addAttribute("customerBean2", new CustomerBean());
 
         return "index"; //TODO link to rekeningoverzicht
     }
