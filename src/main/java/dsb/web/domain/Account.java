@@ -1,13 +1,10 @@
 package dsb.web.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Account {
+public abstract class Account {
     @Id
     @GeneratedValue
     private int accountID;
@@ -21,6 +18,20 @@ public class Account {
         this.accountNo = accountNo;
         this.balance = balance;
         this.holders = holders;
+    }
+
+    public Account(String accountNo, double balance, List<Customer> holders) {
+        this.accountNo = accountNo;
+        this.balance = balance;
+        this.holders = holders;
+    }
+
+    //copy constructor
+    public Account(Account account) {
+        this.accountID = account.accountID;
+        this.accountNo = account.accountNo;
+        this.balance = account.balance;
+        this.holders = account.holders;
     }
 
     public Account() {
