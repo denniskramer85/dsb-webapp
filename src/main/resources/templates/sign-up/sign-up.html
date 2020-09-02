@@ -5,6 +5,7 @@
     <title>Title</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
+
     <!-- external sheet doesnt work-->
     <style>
         /* Chrome, Safari, Edge, Opera */
@@ -18,121 +19,65 @@
         input[type=number] {
             -moz-appearance: textfield;
         }
+
+        form div {
+            display: block;
+            width: 200px;
+            float : left;
+            margin-top: 5px;
+
+        }
     </style>
+
 
 
 </head>
 <body>
     <h1 id="pageTitle">Vul uw gegevens in en word klant bij DIRK!</h1>
 
-    <form method="POST" th:object="${customerBean}" th:action="@{customerCompleted}">
+    <form method="POST" th:object="${customerBean2}" th:action="@{customerCompleted}">
 
-        <table>
-            <tr>
-                <td>
-                    <p>Achternaam</p>
-                </td>
-                <td>
-                    <input type="text" name="surname" th:field="*{surname}" required>
-                </td>
-            </tr>
+        <div>
 
-            <tr>
-                <td>
-                    <p>Tussenvoegsels</p>
-                </td>
-                <td>
-                    <input type="text" name="inserts" th:field="*{inserts}">
-                </td>
-            </tr>
+        <div id="surname">
+            <p>Achternaam:</strong> <input type="text" name="surname" th:field="*{surname}"></p>
+        </div>
+        <div id="inserts">
+            <p>Tussenvoegsels: <input type="text" name="inserts" th:field="*{inserts}"></p>
+        </div>
+        <div id="initials">
+            <p>Initialen: <input type="text" name="initials" th:field="*{initials}"></p>
+        </div>
+        <div id="street">
+            <p>Straat: <input type="text" name="street" th:field="*{street}"></p>
+        </div>
+        <div id="houseNumber">
+            <p>Nr: <input type="text" name="houseNumber" th:field="*{houseNumber}"></p>
+        </div>
+        <div id="affixes">
+            <p>Toevoeging: <input type="text" name="affixes" th:field="*{affixes}"></p>
+        </div>
+        <div id="zipCode">
+            <p>Postcode: <input type="text" name="zipCode" th:field="*{zipCode}"></p>
+        </div>
+        <div id="city">
+            <p>Woonplaats: <input type="text" name="city" th:field="*{city}"> </p>
+        </div>
+        <div id="BSN">
+            <p>BSN-nummer: <input type="text" name="socialSecurityNo" th:field="*{socialSecurityNo}"> </p>
+        </div>
+        <div id="username">
+            <p>Gebruikersnaam: <input type="text" name="userName" th:field="*{username}"></p>
+        </div>
+        <div id="password">
+            <p>Wachtwoord:<input type="password" name="password" th:field="*{password}"> </p>
+        </div>
 
-            <tr>
-                <td>
-                    <p>Voorletters</p>
-                </td>
-                <td>
-                    <input type="text" name="initials" th:field="*{initials}" required>
-                </td>
-            </tr>
-
-            <tr><td><p></p></td></tr> <!-- tussenregel -->
-            <tr>
-                <td>
-                    <p>Straat</p>
-                </td>
-                <td>
-                    <input type="text" name="street" th:field="*{street}" required>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <p>Huisnummer</p>
-                </td>
-                <td>
-                    <input type="number" name="houseNumber" th:field="*{houseNumber}" required>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <p>Toevoegingen</p>
-                </td>
-                <td>
-                    <input type="text" name="affixes" th:field="*{affixes}">
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <p>Postcode</p>
-                </td>
-                <td>
-                    <input type="text" name="zipCode" th:field="*{zipCode}" required>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <p>Plaats</p>
-                </td>
-                <td>
-                    <input type="text" name="city" th:field="*{city}" required>
-                </td>
-            </tr>
-
-            <tr><td><p></p></td></tr> <!-- tussenregel -->
-            <tr>
-                <td>
-                    <p>BSN-nummer</p>
-                </td>
-                <td>
-                    <input type="number" name="socialSecurityNo" th:field="*{socialSecurityNo}" required>
-                </td>
-            </tr>
-
-            <tr><td><p></p></td></tr> <!-- tussenregel -->
-            <tr>
-                <td>
-                    <p>Gebruikersnaam</p>
-                </td>
-                <td>
-                    <input type="text" name="userName" th:field="*{username}" required>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <p>Wachtwoord</p>
-                </td>
-                <td>
-                    <input type="password" name="password" th:field="*{password}" required>
-                </td>
-            </tr>
-        </table>
+        </div>
 
         <input type="submit" value="Bevestigen">
         <input type="button" value="Annuleren" onclick="location.href='/'">
+
     </form>
 </body>
 </html>
