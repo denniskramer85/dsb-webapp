@@ -9,17 +9,16 @@
 <h1>Aanvraag nieuwe account</h1>
 <p>
 <h2>Wat voor account zou je willen aanmaken?</h2>
-<form method="post" th:action="new-account">
+<form method="post" th:object="${newAccountBean}" th:action="new-account">
     <table>
         <tr>
-            <td th:each="type : ${types} " name="accout_type" th:value="${type}"></td>
-<!--            <td>
-                <input type="radio" id="consumer" name="account_type" value="0" >
+            <td>
+                <input type="radio" id="consumer" name="accountType" value="0" th:field="*{accountType}">
                 <label for="consumer">Particulier</label>
             </td>
-            <td><input type="radio" id="SME" name="account_type" value="1" >
+            <td><input type="radio" id="SME" name="accountType" value="1" th:field="*{accountType}">
                 <label for="SME">Zakelijk</label>
-            </td>-->
+            </td>
         </tr>
         <tr>
             <td><input type="submit" value="Volgende"></td>

@@ -14,7 +14,7 @@ import java.util.*;
 public class NewAccountService {
     private static final int IBAN_LENGTH = 20;
     private static final String IBAN_START = "NL88DSBB";
-    public static final List<String> ACCOUNT_TYPES = Arrays.asList("particulier","zakelijk");
+    public final List<String> ACCOUNT_TYPES = Arrays.asList("particulier","zakelijk");
 
 
     public NewAccountService() {

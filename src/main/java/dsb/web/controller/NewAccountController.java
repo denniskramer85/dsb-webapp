@@ -1,61 +1,82 @@
 package dsb.web.controller;
 
-import dsb.web.domain.Account;
-import dsb.web.domain.ConsumerAccount;
-import dsb.web.domain.Customer;
-import dsb.web.domain.SMEAccount;
+import dsb.web.controller.beans.NewAccountBean;
+import dsb.web.domain.*;
+import dsb.web.repository.AccountRepository;
+import dsb.web.repository.BussinessRepository;
 import dsb.web.service.NewAccountService;
-import dsb.web.service.SignupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @SessionAttributes("loggedInCustomer")
 @Controller
 public class NewAccountController {
     private NewAccountService newAccountService;
+    private AccountRepository accountRepository;
+    private BussinessRepository bussinessRepository;
 
     @Autowired
-    public NewAccountController(NewAccountService newAccountService) {
+    public NewAccountController(NewAccountService newAccountService, AccountRepository accountRepository, BussinessRepository bussinessRepository) {
         this.newAccountService = newAccountService;
+        this.accountRepository = accountRepository;
+        this.bussinessRepository = bussinessRepository;
     }
 
     @GetMapping("new-account")
     public String newAccountSetup(Model model){
-        model.addAttribute("types",newAccountService.ACCOUNT_TYPES);
+        model.addAttribute("newAccountBean",new NewAccountBean());
         return "new-account";
 
     }
 
     @PostMapping("new-account")
     public String newAccountType(
-            @RequestParam(name = "account_type") int accountType,
+            @ModelAttribute NewAccountBean newAccountBean,
             Model model) {
-        System.out.println(accountType);
-/*        if (accountType == 0){
-        }
-        //if choice == 1 == SME account
-        else if (accountType == 1){
-        }
-        else {
+        System.out.println(newAccountBean);
+        model.addAttribute("newAccountBean1", newAccountBean);
+        if (newAccountBean.getAccountType() == 0) {
+            return "confirm-new-account";
+        } else if (newAccountBean.getAccountType() == 1) {
+            System.out.println(newAccountBean);
+            return "bussiness-details";
+        } else {
             return "new-account";
-        }*/
-        return "";
+        }
     }
+
+    @GetMapping("bussiness-details")
+    public String bussinessDetails (
+            Model model) {
+        return "bussiness-details";
+    }
+
+    @PostMapping("bussiness-details-completed")
+    public String bussinessDetailsCompleted(
+            @ModelAttribute NewAccountBean newAccountBean,
+            @RequestParam(name = "input-name") String name,
+            @RequestParam(name = "input-KVKno") String KNKno,
+            @RequestParam(name = "input-BTWno") String BTWno,
+            Model model){
+        newAccountBean.setAccountType(1);
+        newAccountBean.setBussiness(new Bussiness(name,KNKno,BTWno));
+        model.addAttribute("newAccountBean", newAccountBean);
+        return "confirm-new-account";
+    }
+
 
     @GetMapping("confirm-new-account")
     public String confirmNewAccount(
-            @RequestParam Account account,
+            @ModelAttribute NewAccountBean newAccountBean,
             Model model){
         return "confirm-new-account";
     }
 
+    @PostMapping("confirm-new-account")
+    public String confirmNewAccountPost(){
+
+        return "index";
+    }
 }

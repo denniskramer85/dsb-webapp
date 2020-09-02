@@ -6,27 +6,35 @@
 </head>
 <body>
 <h1>Bevestig nieuwe account</h1>
-<p></p>
-<p>Je kiest er voor om een </p><p th:text="account-type">
+<div th:if="${newAccountBean.getAccountType() == 0}">Je hebt gekozen voor een particulier account!</div>
+<div th:if="${newAccountBean.getAccountType() == 1}">
+    <p>Je hebt gekozen voor een zakelijke account!</p>
+    <table>
+        <tr>
+            <td>
+                Bedrijfsnaam:
+            </td>
+            <td><span th:text="${newAccountBean.getBussiness().getName()}"></span></td>
+        </tr>
+        <tr>
+            <td>
+                KVK-nummer:
+            </td>
+            <td><span th:text="${newAccountBean.getBussiness().getKVKno()}"></span></td>
+        </tr>
+        <tr>
+            <td>
+                BTW-nummer:
+            </td>
+            <td><span th:text="${newAccountBean.getBussiness().getBTWno()}"></span></td>
+        </tr>
+    </table>
+</div>
 
-<table>
-    <tr>
-        <td>
-            <p>IBAN:</p>
-        </td>
-        <td>
-            <p th:text="${accountNo}"></p>
-        </td>
-    </td>
-    </tr>
-    <tr>
-        <td><p>IBAN: </p></td><td><p th:text="${accountNo}"></p></td>
-    </tr>
-    <tr>
-        <td><p>IBAN: </p></td><td><p th:text="${accountNo}"></p></td>
-    </tr>
-</table>
-
-
+<div>
+    <form action="confirm-new-account">
+        <input type="submit" value="Bevestig">
+    </form>
+</div>
 </body>
 </html>

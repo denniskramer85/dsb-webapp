@@ -1,10 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Fill out bussiness deatail</title>
 </head>
 <body>
-<li><a href="index">Homeee</a></li>
+<p>Vul de volgende velden in:</p>
+
+
+<form method="POST" th:action="@{bussiness-details-completed}">
+
+    <table>
+        <tr>
+            <td>
+                <p>Bedrijfsnaam</p>
+            </td>
+            <td>
+                <input type="text" name="input-name">
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <p>KVK-nummer</p>
+            </td>
+            <td>
+                <input type="text" name="input-KVKno">
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <p>BTW-nummer</p>
+            </td>
+            <td>
+                <input type="text" name="input-BTWno">
+            </td>
+        </tr>
+
+    </table>
+
+    <input type="submit" value="Bevestigen">
+</form>
+
+
 </body>
 </html>
