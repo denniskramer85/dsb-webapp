@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-public class TransactionDummy {
+public class Transaction {
 
     @Id
     @GeneratedValue
@@ -19,7 +19,7 @@ public class TransactionDummy {
     private String message;
     private Timestamp transactionTimestamp;
 
-    public TransactionDummy(int transactionID, Account transactionAccountDebet, Account transactionAccountCredit, double transactionAmount, String message, Timestamp transactionTimestamp) {
+    public Transaction(int transactionID, Account transactionAccountDebet, Account transactionAccountCredit, double transactionAmount, String message, Timestamp transactionTimestamp) {
         this.transactionID = transactionID;
         this.transactionAccountDebet = transactionAccountDebet;
         this.transactionAccountCredit = transactionAccountCredit;
@@ -28,11 +28,11 @@ public class TransactionDummy {
         this.transactionTimestamp = transactionTimestamp;
     }
 
-    public TransactionDummy(Account transactionAccountDebet, Account transactionAccountCredit, double transactionAmount, String message, Timestamp transactionTimestamp) {
+    public Transaction(Account transactionAccountDebet, Account transactionAccountCredit, double transactionAmount, String message, Timestamp transactionTimestamp) {
         this(0, transactionAccountDebet, transactionAccountCredit, transactionAmount, message, transactionTimestamp);
     }
 
-    public TransactionDummy() {
+    public Transaction() {
     }
 
     @Override
