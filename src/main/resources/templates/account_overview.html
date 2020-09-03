@@ -36,11 +36,14 @@
         <div class="panel-body account-list">
             <div class="list-group">
                 <div th:each="account : ${consumerAccounts}">
-                    <a th:href="accountPage" class="list-group-item text-dark">
+                    <form method="post" th:action="@{account_overview}">
+                        <input type="hidden" th:name="accountID" th:value="${account.getAccountID()}">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"/> <span th:text="${account.getAccountNo()}"/>
                         <span class="glyphicon glyphicon-link" aria-hidden="true"/> &nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;<span th:text="${account.getHolderString()}"/>
-                        <span class="glyphicon glyphicon-eur" aria-hidden="true"/>: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;€&nbsp;<span th:text="${account.getBalance()}"/>
-                    </a>
+                        <span class="glyphicon glyphicon-eur" aria-hidden="true"/>&nbsp;&nbsp;- &nbsp;&nbsp;&nbsp;&nbsp;€&nbsp;<span th:text="${account.getBalance()}"/>
+                        &nbsp;&nbsp;
+                        <button type="submit" class="btn btn-outline-dark">></button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -56,11 +59,14 @@
         <div class="panel-body account-list">
             <div class="list-group">
                 <div th:each="account : ${smeAccounts}">
-                    <a th:href="accountPage" class="list-group-item text-dark">
+                    <form method="post" th:action="@{account_overview}">
+                        <input type="hidden" th:name="accountID" th:value="${account.getAccountID()}">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"/> <span th:text="${account.getAccountNo()}"/>
                         <span class="glyphicon glyphicon-link" aria-hidden="true"/> &nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;<span th:text="${account.getHolderString()}"/>
-                        <span class="glyphicon glyphicon-eur" aria-hidden="true"/>: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;€&nbsp;<span th:text="${account.getBalance()}"/>
-                    </a>
+                        <span class="glyphicon glyphicon-eur" aria-hidden="true"/>&nbsp;&nbsp;- &nbsp;&nbsp;&nbsp;&nbsp;€&nbsp;<span th:text="${account.getBalance()}"/>
+                        &nbsp;&nbsp;
+                        <button type="submit" class="btn btn-outline-dark">></button>
+                    </form>
                 </div>
             </div>
         </div>
