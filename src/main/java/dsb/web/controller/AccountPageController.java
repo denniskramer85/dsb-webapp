@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,11 +31,11 @@ public class AccountPageController {
     }
 
     @GetMapping("accountPage")
-    public String startAccountPage (Model model) {
+    public String startAccountPage (@ModelAttribute("selectedAccount") Account account, Model model) {
 
-        //account ophalen als dummy bean
+        /*//account ophalen als dummy bean
         List <Account> listAccounts = accountRepository.findAll();
-        Account account = listAccounts.get(0);
+        Account account = listAccounts.get(0);*/
 
         AccountPageBean accountPageBean = accountPageService.makeAccountPageBean(account);
 

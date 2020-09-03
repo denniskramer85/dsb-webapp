@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -41,9 +42,9 @@ public class AccountOverviewController {
     }
 
     @PostMapping("account_overview")
-    public ModelAndView selectAccount(@RequestParam("accountID") int accountID, Model model) {
+    public ModelAndView selectAccount(@RequestParam("accountID") int accountID, RedirectAttributes redirectAttributes) {
         Account selectedAccount = accountOverviewService.getAccountByID(accountID);
-        model.addAttribute(selectedAccount);
+        redirectAttributes.addAttribute("selectedAccount", selectedAccount);
         return new ModelAndView("redirect:/accountPage");
     }
 }
