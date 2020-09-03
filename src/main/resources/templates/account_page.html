@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Rekeningpagina</title>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <a class="navbar-brand" href="index">
+            <img th:src="@{/images/logo_big.png}" height="40" class="d-inline-block align-top" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="transfer">Overboeken</a>
+                <a class="nav-item nav-link" href="new-account">Rekeninghouder toevoegen</a>
+                <a class="nav-item nav-link" href="request-paymentmachine">Aanvragen pinautomaat</a>
+                <a class="nav-item nav-link" href="confirm-paymentmachine-request">Bevestigen aanvraag pinautomaat</a>
+            </div>
+        </div>
+    </nav>
+</body>
+</html>

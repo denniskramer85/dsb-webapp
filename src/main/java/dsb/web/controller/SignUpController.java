@@ -23,11 +23,11 @@ public class SignUpController {
         this.signupService = signupService;
         this.transactionRepository = transactionRepository;
 
-        List<Transaction> lijst = transactionRepository.findTransactionByAccounts(24);
-
-        for (Transaction t : lijst) {
-            System.out.println(t);
-        }
+//        List<Transaction> lijst = transactionRepository.findTransactionByAccounts(24);
+//
+//        for (Transaction t : lijst) {
+//            System.out.println(t);
+//        }
     }
 
     @Autowired

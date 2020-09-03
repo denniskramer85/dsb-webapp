@@ -24,10 +24,8 @@ public class AccountOverviewService {
     public AccountOverviewService() {
     }
 
-    public List<ConsumerAccount> getConsumerAccountsForCustomer(
-            @ModelAttribute("loggedinCustomer") Customer loggedInCustomer
-            ) {
-        List<ConsumerAccount> consumerAccountList = consumerAccountRepository.findByHolders(loggedInCustomer);
+    public List<ConsumerAccount> getConsumerAccountsForCustomer(@ModelAttribute("loggedInCustomer") Customer loggedInCustomer) {
+        List<ConsumerAccount> consumerAccountList = consumerAccountRepository.findAllByHolders(loggedInCustomer);
         return consumerAccountList;
     }
 }

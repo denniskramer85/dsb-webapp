@@ -4,13 +4,14 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Account {
     @Id
     @GeneratedValue
     private int accountID;
     private String accountNo;
     private double balance;
-    @ManyToMany (mappedBy = "accounts")
+    @ManyToMany (mappedBy = "accounts", fetch = FetchType.LAZY)
     private List<Customer> holders;
 
     public Account(int accountID, String accountNo, double balance, List<Customer> holders) {

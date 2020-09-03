@@ -1,6 +1,7 @@
 INSERT INTO `dsb`.`address` (`addressid`, `city`, `house_number`, `street`) VALUES ('11', 'Amsterdam', '1', 'Straat');
 INSERT INTO `dsb`.`customer` (`customerid`, `initials`, `password`, `social_security_no`, `surname`, `username`, `address_addressid`) VALUES ('11', 'D', 'dennis', '123456', 'Kramer', 'dennis', '11');
 
+
 INSERT INTO `dsb`.`account` (`dtype`, `accountid`, `account_no`, `balance`) VALUES ('ConsumerAccount', '20', 'NL40DSBB0123456789', '200');
 INSERT INTO `dsb`.`account` (`dtype`, `accountid`, `account_no`, `balance`) VALUES ('ConsumerAccount', '21', 'NL30DSBB0123456789', '300');
 INSERT INTO `dsb`.`account` (`dtype`, `accountid`, `account_no`, `balance`) VALUES ('ConsumerAccount', '22', 'NL20DSBB0123456789', '400');
@@ -31,7 +32,6 @@ INSERT INTO `dsb`.`transaction_dummy` (`transactionid`, `message`, `transaction_
 INSERT INTO `dsb`.`transaction_dummy` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, transaction_account_credit_accountid, transaction_account_debet_accountid) VALUES ('313', 'tr14', 100, '2020-01-14 01:01:01', 20, 23);
 INSERT INTO `dsb`.`transaction_dummy` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, transaction_account_credit_accountid, transaction_account_debet_accountid) VALUES ('314', 'tr15', 100, '2020-01-15 01:01:01', 20, 24);
 INSERT INTO `dsb`.`transaction_dummy` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, transaction_account_credit_accountid, transaction_account_debet_accountid) VALUES ('315', 'tr16', 100, '2020-01-16 01:01:01', 20, 25);
-
 
 
 
