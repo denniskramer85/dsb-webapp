@@ -80,4 +80,16 @@ public abstract class Account {
                 ", balance=" + balance +
                 '}';
     }
+
+    public String getHolderString() {
+        String returnString = "";
+        for (Customer holder : holders) {
+            returnString += holder.getInitials() + " ";
+            if (holder.getInserts() != null) {
+                returnString += holder.getInserts() + " ";
+            }
+            returnString += holder.getSurname();
+        }
+        return returnString;
+    }
 }

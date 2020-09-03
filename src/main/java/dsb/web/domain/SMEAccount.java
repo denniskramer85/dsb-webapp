@@ -8,14 +8,14 @@ import java.util.List;
 @Entity
 public class SMEAccount extends Account{
 
-    private String accountManager;
-
-    public SMEAccount(int accountID, String accountNo, double balance, List<Customer> holders, String randString) {
+    public SMEAccount(int accountID, String accountNo, double balance, List<Customer> holders) {
         super(accountID, accountNo, balance, holders);
     }
 
     public SMEAccount() {
     }
+
+
 
     @Override
     public String printClassName() {
