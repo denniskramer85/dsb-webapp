@@ -1,15 +1,28 @@
 package dsb.web.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
 public class SMEAccount extends Account{
 
-    public SMEAccount(int accountID, String accountNo, double balance, List<Customer> holders) {
+
+    @ManyToOne
+    private Company company;
+
+
+    public SMEAccount(int accountID, String accountNo, double balance, List<Customer> holders, Company company) {
         super(accountID, accountNo, balance, holders);
+        this.company = company;
+    }
+
+    public SMEAccount(String accountNo, double balance, List<Customer> holders, Company company) {
+        super(accountNo, balance, holders);
+        this.company = company;
+    }
+
+    public SMEAccount(Company company) {
+        this.company = company;
     }
 
     public SMEAccount() {

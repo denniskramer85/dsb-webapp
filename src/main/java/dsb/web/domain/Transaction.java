@@ -2,6 +2,7 @@ package dsb.web.domain;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 @Entity
 public class Transaction {
@@ -35,16 +36,25 @@ public class Transaction {
     public Transaction() {
     }
 
+
+    //TODO opruimen
+//    public String toString2() {
+//        return "TransactionDummy{" +
+//                "transactionID=" + transactionID +
+//                ", transactionAccountDebet=" + transactionAccountDebet.getAccountNo() +
+//                ", transactionAccountCredit=" + transactionAccountCredit.getAccountNo() +
+//                ", transactionAmount=" + transactionAmount +
+//                ", message='" + message + '\'' +
+//                ", transactionTimestamp=" + transactionTimestamp +
+//                '}';
+//    }
+
     @Override
     public String toString() {
-        return "TransactionDummy{" +
-                "transactionID=" + transactionID +
-                ", transactionAccountDebet=" + transactionAccountDebet.getAccountNo() +
-                ", transactionAccountCredit=" + transactionAccountCredit.getAccountNo() +
-                ", transactionAmount=" + transactionAmount +
-                ", message='" + message + '\'' +
-                ", transactionTimestamp=" + transactionTimestamp +
-                '}';
+        String s = new SimpleDateFormat("MM/dd/yyyy '|' HH:mm").format(transactionTimestamp);
+        return String.format("%s - %s - %s - %.2f - %s", s, transactionAccountDebet.getAccountNo(),
+                transactionAccountCredit.getAccountNo(), transactionAmount, message);
+
     }
 
     public int getTransactionID() {

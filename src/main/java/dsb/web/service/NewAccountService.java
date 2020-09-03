@@ -1,33 +1,56 @@
 package dsb.web.service;
 
-import dsb.web.domain.Customer;
-import dsb.web.repository.CustomerRepository;
+import dsb.web.controller.beans.NewAccountBean;
+import dsb.web.domain.Company;
+import dsb.web.domain.ConsumerAccount;
+import dsb.web.domain.SMEAccount;
+import dsb.web.repository.CompanyRepository;
+import dsb.web.repository.ConsumerAccountRepository;
+import dsb.web.repository.SMEAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import org.springframework.web.bind.annotation.SessionAttributes;
-
-import java.lang.reflect.Array;
 import java.util.*;
 
 @Service
 public class NewAccountService {
-    private static final int IBAN_LENGTH = 20;
+    private CompanyRepository companyRepository;
+    private SMEAccountRepository smeAccountRepository;
+    private ConsumerAccountRepository consumerAccountRepository;
+
+    public NewAccountService(CompanyRepository companyRepository, SMEAccountRepository smeAccountRepository, ConsumerAccountRepository consumerAccountRepository) {
+        this.companyRepository = companyRepository;
+        this.smeAccountRepository = smeAccountRepository;
+        this.consumerAccountRepository = consumerAccountRepository;
+    }
+
+    @Autowired
+
+
+    private static final int IBAN_LENGTH = 18;
     private static final String IBAN_START = "NL88DSBB";
     public final List<String> ACCOUNT_TYPES = Arrays.asList("particulier","zakelijk");
 
 
-    public NewAccountService() {
-    }
-
     public String buildIBAN(){
         /*Generate valid IBAN in string format*/
         String result = IBAN_START;
-        result += "0000";
+        result += "000";
         Random rand = new Random();
-        while (result.length() < 20){
+        while (result.length() < IBAN_LENGTH){
             result += rand.nextInt();
         }
         return result;
+    }
+
+
+    public void saveNewAccount(NewAccountBean nab){
+        if (nab.getName() != null){
+            Company company = new Company(nab.getName(),nab.getKVKno(), nab.getBTWno());
+            companyRepository.save(company);
+            smeAccountRepository.save(new SMEAccount(nab.getAccountNo(), nab.getBalance(), Arrays.asList(nab.getHolder()),company));
+        } else {
+            consumerAccountRepository.save(new ConsumerAccount(nab.getAccountNo(), nab.getBalance(), Arrays.asList(nab.getHolder())));
+        }
     }
 }
