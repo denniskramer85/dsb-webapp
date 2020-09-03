@@ -40,7 +40,7 @@ public class AccountPageController {
 
         model.addAttribute("accountPageBean", accountPageBean);
 
-        return "account_page2";
+        return "account_page";
     }
 
 }
