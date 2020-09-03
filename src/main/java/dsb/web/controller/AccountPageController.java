@@ -3,7 +3,6 @@ package dsb.web.controller;
 import dsb.web.controller.beans.AccountPageBean;
 import dsb.web.domain.*;
 import dsb.web.repository.AccountRepository;
-import dsb.web.repository.TransactionRepository;
 import dsb.web.service.AccountPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,9 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Controller

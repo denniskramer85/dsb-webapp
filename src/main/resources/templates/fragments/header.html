@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<div th:fragment="header">
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <a class="navbar-brand" href="/">
+            <img th:src="@{/images/logo_big.png}" height="40" class="d-inline-block align-top" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="pre-sign-up">Klant worden</a>
+                <a class="nav-item nav-link" href="sign-in">Inloggen</a>
+                <a class="nav-item nav-link" href="new-account">Rekening openen</a>
+                <a class="nav-item nav-link" href="account_overview">Rekeningoverzicht</a>
+            </div>
+        </div>
+    </nav>
+</div>
+
+</body>
+</html>
