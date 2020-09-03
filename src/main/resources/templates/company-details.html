@@ -8,26 +8,46 @@
 
 </head>
 <body>
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+    <a class="navbar-brand" href="index">
+        <img th:src="@{/images/logo_big.png}" height="40" class="d-inline-block align-top" alt="">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="pre-sign-up">Klant worden</a>
+            <a class="nav-item nav-link" href="sign-in">Inloggen</a>
+            <a class="nav-item nav-link" href="postcode">Postcode-test</a>
+            <a class="nav-item nav-link" href="new-account">Rekening openen</a>
+        </div>
+    </div>
+</nav>
 <div class="container">
-
-<p>Vul de volgende velden in:</p>
-
-
-<form method="POST" th:object="${newAccountBean}" th:action="@{company-details-completed}">
-
-    <div id="input-company-details">
-    <div>
-        <p>Bedrijfsnaam: <input type="text" name="input-name" th:field="*{name}" required></p>
+    <div class="panel panel-default">
+        <div class="panel-heading new-account">
+            <h3 class="panel-title">Bedrijfsgegevens</h3>
+        </div>
+        <div class="panel-body new-account" style="margin-top: 30px">
+            <p>Vul de volgende velden in:</p>
+            <form method="POST" th:object="${newAccountBean}" th:action="@{company-details-completed}">
+                <div id="input-company-details">
+                    <div>
+                        <p>Bedrijfsnaam: <input type="text" name="input-name" th:field="*{name}" required></p>
+                    </div>
+                    <div>
+                        <p>KVK-nummer: <input type="text" name="input-KVKno" th:field="*{KVKno}" required></p>
+                    </div>
+                    <div>
+                        <p>BTW-nummer: <input type="text" name="input-BTWno" th:field="*{BTWno}" required></p>
+                    </div>
+                </div>
+                <input class="btn btn-primary" type="submit" value="Volgende">
+                <input class="btn" type="button" onclick="window.location.href='account_overview';" value="Cancel"/>
+            </form>
+        </div>
     </div>
-    <div>
-        <p>KVK-nummer: <input type="text" name="input-KVKno" th:field="*{KVKno}" required></p>
-    </div>
-    <div>
-        <p>BTW-nummer: <input type="text" name="input-BTWno" th:field="*{BTWno}" required></p>
-    </div>
-    </div>
-    <input type="submit" value="Bevestigen">
-</form>
 </div>
 </body>
 </html>
