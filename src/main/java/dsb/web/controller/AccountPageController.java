@@ -34,7 +34,7 @@ public class AccountPageController {
         //account ophalen als dummy bean
         List <Account> listAccounts = accountRepository.findAll();
         Account dummyAccount = listAccounts.get(0);
-
+        System.out.println("doorgegeven account: " + dummyAccount);
         model.addAttribute("accountBean", dummyAccount);
 
         return "account_page2";
