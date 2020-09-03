@@ -46,7 +46,7 @@ public class AccountPageController {
             System.out.println(t);
         }
 
-        return "account_page2";
+        return "account_page";
     }
 
 }
