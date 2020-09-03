@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface ConsumerAccountRepository extends CrudRepository<ConsumerAccount, Integer> {
-    public List<ConsumerAccount> findAllByHolders(Customer customer);
+    List<ConsumerAccount> findAllByHolders(Customer customer);
 }
