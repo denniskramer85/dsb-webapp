@@ -14,7 +14,4 @@ public class AccountPageService {
     public AccountPageService(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
     }
-
-
-
 }

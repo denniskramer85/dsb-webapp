@@ -19,6 +19,7 @@ public class SignUpController {
     private SignupService signupService;
     private TransactionRepository transactionRepository;
 
+    @Autowired
     public SignUpController(SignupService signupService, TransactionRepository transactionRepository) {
         this.signupService = signupService;
         this.transactionRepository = transactionRepository;
@@ -30,7 +31,7 @@ public class SignUpController {
 //        }
     }
 
-    @Autowired
+
 
 
 
