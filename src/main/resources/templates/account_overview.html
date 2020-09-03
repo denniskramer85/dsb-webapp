@@ -26,6 +26,8 @@
 </nav>
 
 <div class="container">
+    <br/>
+    <br/>
 
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -35,14 +37,17 @@
             <div class="list-group">
                 <div th:each="account : ${consumerAccounts}">
                     <button type="button" class="list-group-item">
-                        <div th:text="${account.getAccountNo()}"/>
-                        <div th:text="${account.getHolderString()}"/>
-                        <div th:text="${account.getAccountNo()}"/>
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> <span th:text="${account.getAccountNo()}"/>
+                        <span class="glyphicon glyphicon-link" aria-hidden="true"><span th:text="${account.getHolderString()}"/>
+                        <span class="glyphicon glyphicon-eur" aria-hidden="true"><span th:text="${account.getAccountNo()}"/>
                     </button>
                 </div>
             </div>
         </div>
     </div>
+
+    <br/>
+    <br/>
 
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -52,9 +57,9 @@
             <div class="list-group">
                 <div th:each="account : ${smeAccounts}">
                     <button type="button" class="list-group-item">
-                        <div th:text="${account.getAccountNo()}"/>
-                        <div th:text="${account.getHolderString()}"/>
-                        <div th:text="${account.getAccountNo()}"/>
+                        <span th:text="${account.getAccountNo()}"/>
+                        <span th:text="${account.getHolderString()}"/>
+                        <span th:text="${account.getAccountNo()}"/>
                     </button>
                 </div>
             </div>
