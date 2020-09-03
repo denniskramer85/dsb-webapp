@@ -37,6 +37,7 @@ public class AccountPageController {
         List <Account> listAccounts = accountRepository.findAll();
         Account account = listAccounts.get(0);*/
 
+
         AccountPageBean accountPageBean = accountPageService.makeAccountPageBean(account);
 
         model.addAttribute("accountPageBean", accountPageBean);
@@ -47,7 +48,7 @@ public class AccountPageController {
             System.out.println(t);
         }
 
-        return "account_page";
+        return "account_page2";
     }
 
 }

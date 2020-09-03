@@ -1,25 +1,57 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="AccountPageStyles.css">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Rekeningpagina</title>
 </head>
 
-<body th:object="${accountPageBean}">
-    <h1>transactieoverzicht</h1>
+<body>
 
-    <div id="holderNames">
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+    <a class="navbar-brand" href="index">
+        <img th:src="@{/images/logo_big.png}" height="40" class="d-inline-block align-top" alt="">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</nav>
+
+
+<div id="accountPage" th:object="${accountPageBean}">
+
+    <h1>Rekeningpagina</h1>
+
+    <div id="accountData">
         <div th:each="name : *{holderNames}">
             <span th:text="${name + ' '}"  />
         </div>
+        <p>Rekeningnummer: <span th:text="*{accountNo}"/></p>
+        <p>Saldo: <span th:text="*{balance}"/></p>
+        <p><span th:text="*{timestamp}"/></p>
     </div>
 
+    <div id="generalButtons">
+        <input type="button" onclick="href='transfer';" value="Overboeken" />
+        <input type="button" onclick="href='new-account';" value="Rekeninghoudert toevoegen" />
+    </div>
+
+    <div id="SMEAButtons" th:if="*{typeAccount == 'SMEAccount'}">
+        <input type="button" onclick="href='request-paymentmachine';" value="Aanvragen pinautomaat" />
+        <input type="button" onclick="href='confirm-paymentmachine-request';" value="Bevestigen aanvraag pinautomaat"/>
+    </div>
 
     <div id="transactionList">
         <div th:each="transaction : *{transactions}">
             <p><span th:text="${transaction}"  /></p>
         </div>
     </div>
+
+
+</div>
+
+
 
 
 
