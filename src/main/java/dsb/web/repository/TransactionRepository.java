@@ -18,6 +18,6 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
 //            nativeQuery = true)
 //    List<Transaction> findTransactionByAccounts (int accountID);
 
-    List<Transaction> findAll
+    //List<Transaction> findAll
 
 }
