@@ -6,25 +6,26 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
 <body>
+
+<div class="container">
 <h1>Aanvraag nieuwe account</h1>
 <p>
 <h2>Wat voor account zou je willen aanmaken?</h2>
-<form method="post" th:object="${newAccountBean}" th:action="new-account">
-    <table>
-        <tr>
-            <td>
-                <input type="radio" id="consumer" name="accountType" value="0" th:field="*{accountType}">
-                <label for="consumer">Particulier</label>
-            </td>
-            <td><input type="radio" id="SME" name="accountType" value="1" th:field="*{accountType}">
-                <label for="SME">Zakelijk</label>
-            </td>
-        </tr>
-        <tr>
-            <td><input type="submit" value="Volgende"></td>
-            <td><input type="button" value="Cancel"></td>
-        </tr>
-    </table>
+<form method="post" th:action="new-account">
+    <div>
+        <input type="radio" id="consumer" name="accountType" value="0" >
+        <label for="consumer">Particulier</label>
+    </div>
+    <div>
+        <input type="radio" id="SME" name="accountType" value="1" required>
+        <label for="SME">Zakelijk</label>
+    </div>
+    <div>
+        <input class="btn btn-primary" type="submit" value="Volgende">
+        <input class="btn" type="button" value="Cancel">
+    </div>
 </form>
+</div>
+
 </body>
 </html>

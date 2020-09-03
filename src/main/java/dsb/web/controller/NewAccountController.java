@@ -1,6 +1,7 @@
 package dsb.web.controller;
 
-import dsb.web.controller.beans.NewAccountBean;
+import dsb.web.controller.beans.LoginBean;
+import dsb.web.controller.beans.companyBean;
 import dsb.web.domain.*;
 import dsb.web.repository.AccountRepository;
 import dsb.web.repository.BussinessRepository;
@@ -25,51 +26,51 @@ public class NewAccountController {
     }
 
     @GetMapping("new-account")
-    public String newAccountSetup(Model model){
-        model.addAttribute("newAccountBean",new NewAccountBean());
+    public String newAccountSetup(){
         return "new-account";
 
     }
 
     @PostMapping("new-account")
     public String newAccountType(
-            @ModelAttribute NewAccountBean newAccountBean,
+            @RequestParam(name = "accountType") int accountType,
             Model model) {
-        System.out.println(newAccountBean);
-        model.addAttribute("newAccountBean1", newAccountBean);
-        if (newAccountBean.getAccountType() == 0) {
+        model.addAttribute("accountType", accountType);
+        if (accountType == 0) { // if Radio 'partiuculier' was selected
             return "confirm-new-account";
-        } else if (newAccountBean.getAccountType() == 1) {
-            System.out.println(newAccountBean);
-            return "bussiness-details";
-        } else {
-            return "new-account";
+        } else if (accountType == 1) { // if Radio 'zakelijk' was selected
+            return "company-details";
         }
+        return "index";
     }
 
-    @GetMapping("bussiness-details")
-    public String bussinessDetails (
-            Model model) {
-        return "bussiness-details";
+    @GetMapping("company-details")
+    public String companyDetails (Model model) {
+        model.addAttribute("company", new Company());
+        return "company-details";
     }
 
-    @PostMapping("bussiness-details-completed")
-    public String bussinessDetailsCompleted(
-            @ModelAttribute NewAccountBean newAccountBean,
+    @PostMapping("company-details-completed")
+    public String companyDetailsCompleted(
+            @ModelAttribute companyBean companyBean,
             @RequestParam(name = "input-name") String name,
             @RequestParam(name = "input-KVKno") String KNKno,
             @RequestParam(name = "input-BTWno") String BTWno,
             Model model){
-        newAccountBean.setAccountType(1);
-        newAccountBean.setBussiness(new Bussiness(name,KNKno,BTWno));
-        model.addAttribute("newAccountBean", newAccountBean);
+
+        //Check geldigheid KVK-nummer
+        //Check geldigheid BTW-nummer
+        model.addAttribute("loginBean", new LoginBean());
+        companyBean.setAccountType(1);
+        companyBean.setcompany(new Company(name,KNKno,BTWno));
+        model.addAttribute("companyBean", companyBean);
         return "confirm-new-account";
     }
 
 
     @GetMapping("confirm-new-account")
     public String confirmNewAccount(
-            @ModelAttribute NewAccountBean newAccountBean,
+            @ModelAttribute companyBean companyBean,
             Model model){
         return "confirm-new-account";
     }
