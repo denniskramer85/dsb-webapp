@@ -1,24 +1,24 @@
 package dsb.web.controller.beans;
 
-import dsb.web.domain.Bussiness;
+import dsb.web.domain.Company;
 
-public class NewAccountBean {
+public class companyBean {
     private int accountType;
-    private Bussiness bussiness;
+    private Company company;
 
-    public NewAccountBean(int accountType, Bussiness bussiness) {
+    public companyBean(int accountType, Company company) {
         this.accountType = accountType;
-        this.bussiness = bussiness;
+        this.company = company;
     }
 
-    public NewAccountBean() {
+    public companyBean() {
     }
 
     @Override
     public String toString() {
         return "newAccountBean{" +
                 "accountType=" + accountType +
-                ", bussiness=" + bussiness +
+                ", company=" + company +
                 '}';
     }
 
@@ -30,11 +30,11 @@ public class NewAccountBean {
         this.accountType = accountType;
     }
 
-    public Bussiness getBussiness() {
-        return bussiness;
+    public Company getcompany() {
+        return company;
     }
 
-    public void setBussiness(Bussiness bussiness) {
-        this.bussiness = bussiness;
+    public void setcompany(Company company) {
+        this.company = company;
     }
 }

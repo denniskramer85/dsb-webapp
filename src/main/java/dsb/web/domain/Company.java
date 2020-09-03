@@ -5,47 +5,47 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Bussiness {
+public class Company {
 
     @Id
     @GeneratedValue
-    private int bussinessId;
+    private int companyId;
     private String name;
     private String KVKno;
     private String BTWno;
 
-    public Bussiness(int bussinessId, String name, String KVKno, String BTWno) {
-        this.bussinessId = bussinessId;
+    public Company(int companyId, String name, String KVKno, String BTWno) {
+        this.companyId = companyId;
         this.name = name;
         this.KVKno = KVKno;
         this.BTWno = BTWno;
     }
 
-    public Bussiness(String name, String KVKno, String BTWno) {
+    public Company(String name, String KVKno, String BTWno) {
         this.name = name;
         this.KVKno = KVKno;
         this.BTWno = BTWno;
     }
 
-    public Bussiness() {
+    public Company() {
     }
 
     @Override
     public String toString() {
-        return "Bussiness{" +
-                "bussinessId=" + bussinessId +
+        return "Company{" +
+                "companyId=" + companyId +
                 ", name='" + name + '\'' +
                 ", KVKno='" + KVKno + '\'' +
                 ", BTWno='" + BTWno + '\'' +
                 '}';
     }
 
-    public int getBussinessId() {
-        return bussinessId;
+    public int getcompanyId() {
+        return companyId;
     }
 
-    public void setBussinessId(int bussinessId) {
-        this.bussinessId = bussinessId;
+    public void setcompanyId(int companyId) {
+        this.companyId = companyId;
     }
 
     public String getName() {
