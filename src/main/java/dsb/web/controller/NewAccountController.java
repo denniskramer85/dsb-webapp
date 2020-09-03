@@ -41,6 +41,7 @@ public class NewAccountController {
         } else if (accountType == 1) { // if Radio 'zakelijk' was selected
             return "company-details";
         }
+        return "index";
     }
 
     @GetMapping("company-details")
@@ -56,6 +57,9 @@ public class NewAccountController {
             @RequestParam(name = "input-KVKno") String KNKno,
             @RequestParam(name = "input-BTWno") String BTWno,
             Model model){
+
+        //Check geldigheid KVK-nummer
+        //Check geldigheid BTW-nummer
         model.addAttribute("loginBean", new LoginBean());
         companyBean.setAccountType(1);
         companyBean.setcompany(new Company(name,KNKno,BTWno));
