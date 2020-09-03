@@ -38,6 +38,8 @@ public abstract class Account {
     public Account() {
     }
 
+    public abstract String printClassName();
+
     public int getAccountID() {
         return accountID;
     }

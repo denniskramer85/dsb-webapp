@@ -13,5 +13,8 @@ public class ConsumerAccount extends Account{
     public ConsumerAccount() {
     }
 
-
+    @Override
+    public String printClassName() {
+        return this.getClass().getSimpleName();
+    }
 }
