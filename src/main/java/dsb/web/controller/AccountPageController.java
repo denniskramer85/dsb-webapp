@@ -27,8 +27,6 @@ public class AccountPageController {
     }
 
 
-
-
     @GetMapping("accountPage")
     public String startAccountPage (Model model) {
 
