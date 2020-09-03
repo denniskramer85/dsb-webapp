@@ -23,3 +23,10 @@ INSERT INTO dsb.customer_accounts VALUES (11, 113);
 INSERT INTO dsb.customer_accounts VALUES (11, 114);
 INSERT INTO dsb.customer_accounts VALUES (11, 115);
 
+INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, transaction_account_credit_accountid, transaction_account_debet_accountid) VALUES ('300', 'tr1', 100, '2020-01-01 01:01:01', 110, 111);
+INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, transaction_account_credit_accountid, transaction_account_debet_accountid) VALUES ('301', 'tr2', 100, '2020-01-02 01:01:01', 110, 112);
+INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, transaction_account_credit_accountid, transaction_account_debet_accountid) VALUES ('302', 'tr3', 100, '2020-01-03 01:01:01', 111, 113);
+INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, transaction_account_credit_accountid, transaction_account_debet_accountid) VALUES ('303', 'tr4', 100, '2020-01-04 01:01:01', 110, 114);
+INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, transaction_account_credit_accountid, transaction_account_debet_accountid) VALUES ('304', 'tr5', 100, '2020-01-05 01:01:01', 111, 115);
+
+
