@@ -1,8 +1,7 @@
 package dsb.web.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Company {
@@ -13,13 +12,18 @@ public class Company {
     private String name;
     private String KVKno;
     private String BTWno;
+    @OneToMany
+    private List<SMEAccount> accounts;
 
-    public Company(int companyId, String name, String KVKno, String BTWno) {
+    public Company(int companyId, String name, String KVKno, String BTWno, List<SMEAccount> accounts) {
         this.companyId = companyId;
         this.name = name;
         this.KVKno = KVKno;
         this.BTWno = BTWno;
+        this.accounts = accounts;
     }
+
+
 
     public Company(String name, String KVKno, String BTWno) {
         this.name = name;

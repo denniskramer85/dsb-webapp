@@ -12,7 +12,7 @@ public class Customer {
     private String initials;
     private String inserts;
     private String surname;
-    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     private Address address;
     private String username;
     private String password;
