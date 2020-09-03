@@ -55,7 +55,7 @@
     <br/>
     <br/>
     <br/>
-    <form method="POST" th:object="${customerBean}" th:action="@{customerCompleted}">
+    <form method="POST" th:object="${customerBean}" th:action="@{customerCompleted}" onSubmit="pass(); return false;">
 
         <div id="personalData">
             <div class="form-group">
@@ -109,6 +109,10 @@
                 <label for="password">Wachtwoord</label>
                 <input type="password" class="form-control" id="password" name="password" th:field="*{password}" required>
             </div>
+            <div class="form-group">
+                <label for="password">Herhaal Wachtwoord</label>
+                <input type="password" class="form-control" id="password2" name="password2" th:field="*{password2}" required>
+            </div>
         </div>
 
         <input type="submit" value="Bevestigen">
@@ -144,7 +148,7 @@
                 return;
             }
             // Check for numeric value of >1000
-            var zip_numeric = zip.substr(0,4);
+            var zip_numeric = zip.substr(0, 4);
             if (parseFloat(zip_numeric) < 1000) {
                 return;
             }
@@ -174,11 +178,11 @@
         }
 
         // Create API url
-        var apiRequest = "https://bwnr.nl/postcode.php?pc="+zipcode+"&hn="+housenumber+"&tv="+affix+"&tg=data";
+        var apiRequest = "https://bwnr.nl/postcode.php?pc=" + zipcode + "&hn=" + housenumber + "&tv=" + affix + "&tg=data";
         var xmlHttpRequest = new XMLHttpRequest();
 
         // Catch responses
-        xmlHttpRequest.onreadystatechange = function() {
+        xmlHttpRequest.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 var rString = this.responseText;
                 if (rString == "Geen resultaat.") {
@@ -206,7 +210,17 @@
         xmlHttpRequest.send();
     }
 
+        function pass() {
+            var password = document.getElementById("password").value
+            var password2 = document.getElementById("password2").value
+            if (password != password2) {
+                alert("Wachtwoorden komen niet overeen, probeer opnieuw");
+                return false;
+            }
+            return true;
 
+
+    }
 
 
 </script>
