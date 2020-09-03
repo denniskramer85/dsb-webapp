@@ -1,11 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+
+<body th:object="${accountPageBean}">
     <h1>acc page 2</h1>
+    <h2><span th:text="*{typeAccount}"  /></h2>
+    <h2><span th:text="*{accountNo}"  /></h2>
+    <h2><span th:text="*{companyName}"  /></h2>
+    <h2><span th:text="*{balance}"  /></h2>
+    <h2><span th:text="*{timestamp}"  /></h2>
+
 
 </body>
 </html>
