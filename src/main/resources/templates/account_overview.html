@@ -33,14 +33,14 @@
         <div class="panel-heading">
             <h3 class="panel-title">Persoonlijke rekeningen</h3>
         </div>
-        <div class="panel-body">
+        <div class="panel-body account-list">
             <div class="list-group">
                 <div th:each="account : ${consumerAccounts}">
-                    <button type="button" class="list-group-item">
-                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> <span th:text="${account.getAccountNo()}"/>
-                        <span class="glyphicon glyphicon-link" aria-hidden="true">&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;<span th:text="${account.getHolderString()}"/>
-                        <span class="glyphicon glyphicon-eur" aria-hidden="true">: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;€&nbsp;<span th:text="${account.getBalance()}"/>
-                    </button>
+                    <a th:href="account_page" class="list-group-item text-dark">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"/> <span th:text="${account.getAccountNo()}"/>
+                        <span class="glyphicon glyphicon-link" aria-hidden="true"/> &nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;<span th:text="${account.getHolderString()}"/>
+                        <span class="glyphicon glyphicon-eur" aria-hidden="true"/>: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;€&nbsp;<span th:text="${account.getBalance()}"/>
+                    </a>
                 </div>
             </div>
         </div>
@@ -53,14 +53,14 @@
         <div class="panel-heading">
             <h3 class="panel-title">Zakelijke rekeningen</h3>
         </div>
-        <div class="panel-body">
+        <div class="panel-body account-list">
             <div class="list-group">
                 <div th:each="account : ${smeAccounts}">
-                    <button type="button" class="list-group-item">
-                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> <span th:text="${account.getAccountNo()}"/>
-                        <span class="glyphicon glyphicon-link" aria-hidden="true">&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;<span th:text="${account.getHolderString()}"/>
-                        <span class="glyphicon glyphicon-eur" aria-hidden="true">: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;€&nbsp;<span th:text="${account.getBalance()}"/>
-                    </button>
+                    <a th:href="account_page" class="list-group-item text-dark">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"/> <span th:text="${account.getAccountNo()}"/>
+                        <span class="glyphicon glyphicon-link" aria-hidden="true"/> &nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;<span th:text="${account.getHolderString()}"/>
+                        <span class="glyphicon glyphicon-eur" aria-hidden="true"/>: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;€&nbsp;<span th:text="${account.getBalance()}"/>
+                    </a>
                 </div>
             </div>
         </div>

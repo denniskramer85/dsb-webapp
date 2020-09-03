@@ -17,12 +17,12 @@ public class AccountPageController {
         this.accountPageService = accountPageService;
     }
 
-    @GetMapping("accountPage")
+    @GetMapping("account_page")
     public String startAccountPage (Model model) {
         //TODO welke gegevens komen door uit de overzichtspagina?
         //model.addAttribute(x, x);
         //return templatenaam
-        return null;
+        return "account_page";
     }
 
 }
