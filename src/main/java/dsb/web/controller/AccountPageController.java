@@ -29,11 +29,6 @@ public class AccountPageController {
         this.accountRepository = accountRepository;
     }
 
-
-
-
-
-
     @GetMapping("accountPage")
     public String startAccountPage (Model model) {
 
