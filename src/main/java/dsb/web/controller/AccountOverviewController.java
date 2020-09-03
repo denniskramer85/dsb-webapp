@@ -2,6 +2,7 @@ package dsb.web.controller;
 
 import dsb.web.domain.ConsumerAccount;
 import dsb.web.domain.Customer;
+import dsb.web.domain.SMEAccount;
 import dsb.web.service.AccountOverviewService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +32,11 @@ public class AccountOverviewController {
     @GetMapping("account_overview")
     public String accountOverview(@ModelAttribute(AttributeMapping.LOGGED_IN_CUSTOMER) Customer loggedInCustomer, Model model) {
         List<ConsumerAccount> consumerAccountList = accountOverviewService.getConsumerAccountsForCustomer(loggedInCustomer);
-        logger.debug(consumerAccountList.toString());
+        List<SMEAccount> smeAccountList = accountOverviewService.getSMEAccountsForCustomer(loggedInCustomer);
+        logger.debug("ConsumerAccounts: " + consumerAccountList.toString());
+        logger.debug("SMEAccounts: " + smeAccountList.toString());
+        model.addAttribute("consumerAccounts", consumerAccountList);
+        model.addAttribute("smeAccounts", smeAccountList);
         return "account_overview";
     }
 }
