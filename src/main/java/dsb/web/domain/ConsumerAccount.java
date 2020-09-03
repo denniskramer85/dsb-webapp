@@ -13,8 +13,5 @@ public class ConsumerAccount extends Account{
     public ConsumerAccount() {
     }
 
-    @Override
-    public String toString() {
-        return this.getAccountNo();
-    }
+
 }

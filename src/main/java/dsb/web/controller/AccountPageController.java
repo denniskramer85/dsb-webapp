@@ -1,6 +1,8 @@
 package dsb.web.controller;
 
+import dsb.web.domain.Account;
 import dsb.web.domain.Transaction;
+import dsb.web.repository.AccountRepository;
 import dsb.web.service.AccountPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,22 +16,28 @@ import java.util.List;
 public class AccountPageController {
 
     private AccountPageService accountPageService;
+    private AccountRepository accountRepository;
+
 
     @Autowired
-    public AccountPageController(AccountPageService accountPageService) {
+    public AccountPageController(AccountPageService accountPageService, AccountRepository accountRepository) {
         this.accountPageService = accountPageService;
+        this.accountRepository = accountRepository;
     }
+
+
+
 
     @GetMapping("accountPage")
     public String startAccountPage (Model model) {
 
-        System.out.println("doetet");
+        //account ophalen als dummy bean
+        List <Account> listAccounts = accountRepository.findAll();
+        Account dummyAccount = listAccounts.get(0);
 
-        //TODO welke gegevens komen door uit de overzichtspagina?
-        //model.addAttribute(x, x);
-        //return templatenaam
+        model.addAttribute("accountBean", dummyAccount);
 
-        return "account_page.html";
+        return "account_page2";
     }
 
 }
