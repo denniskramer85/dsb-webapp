@@ -16,7 +16,7 @@ public class Customer {
     private Address address;
     private String username;
     private String password;
-    @ManyToMany
+    @ManyToMany (cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<Account> accounts;
 
     public Customer(int customerID, int socialSecurityNo, String initials, String inserts, String surname, Address address, String username, String password, List<Account> accounts) {
