@@ -4,6 +4,8 @@
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <meta charset="UTF-8">
     <title>Fill out bussiness deatail</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
 </head>
 <body>
 <div class="container">
@@ -11,42 +13,21 @@
 <p>Vul de volgende velden in:</p>
 
 
-<form method="POST" th:action="@{bussiness-details-completed}">
+<form method="POST" th:object="${newAccountBean}" th:action="@{company-details-completed}">
 
-    <table>
-        <tr>
-            <td>
-                <p>Bedrijfsnaam</p>
-            </td>
-            <td>
-                <input type="text" name="input-name">
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-                <p>KVK-nummer</p>
-            </td>
-            <td>
-                <input type="text" name="input-KVKno">
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-                <p>BTW-nummer</p>
-            </td>
-            <td>
-                <input type="text" name="input-BTWno">
-            </td>
-        </tr>
-
-    </table>
-
-
+    <div id="input-company-details">
+    <div>
+        <p>Bedrijfsnaam: <input type="text" name="input-name" th:field="*{name}" required></p>
+    </div>
+    <div>
+        <p>KVK-nummer: <input type="text" name="input-KVKno" th:field="*{KVKno}" required></p>
+    </div>
+    <div>
+        <p>BTW-nummer: <input type="text" name="input-BTWno" th:field="*{BTWno}" required></p>
+    </div>
+    </div>
     <input type="submit" value="Bevestigen">
 </form>
-
 </div>
 </body>
 </html>

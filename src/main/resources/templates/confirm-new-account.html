@@ -4,38 +4,64 @@
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <meta charset="UTF-8">
     <title>Confirm new account page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
 <body>
-<h1>Bevestig nieuwe account</h1>
-<div th:if="${newAccountBean.getAccountType() == 0}">Je hebt gekozen voor een particulier account!</div>
-<div th:if="${newAccountBean.getAccountType() == 1}">
-    <p>Je hebt gekozen voor een zakelijke account!</p>
-    <table>
-        <tr>
-            <td>
-                Bedrijfsnaam:
-            </td>
-            <td><span th:text="${newAccountBean.getBussiness().getName()}"></span></td>
-        </tr>
-        <tr>
-            <td>
-                KVK-nummer:
-            </td>
-            <td><span th:text="${newAccountBean.getBussiness().getKVKno()}"></span></td>
-        </tr>
-        <tr>
-            <td>
-                BTW-nummer:
-            </td>
-            <td><span th:text="${newAccountBean.getBussiness().getBTWno()}"></span></td>
-        </tr>
-    </table>
-</div>
+<div class="container">
+    <form method="POST" th:action="@{account-confirmed}">
 
-<div>
-    <form action="confirm-new-account">
-        <input type="submit" value="Bevestig">
+    <h1>Bevestig nieuw account</h1>
+    <div th:if="${newAccountBean.Name == null}">
+        <p>Je hebt gekozen voor de particulier rekening bij de DSB bank.</p>
+    </div>
+    <div th:if="${newAccountBean.Name != null}">
+        <p>Je hebt gekozen voor de zakelijk rekening bij de DSB bank. Vanaf nu dus altijd VEILIG bankieren!</p>
+    </div>
+    <div>
+        <p>Controleer de onderstaande gegevens en bevestig als alles klopt.</p>
+    </div>
+    <div>
+        <h3>Rekening gegevens</h3>
+        <div>
+            <div th:if="${loggedInCustomer != null}">
+                <p>Rekeninghouder:
+                    <span th:text="${loggedInCustomer.getInitials()}"></span> <span th:text="${loggedInCustomer.getInserts()}"></span> <span th:text="${loggedInCustomer.getSurname()}"></span>
+                </p>
+            </div>
+            <div>
+                <p>IBAN:
+                    <span th:field="*{accountNo}" th:text="${newAccountBean.getAccountNo()}"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div th:if="${newAccountBean.Name != null}">
+        <h3>Bedrijfsgegevens</h3>
+        <div>
+            <p>Bedrijfsnaam:
+            <span th:field="*{name}"  th:text="${newAccountBean.getName()}"></span></p>
+        </div>
+        <div>
+            <p>KVK-nummer:
+            <span th:field="*{KVKno}"  th:text="${newAccountBean.getKVKno()}"></span></p>
+        </div>
+        <div>
+            <p>BTW-nummer:
+            <span th:field="*{BTWno}" th:text="${newAccountBean.getBTWno()}"></span></p>
+        </div>
+    </div>
+
+
+    <div>
+
+            <input type="submit" value="Bevestig">
+
+        <!--<a href="confirm-new-account-handler" class="btn">Bevestig</a>-->
+
+
+    </div>
     </form>
+
 </div>
 </body>
 </html>

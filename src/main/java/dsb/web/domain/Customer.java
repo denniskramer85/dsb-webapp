@@ -12,11 +12,11 @@ public class Customer {
     private String initials;
     private String inserts;
     private String surname;
-    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     private Address address;
     private String username;
     private String password;
-    @ManyToMany (cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @ManyToMany (mappedBy = "holders", cascade = {CascadeType.MERGE} , fetch = FetchType.EAGER)
     private List<Account> accounts;
 
     public Customer(int customerID, int socialSecurityNo, String initials, String inserts, String surname, Address address, String username, String password, List<Account> accounts) {
