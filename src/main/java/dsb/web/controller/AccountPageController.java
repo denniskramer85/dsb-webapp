@@ -17,7 +17,6 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-//TODO sessions / wat komt er door?
 public class AccountPageController {
 
     private AccountPageService accountPageService;
@@ -33,22 +32,15 @@ public class AccountPageController {
     @GetMapping("accountPage")
     public String startAccountPage (@ModelAttribute("selectedAccount") Account account, Model model) {
 
-        /*//account ophalen als dummy bean
-        List <Account> listAccounts = accountRepository.findAll();
-        Account account = listAccounts.get(0);*/
-
-
         AccountPageBean accountPageBean = accountPageService.makeAccountPageBean(account);
-
         model.addAttribute("accountPageBean", accountPageBean);
-
 
         List<Transaction> list = accountPageBean.getTransactions();
         for (Transaction t : list) {
             System.out.println(t);
         }
 
-        return "account_page2";
+        return "account_page";
     }
 
 }
