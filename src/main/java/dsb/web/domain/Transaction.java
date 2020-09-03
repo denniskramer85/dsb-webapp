@@ -10,9 +10,9 @@ public class Transaction {
     @GeneratedValue
     private int transactionID;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     private Account transactionAccountDebet;
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     private Account transactionAccountCredit;
 
     private double transactionAmount;
@@ -39,8 +39,8 @@ public class Transaction {
     public String toString() {
         return "TransactionDummy{" +
                 "transactionID=" + transactionID +
-                ", transactionAccountDebet=" + transactionAccountDebet +
-                ", transactionAccountCredit=" + transactionAccountCredit +
+                ", transactionAccountDebet=" + transactionAccountDebet.getAccountNo() +
+                ", transactionAccountCredit=" + transactionAccountCredit.getAccountNo() +
                 ", transactionAmount=" + transactionAmount +
                 ", message='" + message + '\'' +
                 ", transactionTimestamp=" + transactionTimestamp +

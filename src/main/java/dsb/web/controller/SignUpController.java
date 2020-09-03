@@ -23,12 +23,6 @@ public class SignUpController {
     public SignUpController(SignupService signupService, TransactionRepository transactionRepository) {
         this.signupService = signupService;
         this.transactionRepository = transactionRepository;
-
-//        List<Transaction> lijst = transactionRepository.findTransactionByAccounts(24);
-//
-//        for (Transaction t : lijst) {
-//            System.out.println(t);
-//        }
     }
 
 
@@ -39,6 +33,18 @@ public class SignUpController {
     @GetMapping("pre-sign-up")
     public String emptyCustomerDataInSession (Model model) {
         model.addAttribute("customerBean2", new CustomerBean());
+
+
+
+
+        List<Transaction> lijst = transactionRepository.findTransactionByAccounts(111);
+        for (Transaction t : lijst) {
+            System.out.println(t);
+        }
+
+
+
+
         return "redirect:sign-up";
     }
 
