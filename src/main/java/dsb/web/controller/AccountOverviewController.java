@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import java.util.List;
 
 @Controller
-@SessionAttributes("loggedInCustomer")
+@SessionAttributes(AttributeMapping.LOGGED_IN_CUSTOMER)
 public class AccountOverviewController {
     private AccountOverviewService accountOverviewService;
 
@@ -26,9 +26,8 @@ public class AccountOverviewController {
     }
 
     @GetMapping("account_overview")
-    public String accountOverview(@ModelAttribute("loggedinCustomer") Customer loggedInCustomer, Model model) {
+    public String accountOverview(@ModelAttribute(AttributeMapping.LOGGED_IN_CUSTOMER) Customer loggedInCustomer, Model model) {
         List<ConsumerAccount> consumerAccountList = accountOverviewService.getConsumerAccountsForCustomer(loggedInCustomer);
-        model.addAttribute(consumerAccountList);
         System.out.println(consumerAccountList);
         return "account_overview";
     }

@@ -16,3 +16,10 @@ INSERT INTO `dsb`.`smeaccount` (`accountid`) VALUES ('113');
 INSERT INTO `dsb`.`smeaccount` (`accountid`) VALUES ('114');
 INSERT INTO `dsb`.`smeaccount` (`accountid`) VALUES ('115');
 
+INSERT INTO dsb.customer_accounts VALUES (11, 110);
+INSERT INTO dsb.customer_accounts VALUES (11, 111);
+INSERT INTO dsb.customer_accounts VALUES (11, 112);
+INSERT INTO dsb.customer_accounts VALUES (11, 113);
+INSERT INTO dsb.customer_accounts VALUES (11, 114);
+INSERT INTO dsb.customer_accounts VALUES (11, 115);
+

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 @Controller
-@SessionAttributes("loggedInCustomer")
+@SessionAttributes(AttributeMapping.LOGGED_IN_CUSTOMER)
 public class SignInController {
     private SignInService signInService;
 
@@ -35,7 +35,7 @@ public class SignInController {
             Model model) {
         Customer loginCustomer = signInService.checkCredentials(loginBean.getUsername(), loginBean.getPassword());
         if (loginCustomer != null) {
-            model.addAttribute("loggedInCustomer", loginCustomer);
+            model.addAttribute(AttributeMapping.LOGGED_IN_CUSTOMER, loginCustomer);
             return new ModelAndView("redirect:/account_overview");
         } else {
             model.addAttribute("username", loginBean.getUsername());

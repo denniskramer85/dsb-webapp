@@ -69,4 +69,13 @@ public abstract class Account {
     public void setHolders(List<Customer> holders) {
         this.holders = holders;
     }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "accountID=" + accountID +
+                ", accountNo='" + accountNo + '\'' +
+                ", balance=" + balance +
+                '}';
+    }
 }

@@ -12,7 +12,6 @@ public class SMEAccount extends Account{
         super(accountID, accountNo, balance, holders);
     }
 
-
     public SMEAccount() {
     }
 }

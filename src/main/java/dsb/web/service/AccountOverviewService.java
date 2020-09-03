@@ -9,10 +9,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
 
 @Service
-@SessionAttributes("loggedInCustomer")
 public class AccountOverviewService {
     private ConsumerAccountRepository consumerAccountRepository;
 
@@ -24,8 +26,19 @@ public class AccountOverviewService {
     public AccountOverviewService() {
     }
 
-    public List<ConsumerAccount> getConsumerAccountsForCustomer(@ModelAttribute("loggedInCustomer") Customer loggedInCustomer) {
+    public List<ConsumerAccount> getConsumerAccountsForCustomer(Customer loggedInCustomer) {
         List<ConsumerAccount> consumerAccountList = consumerAccountRepository.findAllByHolders(loggedInCustomer);
         return consumerAccountList;
+    }
+
+    public List<ConsumerAccount> getTestConsumerAccounts() {
+        Optional<ConsumerAccount> consumerAccount1 = consumerAccountRepository.findById(110);
+        Optional<ConsumerAccount> consumerAccount2 = consumerAccountRepository.findById(111);
+        Optional<ConsumerAccount> consumerAccount3 = consumerAccountRepository.findById(112);
+        List<ConsumerAccount> testConsumerAccounts = new ArrayList<>();
+        testConsumerAccounts.add(consumerAccount1.get());
+        testConsumerAccounts.add(consumerAccount2.get());
+        testConsumerAccounts.add(consumerAccount3.get());
+        return testConsumerAccounts;
     }
 }

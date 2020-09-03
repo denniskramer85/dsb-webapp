@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import java.util.Optional;
 
 @Service
-@SessionAttributes("loginCustomer")
 public class SignInService {
     private CustomerRepository customerRepository;
 
