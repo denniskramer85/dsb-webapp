@@ -38,8 +38,8 @@
                 <div th:each="account : ${consumerAccounts}">
                     <button type="button" class="list-group-item">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span> <span th:text="${account.getAccountNo()}"/>
-                        <span class="glyphicon glyphicon-link" aria-hidden="true"><span th:text="${account.getHolderString()}"/>
-                        <span class="glyphicon glyphicon-eur" aria-hidden="true"><span th:text="${account.getAccountNo()}"/>
+                        <span class="glyphicon glyphicon-link" aria-hidden="true">&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;<span th:text="${account.getHolderString()}"/>
+                        <span class="glyphicon glyphicon-eur" aria-hidden="true">: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;€&nbsp;<span th:text="${account.getBalance()}"/>
                     </button>
                 </div>
             </div>
@@ -57,9 +57,9 @@
             <div class="list-group">
                 <div th:each="account : ${smeAccounts}">
                     <button type="button" class="list-group-item">
-                        <span th:text="${account.getAccountNo()}"/>
-                        <span th:text="${account.getHolderString()}"/>
-                        <span th:text="${account.getAccountNo()}"/>
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> <span th:text="${account.getAccountNo()}"/>
+                        <span class="glyphicon glyphicon-link" aria-hidden="true">&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;<span th:text="${account.getHolderString()}"/>
+                        <span class="glyphicon glyphicon-eur" aria-hidden="true">: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;€&nbsp;<span th:text="${account.getBalance()}"/>
                     </button>
                 </div>
             </div>
