@@ -22,39 +22,14 @@ public class AccountPageController {
 
     @GetMapping("accountPage")
     public String startAccountPage (Model model) {
+
+        System.out.println("doetet");
+
         //TODO welke gegevens komen door uit de overzichtspagina?
         //model.addAttribute(x, x);
         //return templatenaam
-        return null;
+
+        return "account_page.html";
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*      even bewaren voor straks....
-        List<Transaction> lijst = transactionRepository.findTransactionByAccounts(111);
-        for (Transaction t : lijst) {
-                System.out.println(t);
-                }*/
