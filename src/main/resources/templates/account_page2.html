@@ -6,12 +6,21 @@
 </head>
 
 <body th:object="${accountPageBean}">
-    <h1>acc page 2</h1>
-    <h2><span th:text="*{typeAccount}"  /></h2>
-    <h2><span th:text="*{accountNo}"  /></h2>
-    <h2><span th:text="*{companyName}"  /></h2>
-    <h2><span th:text="*{balance}"  /></h2>
-    <h2><span th:text="*{timestamp}"  /></h2>
+    <h1>transactieoverzicht</h1>
+
+    <div id="holderNames">
+        <div th:each="name : *{holderNames}">
+            <span th:text="${name + ' '}"  />
+        </div>
+    </div>
+
+
+    <div id="transactionList">
+        <div th:each="transaction : *{transactions}">
+            <p><span th:text="${transaction}"  /></p>
+        </div>
+    </div>
+
 
 
 </body>

@@ -40,6 +40,11 @@ public class AccountPageController {
 
         model.addAttribute("accountPageBean", accountPageBean);
 
+        List<Transaction> list = accountPageBean.getTransactions();
+        for (Transaction t : list) {
+            System.out.println(t);
+        }
+
         return "account_page2";
     }
 
