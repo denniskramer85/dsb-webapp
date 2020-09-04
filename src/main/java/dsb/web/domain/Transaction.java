@@ -37,18 +37,6 @@ public class Transaction {
     }
 
 
-    //TODO opruimen
-//    public String toString2() {
-//        return "TransactionDummy{" +
-//                "transactionID=" + transactionID +
-//                ", transactionAccountDebet=" + transactionAccountDebet.getAccountNo() +
-//                ", transactionAccountCredit=" + transactionAccountCredit.getAccountNo() +
-//                ", transactionAmount=" + transactionAmount +
-//                ", message='" + message + '\'' +
-//                ", transactionTimestamp=" + transactionTimestamp +
-//                '}';
-//    }
-
     @Override
     public String toString() {
         String s = new SimpleDateFormat("MM/dd/yyyy '|' HH:mm").format(transactionTimestamp);
