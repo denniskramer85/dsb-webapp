@@ -24,6 +24,13 @@ public class SignupService {
     }
 
 
+
+
+
+
+
+
+
     /** create domain Customer form bean and save in db **/
     public Customer createAndSaveCustomer(CustomerBean cb) {
         Address address = new Address(cb.getStreet(), cb.getHouseNumber(),
@@ -39,50 +46,30 @@ public class SignupService {
         return customer;
     }
 
+    public void allServerSideChecksBean(CustomerBean cb) {
+
+        //hier komen achtereenvolgens alle serverside bean-checks
 
 
+        //aanroepen elfproef BSN
+        boolean validBSN = isValidBSN(cb.getSocialSecurityNo());
 
-    public void serverCheck(CustomerBean cb) {
 
-//        //lijst met alle attribs
-//        Field[] fields = cb.getClass().getDeclaredFields();
-//
-//
-//        for (Field f : fields) {
-//            if (f.get(this) == null) System.out.println("xxx");
-//        }
 
     }
 
 
-
-        /*
-    NIET LEEG
-    alles behalve inserts en affixes
-
-    NUMMER
-    housenumber en socSec
-
-    BSN
-
-
-
-    private String surname;
-    private String inserts;
-    private String initials;
-    private String street;
-    private Integer houseNumber;
-    private String affixes;
-    private String zipCode;
-    private String city;
-    private Integer socialSecurityNo;
-    private String username;
-    private String password;
-
-        */
-
-
-
+    private boolean isValidBSN(Integer socialSecurityNo) {
+        if (socialSecurityNo <= 9999999 || socialSecurityNo > 999999999) {
+            return false;
+        }
+        int sum = -1 * socialSecurityNo % 10;
+        for (int i = 2; socialSecurityNo > 0; i++) {
+            int val = (socialSecurityNo /= 10) % 10;
+            sum += i * val;
+        }
+        return sum != 0 && sum % 11 == 0;
+    }
 
 
 }

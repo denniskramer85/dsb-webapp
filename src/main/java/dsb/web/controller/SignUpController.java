@@ -46,11 +46,19 @@ public class SignUpController {
 
     @PostMapping("customerCompleted")
     public String handlerCustomerCompleted (@ModelAttribute CustomerBean cb, Model model) {
-        model.addAttribute("customerBean2", cb);
+
 
         //TODO check inbouwen hier
-        //servertjek op volledig, nummers, BSN
-        //signupService.serverCheck(cb);
+
+
+        //aanroepen algemene checkmethode in signupservice
+        //returnt een lijst met booleans (goed/fout) (per field)
+        signupService.allServerSideChecksBean(cb);
+
+
+
+
+        model.addAttribute("customerBean2", cb);
 
         return "signUpConfirm";
     }
@@ -68,6 +76,7 @@ public class SignUpController {
     }
 
     // Tijdelijke handler voor postcodetest
+    //TODO kan weg?
     @GetMapping("postcode")
     public String postcodeTestHandler() {
         return "postcode";
