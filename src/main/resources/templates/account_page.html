@@ -2,61 +2,67 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="AccountPageStyles.css">
     <meta charset="UTF-8">
     <title>Rekeningpagina</title>
 </head>
 
-<body th:object="${accountPageBean}">
+<body>
 
-<nav class="navbar navbar-expand-md navbar-light bg-light">
-    <a class="navbar-brand" href="index">
-        <img th:src="@{/images/logo_big.png}" height="40" class="d-inline-block align-top" alt="">
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</nav>
+<div th:include="fragments/header :: header"></div>
 
-    <h1>Rekeningoverzicht</h1>
 
-    <div>
-        <input type="button" onclick="href='transfer';" value="Overboeken" />
-        <input type="button" onclick="href='new-account';" value="Rekeninghoudert toevoegen" />
+<div id="accountPage" th:object="${accountPageBean}">
+    <div class="container">
+        <br/>
 
-    </div>
-    <div>
-        <input type="button" onclick="href='request-paymentmachine';" value="Aanvragen pinautomaat" />
-        <input type="button" onclick="href='confirm-paymentmachine-request';" value="Bevestigen aanvraag pinautomaat"/>
-    </div>
+        <div class="card">
+            <div class="card-header">
+                Rekeningpagina
+            </div>
+            <div class="card-body">
+                <div id="accountData">
+                    <div th:each="name : *{holderNames}">
+                        <span th:text="${name + ' '}"  />
+                    </div>
+                    <p>Rekeningnummer: <span th:text="*{accountNo}"/></p>
+                    <p>Saldo: <span th:text="*{balance}"/></p>
+                    <p><span th:text="*{timestamp}"/></p>
+                </div>
 
-<div>
+                <div id="generalButtons">
+                    <input type="button" class="btn btn-outline-dark" onclick="href='transfer';" value="Overboeken" />
+                    <input type="button" class="btn btn-outline-dark" onclick="href='new-account';" value="Rekeninghoudert toevoegen" />
+                </div>
 
-    <div id="accountData">
-        <div id="holderNames">
-            <div th:each="name : *{holderNames}">
-                <span th:text="${name + ' '}"  />
+                <div id="SMEAButtons" th:if="*{typeAccount == 'SMEAccount'}">
+                    <input type="button" class="btn btn-outline-dark" onclick="href='request-paymentmachine';" value="Aanvragen pinautomaat" />
+                </div>
+
             </div>
         </div>
 
-        <div id="accountNo">
-            <p>Rekeningnummer: <span th:text="*{accountNo}"/></p>
+        <br/>
+
+        <div class="card">
+            <div class="card-header">
+                Transacties
+            </div>
+            <div class="card-body">
+                <div id="transactionList">
+                    <div th:each="transaction : *{transactions}">
+                        <p><span th:text="${transaction}"  /></p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="balance">
-            <p>Saldo: <span th:text="*{balance}"/></p>
-        </div>
-        <div id="timestamp">
-            <p>Datum/Tijdstip: <span th:text="*{timestamp}"/></p>
-        </div>
+
     </div>
 </div>
 
 
 
-    <div id="transactionList">
-        <div th:each="transaction : *{transactions}">
-            <p><span th:text="${transaction}"  /></p>
-        </div>
-    </div>
+
 
 </body>
 </html>

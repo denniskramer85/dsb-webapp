@@ -32,27 +32,9 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-md navbar-light bg-light">
-    <a class="navbar-brand" href="index">
-        <img th:src="@{/static/images/logo_big.png}" height="40" class="d-inline-block align-top" alt="">
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-            <a class="nav-item nav-link" href="sign-up">Klant worden</a>
-            <a class="nav-item nav-link" href="sign-in">Inloggen</a>
-        </div>
-    </div>
-</nav>
-
-
-
-
+<div th:include="fragments/header :: header"></div>
 
 <div class="container">
-    <br/>
     <br/>
     <br/>
     <form method="POST" th:object="${customerBean}" th:action="@{customerCompleted}" onSubmit="return pass();">
@@ -115,19 +97,15 @@
             </div>
         </div>
 
-        <input type="submit" value="Bevestigen">
-        <input type="button" value="Annuleren" onclick="location.href='/'">
+        <input class="btn btn-outline-dark" type="submit" value="Bevestigen">
+        <input class="btn btn-outline-dark" type="button" value="Annuleren" onclick="location.href='/'">
     </form>
 
-
+    <br/>
+    <br/>
+    <br/>
 
 </div>
-
-
-
-
-
-
 
 <script>
     // Code for retrieving ZIP information from bwnr.nl API

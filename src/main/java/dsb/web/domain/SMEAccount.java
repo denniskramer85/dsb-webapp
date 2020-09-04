@@ -28,8 +28,6 @@ public class SMEAccount extends Account{
     public SMEAccount() {
     }
 
-
-
     @Override
     public String printClassName() {
         return this.getClass().getSimpleName();
