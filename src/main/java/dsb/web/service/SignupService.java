@@ -24,13 +24,6 @@ public class SignupService {
     }
 
 
-
-
-
-
-
-
-
     /** create domain Customer form bean and save in db **/
     public Customer createAndSaveCustomer(CustomerBean cb) {
         Address address = new Address(cb.getStreet(), cb.getHouseNumber(),
@@ -44,6 +37,17 @@ public class SignupService {
         System.out.println("klant met achternaam " + customer.getSurname() + " is opgeslagen");
 
         return customer;
+    }
+
+    /**2 stylers for name data**/
+    public String initialsStyler(String initials) {
+        String[] asArray = initials.trim().replaceAll("[^a-zA-Z0-9]", "")
+                .toUpperCase().split("");
+        return String.join(".", asArray);
+    }
+    public String surnameStyler(String surname) {
+        String mid = surname.toLowerCase();
+        return mid.substring(0,1).toUpperCase() + mid.substring(1);
     }
 
     public void allServerSideChecksBean(CustomerBean cb) {
@@ -70,6 +74,7 @@ public class SignupService {
         }
         return sum != 0 && sum % 11 == 0;
     }
+
 
 
 }

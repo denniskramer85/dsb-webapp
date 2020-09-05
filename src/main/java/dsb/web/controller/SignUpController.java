@@ -48,6 +48,12 @@ public class SignUpController {
     public String handlerCustomerCompleted (@ModelAttribute CustomerBean cb, Model model) {
 
 
+        //naamvormgever
+        //allemaal strippen van leestekens en spaties ; dan weer spaties tertussen en alles cap
+        cb.setInitials(signupService.initialsStyler(cb.getInitials()));
+        cb.setSurname(signupService.surnameStyler(cb.getSurname()));
+
+
         //TODO
         //aanroepen algemene checkmethode in signupservice
         //returnt een lijst met booleans (goed/fout) (per field)
