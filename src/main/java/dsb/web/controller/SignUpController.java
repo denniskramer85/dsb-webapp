@@ -70,7 +70,7 @@ public class SignUpController {
         /** add domain Customer to session/model **/
         model.addAttribute("loggedInCustomer", customer);
 
-        return "index"; //TODO link to rekeningoverzicht
+        return "account_overview"; //TODO link to rekeningoverzicht
     }
 
 

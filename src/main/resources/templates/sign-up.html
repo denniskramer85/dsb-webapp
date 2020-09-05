@@ -2,11 +2,12 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+<!--    <link rel="stylesheet" type="text/css" th:href="styles.css"/>-->
+
     <meta charset="UTF-8">
     <title>Postcode Test</title>
 
     <!--TODO extern zetten-->
-    <!-- external sheet doesnt work-->
     <style>
         /* Chrome, Safari, Edge, Opera */
         input::-webkit-outer-spin-button,
@@ -20,85 +21,96 @@
             -moz-appearance: textfield;
         }
 
-        /*form div {
-            display: block;
-            width: 200px;
-            float: left;
-            margin-top: 5px;
 
-        }*/
+        .signuppage .grid {
+            display: grid;
+            grid-gap: 10px 40px;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(1, 1fr);
+        }
+
+        .signuppage #mandatory {
+            font-style: italic;
+        }
     </style>
 
 </head>
-<body>
+<body class="signuppage">
 
 <div th:include="fragments/header :: header"></div>
 
 <div class="container">
-    <br/>
-    <br/>
+    <br>
+    <h1>Aanmeldingspagina</h1>
+    <br>
+    <p id="mandatory">Velden met een * zijn verplicht</p>
+    <br>
     <form method="POST" th:object="${customerBean}" th:action="@{customerCompleted}" onSubmit="return pass();">
+        <div class="grid">
+            <div id="personalData">
+                <div class="form-group">
+                    <label for="surname">Achternaam*</label>
+                    <input type="text" class="form-control" id="surname" name="surname" th:field="*{surname}" required>
+                </div>
+                <div class="form-group">
+                    <label for="inserts">Tussenvoegsels</label>
+                    <input type="text" class="form-control" id="inserts" name="inserts" th:field="*{inserts}">
+                </div>
+                <div class="form-group">
+                    <label for="initials">Voorletters*</label>
+                    <input type="text" class="form-control" id="initials" name="initials" th:field="*{initials}" required>
+                </div>
+                <div class="form-group">
+                    <label for="socialSecurityNo">BSN-nummer*</label>
+                    <input type="number" class="form-control" id="socialSecurityNo" name="socialSecurityNo" th:field="*{socialSecurityNo}" required>
+                </div>
+            </div>
 
-        <div id="personalData">
-            <div class="form-group">
-                <label for="surname">Achternaam</label>
-                <input type="text" class="form-control" id="surname" name="surname" th:field="*{surname}" required>
+            <div id="addressData">
+                <div class="form-group">
+                    <label for="zipcode">Postcode*</label>
+                    <input type="text" class="form-control" id="zipcode" name="zipcode" th:field="*{zipCode}" onkeyup="retrieve_address('zipcode',this.value)" required>
+                </div>
+                <div class="form-group">
+                    <label for="housenumber">Huisnummer*</label>
+                    <input type="number" class="form-control" id="housenumber" name="housenumber" th:field="*{houseNumber}" onkeyup="retrieve_address('housenumber', this.value)" required>
+                </div>
+                <div class="form-group">
+                    <label for="affix">Toevoeging</label>
+                    <input type="text" class="form-control" id="affix" name="affix" th:field="*{affixes}" onkeyup="retrieve_address('affix', this.value)">
+                </div>
+                <div class="form-group">
+                    <label for="affix">Straat</label>
+                    <input type="text" class="form-control" id="street" name="street" th:field="*{street}" disabled required>
+                </div>
+                <div class="form-group">
+                    <label for="city">Plaats</label>
+                    <input type="text" class="form-control" id="city" name="city" th:field="*{city}" disabled required>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="inserts">Tussenvoegsels</label>
-                <input type="text" class="form-control" id="inserts" name="inserts" th:field="*{inserts}">
+
+            <div id="userData">
+                <div class="form-group">
+                    <label for="username">Gebruikersnaam*</label>
+                    <input type="text" class="form-control" id="username" name="username" th:field="*{username}" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Wachtwoord*</label>
+                    <input type="password" class="form-control" id="password" name="password" th:field="*{password}" required>
+                </div>
+                <div class="form-group">
+                    <label for="password2">Herhaal wachtwoord*</label>
+                    <input type="password" class="form-control" id="password2" name="password2" required>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="initials">Voorletters</label>
-                <input type="text" class="form-control" id="initials" name="initials" th:field="*{initials}" required>
+
+
+            <div class="buttons">
+                <input class="btn btn-outline-dark" type="submit" value="Bevestigen">
+                <input class="btn btn-outline-dark" type="button" value="Annuleren" onclick="location.href='/'">
             </div>
-            <div class="form-group">
-                <label for="socialSecurityNo">BSN-nummer</label>
-                <input type="number" class="form-control" id="socialSecurityNo" name="socialSecurityNo" th:field="*{socialSecurityNo}" required>
-            </div>
+
         </div>
-
-        <div id="addressData">
-            <div class="form-group">
-                <label for="zipcode">Postcode</label>
-                <input type="text" class="form-control" id="zipcode" name="zipcode" th:field="*{zipCode}" onkeyup="retrieve_address('zipcode',this.value)" required>
-            </div>
-            <div class="form-group">
-                <label for="housenumber">Huisnummer</label>
-                <input type="number" class="form-control" id="housenumber" name="housenumber" th:field="*{houseNumber}" onkeyup="retrieve_address('housenumber', this.value)" required>
-            </div>
-            <div class="form-group">
-                <label for="affix">Toevoeging</label>
-                <input type="text" class="form-control" id="affix" name="affix" th:field="*{affixes}" onkeyup="retrieve_address('affix', this.value)">
-            </div>
-            <div class="form-group">
-                <label for="affix">Straat</label>
-                <input type="text" class="form-control" id="street" name="street" th:field="*{street}" disabled required>
-            </div>
-            <div class="form-group">
-                <label for="city">Plaats</label>
-                <input type="text" class="form-control" id="city" name="city" th:field="*{city}" disabled required>
-            </div>
-            <!--<button type="submit" class="btn btn-primary">Submit</button>-->
-        </div>
-
-        <div id="userData">
-            <div class="form-group">
-                <label for="username">Gebruikersnaam</label>
-                <input type="text" class="form-control" id="username" name="username" th:field="*{username}" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Wachtwoord</label>
-                <input type="password" class="form-control" id="password" name="password" th:field="*{password}" required>
-            </div>
-            <div class="form-group">
-                <label for="password2">Herhaal Wachtwoord</label>
-                <input type="password" class="form-control" id="password2" name="password2" required>
-            </div>
-        </div>
-
-        <input class="btn btn-outline-dark" type="submit" value="Bevestigen">
-        <input class="btn btn-outline-dark" type="button" value="Annuleren" onclick="location.href='/'">
     </form>
 
     <br/>

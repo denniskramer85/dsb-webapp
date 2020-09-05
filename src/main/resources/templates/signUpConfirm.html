@@ -4,62 +4,99 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link href="../static/styles.css" th:href="@{styles.css}" rel="stylesheet" />
+
+
+
+    <style>
+        .signupconfirmpage .grid {
+            display: grid;
+            grid-gap: 10px 40px;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(1, 1fr);
+        }
+
+        .signupconfirmpage .subheader {
+            margin-bottom: 0px;
+            font-weight: bold;
+        }
+
+        .signupconfirmpage {
+            font-size: 140%;
+        }
+        .signupconfirmpage .buttons {
+            margin-top: 10px;
+        }
+
+    </style>
+
 </head>
-<body th:object="${customerBean2}">
+<body th:object="${customerBean2}" class="signupconfirmpage">
 
 <div th:include="fragments/header :: header"></div>
 
 <div class="container">
-    <br/>
-    <div class="card">
-        <div class="card-header">
-            Bevestig klantgegevens
-        </div>
+    <br>
+    <h1>Bevestig klantgegevens</h1>
+    <br>
+    <br>
+    <div class="grid">
+
         <div id="personalData">
             <div id="surname">
-                <p>Achternaam: <span th:text="*{surname}"/></p>
+                <p class="subheader">Achternaam:</p>
+                <p><span th:text="*{surname}"/></p>
             </div>
             <div id="inserts">
-                <p>Tussenvoegsels: <span th:text="*{inserts}"/></p>
+                <p class="subheader">Tussenvoegsels:</p>
+                <p><span th:text="*{inserts}"/></p>
             </div>
             <div id="initials">
-                <p>Initialen: <span th:text="*{initials}"/></p>
+                <p class="subheader">Initialen: </p>
+                <p><span th:text="*{initials}"/></p>
             </div>
             <div id="BSN">
-                <p>BSN-nummer: <span th:text="*{socialSecurityNo}"/></p>
+                <p class="subheader">BSN-nummer:</p>
+                <p><span th:text="*{socialSecurityNo}"/></p>
             </div>
         </div>
 
-
-        <div id="address">
+        <div id="addressData">
             <div id="street">
-                <p>Straat: <span th:text="*{street}"/></p>
+                <p class="subheader">Straat:</p>
+                <p><span th:text="*{street}"/></p>
             </div>
             <div id="houseNumber">
-                <p>Nr: <span th:text="*{houseNumber}"/></p>
+                <p class="subheader">Huisnummer:</p>
+                <p><span th:text="*{houseNumber}"/></p>
             </div>
             <div id="affixes">
-                <p>Toevoeging: <span th:text="*{affixes}"/></p>
+                <p class="subheader">Toevoeging:</p>
+                <p><span th:text="*{affixes}"/></p>
             </div>
             <div id="zipCode">
-                <p>Postcode: <span th:text="*{zipCode}"/></p>
+                <p class="subheader">Postcode:</p>
+                <p><span th:text="*{zipCode}"/></p>
             </div>
             <div id="city">
-                <p>Woonplaats: <span th:text="*{city}"/></p>
+                <p class="subheader">Woonplaats:</p>
+                <p><span th:text="*{city}"/></p>
             </div>
         </div>
-
 
         <div id="userData">
             <div id="username">
-                <p>Gebruikersnaam: <span th:text="*{username}"/></p>
+                <p class="subheader">Gebruikersnaam:</p>
+                <p><span th:text="*{username}"/></p>
             </div>
         </div>
-        </div>
 
-    <input class="btn btn-outline-dark" type="button" value="Bevestigen" onclick="location.href='customerConfirmed'">
-    <input class="btn btn-outline-dark" type="button" value="Wijzigen" onclick="location.href='sign-up'">
+    </div>
 
+    <div class="buttons">
+        <input class="btn btn-outline-dark" type="button" value="Bevestigen" onclick="location.href='customerConfirmed'">
+        <input class="btn btn-outline-dark" type="button" value="Wijzigen" onclick="location.href='sign-up'">
+    </div>
     </div>
 
 
