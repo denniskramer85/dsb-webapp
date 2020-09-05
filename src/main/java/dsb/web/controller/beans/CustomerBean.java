@@ -53,6 +53,10 @@ public class CustomerBean {
                 '}';
     }
 
+
+
+
+
     public String getSurname() {
         return surname;
     }

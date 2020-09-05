@@ -47,9 +47,7 @@ public class SignUpController {
     @PostMapping("customerCompleted")
     public String handlerCustomerCompleted (@ModelAttribute CustomerBean cb, Model model) {
 
-
-        //naamvormgever
-        //allemaal strippen van leestekens en spaties ; dan weer spaties tertussen en alles cap
+        /**namestylers forproper format of initals/surname**/
         cb.setInitials(signupService.initialsStyler(cb.getInitials()));
         cb.setSurname(signupService.surnameStyler(cb.getSurname()));
 
