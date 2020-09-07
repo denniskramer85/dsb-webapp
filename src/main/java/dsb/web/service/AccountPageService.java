@@ -86,7 +86,7 @@ public class AccountPageService {
     public String getCurrentTime() {
         //huidige tijd
         System.currentTimeMillis();
-        SimpleDateFormat formatter= new SimpleDateFormat("EEEE, dd MMMM yyyy '-' HH:mm 'uur'");
+        SimpleDateFormat formatter= new SimpleDateFormat("EEEE, dd MMM yyyy '-' HH:mm 'uur'");
         Date timestamp = new Date(System.currentTimeMillis());
         String temp = formatter.format(timestamp);
         return temp.substring(0, 1).toUpperCase() + temp.substring(1);
