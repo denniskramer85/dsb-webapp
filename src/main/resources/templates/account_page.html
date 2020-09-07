@@ -22,17 +22,20 @@
             </div>
             <div class="card-body">
                 <div id="accountData">
-                    <div th:each="name : *{holderNames}">
-                        <span th:text="${name + ' '}"  />
-                    </div>
+                    <p th:if="*{typeAccount == 'SMEAccount'}">Bedrijf: <span th:text="*{companyName}"/></p>
+                    <p>Houder(s):
+                        <div th:each="name : *{holderNames}">
+                            <span th:text="${name + ' '}"  />
+                        </div>
+                    </p>
                     <p>Rekeningnummer: <span th:text="*{accountNo}"/></p>
-                    <p>Saldo: <span th:text="*{balance}"/></p>
+                    <p>Saldo: € <span th:text="*{balance}"/></p>
                     <p><span th:text="*{timestamp}"/></p>
                 </div>
 
                 <div id="generalButtons">
                     <input type="button" class="btn btn-outline-dark" onclick="href='transfer';" value="Overboeken" />
-                    <input type="button" class="btn btn-outline-dark" onclick="href='new-account';" value="Rekeninghoudert toevoegen" />
+                    <input type="button" class="btn btn-outline-dark" onclick="href='new-account';" value="Rekeninghouder toevoegen" />
                 </div>
 
                 <div id="SMEAButtons" th:if="*{typeAccount == 'SMEAccount'}">

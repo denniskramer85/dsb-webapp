@@ -4,6 +4,7 @@ package dsb.web.service;
 import dsb.web.controller.beans.AccountPageBean;
 import dsb.web.domain.Account;
 import dsb.web.domain.Customer;
+import dsb.web.domain.SMEAccount;
 import dsb.web.domain.Transaction;
 import dsb.web.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,17 @@ public class AccountPageService {
 
         String typeAccount = account.printClassName();
         String accountNo = account.getAccountNo();
+
         //TODO: nog via SMEA ophalen, nu hardcoded
-        String companyName = "HvA B.V.";
+        String companyName = "HVA BV";
+
+//        if (account instanceof SMEAccount) {
+//            companyName = ((SMEAccount) account).getCompany().getName();
+//        }
+
+
+
+
         List<String> holderNames = createListHolderNames(account.getHolders());
         String balance = String.format("%.2f", account.getBalance());
         String currentTime = getCurrentTime();
@@ -60,7 +70,7 @@ public class AccountPageService {
     public String getCurrentTime() {
         //huidige tijd
         System.currentTimeMillis();
-        SimpleDateFormat formatter= new SimpleDateFormat("EEEE, dd MMMM yyyy '-' HH:mm:ss");
+        SimpleDateFormat formatter= new SimpleDateFormat("EEEE, dd MMMM yyyy '-' HH:mm 'uur'");
         Date timestamp = new Date(System.currentTimeMillis());
         String temp = formatter.format(timestamp);
         return temp.substring(0, 1).toUpperCase() + temp.substring(1);
