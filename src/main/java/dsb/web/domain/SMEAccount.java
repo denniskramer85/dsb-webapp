@@ -32,5 +32,13 @@ public class SMEAccount extends Account{
     public String printClassName() {
         return this.getClass().getSimpleName();
     }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
 }
 

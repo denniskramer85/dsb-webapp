@@ -2,9 +2,19 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" th:href="AccountPageStyles.css">
     <meta charset="UTF-8">
     <title>Rekeningpagina</title>
+
+
+    //TODO extern
+    <style>
+        .noTransactions {
+            font-style: italic;
+        }
+
+
+    </style>
+
 </head>
 
 <body>
@@ -22,17 +32,20 @@
             </div>
             <div class="card-body">
                 <div id="accountData">
-                    <div th:each="name : *{holderNames}">
-                        <span th:text="${name + ' '}"  />
-                    </div>
+                    <p th:if="*{typeAccount == 'SMEAccount'}">Bedrijf: <span th:text="*{companyName}"/></p>
+                    <p>Houder(s):
+<!--                        <div >-->
+                            <span th:each="name : *{holderNames}" th:text="${name + ' '}"  />
+<!--                        </div>-->
+                    </p>
                     <p>Rekeningnummer: <span th:text="*{accountNo}"/></p>
-                    <p>Saldo: <span th:text="*{balance}"/></p>
+                    <p>Saldo: € <span th:text="*{balance}"/></p>
                     <p><span th:text="*{timestamp}"/></p>
                 </div>
 
                 <div id="generalButtons">
                     <input type="button" class="btn btn-outline-dark" onclick="href='transfer';" value="Overboeken" />
-                    <input type="button" class="btn btn-outline-dark" onclick="href='new-account';" value="Rekeninghoudert toevoegen" />
+                    <input type="button" class="btn btn-outline-dark" onclick="href='new-account';" value="Rekeninghouder toevoegen" />
                 </div>
 
                 <div id="SMEAButtons" th:if="*{typeAccount == 'SMEAccount'}">
@@ -50,6 +63,7 @@
             </div>
             <div class="card-body">
                 <div id="transactionList">
+                    <p class="noTransactions" th:if="*{transactions.empty}">Voor deze rekening zijn geen transacties beschikbaar.</p>
                     <div th:each="transaction : *{transactions}">
                         <p><span th:text="${transaction}"  /></p>
                     </div>
