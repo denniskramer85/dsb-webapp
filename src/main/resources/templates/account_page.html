@@ -24,9 +24,9 @@
                 <div id="accountData">
                     <p th:if="*{typeAccount == 'SMEAccount'}">Bedrijf: <span th:text="*{companyName}"/></p>
                     <p>Houder(s):
-                        <div th:each="name : *{holderNames}">
-                            <span th:text="${name + ' '}"  />
-                        </div>
+<!--                        <div >-->
+                            <span th:each="name : *{holderNames}" th:text="${name + ' '}"  />
+<!--                        </div>-->
                     </p>
                     <p>Rekeningnummer: <span th:text="*{accountNo}"/></p>
                     <p>Saldo: € <span th:text="*{balance}"/></p>
