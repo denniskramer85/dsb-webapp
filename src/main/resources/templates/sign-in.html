@@ -18,7 +18,7 @@
         </div>
     </span>
 
-    <form method="post" th:object="${loginBean}" th:action="@{sign-in}" class="needs-validation" novalidate>
+    <form method="post" th:object="${loginBean}" th:action="@{sign-in}"><!--class="needs-validation" novalidate-->
         <div class="form-group">
             <label for="input_username">Gebruikersnaam</label>
             <input type="text" class="form-control" id="input_username" name="input_username" th:field="*{username}" th:value="${username}" placeholder="Voer wachtwoord in" required>
