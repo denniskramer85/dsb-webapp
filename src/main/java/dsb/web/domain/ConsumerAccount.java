@@ -22,4 +22,9 @@ public class ConsumerAccount extends Account{
     public String printClassName() {
         return this.getClass().getSimpleName();
     }
+
+    @Override
+    public String toString() {
+        return "ConsumerAccount: " + super.toString();
+    }
 }
