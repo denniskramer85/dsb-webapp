@@ -13,8 +13,13 @@
         }
 
         #legenda {
-            display: inline-flex;
+            display: flex;
+            font-size: 120%;
+        }
 
+        #transactionList {
+            font-family: monospace;
+            font-size: 120%;
         }
 
 
@@ -67,19 +72,18 @@
                 <h2>Transacties</h2>
 
                 <div id="legenda">
-                    <pre>Datum     </pre>
+                    <pre>Datum       </pre>
                     <pre>Tijd   </pre>
-                    <pre>Tegenrekening  </pre>
-                    <pre>Bij/Af      </pre>
+                    <pre>Tegenrekening       </pre>
+                    <pre>Bij/Af   </pre>
                     <pre>Omschrijving</pre>
                 </div>
-
 
             </div>
             <div class="card-body">
                 <div id="transactionList">
-                    <p class="noTransactions" th:if="*{transactions.empty}">Voor deze rekening zijn geen transacties beschikbaar.</p>
-                    <div th:each="transaction : *{transactions}">
+                    <p class="noTransactions" th:if="*{transactionStrings.empty}">Voor deze rekening zijn geen transacties beschikbaar.</p>
+                    <div th:each="transaction : *{transactionStrings}">
                         <p><span th:text="${transaction}"  /></p>
                     </div>
                 </div>

@@ -35,12 +35,61 @@ public class AccountPageService {
         String holderNames = createHoldersString(account.getHolders());
         String balance = String.format("%.2f", account.getBalance());
         String currentTime = getCurrentTime();
-        //TODO LIMIT WERKT NIET MET PARAM
-        List<Transaction> transactions = transactionRepository.findTransactionByAccounts(account.getAccountID());
+        List<String> transactionStrings = getTransactionStrings(account);
 
         return new AccountPageBean(typeAccount, accountNo, companyName,
-                holderNames, balance, currentTime, transactions);
+                holderNames, balance, currentTime, transactionStrings);
     }
+
+    private List<String> getTransactionStrings(Account account) {
+
+        //TODO LIMIT WERKT NIET MET PARAM!!!
+
+        //eigen reknr
+        String ownAccountNo = account.getAccountNo();
+
+        //alle transacties uit db halen
+        List<Transaction> transactions = transactionRepository.findTransactionByAccounts(account.getAccountID());
+
+        //eindlijst
+        List<String> transactionStrings = new ArrayList<>();
+
+
+        String stringResult, timeStamp, counterAccount, message, plusMinus;
+        double amount;
+
+
+        for (Transaction t : transactions) {
+
+            timeStamp = new SimpleDateFormat("MM/dd/yyyy '-' HH:mm").
+                    format(t.getTransactionTimestamp());
+            message = t.getMessage();
+            amount = t.getTransactionAmount();
+
+            //tegenrekening zoeken
+            //als eigrek = creditrek, dan is tegenrek de debetrek [bijschrijving met + ]
+            //anders is tegenrek creditrek [afschrijving met - ]
+            if (ownAccountNo.equals(t.getTransactionAccountCredit().getAccountNo())) {
+                counterAccount = t.getTransactionAccountDebet().getAccountNo();
+                plusMinus = "+";
+            } else {
+                counterAccount = t.getTransactionAccountCredit().getAccountNo();
+                plusMinus = "-";
+            }
+
+            stringResult = String.format("%s    |    %s    |    %s%.2f    |    %s",
+                    timeStamp, counterAccount, plusMinus, amount, message);
+
+            transactionStrings.add(stringResult);
+
+        }
+
+
+        return transactionStrings;
+    }
+
+
+
 
     private String getCompanyName(Account account) {
         if (account instanceof SMEAccount) {
