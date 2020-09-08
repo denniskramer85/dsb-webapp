@@ -10,12 +10,15 @@
     background-color: #338a3e;
 }
 
-.account-list {
-}
-
 .new-account {
     margin-top: 20em;
 
+}
+
+.account-table {
+    padding: 10px;
+    width: 40%;
+    text-align: left;
 }
 
 
