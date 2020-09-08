@@ -3,6 +3,7 @@ package dsb.web.repository;
 import dsb.web.domain.Transaction;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
 
 
 
-    @Query(value = "SELECT * FROM dsb.transaction WHERE transaction_account_credit_accountid = ?1 OR transaction_account_debet_accountid = ?1 ORDER BY transaction_timestamp DESC;",
+    @Query(value = "SELECT * FROM dsb.transaction WHERE transaction_account_credit_accountid = ?1 OR transaction_account_debet_accountid = ?1 ORDER BY transaction_timestamp DESC LIMIT 10;",
             nativeQuery = true)
     List<Transaction> findTransactionByAccounts (int accountID);
 

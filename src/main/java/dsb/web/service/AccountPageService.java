@@ -35,7 +35,7 @@ public class AccountPageService {
         String holderNames = createHoldersString(account.getHolders());
         String balance = String.format("%.2f", account.getBalance());
         String currentTime = getCurrentTime();
-        //TODO nog limiteren met extra param!!!
+        //TODO LIMIT WERKT NIET MET PARAM
         List<Transaction> transactions = transactionRepository.findTransactionByAccounts(account.getAccountID());
 
         return new AccountPageBean(typeAccount, accountNo, companyName,
