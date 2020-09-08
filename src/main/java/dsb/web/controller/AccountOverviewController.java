@@ -55,6 +55,6 @@ public class AccountOverviewController {
             redirectAttributes.addAttribute("selectedAccount", selectedAccount);
             return new ModelAndView("redirect:/accountPage");
         }
-        return null; //TODO: Return errorpage;
+        return null; // TODO: Return Access Denied
     }
 }
