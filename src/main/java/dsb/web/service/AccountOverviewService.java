@@ -48,4 +48,14 @@ public class AccountOverviewService {
         }
         return retrievedAccount;
     }
+
+    public boolean accessPermitted(Account account, Customer customer) {
+        List<Account> accountsOfCustomer = accountRepository.findAllByHolders(customer);
+        for (Account accountOfCustomer: accountsOfCustomer) {
+            if (accountOfCustomer.equals(account)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
