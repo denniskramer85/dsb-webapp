@@ -22,7 +22,7 @@ package dsb.web.service.validators;
 @Constraint(validatedBy = { UsernameOccupiedValidator.class })
 public @interface UsernameOccupiedConstraint {
 
-    String message() default "Gebruikersnaam al in gebruik";
+    String message() default "Gebruikersnaam al bezet";
     Class<?>[] groups() default { };
     Class<? extends Payload>[] payload() default { };
 

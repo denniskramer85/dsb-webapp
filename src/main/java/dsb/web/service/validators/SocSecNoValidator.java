@@ -10,7 +10,7 @@ public class SocSecNoValidator implements ConstraintValidator<SocSecNoConstraint
     public boolean isValid(String string, ConstraintValidatorContext constraintValidatorContext) {
 
         //two checks alreay provied by other annotations (@NotBlank & @IntegerValidator)
-        if (string == null || string.equals("")) return true;
+        if (string == null || string.trim().equals("")) return true;
         try {
             Integer.parseInt(string);
         } catch(NumberFormatException e){
