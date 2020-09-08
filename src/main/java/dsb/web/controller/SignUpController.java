@@ -43,7 +43,6 @@ public class SignUpController {
         CustomerBean cb2 = (CustomerBean) model.getAttribute("customerBean2");
         model.addAttribute("customerBean", cb2);
 
-        //return "sign-up";
         return "sign-up";
     }
 
@@ -61,6 +60,10 @@ public class SignUpController {
         /**namestylers for proper format of initals/surname**/
         cb.setInitials(signupService.initialsStyler(cb.getInitials()));
         cb.setSurname(signupService.surnameStyler(cb.getSurname()));
+
+        /**create printable format of address**/
+        model.addAttribute("addressPrint", signupService.createAddressPrint(cb));
+
 
         model.addAttribute("customerBean2", cb);
         return "signUpConfirm";

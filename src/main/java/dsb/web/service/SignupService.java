@@ -51,6 +51,13 @@ public class SignupService {
     }
 
 
+    public String createAddressPrint(CustomerBean cb) {
+        String street = cb.getStreet();
+        String houseNumber = cb.getHouseNumberString();
+        String affixes = cb.getAffixes();
+        String zipCode = cb.getZipCode();
+        String city = cb.getCity();
 
-
+        return String.format("%s %s %s\n%s %s", street, houseNumber, affixes, zipCode, city);
+    }
 }
