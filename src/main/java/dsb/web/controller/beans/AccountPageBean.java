@@ -12,13 +12,13 @@ public class AccountPageBean {
     private String typeAccount;
     private String accountNo;
     private String companyName;
-    private List<String> holderNames;
+    private String holderNames;
     private String balance;
     private String timestamp;
     private List<Transaction> transactions;
 
-
-    public AccountPageBean(String typeAccount, String accountNo, String companyName, List<String> holderNames, String balance, String timestamp, List<Transaction> transactions) {
+    public AccountPageBean(String typeAccount, String accountNo, String companyName, String holderNames,
+                           String balance, String timestamp, List<Transaction> transactions) {
         this.typeAccount = typeAccount;
         this.accountNo = accountNo;
         this.companyName = companyName;
@@ -26,19 +26,6 @@ public class AccountPageBean {
         this.balance = balance;
         this.timestamp = timestamp;
         this.transactions = transactions;
-    }
-
-    @Override
-    public String toString() {
-        return "AccountPageBean{" +
-                "typeAccount='" + typeAccount + '\'' +
-                ", accountNo='" + accountNo + '\'' +
-                ", companyName='" + companyName + '\'' +
-                ", holderNames=" + holderNames +
-                ", balance=" + balance +
-                ", timestamp=" + timestamp +
-                ", transactions=" + transactions +
-                '}';
     }
 
     public String getTypeAccount() {
@@ -65,11 +52,11 @@ public class AccountPageBean {
         this.companyName = companyName;
     }
 
-    public List<String> getHolderNames() {
+    public String getHolderNames() {
         return holderNames;
     }
 
-    public void setHolderNames(List<String> holderNames) {
+    public void setHolderNames(String holderNames) {
         this.holderNames = holderNames;
     }
 

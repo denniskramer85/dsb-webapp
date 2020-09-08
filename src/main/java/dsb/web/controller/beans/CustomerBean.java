@@ -1,9 +1,6 @@
 package dsb.web.controller.beans;
 
-import dsb.web.service.validators.FieldsValueMatch;
-import dsb.web.service.validators.IntegerConstraint;
-import dsb.web.service.validators.SocSecNoConstraint;
-import dsb.web.service.validators.ZipCodeConstraint;
+import dsb.web.service.validators.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -12,8 +9,6 @@ import javax.validation.constraints.Size;
 @FieldsValueMatch(field = "password", fieldMatch = "password2")
 public class CustomerBean {
 
-
-    //@NotBlank(message = "Veld is leeg")
     @Size(min=2, message = "Moet minimaal 2 letters zijn")
     private String surname;
 
@@ -45,8 +40,8 @@ public class CustomerBean {
     private String socialSecurityNoString;
     private Integer socialSecurityNo;
 
-    //@NotBlank(message = "Veld is leeg")
     @Size(min=6, message = "Moet minimaal 6 tekens zijn")
+    @UsernameOccupiedConstraint
     private String username;
 
     @NotBlank(message = "Veld is leeg")

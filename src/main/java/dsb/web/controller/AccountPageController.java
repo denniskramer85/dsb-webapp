@@ -33,7 +33,7 @@ public class AccountPageController {
 
         List<Transaction> list = accountPageBean.getTransactions();
         for (Transaction t : list) {
-            System.out.println(t);
+            //System.out.println(t);
         }
 
         return "account_page";

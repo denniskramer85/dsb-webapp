@@ -10,7 +10,7 @@ public class ZipCodeValidator implements ConstraintValidator<ZipCodeConstraint, 
     @Override
     public boolean isValid(String string, ConstraintValidatorContext constraintValidatorContext) {
 
-        if (string == null || string.equals("")) return true;
+        if (string == null || string.trim().equals("")) return true;
 
 
         String noSpaces = string.replaceAll("\\s+", "");
