@@ -38,6 +38,7 @@ public class Transaction {
 
 
     @Override
+    //TODO evt nog bijwerken
     public String toString() {
         String s = new SimpleDateFormat("MM/dd/yyyy '|' HH:mm").format(transactionTimestamp);
         return String.format("%s - %s - %s - %.2f - %s", s, transactionAccountDebet.getAccountNo(),
