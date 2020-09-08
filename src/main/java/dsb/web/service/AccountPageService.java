@@ -42,7 +42,7 @@ public class AccountPageService {
 
         //TODO hier nog string van maken (detail)
 
-        String holderNames = createListHolderNames(account.getHolders());
+        String holderNames = createHoldersString(account.getHolders());
 
 
 
@@ -58,24 +58,35 @@ public class AccountPageService {
     }
 
 
-    public String createListHolderNames (List<Customer> listHolders) {
-
-//        //ff dubbylijst maken
-//        Customer c1 = new Customer();
-//        c1.setSurname("a");
-//        Customer c2 = new Customer();
-//        c2.setSurname("b");
-//        Customer c3 = new Customer();
-//        c3.setSurname("c");
-//        Customer c4 = new Customer();
-//        c4.setSurname("d");
-//        Customer[] list = {c3,c1};
-//        List<Customer> listHolders = Arrays.asList(list);
+    public String createHoldersString(List<Customer> listHolders) {
 
         //sort by surname
         Collections.sort(listHolders);
 
-        //create unified name strings
+        //create unified name strings from Customer attributes
+        List<String> holderNames = createListHolderNames(listHolders);
+
+        //create final String with proper styling
+        StringBuilder sb = new StringBuilder();
+
+        //prevent outOfBound
+        int maxLoop = maxNrHoldersShown;
+        if (holderNames.size() < maxNrHoldersShown) maxLoop = holderNames.size();
+
+        //compose string by appending
+        for (int i = 0; i < maxLoop ; i++) sb.append(holderNames.get(i)).append(", ");
+
+        //create actual String and remove last comma
+        String finalString = sb.toString();
+        finalString = finalString.substring(0, finalString.length() - 2);
+
+        //add "etc." if number of holders exceeds maxNrHoldersShown
+        if (holderNames.size() > maxNrHoldersShown) finalString = finalString + " e.a.";
+
+        return finalString;
+    }
+
+    private List<String> createListHolderNames(List<Customer> listHolders) {
         List<String> holderNames = new ArrayList<>();
         String inits, inserts, surname, result;
         for (Customer c : listHolders) {
@@ -87,28 +98,9 @@ public class AccountPageService {
             result = String.format("%s %s%s", inits, inserts, surname);
             holderNames.add(result);
         }
-
-        StringBuilder sb = new StringBuilder();
-
-        //uitloop voorkomen
-        int maxLoop = maxNrHoldersShown;
-        if (holderNames.size() < maxNrHoldersShown) {
-             maxLoop = holderNames.size();
-        }
-
-        for (int i = 0; i < maxLoop ; i++) {
-            sb.append(holderNames.get(i)).append(", ");
-        }
-
-        //laaste komma weg
-        String finalString = sb.toString();
-        finalString = finalString.substring(0, finalString.length() - 2);
-
-        if (holderNames.size() > maxNrHoldersShown)
-            finalString = finalString + " e.a.";
-
-        return finalString;
+        return holderNames;
     }
+
 
     public String getCurrentTime() {
         //huidige tijd
