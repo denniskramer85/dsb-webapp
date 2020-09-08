@@ -32,19 +32,29 @@ public class AccountOverviewController {
 
     @GetMapping("account_overview")
     public String accountOverview(@ModelAttribute(AttributeMapping.LOGGED_IN_CUSTOMER) Customer loggedInCustomer, Model model) {
+        // Retrieve list of consumer- and SME-accounts for logged in customer
         List<ConsumerAccount> consumerAccountList = accountOverviewService.getConsumerAccountsForCustomer(loggedInCustomer);
         List<SMEAccount> smeAccountList = accountOverviewService.getSMEAccountsForCustomer(loggedInCustomer);
         logger.debug("ConsumerAccounts: " + consumerAccountList.toString());
         logger.debug("SMEAccounts: " + smeAccountList.toString());
+
         model.addAttribute("consumerAccounts", consumerAccountList);
         model.addAttribute("smeAccounts", smeAccountList);
         return "account_overview";
     }
 
     @PostMapping("account_overview")
-    public ModelAndView selectAccount(@RequestParam("accountID") int accountID, RedirectAttributes redirectAttributes) {
+    public ModelAndView selectAccount(@RequestParam("accountID") int accountID,
+                                      @ModelAttribute(AttributeMapping.LOGGED_IN_CUSTOMER) Customer loggedInCustomer,
+                                      RedirectAttributes redirectAttributes) {
+        // Get selected account from DB
         Account selectedAccount = accountOverviewService.getAccountByID(accountID);
-        redirectAttributes.addAttribute("selectedAccount", selectedAccount);
-        return new ModelAndView("redirect:/accountPage");
+
+        // Check whether logged in customer has access to selected account
+        if (accountOverviewService.accessPermitted(selectedAccount, loggedInCustomer)) {
+            redirectAttributes.addAttribute("selectedAccount", selectedAccount);
+            return new ModelAndView("redirect:/accountPage");
+        }
+        return null; // TODO: Return Access Denied
     }
 }
