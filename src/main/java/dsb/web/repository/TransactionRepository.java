@@ -16,7 +16,7 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
 
 
 
-    @Query(value = "SELECT * FROM dsb.transaction WHERE transaction_account_credit_accountid = ?1 OR transaction_account_debet_accountid = ?1 ORDER BY transaction_timestamp ASC;",
+    @Query(value = "SELECT * FROM dsb.transaction WHERE transaction_account_credit_accountid = ?1 OR transaction_account_debet_accountid = ?1 ORDER BY transaction_timestamp DESC;",
             nativeQuery = true)
     List<Transaction> findTransactionByAccounts (int accountID);
 
