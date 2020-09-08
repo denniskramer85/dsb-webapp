@@ -42,6 +42,7 @@
             </div>
             <div class="card-body">
                 <div id="accountData">
+                    <p><span th:text="*{timestamp}"/></p>
                     <p th:if="*{typeAccount == 'SMEAccount'}">Bedrijf: <span th:text="*{companyName}"/></p>
                     <p>Houder(s):
 <!--                        <div >-->
@@ -50,7 +51,6 @@
                     </p>
                     <p>Rekeningnummer: <span th:text="*{accountNo}"/></p>
                     <p>Saldo: € <span th:text="*{balance}"/></p>
-                    <p><span th:text="*{timestamp}"/></p>
                 </div>
 
                 <div id="generalButtons">
@@ -71,7 +71,7 @@
             <div class="card-header">
                 <h2>Transacties</h2>
 
-                <div id="legenda">
+                <div id="legenda" th:if="*{!transactionStrings.empty}>
                     <pre>Datum       </pre>
                     <pre>Tijd   </pre>
                     <pre>Tegenrekening       </pre>
