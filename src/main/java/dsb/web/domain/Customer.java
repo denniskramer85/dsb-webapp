@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Customer {
+public class Customer implements Comparable<Customer> {
     @Id
     @GeneratedValue
     private int customerID;
@@ -125,5 +125,10 @@ public class Customer {
 
     public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
+    }
+
+    @Override
+    public int compareTo(Customer o) {
+        return this.getSurname().compareTo(o.getSurname());
     }
 }

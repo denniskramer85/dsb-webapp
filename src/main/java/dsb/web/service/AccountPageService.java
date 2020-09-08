@@ -6,22 +6,18 @@ import dsb.web.domain.Account;
 import dsb.web.domain.Customer;
 import dsb.web.domain.Transaction;
 import dsb.web.repository.TransactionRepository;
-import dsb.web.service.comparators.ComparatorHoldersBySurname;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class AccountPageService {
 
     private TransactionRepository transactionRepository;
 
-    /**max numbe rof holders shown**/
+    /**max number of holders shown**/
     private int maxNrHoldersShown = 3;
 
     @Autowired
@@ -45,7 +41,13 @@ public class AccountPageService {
 //        System.out.println(companyName);
 
         //TODO hier nog string van maken (detail)
-        List<String> holderNames = createListHolderNames(account.getHolders());
+
+        String holderNames = createListHolderNames(account.getHolders());
+
+
+
+
+
         String balance = String.format("%.2f", account.getBalance());
         String currentTime = getCurrentTime();
         //TODO nog limiteren met extra param!!!
@@ -56,12 +58,24 @@ public class AccountPageService {
     }
 
 
-    //TODO VERBETEREN: return een string.format met alle specs rond max, kommas en e.a.
-    public List<String> createListHolderNames (List<Customer> listHolders) {
+    public String createListHolderNames (List<Customer> listHolders) {
 
-        //TODO test of werkt bij meerdere (sorteren op achternaam)
-        Collections.sort(listHolders, new ComparatorHoldersBySurname());
+//        //ff dubbylijst maken
+//        Customer c1 = new Customer();
+//        c1.setSurname("a");
+//        Customer c2 = new Customer();
+//        c2.setSurname("b");
+//        Customer c3 = new Customer();
+//        c3.setSurname("c");
+//        Customer c4 = new Customer();
+//        c4.setSurname("d");
+//        Customer[] list = {c3,c1};
+//        List<Customer> listHolders = Arrays.asList(list);
 
+        //sort by surname
+        Collections.sort(listHolders);
+
+        //create unified name strings
         List<String> holderNames = new ArrayList<>();
         String inits, inserts, surname, result;
         for (Customer c : listHolders) {
@@ -74,13 +88,26 @@ public class AccountPageService {
             holderNames.add(result);
         }
 
-        //TODO test of werkt bij meerdere
-        if (holderNames.size() > maxNrHoldersShown) {
-            holderNames = holderNames.subList(0, (maxNrHoldersShown-1));
-            holderNames.add("e.a.");
+        StringBuilder sb = new StringBuilder();
+
+        //uitloop voorkomen
+        int maxLoop = maxNrHoldersShown;
+        if (holderNames.size() < maxNrHoldersShown) {
+             maxLoop = holderNames.size();
         }
 
-        return holderNames;
+        for (int i = 0; i < maxLoop ; i++) {
+            sb.append(holderNames.get(i)).append(", ");
+        }
+
+        //laaste komma weg
+        String finalString = sb.toString();
+        finalString = finalString.substring(0, finalString.length() - 2);
+
+        if (holderNames.size() > maxNrHoldersShown)
+            finalString = finalString + " e.a.";
+
+        return finalString;
     }
 
     public String getCurrentTime() {
