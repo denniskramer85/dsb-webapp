@@ -81,6 +81,8 @@ public abstract class Account {
                 '}';
     }
 
+
+
     public String getHolderString() {
         String returnString = "";
         for (Customer holder : holders) {
@@ -98,9 +100,7 @@ public abstract class Account {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Account account = (Account) o;
-        return accountID == account.accountID &&
-                accountNo.equals(account.accountNo) &&
-                holders.equals(account.holders);
+        return accountNo.equals(account.accountNo);
     }
 
     @Override

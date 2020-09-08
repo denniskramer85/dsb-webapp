@@ -2,6 +2,7 @@ package dsb.web.domain;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Company {
@@ -43,6 +44,18 @@ public class Company {
                 ", BTWno='" + BTWno + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Company)) return false;
+        Company company = (Company) o;
+        return getName().equals(company.getName()) &&
+                getKVKno().equals(company.getKVKno()) &&
+                getBTWno().equals(company.getBTWno()) &&
+                accounts.equals(company.accounts);
+    }
+
 
     public int getcompanyId() {
         return companyId;

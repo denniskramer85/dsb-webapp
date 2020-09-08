@@ -56,6 +56,8 @@ public class Customer implements Comparable<Customer> {
                 '}';
     }
 
+
+
     public int getCustomerID() {
         return customerID;
     }
@@ -138,8 +140,7 @@ public class Customer implements Comparable<Customer> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return customerID == customer.customerID &&
-                socialSecurityNo == customer.socialSecurityNo &&
+        return  socialSecurityNo == customer.socialSecurityNo &&
                 username.equals(customer.username) &&
                 password.equals(customer.password);
     }
