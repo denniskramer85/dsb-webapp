@@ -4,6 +4,7 @@ package dsb.web.service;
 import dsb.web.controller.beans.AccountPageBean;
 import dsb.web.domain.Account;
 import dsb.web.domain.Customer;
+import dsb.web.domain.SMEAccount;
 import dsb.web.domain.Transaction;
 import dsb.web.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,24 +31,8 @@ public class AccountPageService {
         /**Achtereenvolgens beangegevens ophalen**/
         String typeAccount = account.printClassName();
         String accountNo = account.getAccountNo();
-
-        //TODO implementeren
-        String companyName = "HVA industries BV";
-//            if (account instanceof SMEAccount) {
-//                String compNameTemp = ((SMEAccount) account).getCompany().getName();
-//                System.out.println(compNameTemp);
-//                if (compNameTemp != null) {companyName = compNameTemp;}
-//            }
-//        System.out.println(companyName);
-
-        //TODO hier nog string van maken (detail)
-
+        String companyName = getCompanyName(account);
         String holderNames = createHoldersString(account.getHolders());
-
-
-
-
-
         String balance = String.format("%.2f", account.getBalance());
         String currentTime = getCurrentTime();
         //TODO nog limiteren met extra param!!!
@@ -57,13 +42,24 @@ public class AccountPageService {
                 holderNames, balance, currentTime, transactions);
     }
 
+    private String getCompanyName(Account account) {
+        if (account instanceof SMEAccount) {
+            try {
+                return ((SMEAccount) account).getCompany().getName();
+            } catch (NullPointerException e) {
+
+            }
+        }
+        return " - ";
+    }
+
 
     public String createHoldersString(List<Customer> listHolders) {
 
         //sort by surname
         Collections.sort(listHolders);
 
-        //create unified name strings from Customer attributes
+        //create unified name strings from Customer attributes (outsourced to aux method)
         List<String> holderNames = createListHolderNames(listHolders);
 
         //create final String with proper styling
@@ -86,6 +82,7 @@ public class AccountPageService {
         return finalString;
     }
 
+    //aux method for previous one
     private List<String> createListHolderNames(List<Customer> listHolders) {
         List<String> holderNames = new ArrayList<>();
         String inits, inserts, surname, result;
@@ -103,7 +100,6 @@ public class AccountPageService {
 
 
     public String getCurrentTime() {
-        //huidige tijd
         System.currentTimeMillis();
         SimpleDateFormat formatter= new SimpleDateFormat("EEEE, dd MMM yyyy '-' HH:mm 'uur'");
         Date timestamp = new Date(System.currentTimeMillis());
