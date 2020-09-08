@@ -7,7 +7,12 @@ import dsb.web.service.SignupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
 
 
 @Controller
@@ -45,23 +50,19 @@ public class SignUpController {
 
 
     @PostMapping("customerCompleted")
-    public String handlerCustomerCompleted (@ModelAttribute CustomerBean cb, Model model) {
+    public String handlerCustomerCompleted (@Valid @ModelAttribute CustomerBean cb, Errors errors, Model model) {
 
-        /**namestylers forproper format of initals/surname**/
+        /**validate for errors - is fo return**/
+        if(errors.hasErrors()) {
+            model.addAttribute(cb);
+            return "sign-up";
+        }
+
+        /**namestylers for proper format of initals/surname**/
         cb.setInitials(signupService.initialsStyler(cb.getInitials()));
         cb.setSurname(signupService.surnameStyler(cb.getSurname()));
 
-
-        //TODO
-        //aanroepen algemene checkmethode in signupservice
-        //returnt een lijst met booleans (goed/fout) (per field)
-        signupService.allServerSideChecksBean(cb);
-
-
-
-
         model.addAttribute("customerBean2", cb);
-
         return "signUpConfirm";
     }
 

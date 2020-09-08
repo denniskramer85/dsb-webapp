@@ -1,25 +1,65 @@
 package dsb.web.controller.beans;
 
-import dsb.web.domain.Account;
-import dsb.web.domain.Address;
+import dsb.web.service.validators.FieldsValueMatch;
+import dsb.web.service.validators.IntegerConstraint;
+import dsb.web.service.validators.SocSecNoConstraint;
+import dsb.web.service.validators.ZipCodeConstraint;
 
-import java.util.List;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
+
+@FieldsValueMatch(field = "password", fieldMatch = "password2")
 public class CustomerBean {
 
+
+    //@NotBlank(message = "Veld is leeg")
+    @Size(min=2, message = "Moet minimaal 2 letters zijn")
     private String surname;
+
     private String inserts;
+
+    @NotBlank(message = "Veld is leeg")
     private String initials;
+
+    @NotBlank(message = "Veld is leeg")
     private String street;
+
+    @NotBlank(message = "Veld is leeg")
+    @IntegerConstraint
+    private String houseNumberString;
     private Integer houseNumber;
+
     private String affixes;
+
+    @NotBlank(message = "Veld is leeg")
+    @ZipCodeConstraint
     private String zipCode;
+
+    @NotBlank(message = "Veld is leeg")
     private String city;
+
+    @NotBlank(message = "Veld is leeg")
+    @IntegerConstraint
+    @SocSecNoConstraint
+    private String socialSecurityNoString;
     private Integer socialSecurityNo;
+
+    //@NotBlank(message = "Veld is leeg")
+    @Size(min=6, message = "Moet minimaal 6 tekens zijn")
     private String username;
+
+    @NotBlank(message = "Veld is leeg")
     private String password;
 
-    public CustomerBean(String surname, String inserts, String initials, String street, Integer houseNumber, String affixes, String zipCode, String city, Integer socialSecurityNo, String username, String password) {
+    @NotBlank(message = "Veld is leeg")
+    private String password2;
+
+
+
+
+
+    public CustomerBean(String surname, String inserts, String initials, String street, Integer houseNumber, String affixes, String zipCode, String city, Integer socialSecurityNo, String username, String password, String password2) {
         this.surname = surname;
         this.inserts = inserts;
         this.initials = initials;
@@ -31,6 +71,7 @@ public class CustomerBean {
         this.socialSecurityNo = socialSecurityNo;
         this.username = username;
         this.password = password;
+        this.password2 = password2;
     }
 
     public CustomerBean() {
@@ -43,16 +84,31 @@ public class CustomerBean {
                 ", inserts='" + inserts + '\'' +
                 ", initials='" + initials + '\'' +
                 ", street='" + street + '\'' +
+                ", houseNumberString='" + houseNumberString + '\'' +
                 ", houseNumber=" + houseNumber +
                 ", affixes='" + affixes + '\'' +
                 ", zipCode='" + zipCode + '\'' +
                 ", city='" + city + '\'' +
+                ", socialSecurityNoString='" + socialSecurityNoString + '\'' +
                 ", socialSecurityNo=" + socialSecurityNo +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", password2='" + password2 + '\'' +
                 '}';
     }
 
+    public Integer checkIfInteger(String ageString) {
+
+
+        try {
+            int age = Integer.parseInt(ageString);
+            return age;
+        } catch(NumberFormatException e){
+            return null;
+        }
+
+
+    }
 
 
 
@@ -143,5 +199,31 @@ public class CustomerBean {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getHouseNumberString() {
+        setHouseNumber(checkIfInteger(houseNumberString));
+        return houseNumberString;
+    }
+
+    public void setHouseNumberString(String houseNumberString) {
+        this.houseNumberString = houseNumberString;
+    }
+
+    public String getSocialSecurityNoString() {
+        setSocialSecurityNo(checkIfInteger(socialSecurityNoString));
+        return socialSecurityNoString;
+    }
+
+    public void setSocialSecurityNoString(String socialSecurityNoString) {
+        this.socialSecurityNoString = socialSecurityNoString;
+    }
+
+    public String getPassword2() {
+        return password2;
+    }
+
+    public void setPassword2(String password2) {
+        this.password2 = password2;
     }
 }
