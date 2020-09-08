@@ -15,11 +15,14 @@
     <br/>
 
     <div class="card">
-        <h5 class="card-header">Persoonlijke rekeningen</h5>
+        <div class="card-header account-header-div">
+            <h5 class="account-header">Persoonlijke rekeningen</h5>
+            <a href="/new-account" class="btn-open-account btn btn-outline-dark">Rekening openen</a>
+        </div>
 
         <div th:if="${#lists.isEmpty(consumerAccounts)}">
             <div class="card-body">
-                <p>U heeft nog geen persoonlijke rekening. Klik <a th:href="@{/new-account}">hier</a> om een persoonlijkerekening te openen.</p>
+                <p>U heeft nog geen persoonlijke rekening.</p>
             </div>
         </div>
 
@@ -59,11 +62,14 @@
     <br/>
 
     <div class="card">
-        <h5 class="card-header">Zakelijke rekeningen</h5>
+        <div class="card-header account-header-div">
+            <h5 class="account-header">Zakelijke rekeningen</h5>
+            <a href="/new-account" class="btn-open-account btn btn-outline-dark">Rekening openen</a>
+        </div>
 
         <div th:if="${#lists.isEmpty(smeAccounts)}">
             <div class="card-body">
-                <p>U heeft nog geen persoonlijke rekening. Klik <a th:href="@{/new-account}">hier</a> om een zakelijke rekening te openen.</p>
+                <p>U heeft nog geen zakelijke rekening.</p>
             </div>
         </div>
 
@@ -79,7 +85,7 @@
                                     <span th:text="${account.getAccountNo()}"/>
                                 </td>
                                 <td>
-                                    <img class="account-icon" th:src="@{/images/icons/people.svg}" alt="">
+                                    <img class="account-icon" th:src="@{/images/icons/building.svg}" alt="">
                                     <span th:text="${account.getHolderString()}"/>
                                 </td>
                                 <td>
