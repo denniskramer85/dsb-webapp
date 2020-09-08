@@ -2,9 +2,10 @@ package dsb.web.domain;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
-public class Customer {
+public class Customer implements Comparable<Customer> {
     @Id
     @GeneratedValue
     private int customerID;
@@ -125,5 +126,26 @@ public class Customer {
 
     public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
+    }
+
+    @Override
+    public int compareTo(Customer o) {
+        return this.getSurname().compareTo(o.getSurname());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return customerID == customer.customerID &&
+                socialSecurityNo == customer.socialSecurityNo &&
+                username.equals(customer.username) &&
+                password.equals(customer.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(customerID, socialSecurityNo, username, password);
     }
 }

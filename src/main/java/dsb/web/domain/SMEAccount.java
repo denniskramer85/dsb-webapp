@@ -28,9 +28,28 @@ public class SMEAccount extends Account{
     public SMEAccount() {
     }
 
+
+
     @Override
     public String printClassName() {
         return this.getClass().getSimpleName();
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    @Override
+    public String getHolderString() {
+        if (this.company != null) {
+            return this.company.getName() + " (" + super.getHolderString() + ")";
+        } else {
+            return super.getHolderString();
+        }
     }
 }
 

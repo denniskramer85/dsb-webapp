@@ -10,10 +10,40 @@
     background-color: #338a3e;
 }
 
-.account-list {
-}
-
 .new-account {
     margin-top: 20em;
 
 }
+
+/*account_overview*/
+
+.account-table {
+    padding: 10px;
+    width: 60%;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.account-icon {
+    padding-right: 5px;
+}
+
+.btn-open-account {
+    float: right;
+}
+
+.account-header {
+    display:inline-block;
+}
+
+.account-header-div {
+    line-height: 38px;
+}
+
+
+/*for sign-up page*/
+
+
+/*for signup confirm page */
+
+

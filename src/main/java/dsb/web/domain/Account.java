@@ -92,4 +92,19 @@ public abstract class Account {
         }
         return returnString;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Account account = (Account) o;
+        return accountID == account.accountID &&
+                accountNo.equals(account.accountNo) &&
+                holders.equals(account.holders);
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
+    }
 }

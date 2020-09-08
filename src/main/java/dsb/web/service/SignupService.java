@@ -39,50 +39,25 @@ public class SignupService {
         return customer;
     }
 
-
-
-
-    public void serverCheck(CustomerBean cb) {
-
-//        //lijst met alle attribs
-//        Field[] fields = cb.getClass().getDeclaredFields();
-//
-//
-//        for (Field f : fields) {
-//            if (f.get(this) == null) System.out.println("xxx");
-//        }
-
+    /**2 stylers for name data**/
+    public String initialsStyler(String initials) {
+        String[] asArray = initials.trim().replaceAll("[^a-zA-Z0-9]", "")
+                .toUpperCase().split("");
+        return String.join(".", asArray);
+    }
+    public String surnameStyler(String surname) {
+        String mid = surname.toLowerCase();
+        return mid.substring(0,1).toUpperCase() + mid.substring(1);
     }
 
 
+    public String createAddressPrint(CustomerBean cb) {
+        String street = cb.getStreet();
+        String houseNumber = cb.getHouseNumberString();
+        String affixes = cb.getAffixes();
+        String zipCode = cb.getZipCode();
+        String city = cb.getCity();
 
-        /*
-    NIET LEEG
-    alles behalve inserts en affixes
-
-    NUMMER
-    housenumber en socSec
-
-    BSN
-
-
-
-    private String surname;
-    private String inserts;
-    private String initials;
-    private String street;
-    private Integer houseNumber;
-    private String affixes;
-    private String zipCode;
-    private String city;
-    private Integer socialSecurityNo;
-    private String username;
-    private String password;
-
-        */
-
-
-
-
-
+        return String.format("%s %s %s\n%s %s", street, houseNumber, affixes, zipCode, city);
+    }
 }

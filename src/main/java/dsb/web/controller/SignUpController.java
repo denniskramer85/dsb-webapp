@@ -7,7 +7,12 @@ import dsb.web.service.SignupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
 
 
 @Controller
@@ -38,20 +43,29 @@ public class SignUpController {
         CustomerBean cb2 = (CustomerBean) model.getAttribute("customerBean2");
         model.addAttribute("customerBean", cb2);
 
-        //return "sign-up";
         return "sign-up";
     }
 
 
 
     @PostMapping("customerCompleted")
-    public String handlerCustomerCompleted (@ModelAttribute CustomerBean cb, Model model) {
+    public String handlerCustomerCompleted (@Valid @ModelAttribute CustomerBean cb, Errors errors, Model model) {
+
+        /**validate for errors - is fo return**/
+        if(errors.hasErrors()) {
+            model.addAttribute(cb);
+            return "sign-up";
+        }
+
+        /**namestylers for proper format of initals/surname**/
+        cb.setInitials(signupService.initialsStyler(cb.getInitials()));
+        cb.setSurname(signupService.surnameStyler(cb.getSurname()));
+
+        /**create printable format of address**/
+        model.addAttribute("addressPrint", signupService.createAddressPrint(cb));
+
+
         model.addAttribute("customerBean2", cb);
-
-        //TODO check inbouwen hier
-        //servertjek op volledig, nummers, BSN
-        //signupService.serverCheck(cb);
-
         return "signUpConfirm";
     }
 
@@ -64,14 +78,10 @@ public class SignUpController {
         /** add domain Customer to session/model **/
         model.addAttribute("loggedInCustomer", customer);
 
-        return "index"; //TODO link to rekeningoverzicht
+        return "account_overview"; //TODO link to rekeningoverzicht
     }
 
-    // Tijdelijke handler voor postcodetest
-    @GetMapping("postcode")
-    public String postcodeTestHandler() {
-        return "postcode";
-    }
+
 
 
 
