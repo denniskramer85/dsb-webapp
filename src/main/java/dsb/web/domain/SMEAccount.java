@@ -40,5 +40,14 @@ public class SMEAccount extends Account{
     public void setCompany(Company company) {
         this.company = company;
     }
+
+    @Override
+    public String getHolderString() {
+        if (this.company != null) {
+            return "(" + this.company.getName() + ") " + super.getHolderString();
+        } else {
+            return super.getHolderString();
+        }
+    }
 }
 
