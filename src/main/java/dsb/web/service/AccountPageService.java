@@ -41,34 +41,31 @@ public class AccountPageService {
                 holderNames, balance, currentTime, transactionStrings);
     }
 
+
+
     private List<String> getTransactionStrings(Account account) {
 
-        //TODO LIMIT WERKT NIET MET PARAM!!!
-
-        //eigen reknr
+        //set up needed variables
         String ownAccountNo = account.getAccountNo();
-
-        //alle transacties uit db halen
-        List<Transaction> transactions = transactionRepository.findTransactionByAccounts(account.getAccountID());
-
-        //eindlijst
-        List<String> transactionStrings = new ArrayList<>();
-
-
         String stringResult, timeStamp, counterAccount, message, plusMinus;
         double amount;
 
+        //final result list
+        List<String> transactionStrings = new ArrayList<>();
 
+        //getting transactions from database
+        //TODO LIMIT WERKT NIET MET PARAM!!!
+        List<Transaction> transactions = transactionRepository.findTransactionByAccounts(account.getAccountID());
+
+
+        //loop thru transactions to make proper strings for display
         for (Transaction t : transactions) {
-
             timeStamp = new SimpleDateFormat("MM/dd/yyyy '-' HH:mm").
                     format(t.getTransactionTimestamp());
             message = t.getMessage();
             amount = t.getTransactionAmount();
 
-            //tegenrekening zoeken
-            //als eigrek = creditrek, dan is tegenrek de debetrek [bijschrijving met + ]
-            //anders is tegenrek creditrek [afschrijving met - ]
+            //find counter account; if my account is credit [PLUS], if not [MINUS]
             if (ownAccountNo.equals(t.getTransactionAccountCredit().getAccountNo())) {
                 counterAccount = t.getTransactionAccountDebet().getAccountNo();
                 plusMinus = "+";
@@ -77,17 +74,15 @@ public class AccountPageService {
                 plusMinus = "-";
             }
 
+            //stylize transaction string
             stringResult = String.format("%s    |    %s    |    %s%.2f    |    %s",
                     timeStamp, counterAccount, plusMinus, amount, message);
 
             transactionStrings.add(stringResult);
-
         }
-
 
         return transactionStrings;
     }
-
 
 
 
