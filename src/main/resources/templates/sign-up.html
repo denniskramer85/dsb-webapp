@@ -36,9 +36,17 @@
         .errors {
             color: red;
             position: relative;
-            top: -15px;
-            margin-bottom: -10px;
+            top: -5px;
+            margin-bottom: -200px;
 
+        }
+
+        label {
+            width: 130px;
+        }
+
+        .form-group {
+            margin-bottom: 30px;
         }
     </style>
 
@@ -190,7 +198,7 @@
                         <input type="password" class="form-control" id="password2" name="password2">
                     </td></tr><tr><td></td><td>
                         <p class="errors"><span th:if="${#fields.hasErrors('password2')}" th:errors="*{password2}"/></p>
-                        <p class="errors" style="position: relative; top: 8px;"><span th:if="${#fields.hasGlobalErrors()}" th:each="error : ${#fields.errors('global')}" th:text="${error}"/></p>
+                        <p class="errors" style="position: relative; top: 200px;"><span th:if="${#fields.hasGlobalErrors()}" th:each="error : ${#fields.errors('global')}" th:text="${error}"/></p>
 
                     </td></tr>
                     </table>

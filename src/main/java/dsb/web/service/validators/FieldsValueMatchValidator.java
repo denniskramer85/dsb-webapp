@@ -18,10 +18,15 @@ public class FieldsValueMatchValidator implements ConstraintValidator<FieldsValu
     public boolean isValid(Object value,
                            ConstraintValidatorContext context) {
 
+
+
         Object fieldValue = new BeanWrapperImpl(value)
                 .getPropertyValue(field);
+        if (fieldValue == null || fieldValue.equals("")) return true;
+
         Object fieldMatchValue = new BeanWrapperImpl(value)
                 .getPropertyValue(fieldMatch);
+        if (fieldMatchValue == null || fieldMatchValue.equals("")) return true;
 
         if (fieldValue != null) {
             return fieldValue.equals(fieldMatchValue);

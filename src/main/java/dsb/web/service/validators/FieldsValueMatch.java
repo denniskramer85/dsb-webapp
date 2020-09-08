@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface FieldsValueMatch {
 
-    String message() default "Wachtwoorden komen niet overeen";
+    String message() default "Wachtwoorden niet identiek";
     Class<?>[] groups() default { };
     Class<? extends Payload>[] payload() default { };
 
