@@ -16,7 +16,7 @@
 
             <div class="card-header"><h1>Overboeken</h1></div>
 
-            <div class="card-body" id="accountData" th:object="${selectedAccount}">
+            <div class="card-body" id="accountData" th:object="${printAccountDataBean}">
 
                 <p class="italic"><span th:text="*{timestamp}"/></p>
                 <p th:if="*{typeAccount == 'SMEAccount'}"><strong>Bedrijf:</strong> <span th:text="*{companyName}"/></p>

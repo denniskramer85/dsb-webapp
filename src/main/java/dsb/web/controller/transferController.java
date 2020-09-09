@@ -2,6 +2,9 @@ package dsb.web.controller;
 
 import dsb.web.controller.beans.printAccountDataBean;
 import dsb.web.controller.beans.TransferBean;
+import dsb.web.domain.Account;
+import dsb.web.service.AccountPageService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -15,10 +18,17 @@ import java.util.Arrays;
 import java.util.List;
 
 @Controller
-@SessionAttributes("selectedAccountSession")
+@SessionAttributes("selectedAccount")
 public class transferController {
 
+    AccountPageService accountPageService;
+
     printAccountDataBean dummy;
+
+    @Autowired
+    public transferController(AccountPageService accountPageService) {
+        this.accountPageService = accountPageService;
+    }
 
     @GetMapping("transfer")
     public String startTransferPageHandler (Model model) {
@@ -29,9 +39,10 @@ public class transferController {
         dummy = new printAccountDataBean("SMEAccount", "123", "Hans BV",
                 "Kees en piet", "189,77", "1-4-33", lijstDummy);
 
+        //Account account = (Account) model.getAttribute("selectedAccount");
+        //model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
 
-        //AccountPageBean acp = (AccountPageBean) model.getAttribute("selectedAccountSession");
-        model.addAttribute("selectedAccount", dummy);
+        model.addAttribute("printAccountDataBean", dummy);
 
         model.addAttribute("transferBean", new TransferBean());
 

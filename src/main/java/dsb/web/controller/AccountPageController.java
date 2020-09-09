@@ -8,9 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-//@SessionAttributes("selectedAccountSession")
+@SessionAttributes("selectedAccount")
 public class AccountPageController {
 
     private AccountPageService accountPageService;
@@ -23,9 +24,13 @@ public class AccountPageController {
         this.accountRepository = accountRepository;
     }
 
-    @GetMapping("accountPage")
-    public String startAccountPage (@ModelAttribute("selectedAccount") Account account, Model model) {
 
+    //TODO oplossen met miel
+    @GetMapping("accountPage")
+    public String startAccountPage (/*@ModelAttribute("selectedAccount") Account accountX, */Model model) {
+
+        Account account = (Account) model.getAttribute("selectedAccount");
+        System.out.println("account is: " + account);
 
         //TODO dit moet beter, leiver echte account en dan per pag de printgegevens maken
         //je hebt hier selected account, heeft miel er al in vorige pagina ingehangen: selectedAccount
