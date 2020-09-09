@@ -18,7 +18,7 @@
 
             <div class="card-body">
 
-                <div id="accountData">
+                <div id="accountData" th:object="${selectedAccount}">
                     <p class="italic"><span th:text="*{timestamp}"/></p>
                     <p th:if="*{typeAccount == 'SMEAccount'}"><strong>Bedrijf:</strong> <span th:text="*{companyName}"/></p>
                     <p><strong>Houder(s):</strong>
