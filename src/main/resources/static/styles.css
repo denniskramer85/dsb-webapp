@@ -49,9 +49,11 @@
 
 /*for transfer page*/
 
-#transferPage {
-
+#transferPage label {
+    width: 130px;
 }
+
+
 
 #transferPage {
 

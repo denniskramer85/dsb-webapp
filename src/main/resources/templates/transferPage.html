@@ -16,31 +16,43 @@
 
             <div class="card-header"><h1>Overboeken</h1></div>
 
-            <div class="card-body">
+            <div class="card-body" id="accountData" th:object="${selectedAccount}">
 
-                <div id="accountData" th:object="${selectedAccount}">
-                    <p class="italic"><span th:text="*{timestamp}"/></p>
-                    <p th:if="*{typeAccount == 'SMEAccount'}"><strong>Bedrijf:</strong> <span th:text="*{companyName}"/></p>
-                    <p><strong>Houder(s):</strong>
-                        <!--                        <div >-->
-                        <span th:each="name : *{holderNames}" th:text="${name + ' '}"  />
-                        <!--                        </div>-->
-                    </p>
-                    <p><strong>Rekeningnummer:</strong> <span th:text="*{accountNo}"/></p>
-                    <p><strong>Saldo:</strong> € <span th:text="*{balance}"/></p>
-                </div>
-
-
-
+                <p class="italic"><span th:text="*{timestamp}"/></p>
+                <p th:if="*{typeAccount == 'SMEAccount'}"><strong>Bedrijf:</strong> <span th:text="*{companyName}"/></p>
+                <p><strong>Houder(s):</strong>
+                    <!--                        <div >-->
+                    <span th:each="name : *{holderNames}" th:text="${name + ' '}"  />
+                    <!--                        </div>-->
+                </p>
+                <p><strong>Rekeningnummer:</strong> <span th:text="*{accountNo}"/></p>
+                <p><strong>Saldo:</strong> € <span th:text="*{balance}"/></p>
 
             </div>
 
+            <div class="card-body" id="inoutTransferData">
 
+<!--                    <form method="post" th:action="@{transfer}" th:object="transferBean">-->
+                <form method="post" th:action="@{transfer}">
 
+                    <div class="form-group">
+                        <table><tr><td>
+                            <label for="counterAccountNo">Rekeningnr.<br>begunstigde</label>
+                        </td><td>
+                            <input type="text" class="form-control" id="counterAccountNo" name="counterAccountNo" th:field="${dummy}" autofocus>
+                        </td></tr><tr><td></td><td>
+<!--                                <p class="errors"><span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"/></p>-->
+                        </td></tr>
+                        </table>
+                    </div>
 
+                </form>
+
+            </div>
         </div>
-
     </div>
+
+
 
 
 </body>
