@@ -31,6 +31,8 @@ public class AccountPageController {
 
         Account account = (Account) model.getAttribute("selectedAccount");
         System.out.println("account is: " + account);
+        //TODO hier nog null
+
 
         //TODO dit moet beter, leiver echte account en dan per pag de printgegevens maken
         //je hebt hier selected account, heeft miel er al in vorige pagina ingehangen: selectedAccount
