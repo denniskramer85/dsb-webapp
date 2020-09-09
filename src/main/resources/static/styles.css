@@ -47,3 +47,25 @@
 /*for signup confirm page */
 
 
+/*for transfer page*/
+
+#transferPage label {
+    width: 130px;
+}
+
+#transferPage .errors {
+    color: red;
+    position: relative;
+    top: -5px;
+    margin-bottom: -200px;
+}
+
+#transferPage .form-group {
+    margin-bottom: 30px;
+}
+
+#transferPage .buttons {
+    position: relative;
+    top: 20px;
+}
+

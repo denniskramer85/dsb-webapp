@@ -9,10 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.List;
 
 @Controller
+@SessionAttributes("selectedAccountSession")
 public class AccountPageController {
 
     private AccountPageService accountPageService;
@@ -28,15 +30,7 @@ public class AccountPageController {
     @GetMapping("accountPage")
     public String startAccountPage (@ModelAttribute("selectedAccount") Account account, Model model) {
 
-        AccountPageBean accountPageBean = accountPageService.makeAccountPageBean(account);
-
-
-
-        model.addAttribute("accountPageBean", accountPageBean);
-
-
-
-
+        model.addAttribute("selectedAccountSession", accountPageService.makeAccountPageBean(account));
 
         return "account_page";
     }
