@@ -26,7 +26,7 @@ public class IbanService {
 
     public static Iban randIBAN(){
         Iban iban = new Iban(IBAN_COUNTRY_CODE,0,IBAN_BANK_CODE,randomAccountNumber());
-        int checksum = calculateMod(iban);
+        int checksum = calculateMod(iban.toString());
         iban.setCheckSum(98-checksum);
         return iban;
     }
@@ -50,7 +50,7 @@ public class IbanService {
         return new Iban(countryCode,checkSum,bankCode,accountNumber);
     }
 
-    public static String stringToIntegerString(String str) {
+    public static String stringToNumericalString(String str) {
         String result = "";
         for (int i = 0; i < str.length(); i++) {
             int chr = Character.getNumericValue(str.charAt(i));
@@ -63,18 +63,28 @@ public class IbanService {
         return result;
     }
 
-    public static boolean verifyIban(Iban iban) {
-        if (checkValidityIbanLength(iban) &&
-                checkValidityIbanDigits(iban) &&
-                calculateMod(iban)==VALID_REMAINDER_MOD_97)
+
+    /**
+     * Verifies Iban using three different strategies
+     * 1. Iban length
+     * 2. validity of characters
+     * 3. Calculates if Iban's checksum is valid
+     *
+     * @param ibanStr
+     * @return boolean
+     */
+    public static boolean verifyIban(String ibanStr) {
+        if (checkValidityIbanLength(ibanStr) &&
+                checkValidityIbanDigits(ibanStr) &&
+                calculateMod(ibanStr)==VALID_REMAINDER_MOD_97)
             return true;
         return false;
     }
 
 
-    private static int calculateMod(Iban iban) {
+    private static int calculateMod(String ibanStr) {
         long total = 0;
-        String str = iban.toNumericalString();
+        String str = ibanStr;
         for (int i = 0; i < str.length(); i++) {
             int numericValue = Character.getNumericValue(str.charAt(i));
             if (numericValue < 0 || numericValue > ALPHABET_HIGHER_BOUND) {
@@ -89,17 +99,17 @@ public class IbanService {
         return result;
     }
 
-    private static boolean checkValidityIbanLength(Iban iban){
-        if (iban.toString().length() != ibanLength()){
+    private static boolean checkValidityIbanLength(String ibanStr){
+        if (ibanStr.length() != ibanLength()){
             return false;
         } else {
             return true;
         }
     }
 
-    private static boolean checkValidityIbanDigits(Iban iban){
-        for (int i = 0; i < iban.toString().length(); i++) {
-            if (iban.toString().charAt(i) < ALPHABET_HIGHER_BOUND){
+    private static boolean checkValidityIbanDigits(String ibanStr){
+        for (int i = 0; i < ibanStr.length(); i++) {
+            if (ibanStr.charAt(i) < ALPHABET_HIGHER_BOUND){
                 return false;
             }
         }
