@@ -43,7 +43,7 @@ public class NewAccountController {
             Model model) {
         NewAccountBean newAccountBean = new NewAccountBean();
         newAccountBean.setBalance(100);
-        newAccountBean.setAccountNo(newAccountService.buildIBAN());
+        //newAccountBean.setAccountNo(newAccountService.buildIBAN());
         model.addAttribute("newAccountBean", newAccountBean);
         if (accountType == 0) {                         // if Radio 'partiuculier' was selected
             return "confirm-new-account";
