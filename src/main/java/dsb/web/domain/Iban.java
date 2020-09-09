@@ -71,12 +71,12 @@ public class Iban {
 
     public String toNumericalString() {
         StringBuilder result = new StringBuilder();
-        result.append(IbanService.stringToIntegerString(this.bankCode));
+        result.append(IbanService.stringToNumericalString(this.bankCode));
         for (int i = 0; i < LENGTH_ACCOUNT_NUMBER-Integer.toString(this.accountCode).length(); i++) {
             result.append("0");
         }
         result.append(this.accountCode);
-        result.append(IbanService.stringToIntegerString(this.countryCode));
+        result.append(IbanService.stringToNumericalString(this.countryCode));
         result.append(String.format("%02d", this.checkSum));
         return result.toString().toUpperCase();
     }
