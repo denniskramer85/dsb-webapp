@@ -82,4 +82,12 @@
 }
 
 
+/*for transfer confirm page*/
 
+#transferConfirmPage label {
+    width: 130px;
+}
+
+#transferConfirmPage .form-group {
+    margin-bottom: 10px;
+}

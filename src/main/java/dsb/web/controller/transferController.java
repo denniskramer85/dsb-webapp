@@ -1,5 +1,6 @@
 package dsb.web.controller;
 
+import dsb.web.controller.beans.LoginBean;
 import dsb.web.controller.beans.printAccountDataBean;
 import dsb.web.controller.beans.TransferBean;
 import dsb.web.domain.Account;
@@ -39,10 +40,10 @@ public class transferController {
         dummy = new printAccountDataBean("SMEAccount", "123", "Hans BV",
                 "Kees en piet", "189,77", "1-4-33", lijstDummy);
 
-        Account account = (Account) model.getAttribute("selectedAccountSession");
-        model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
+//        Account account = (Account) model.getAttribute("selectedAccountSession");
+//        model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
 
-        //model.addAttribute("printAccountDataBean", dummy);
+        model.addAttribute("printAccountDataBean", dummy);
 
         model.addAttribute("transferBean", new TransferBean());
 
@@ -50,24 +51,34 @@ public class transferController {
     }
 
     @PostMapping("transfer")
-    public String transferDataHandler (@Valid @ModelAttribute TransferBean tb, Errors errors, Model model) {
+    public String transferDataHandler (/*@Valid*/ @ModelAttribute TransferBean tb, Errors errors, Model model) {
 
-        /**validate for errors - is fo return**/
-        if(errors.hasErrors()) {
-
-            model.addAttribute("printAccountDataBean", dummy);
-            model.addAttribute("transferBean", tb);
-
-            return "transferPage";
-        }
+//        /**validate for errors - is fo return**/
+//        if(errors.hasErrors()) {
+//
+//            model.addAttribute("printAccountDataBean", dummy);
+//            model.addAttribute("transferBean", tb);
+//
+//            return "transferPage";
+//        }
 
         model.addAttribute("transferBean", tb);
+
+        model.addAttribute("loginBean", new LoginBean());
+
+
+
         return "transferConfirmPage";
     }
 
+    @PostMapping("transferConfirm")
+    public String transferConfirmHandler (@ModelAttribute LoginBean lb, Model model) {
+
+        System.out.println(lb);
 
 
-
+        return "index";
+    }
 }
 
 

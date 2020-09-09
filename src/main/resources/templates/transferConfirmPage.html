@@ -7,7 +7,7 @@
     <title>Overboeken</title>
 
 </head>
-<body id="transferConfirmPage" th:object="${transferBean}">
+<body id="transferConfirmPage">
 <div th:include="fragments/header :: header"></div>
 <div class="container">
 
@@ -15,14 +15,76 @@
 
         <div class="card-header"><h1>Bevestiging overboeking</h1></div>
 
-        <div class="card-body">
+        <div class="card-body" th:object="${transferBean}">
 
+            <div class="form-group">
+                <table><tr><td>
+                    <label for="creditAccountNo">Rekeningnummer<br>begunstigde</label>
+                </td><td>
+                    <input type="text" class="form-control" id="creditAccountNo" name="creditAccountNo" th:field="*{creditAccountNo}" readonly>
+                </td></tr>
+                </table>
+            </div>
 
+            <div class="form-group">
+                <table><tr><td>
+                    <label for="transferAmount">Bedrag</label>
+                </td><td>
+                    <input type="text" class="form-control" id="transferAmount" name="transferAmount" th:field="*{transferAmount}" readonly>
+                </td></tr>
+                </table>
+            </div>
 
-
+            <div class="form-group">
+                <table><tr><td>
+                    <label for="message">Mededeling</label>
+                </td><td>
+                    <input type="text" class="form-control" id="message" name="message" th:field="*{message}" readonly>
+                </td></tr>
+                </table>
+            </div>
 
         </div>
     </div>
+
+    <div class = "card">
+
+        <div class="card-header"><h5>Validatie voor overboeking</h5></div>
+
+        <div class="card-body">
+            <form method="post" th:object="${loginBean}" th:action="@{transferConfirm}">
+
+                <div class="form-group">
+                    <table><tr><td>
+                        <label for="username">Gebruikersnaam</label>
+                    </td><td>
+                        <input type="text" class="form-control" id="username" name="username" th:field="*{username}" autofocus>
+                    </td></tr>
+                    </table>
+                </div>
+
+                <div class="form-group">
+                    <table><tr><td>
+                        <label for="password">Wachtwoord</label>
+                    </td><td>
+                        <input type="password" class="form-control" id="password" name="password" th:field="*{password}">
+                    </td></tr>
+                    </table>
+                </div>
+
+                <div class="buttons">
+                    <input class="btn btn-outline-dark" type="submit" value="Bevestigen">
+                    <input class="btn btn-outline-dark" type="button" value="Annuleren" onclick="location.href='/'">
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
+
+
+
 </div>
 
 
