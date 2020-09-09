@@ -1,5 +1,7 @@
 package dsb.web.service.validators;
 
+import dsb.web.service.IbanService;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
@@ -13,8 +15,7 @@ public class AccountNoValidator implements ConstraintValidator<AccountNoConstrai
 
         if (accountNo == null || accountNo.trim().equals("")) return true;
 
-        //TODO: Implementeer IBAN-check van Daan
-        if (accountNo.length() > 6 ) {
+        if (IbanService.verifyIban(accountNo)) {
             return true;
         }
         return false;

@@ -13,12 +13,12 @@ import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
 public class TransferBean {
-    private Account creditAccount;
+    private Account debitAccount;
 
     @NotBlank
     @AccountNoConstraint
     @DSBAccountConstraint
-    private String debitAccountNo;
+    private String creditAccountNo;
 
     @Digits(integer = 50, fraction = 2, message = "Voer een geldig bedrag in")
     @Positive(message = "Voer een bedrag groter dan 0 in")
@@ -29,30 +29,30 @@ public class TransferBean {
     private String message;
 
     @Autowired
-    public TransferBean(Account creditAccount, String debitAccountNo, Double transferAmount, String message) {
-        this.creditAccount = creditAccount;
-        this.debitAccountNo = debitAccountNo;
-        this.transferAmount = BigDecimal.valueOf(transferAmount);
+    public TransferBean(Account debitAccount, String creditAccountNo, BigDecimal transferAmount, String message) {
+        this.debitAccount = debitAccount;
+        this.creditAccountNo = creditAccountNo;
+        this.transferAmount = transferAmount;
         this.message = message;
     }
 
     public TransferBean() {
     }
 
-    public Account getCreditAccount() {
-        return creditAccount;
+    public Account getDebitAccount() {
+        return debitAccount;
     }
 
-    public void setCreditAccount(Account creditAccount) {
-        this.creditAccount = creditAccount;
+    public void setDebitAccount(Account debitAccount) {
+        this.debitAccount = debitAccount;
     }
 
-    public String getDebitAccountNo() {
-        return debitAccountNo;
+    public String getCreditAccountNo() {
+        return creditAccountNo;
     }
 
-    public void setDebitAccountNo(String debitAccountNo) {
-        this.debitAccountNo = debitAccountNo;
+    public void setCreditAccountNo(String creditAccountNo) {
+        this.creditAccountNo = creditAccountNo;
     }
 
     public Double getTransferAmount() {
