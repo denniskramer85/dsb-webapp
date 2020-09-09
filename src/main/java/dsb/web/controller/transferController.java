@@ -1,6 +1,7 @@
 package dsb.web.controller;
 
 import dsb.web.controller.beans.AccountPageBean;
+import dsb.web.controller.beans.TransferBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,18 +32,18 @@ public class transferController {
         //AccountPageBean acp = (AccountPageBean) model.getAttribute("selectedAccountSession");
         model.addAttribute("selectedAccount", dummy);
 
-        //model.addAttribute("transferBean", new TransferBean);
+        model.addAttribute("transferBean", new TransferBean());
 
-        model.addAttribute("dummy", "dummy");
+
 
         return "transferPage";
     }
 
-//    @PostMapping("transfer")
-//    public String transferDataHandler (@Valid @ModelAttribute TransferBean tb, Model model) {
-//
-//
-//    }
+    @PostMapping("transfer")
+    public String transferDataHandler (@Valid @ModelAttribute TransferBean tb, Model model) {
+
+        return null;
+    }
 
 
 
