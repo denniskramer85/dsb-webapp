@@ -46,6 +46,33 @@
                         </table>
                     </div>
 
+                    <div class="form-group">
+                        <table><tr><td>
+                            <label for="transferAmount">Bedrag</label>
+                        </td><td>
+                            <input type="text" class="form-control" id="transferAmount" name="transferAmount" th:field="*{transferAmount}">
+                        </td></tr><tr><td></td><td>
+                            <p class="errors"><span th:if="${#fields.hasErrors('transferAmount')}" th:errors="*{transferAmount}"/></p>
+                        </td></tr>
+                        </table>
+                    </div>
+
+                    <div class="form-group">
+                        <table><tr><td>
+                            <label for="message">Mededeling</label>
+                        </td><td>
+                            <input type="textarea" class="form-control" id="message" name="message" th:field="*{message}">
+                        </td></tr><tr><td></td><td>
+                            <p class="errors"><span th:if="${#fields.hasErrors('message')}" th:errors="*{message}"/></p>
+                        </td></tr>
+                        </table>
+                    </div>
+
+
+                    <div class="buttons">
+                        <input class="btn btn-outline-dark" type="submit" value="Bevestigen">
+                        <input class="btn btn-outline-dark" type="button" value="Annuleren" onclick="location.href='/'">
+                    </div>
 
 
 

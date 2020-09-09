@@ -56,7 +56,8 @@ public class TransferBean {
     }
 
     public Double getTransferAmount() {
-        return transferAmount.doubleValue();
+        return 20.3;
+        //return transferAmount.doubleValue();
     }
 
     public void setTransferAmount(Double transferAmount) {

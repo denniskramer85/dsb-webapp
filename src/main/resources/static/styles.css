@@ -64,3 +64,8 @@
     margin-bottom: 30px;
 }
 
+#transferPage .buttons {
+    position: relative;
+    top: 20px;
+}
+
