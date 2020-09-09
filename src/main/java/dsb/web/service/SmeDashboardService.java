@@ -1,6 +1,9 @@
 package dsb.web.service;
 
 
+import dsb.web.domain.Account;
+import dsb.web.domain.Customer;
+import dsb.web.domain.SMEAccount;
 import dsb.web.domain.Transaction;
 import dsb.web.repository.SMEAccountRepository;
 import dsb.web.repository.TransactionRepository;
@@ -23,19 +26,15 @@ public class SmeDashboardService {
     public SmeDashboardService() {
     }
 
-    public List<Transaction> getTop10Transaction(Transaction transaction) {
+    public List<Transaction> getTop10SmeTransaction() {
         List<Transaction> transactionList = transactionRepository.findAll();
         return transactionList;
     }
 
-
-
-//In de eerste eventhandler roep je eerst je service klasse op,
-    //1 maak klasse smeadashboardservice, in je servicepakket
-    //2 Zet deze klasse klasse klaar in je controller via constructor met @autowired, dat wordtd een attribuut in je controller
-    //3 zet in je serviceklasse account.repository klaar met @autowired zodat het een attribuut wordt in de service klasse, zodat je in je service klasse kan beschikken over de data
-    //4 in de eerste eventhandler in controller een methode aanroepen die in de serviceklasse staat, die methode bouw je in de service klasse,
-    //5 methode doet een querie in de repository.
+    public List<SMEAccount> getTop10SmeBalance() {
+        List<SMEAccount> smeAccountsList = smeAccountRepository.findAll();
+        return smeAccountsList;
+    }
 
 
 }

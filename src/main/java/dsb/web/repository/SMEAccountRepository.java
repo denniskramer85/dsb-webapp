@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface SMEAccountRepository extends CrudRepository<SMEAccount, Integer> {
     List<SMEAccount> findAllByHolders(Customer customer);
+    List<SMEAccount> findAll();
 }

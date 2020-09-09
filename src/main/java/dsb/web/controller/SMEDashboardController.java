@@ -1,5 +1,7 @@
 package dsb.web.controller;
 
+import dsb.web.domain.Customer;
+import dsb.web.domain.SMEAccount;
 import dsb.web.domain.Transaction;
 import dsb.web.service.SmeDashboardService;
 import org.slf4j.Logger;
@@ -28,22 +30,17 @@ public class SMEDashboardController {
     }
 
     @GetMapping("SME_dashboard")
-    public String SmeDashboardOverview(Transaction transaction, Model model) {
-        List<Transaction> top10Transaction = smeDashboardService.getTop10Transaction(transaction);
-    //Model info verstuurt naar je template
-    model.addAttribute("naam", "thijs");
-    model.addAttribute("transaction", top10Transaction);
-    return "sme_employee_dashboard";
-}
+    public String SmeDashboardOverview(Model model) {
 
+        List<Transaction> top10Transaction = smeDashboardService.getTop10SmeTransaction();
+        List<SMEAccount> top10Balance = smeDashboardService.getTop10SmeBalance();
+        //Model info verstuurt naar je template
+        model.addAttribute("naam", "thijs");
+        model.addAttribute("balances", top10Balance);
+        model.addAttribute("transaction", top10Transaction);
 
-//In de eerste eventhandler roep je eerst je service klasse op,
-    //1 maak klasse smeadashboardservice, in je servicepakket
-    //2 Zet deze klasse klasse klaar in je controller via constructor met @autowired, dat wordtd een attribuut in je controller
-    //3 zet in je serviceklasse account.repository klaar met @autowired zodat het een attribuut wordt in de service klasse, zodat je in je service klasse kan beschikken over de data
-    //4 in de eerste eventhandler in controller een methode aanroepen die in de serviceklasse staat, die methode bouw je in de service klasse,
-    //5 methode doet een querie in de repository.
-
+        return "sme_employee_dashboard";
+    }
 
 }
 
