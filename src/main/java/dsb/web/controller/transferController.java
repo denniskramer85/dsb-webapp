@@ -18,7 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Controller
-@SessionAttributes("selectedAccount")
+@SessionAttributes("selectedAccountSession")
 public class transferController {
 
     AccountPageService accountPageService;
@@ -39,8 +39,10 @@ public class transferController {
         dummy = new printAccountDataBean("SMEAccount", "123", "Hans BV",
                 "Kees en piet", "189,77", "1-4-33", lijstDummy);
 
-        //Account account = (Account) model.getAttribute("selectedAccount");
-        //model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
+//        Account account = (Account) model.getAttribute("selectedAccountSession");
+//        model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
+
+
 
         model.addAttribute("printAccountDataBean", dummy);
 

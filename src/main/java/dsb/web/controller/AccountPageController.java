@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes("selectedAccount")
+@SessionAttributes("selectedAccountSession")
 public class AccountPageController {
 
     private AccountPageService accountPageService;
@@ -27,20 +27,16 @@ public class AccountPageController {
 
     //TODO oplossen met miel
     @GetMapping("accountPage")
-    public String startAccountPage (/*@ModelAttribute("selectedAccount") Account accountX, */Model model) {
+    public String startAccountPage (@ModelAttribute("selectedAccount") Account account, Model model) {
 
-        Account account = (Account) model.getAttribute("selectedAccount");
+        //get selected Account from flash/redirect
         System.out.println("account is: " + account);
-        //TODO hier nog null
 
+        //put account in session (for all later use)
+        model.addAttribute("selectedAccountSession", account);
 
-        //TODO dit moet beter, leiver echte account en dan per pag de printgegevens maken
-        //je hebt hier selected account, heeft miel er al in vorige pagina ingehangen: selectedAccount
-        //hier is ACCOUNT dus vanuit een session ebschikbaar, net als nu - even omzetten
-        //model.addAttribute("selectedAccountSession", accountPageService.makePrintAccountDataBean(account));
-
+        //make bean voor printing account data
         model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
-
 
         return "account_page";
     }
