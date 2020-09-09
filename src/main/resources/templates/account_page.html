@@ -8,8 +8,24 @@
 
     //TODO extern
     <style>
-        .noTransactions {
+        .italic {
             font-style: italic;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        #legenda {
+            display: flex;
+            font-size: 120%;
+            position: relative;
+            top: 22px;
+        }
+
+        #transactionList {
+            font-family: monospace;
+            font-size: 120%;
         }
 
 
@@ -28,19 +44,19 @@
 
         <div class="card">
             <div class="card-header">
-                Rekeningpagina
+                <h1>Rekeningpagina</h1>
             </div>
             <div class="card-body">
                 <div id="accountData">
-                    <p th:if="*{typeAccount == 'SMEAccount'}">Bedrijf: <span th:text="*{companyName}"/></p>
-                    <p>Houder(s):
+                    <p class="italic"><span th:text="*{timestamp}"/></p>
+                    <p th:if="*{typeAccount == 'SMEAccount'}"><strong>Bedrijf:</strong> <span th:text="*{companyName}"/></p>
+                    <p><strong>Houder(s):</strong>
 <!--                        <div >-->
                             <span th:each="name : *{holderNames}" th:text="${name + ' '}"  />
 <!--                        </div>-->
                     </p>
-                    <p>Rekeningnummer: <span th:text="*{accountNo}"/></p>
-                    <p>Saldo: € <span th:text="*{balance}"/></p>
-                    <p><span th:text="*{timestamp}"/></p>
+                    <p><strong>Rekeningnummer:</strong> <span th:text="*{accountNo}"/></p>
+                    <p><strong>Saldo:</strong> € <span th:text="*{balance}"/></p>
                 </div>
 
                 <div id="generalButtons">
@@ -59,12 +75,21 @@
 
         <div class="card">
             <div class="card-header">
-                Transacties
+                <h2>Transacties</h2>
+
+                <div id="legenda">
+                    <pre>Datum       </pre>
+                    <pre>Tijd   </pre>
+                    <pre>Tegenrekening       </pre>
+                    <pre>Bij/Af   </pre>
+                    <pre>Omschrijving</pre>
+                </div>
+
             </div>
             <div class="card-body">
                 <div id="transactionList">
-                    <p class="noTransactions" th:if="*{transactions.empty}">Voor deze rekening zijn geen transacties beschikbaar.</p>
-                    <div th:each="transaction : *{transactions}">
+                    <p class="italic" th:if="*{transactionStrings.empty}">Voor deze rekening zijn geen transacties beschikbaar.</p>
+                    <div th:each="transaction : *{transactionStrings}">
                         <p><span th:text="${transaction}"  /></p>
                     </div>
                 </div>

@@ -2,10 +2,14 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
-<!--    <link rel="stylesheet" type="text/css" th:href="styles.css"/>-->
+    <!--    <link rel="stylesheet" type="text/css" th:href="styles.css"/>-->
 
     <meta charset="UTF-8">
-    <title>Postcode Test</title>
+    <title>Aanmelding</title>
+
+
+<!--    TODO: cs ww-gelijktjek en required weer aanzetten-->
+
 
     <!--TODO extern zetten-->
     <style>
@@ -32,6 +36,22 @@
         .signuppage #mandatory {
             font-style: italic;
         }
+
+        .errors {
+            color: red;
+            position: relative;
+            top: -5px;
+            margin-bottom: -200px;
+
+        }
+
+        label {
+            width: 130px;
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
     </style>
 
 </head>
@@ -47,61 +67,150 @@
     <br>
     <form method="POST" th:object="${customerBean}" th:action="@{customerCompleted}" onSubmit="return pass();">
         <div class="grid">
+
+
             <div id="personalData">
                 <div class="form-group">
-                    <label for="surname">Achternaam*</label>
-                    <input type="text" class="form-control" id="surname" name="surname" th:field="*{surname}" required>
+                    <table><tr><td>
+                        <label for="surname">Achternaam*</label>
+                    </td><td>
+                        <input type="text" class="form-control" id="surname" name="surname" th:field="*{surname}" autofocus>
+                    </td></tr><tr><td></td><td>
+                        <p class="errors"><span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"/></p>
+                    </td></tr>
+                    </table>
                 </div>
                 <div class="form-group">
-                    <label for="inserts">Tussenvoegsels</label>
-                    <input type="text" class="form-control" id="inserts" name="inserts" th:field="*{inserts}">
+                    <table><tr><td>
+                        <label for="inserts">Tussenvoegsels</label>
+                    </td><td>
+                        <input type="text" class="form-control" id="inserts" name="inserts" th:field="*{inserts}">
+                    </td></tr><tr><td></td><td>
+                        <p class="errors"><span th:if="${#fields.hasErrors('inserts')}" th:errors="*{inserts}"/></p>
+                    </td></tr>
+                    </table>
                 </div>
                 <div class="form-group">
-                    <label for="initials">Voorletters*</label>
-                    <input type="text" class="form-control" id="initials" name="initials" th:field="*{initials}" required>
+                    <table><tr><td>
+                        <label for="initials">Voorletters*</label>
+                    </td><td>
+                        <input type="text" class="form-control" id="initials" name="initials" th:field="*{initials}">
+                    </td></tr><tr><td></td><td>
+                        <p class="errors"><span th:if="${#fields.hasErrors('initials')}" th:errors="*{initials}"/></p>
+                    </td></tr>
+                    </table>
                 </div>
                 <div class="form-group">
-                    <label for="socialSecurityNo">BSN-nummer*</label>
-                    <input type="number" class="form-control" id="socialSecurityNo" name="socialSecurityNo" th:field="*{socialSecurityNo}" required>
+                    <table><tr><td>
+                        <label for="socialSecurityNo">BSN-nummer*</label>
+                    </td><td>
+                        <input type="text" class="form-control" id="socialSecurityNo" name="socialSecurityNo" th:field="*{socialSecurityNoString}">
+                    </td></tr><tr><td></td><td>
+                        <p class="errors"><span th:if="${#fields.hasErrors('socialSecurityNoString')}" th:errors="*{socialSecurityNoString}"/></p>
+                    </td></tr>
+                    </table>
                 </div>
             </div>
+
+
 
             <div id="addressData">
                 <div class="form-group">
-                    <label for="zipcode">Postcode*</label>
-                    <input type="text" class="form-control" id="zipcode" name="zipcode" th:field="*{zipCode}" onkeyup="retrieve_address('zipcode',this.value)" required>
+                    <table><tr><td>
+                        <label for="zipcode">Postcode*</label>
+                    </td><td>
+                        <input type="text" class="form-control" id="zipcode" name="zipcode" th:field="*{zipCode}"
+                               onkeyup="retrieve_address('zipcode',this.value)">
+                    </td></tr><tr><td></td><td>
+                        <p class="errors"><span th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}"/></p>
+                    </td></tr>
+                    </table>
                 </div>
                 <div class="form-group">
-                    <label for="housenumber">Huisnummer*</label>
-                    <input type="number" class="form-control" id="housenumber" name="housenumber" th:field="*{houseNumber}" onkeyup="retrieve_address('housenumber', this.value)" required>
+                    <table><tr><td>
+                        <label for="housenumber">Huisnummer*</label>
+                    </td><td>
+                        <input type="text" class="form-control" id="housenumber" name="housenumber"
+                               th:field="*{houseNumberString}" onkeyup="retrieve_address('housenumber', this.value)">
+                    </td></tr><tr><td></td><td>
+                        <p class="errors"><span th:if="${#fields.hasErrors('houseNumberString')}"
+                                                th:errors="*{houseNumberString}"/></p>
+                    </td></tr>
+                    </table>
                 </div>
                 <div class="form-group">
-                    <label for="affix">Toevoeging</label>
-                    <input type="text" class="form-control" id="affix" name="affix" th:field="*{affixes}" onkeyup="retrieve_address('affix', this.value)">
+                    <table><tr><td>
+                        <label for="affix">Toevoeging</label>
+                    </td><td>
+                        <input type="text" class="form-control" id="affix" name="affix" th:field="*{affixes}"
+                               onkeyup="retrieve_address('affix', this.value)">
+                    </td></tr><tr><td></td><td>
+                        <p class="errors"><span th:if="${#fields.hasErrors('affixes')}" th:errors="*{affixes}"/></p>
+                    </td></tr>
+                    </table>
                 </div>
                 <div class="form-group">
-                    <label for="affix">Straat</label>
-                    <input type="text" class="form-control" id="street" name="street" th:field="*{street}" readonly required>
+                    <table><tr><td>
+                        <label for="street">Straat</label>
+                    </td><td>
+                        <input type="text" class="form-control" id="street" name="street" th:field="*{street}" readonly>
+                    </td></tr><tr><td></td><td>
+                        <p class="errors"><span th:if="${#fields.hasErrors('street')}" th:errors="*{street}"/></p>
+                    </td></tr>
+                    </table>
                 </div>
                 <div class="form-group">
-                    <label for="city">Plaats</label>
-                    <input type="text" class="form-control" id="city" name="city" th:field="*{city}" readonly required>
+                    <table><tr><td>
+                        <label for="city">Plaats</label>
+                    </td><td>
+                        <input type="text" class="form-control" id="city" name="city" th:field="*{city}" readonly />
+                    </td></tr><tr><td></td><td>
+                        <p class="errors"><span th:if="${#fields.hasErrors('city')}" th:errors="*{city}"/></p>
+                    </td></tr>
+                    </table>
                 </div>
+
             </div>
+
+
 
             <div id="userData">
                 <div class="form-group">
-                    <label for="username">Gebruikersnaam*</label>
-                    <input type="text" class="form-control" id="username" name="username" th:field="*{username}" required>
+                    <table><tr><td>
+                        <label for="username">Gebruikersnaam*</label>
+                    </td><td>
+                        <input type="text" class="form-control" id="username" name="username" th:field="*{username}">
+                    </td></tr><tr><td></td><td>
+                        <p class="errors"><span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"/></p>
+                    </td></tr>
+                    </table>
                 </div>
                 <div class="form-group">
-                    <label for="password">Wachtwoord*</label>
-                    <input type="password" class="form-control" id="password" name="password" th:field="*{password}" required>
+                    <table><tr><td>
+                        <label for="password">Wachtwoord*</label>
+                    </td><td>
+                        <input type="password" class="form-control" id="password" name="password" th:field="*{password}">
+                    </td></tr><tr><td></td><td>
+                        <p class="errors"><span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"/></p>
+                    </td></tr>
+                    </table>
                 </div>
                 <div class="form-group">
-                    <label for="password2">Herhaal wachtwoord*</label>
-                    <input type="password" class="form-control" id="password2" name="password2" required>
+                    <table><tr><td>
+                        <label for="password2">Herhaal wachtwoord*</label>
+                    </td><td>
+                        <input type="password" class="form-control" id="password2" name="password2">
+                    </td></tr><tr><td></td><td>
+                        <p class="errors"><span th:if="${#fields.hasErrors('password2')}" th:errors="*{password2}"/></p>
+                        <p class="errors" style="position: relative; top: 200px;"><span th:if="${#fields.hasGlobalErrors()}" th:each="error : ${#fields.errors('global')}" th:text="${error}"/></p>
+
+                    </td></tr>
+                    </table>
                 </div>
+
+
+
+
             </div>
 
 
@@ -123,7 +232,7 @@
     // Code for retrieving ZIP information from bwnr.nl API
     // Declare empty variables
     var zipcode = "";
-    var housenumber= "";
+    var housenumber = "";
     var affix = "";
 
     function retrieve_address(id, value) {
@@ -200,25 +309,20 @@
         xmlHttpRequest.send();
     }
 
-        function pass() {
-            var password = document.getElementById("password").value
-            var password2 = document.getElementById("password2").value
-            if (password != password2) {
-                alert("Wachtwoorden komen niet overeen, probeer opnieuw");
-                return false;
-            }
-            return true;
-
-
-    }
+    // function pass() {
+    //     var password = document.getElementById("password").value
+    //     var password2 = document.getElementById("password2").value
+    //     if (password != password2) {
+    //         alert("Wachtwoorden komen niet overeen");
+    //         return false;
+    //     }
+    //     return true;
+    //
+    //
+    // }
 
 
 </script>
-
-
-
-
-
 
 
 </body>

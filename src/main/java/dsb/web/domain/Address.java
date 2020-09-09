@@ -3,6 +3,7 @@ package dsb.web.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
 public class Address {
@@ -41,6 +42,23 @@ public class Address {
                 ", zipCode='" + zipCode + '\'' +
                 ", city='" + city + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Address)) return false;
+        Address address = (Address) o;
+        return getHouseNumber() == address.getHouseNumber() &&
+                getStreet().equals(address.getStreet()) &&
+                getAffixes().equals(address.getAffixes()) &&
+                getZipCode().equals(address.getZipCode()) &&
+                getCity().equals(address.getCity());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getAddressID(), getStreet(), getHouseNumber(), getAffixes(), getZipCode(), getCity());
     }
 
     public int getAddressID() {

@@ -28,6 +28,8 @@
             margin-top: 10px;
         }
 
+
+
     </style>
 
 </head>
@@ -57,30 +59,14 @@
             </div>
             <div id="BSN">
                 <p class="subheader">BSN-nummer:</p>
-                <p><span th:text="*{socialSecurityNo}"/></p>
+                <p><span th:text="*{socialSecurityNoString}"/></p>
             </div>
         </div>
 
         <div id="addressData">
-            <div id="street">
-                <p class="subheader">Straat:</p>
-                <p><span th:text="*{street}"/></p>
-            </div>
-            <div id="houseNumber">
-                <p class="subheader">Huisnummer:</p>
-                <p><span th:text="*{houseNumber}"/></p>
-            </div>
-            <div id="affixes">
-                <p class="subheader">Toevoeging:</p>
-                <p><span th:text="*{affixes}"/></p>
-            </div>
-            <div id="zipCode">
-                <p class="subheader">Postcode:</p>
-                <p><span th:text="*{zipCode}"/></p>
-            </div>
-            <div id="city">
-                <p class="subheader">Woonplaats:</p>
-                <p><span th:text="*{city}"/></p>
+            <div id="address">
+                <p class="subheader">Adres:</p>
+                <p><span style="white-space: pre;" th:text="${addressPrint}"/></p>
             </div>
         </div>
 

@@ -51,46 +51,13 @@ public class SignupService {
     }
 
 
+    public String createAddressPrint(CustomerBean cb) {
+        String street = cb.getStreet();
+        String houseNumber = cb.getHouseNumberString();
+        String affixes = cb.getAffixes();
+        String zipCode = cb.getZipCode();
+        String city = cb.getCity();
 
-
-    public void allServerSideChecksBean(CustomerBean cb) {
-
-        //hier komen achtereenvolgens alle serverside bean-checks
-        //alle velden niet leeg (behalve x2)
-        //bsn en huisnummer type nummer
-        //bsn tjek
-        //gebruikersnaam al in gebruik
-        //ww eisen sja: sterke? nth
-        //ww 2x hetzelfde
-
-        //leeg: in bean methode die relevante velden tjekt of ze leeg zijn, zo ja geeft naam veld
-
-
-
-
-        //aanroepen elfproef BSN
-        boolean validBSN = isValidBSN(cb.getSocialSecurityNo());
-
-
-
+        return String.format("%s %s %s\n%s %s", street, houseNumber, affixes, zipCode, city);
     }
-
-
-
-
-
-    private boolean isValidBSN(Integer socialSecurityNo) {
-        if (socialSecurityNo <= 9999999 || socialSecurityNo > 999999999) {
-            return false;
-        }
-        int sum = -1 * socialSecurityNo % 10;
-        for (int i = 2; socialSecurityNo > 0; i++) {
-            int val = (socialSecurityNo /= 10) % 10;
-            sum += i * val;
-        }
-        return sum != 0 && sum % 11 == 0;
-    }
-
-
-
 }

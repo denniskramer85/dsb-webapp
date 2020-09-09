@@ -81,6 +81,8 @@ public abstract class Account {
                 '}';
     }
 
+
+
     public String getHolderString() {
         String returnString = "";
         for (Customer holder : holders) {
@@ -91,5 +93,18 @@ public abstract class Account {
             returnString += holder.getSurname();
         }
         return returnString;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Account account = (Account) o;
+        return accountNo.equals(account.accountNo);
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
     }
 }

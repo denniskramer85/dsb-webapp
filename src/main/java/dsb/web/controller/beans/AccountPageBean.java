@@ -3,8 +3,6 @@ package dsb.web.controller.beans;
 
 import dsb.web.domain.Transaction;
 
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.List;
 
 public class AccountPageBean {
@@ -12,33 +10,20 @@ public class AccountPageBean {
     private String typeAccount;
     private String accountNo;
     private String companyName;
-    private List<String> holderNames;
+    private String holderNames;
     private String balance;
     private String timestamp;
-    private List<Transaction> transactions;
+    private List<String> transactionStrings;
 
-
-    public AccountPageBean(String typeAccount, String accountNo, String companyName, List<String> holderNames, String balance, String timestamp, List<Transaction> transactions) {
+    public AccountPageBean(String typeAccount, String accountNo, String companyName, String holderNames,
+                           String balance, String timestamp, List<String> transactionStrings) {
         this.typeAccount = typeAccount;
         this.accountNo = accountNo;
         this.companyName = companyName;
         this.holderNames = holderNames;
         this.balance = balance;
         this.timestamp = timestamp;
-        this.transactions = transactions;
-    }
-
-    @Override
-    public String toString() {
-        return "AccountPageBean{" +
-                "typeAccount='" + typeAccount + '\'' +
-                ", accountNo='" + accountNo + '\'' +
-                ", companyName='" + companyName + '\'' +
-                ", holderNames=" + holderNames +
-                ", balance=" + balance +
-                ", timestamp=" + timestamp +
-                ", transactions=" + transactions +
-                '}';
+        this.transactionStrings = transactionStrings;
     }
 
     public String getTypeAccount() {
@@ -65,11 +50,11 @@ public class AccountPageBean {
         this.companyName = companyName;
     }
 
-    public List<String> getHolderNames() {
+    public String getHolderNames() {
         return holderNames;
     }
 
-    public void setHolderNames(List<String> holderNames) {
+    public void setHolderNames(String holderNames) {
         this.holderNames = holderNames;
     }
 
@@ -89,12 +74,12 @@ public class AccountPageBean {
         this.timestamp = timestamp;
     }
 
-    public List<Transaction> getTransactions() {
-        return transactions;
+    public List<String> getTransactionStrings() {
+        return transactionStrings;
     }
 
-    public void setTransactions(List<Transaction> transactions) {
-        this.transactions = transactions;
+    public void setTransactionStrings(List<String> transactionStrings) {
+        this.transactionStrings = transactionStrings;
     }
 }
 

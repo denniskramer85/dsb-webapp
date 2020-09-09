@@ -19,11 +19,21 @@ public class SignInService {
 
     // Check if username and password correspond to valid account
     public Customer checkCredentials(String username, String password) {
-        Optional<Customer> customerOptional = customerRepository.findOneByUsernameAndPassword(username, password);
+
+        // Try to find customer based on trimmed username (Not case-sensitive)
+        Optional<Customer> customerOptional = customerRepository.findOneByUsername(username.trim());
         Customer loginCustomer = null;
         if (customerOptional.isPresent()) {
             loginCustomer = customerOptional.get();
+        } else {
+            return loginCustomer;
         }
-        return loginCustomer;
+
+        // Trim password and check if passwords match (case sensitive)
+        if (loginCustomer.getPassword().equals(password.trim())) {
+            return loginCustomer;
+        } else {
+            return null;
+        }
     }
 }

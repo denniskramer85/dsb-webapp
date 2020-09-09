@@ -14,20 +14,45 @@
     <br/>
     <br/>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">Persoonlijke rekeningen</h3>
+    <div class="card">
+        <div class="card-header account-header-div">
+            <h5 class="account-header">Persoonlijke rekeningen</h5>
+            <a href="/new-account" class="btn-open-account btn btn-outline-dark">Rekening openen</a>
         </div>
-        <div class="panel-body account-list">
-            <div class="list-group">
+
+        <div th:if="${#lists.isEmpty(consumerAccounts)}">
+            <div class="card-body">
+                <p>U heeft nog geen persoonlijke rekening.</p>
+            </div>
+        </div>
+
+        <div th:unless="${#lists.isEmpty(consumerAccounts)}">
+            <div class="card-body">
                 <div th:each="account : ${consumerAccounts}">
                     <form method="post" th:action="@{account_overview}">
-                        <input type="hidden" th:name="accountID" th:value="${account.getAccountID()}">
-                        <span class="glyphicon glyphicon-user" aria-hidden="true"/> <span th:text="${agitccount.getAccountNo()}"/>
-                        <span class="glyphicon glyphicon-link" aria-hidden="true"/> &nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;<span th:text="${account.getHolderString()}"/>
-                        <span class="glyphicon glyphicon-eur" aria-hidden="true"/>&nbsp;&nbsp;- &nbsp;&nbsp;&nbsp;&nbsp;€&nbsp;<span th:text="${account.getBalance()}"/>
-                        &nbsp;&nbsp;
-                        <button type="submit" class="btn btn-outline-dark">></button>
+                        <table class="account-table">
+                            <tr>
+                                <td>
+                                    <img class="account-icon" th:src="@{/images/icons/credit-card.svg}" alt="">
+                                    <span th:text="${account.getAccountNo()}"/>
+                                </td>
+                                <td>
+                                    <img class="account-icon" th:src="@{/images/icons/people.svg}" alt="">
+                                    <span th:text="${account.getHolderString()}"/>
+                                </td>
+                                <td>
+                                    <img class="account-icon" th:src="@{/images/icons/wallet2.svg}" alt="">
+                                    €&nbsp;
+                                    <span th:text="${#numbers.formatDecimal(account.getBalance(), 0, 'POINT', 2, 'COMMA')}"/
+                                </td>
+                                <td>
+                                    <input type="hidden" th:name="accountID" th:value="${account.getAccountID()}">
+                                    <button type="submit" class="btn btn-outline-dark">
+                                        <img th:src="@{/images/icons/arrow-right-short.svg}" alt="">
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
                     </form>
                 </div>
             </div>
@@ -35,32 +60,52 @@
     </div>
 
     <br/>
-    <br/>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">Zakelijke rekeningen</h3>
+    <div class="card">
+        <div class="card-header account-header-div">
+            <h5 class="account-header">Zakelijke rekeningen</h5>
+            <a href="/new-account" class="btn-open-account btn btn-outline-dark">Rekening openen</a>
         </div>
-        <div class="panel-body account-list">
-            <div class="list-group">
+
+        <div th:if="${#lists.isEmpty(smeAccounts)}">
+            <div class="card-body">
+                <p>U heeft nog geen zakelijke rekening.</p>
+            </div>
+        </div>
+
+
+        <div th:unless="${#lists.isEmpty(smeAccounts)}">
+            <div class="card-body">
                 <div th:each="account : ${smeAccounts}">
                     <form method="post" th:action="@{account_overview}">
-                        <input type="hidden" th:name="accountID" th:value="${account.getAccountID()}">
-                        <span class="glyphicon glyphicon-user" aria-hidden="true"/> <span th:text="${account.getAccountNo()}"/>
-                        <span class="glyphicon glyphicon-link" aria-hidden="true"/> &nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;<span th:text="${account.getHolderString()}"/>
-                        <span class="glyphicon glyphicon-eur" aria-hidden="true"/>&nbsp;&nbsp;- &nbsp;&nbsp;&nbsp;&nbsp;€&nbsp;<span th:text="${account.getBalance()}"/>
-                        &nbsp;&nbsp;
-                        <button type="submit" class="btn btn-outline-dark">></button>
+                        <table class="account-table">
+                            <tr>
+                                <td>
+                                    <img class="account-icon" th:src="@{/images/icons/credit-card.svg}" alt="">
+                                    <span th:text="${account.getAccountNo()}"/>
+                                </td>
+                                <td>
+                                    <img class="account-icon" th:src="@{/images/icons/building.svg}" alt="">
+                                    <span th:text="${account.getHolderString()}"/>
+                                </td>
+                                <td>
+                                    <img class="account-icon" th:src="@{/images/icons/wallet2.svg}" alt="">
+                                    €&nbsp;
+                                    <span th:text="${#numbers.formatDecimal(account.getBalance(), 0, 'POINT', 2, 'COMMA')}"/
+                                </td>
+                                <td>
+                                    <input type="hidden" th:name="accountID" th:value="${account.getAccountID()}">
+                                    <button type="submit" class="btn btn-outline-dark">
+                                        <img th:src="@{/images/icons/arrow-right-short.svg}" alt="">
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
-
-
-
-
 
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

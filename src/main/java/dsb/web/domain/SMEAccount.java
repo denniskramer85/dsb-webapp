@@ -2,6 +2,7 @@ package dsb.web.domain;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class SMEAccount extends Account{
@@ -29,6 +30,23 @@ public class SMEAccount extends Account{
     }
 
     @Override
+    public String toString() {
+        return "SMEAccount{" +
+                "company=" + company +
+                '}' + super.toString();
+    }
+
+
+    @Override
+    public String getHolderString() {
+        if (this.company != null) {
+            return this.company.getName() + " (" + super.getHolderString() + ")";
+        } else {
+            return super.getHolderString();
+        }
+    }
+
+    @Override
     public String printClassName() {
         return this.getClass().getSimpleName();
     }
@@ -40,5 +58,6 @@ public class SMEAccount extends Account{
     public void setCompany(Company company) {
         this.company = company;
     }
+
 }
 

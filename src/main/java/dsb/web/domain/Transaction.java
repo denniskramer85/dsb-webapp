@@ -3,6 +3,7 @@ package dsb.web.domain;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Objects;
 
 @Entity
 public class Transaction {
@@ -38,11 +39,29 @@ public class Transaction {
 
 
     @Override
+    //TODO evt nog bijwerken
     public String toString() {
         String s = new SimpleDateFormat("MM/dd/yyyy '|' HH:mm").format(transactionTimestamp);
         return String.format("%s - %s - %s - %.2f - %s", s, transactionAccountDebet.getAccountNo(),
                 transactionAccountCredit.getAccountNo(), transactionAmount, message);
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Transaction)) return false;
+        Transaction that = (Transaction) o;
+        return  Double.compare(that.getTransactionAmount(), getTransactionAmount()) == 0 &&
+                getTransactionAccountDebet().equals(that.getTransactionAccountDebet()) &&
+                getTransactionAccountCredit().equals(that.getTransactionAccountCredit()) &&
+                getMessage().equals(that.getMessage()) &&
+                getTransactionTimestamp().equals(that.getTransactionTimestamp());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getTransactionID(), getTransactionAccountDebet(), getTransactionAccountCredit(), getTransactionAmount(), getMessage(), getTransactionTimestamp());
     }
 
     public int getTransactionID() {
