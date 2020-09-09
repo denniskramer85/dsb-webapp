@@ -53,13 +53,14 @@
     width: 130px;
 }
 
-
-
-#transferPage {
-
+#transferPage .errors {
+    color: red;
+    position: relative;
+    top: -5px;
+    margin-bottom: -200px;
 }
 
-#transferPage {
-
+#transferPage .form-group {
+    margin-bottom: 30px;
 }
 

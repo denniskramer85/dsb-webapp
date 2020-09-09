@@ -13,12 +13,14 @@ import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
 public class TransferBean {
-    private Account creditAccount;
+    private Account debitAccount;
 
     @NotBlank
     @AccountNoConstraint
     @DSBAccountConstraint
-    private String debitAccountNo;
+    private String creditAccountNo;
+
+
 
     @Digits(integer = 50, fraction = 2, message = "Voer een geldig bedrag in")
     @Positive(message = "Voer een bedrag groter dan 0 in")
