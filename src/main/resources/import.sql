@@ -36,4 +36,5 @@ INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount
 INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, transaction_account_credit_accountid, transaction_account_debet_accountid) VALUES ('303', 'Ballonvaart', 100, '2020-01-04 01:01:01', 110, 114);
 INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, transaction_account_credit_accountid, transaction_account_debet_accountid) VALUES ('304', 'Verjaardag', 100, '2020-01-05 01:01:01', 111, 115);
 
-
+INSERT INTO `dsb`.`employee` (`employeeid`, `employee_user_name`, `initials`, `password`, `surname`) VALUES ('45', 'sicco.', 'S.', 'koetsier', 'Koetsier');
+INSERT INTO `dsb`.`employee` (`employeeid`, `employee_user_name`, `initials`, `password`, `surname`) VALUES ('46', 'linda.', 'L.', 'haest', 'Haest');
