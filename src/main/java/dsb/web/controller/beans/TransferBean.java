@@ -36,6 +36,7 @@ public class TransferBean {
         this.creditAccountNo = creditAccountNo;
         this.transferAmount = transferAmount;
         this.message = message;
+        checkSufficientFunds();
     }
 
     public TransferBean() {
