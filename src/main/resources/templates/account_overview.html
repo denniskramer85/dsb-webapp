@@ -23,7 +23,7 @@
                 <div th:each="account : ${consumerAccounts}">
                     <form method="post" th:action="@{account_overview}">
                         <input type="hidden" th:name="accountID" th:value="${account.getAccountID()}">
-                        <span class="glyphicon glyphicon-user" aria-hidden="true"/> <span th:text="${account.getAccountNo()}"/>
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"/> <span th:text="${agitccount.getAccountNo()}"/>
                         <span class="glyphicon glyphicon-link" aria-hidden="true"/> &nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;<span th:text="${account.getHolderString()}"/>
                         <span class="glyphicon glyphicon-eur" aria-hidden="true"/>&nbsp;&nbsp;- &nbsp;&nbsp;&nbsp;&nbsp;€&nbsp;<span th:text="${account.getBalance()}"/>
                         &nbsp;&nbsp;

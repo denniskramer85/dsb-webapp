@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css"/>
+    <meta charset="UTF-8">
+    <title>Employee Dashboard hoofd-MKB</title>
+
+    <style>
+       /*.thijs {*/
+       /*    width:100%;*/
+       /*    color:red;*/
+
+
+       /*}*/
+       /*#sicco {*/
+       /*    color:limegreen;*/
+       /*}*/
+       #linda {
+           color:blue;
+       }
+
+    </style>
+</head>
+
+<body>
+
+<div id="linda">
+    <h1 class="thijs"><b>Medewerkersdashboard hoofd-MKB</b></h1>
+
+    <h2>Welkom<span th:text="${naam}"></span></h2>
+
+        <br>
+        <div>Koppelverzoeken</div>
+        <br>
+            <table id="table1">
+                <tr><td class="first">Top-10 hoogste saldi</td><td class="second">top-10 grootste volume's in transacties<span th:each="${transaction}"></span></td></tr>
+            </table>
+        <br>
+
+        <div>Gemiddeld saldo per segment</div>
+        <br>
+
+        <a id="sicco" href="/change_user_data">Wijzig je gegevens</a>
+
+</div>
+</body>
+
+</html>
