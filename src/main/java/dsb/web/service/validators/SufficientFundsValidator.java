@@ -1,6 +1,5 @@
 package dsb.web.service.validators;
 
-import dsb.web.controller.beans.TransferBean;
 import dsb.web.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
