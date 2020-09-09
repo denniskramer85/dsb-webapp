@@ -64,7 +64,9 @@ public class IbanService {
     }
 
     public static boolean verifyIban(Iban iban) {
-        if (checkValidityIbanLength(iban) && checkValidityIbanDigits(iban) && calculateMod(iban)==1)
+        if (checkValidityIbanLength(iban) &&
+                checkValidityIbanDigits(iban) &&
+                calculateMod(iban)==VALID_REMAINDER_MOD_97)
             return true;
         return false;
     }
@@ -74,9 +76,9 @@ public class IbanService {
         long total = 0;
         String str = iban.toNumericalString();
         for (int i = 0; i < str.length(); i++) {
-            final int numericValue = Character.getNumericValue(str.charAt(i));
-            if (numericValue < ALPHABET_LOWER_BOUND || numericValue > ALPHABET_HIGHER_BOUND) {
-                throw new IllegalArgumentException("invalid character");
+            int numericValue = Character.getNumericValue(str.charAt(i));
+            if (numericValue < 0 || numericValue > ALPHABET_HIGHER_BOUND) {
+                throw new IllegalArgumentException("Invalid character -   s: " + str.charAt(i) + "  n: " + numericValue);
             }
             total = (numericValue > 9 ? total * 100 : total * 10) + numericValue;
             if (total > MAX) {

@@ -21,10 +21,10 @@
             <form method="POST" th:object="${newAccountBean}" th:action="@{company-details-completed}">
                 <div id="input-company-details">
                     <div>
-                        <p>Bedrijfsnaam: <input type="text" name="input-name" th:field="*{name}" required></p>
+                        <p>KVK-nummer: <input type="text" name="input-KVKno" th:field="*{KVKno}" required></p>
                     </div>
                     <div>
-                        <p>KVK-nummer: <input type="text" name="input-KVKno" th:field="*{KVKno}" required></p>
+                        <p>Bedrijfsnaam: <input type="text" name="input-name" th:field="*{name}" required></p>
                     </div>
                     <div>
                         <p>BTW-nummer: <input type="text" name="input-BTWno" th:field="*{BTWno}" required></p>

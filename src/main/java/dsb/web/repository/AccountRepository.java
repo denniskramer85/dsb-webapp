@@ -12,5 +12,7 @@ public interface AccountRepository extends CrudRepository<Account, Integer> {
 
     List<Account> findAll();
     List<Account> findAllByHolders(Customer customer);
+    Account findAccountByAccountNo(String accountNo);
+    Boolean existsByAccountNo(String accountNo);
 
 }

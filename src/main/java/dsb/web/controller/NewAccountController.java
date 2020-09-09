@@ -73,6 +73,7 @@ public class NewAccountController {
             @ModelAttribute NewAccountBean newAccountBean,
             Model model){
         //Check geldigheid KVK-nummer
+        //newAccountBean.getKVKno()
         //Check geldigheid BTW-nummer
         model.addAttribute("newAccountBean", newAccountBean);
         return "confirm-new-account";
