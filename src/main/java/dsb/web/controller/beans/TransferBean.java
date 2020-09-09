@@ -63,8 +63,14 @@ public class TransferBean {
     }
 
     public Double getTransferAmount() {
-        return 20.3;
-        //return transferAmount.doubleValue();
+        try {
+            return transferAmount.doubleValue();
+        } catch (NullPointerException exception) {
+            System.out.println(exception);
+            return null;
+        }
+
+
     }
 
     public void setTransferAmount(Double transferAmount) {
@@ -78,5 +84,13 @@ public class TransferBean {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public boolean isSufficientFunds() {
+        return sufficientFunds;
+    }
+
+    public void setSufficientFunds(boolean sufficientFunds) {
+        this.sufficientFunds = sufficientFunds;
     }
 }
