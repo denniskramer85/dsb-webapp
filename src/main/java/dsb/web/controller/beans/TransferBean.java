@@ -93,4 +93,15 @@ public class TransferBean {
     public void setSufficientFunds(boolean sufficientFunds) {
         this.sufficientFunds = sufficientFunds;
     }
+
+    @Override
+    public String toString() {
+        return "TransferBean{" +
+                "debitAccount=" + debitAccount +
+                ", creditAccountNo='" + creditAccountNo + '\'' +
+                ", transferAmount=" + transferAmount +
+                ", sufficientFunds=" + sufficientFunds +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }

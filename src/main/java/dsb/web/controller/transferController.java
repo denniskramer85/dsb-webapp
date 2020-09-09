@@ -39,12 +39,10 @@ public class transferController {
         dummy = new printAccountDataBean("SMEAccount", "123", "Hans BV",
                 "Kees en piet", "189,77", "1-4-33", lijstDummy);
 
-//        Account account = (Account) model.getAttribute("selectedAccountSession");
-//        model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
+        Account account = (Account) model.getAttribute("selectedAccountSession");
+        model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
 
-
-
-        model.addAttribute("printAccountDataBean", dummy);
+        //model.addAttribute("printAccountDataBean", dummy);
 
         model.addAttribute("transferBean", new TransferBean());
 
@@ -57,13 +55,14 @@ public class transferController {
         /**validate for errors - is fo return**/
         if(errors.hasErrors()) {
 
-            model.addAttribute("selectedAccount", dummy);
+            model.addAttribute("printAccountDataBean", dummy);
             model.addAttribute("transferBean", tb);
 
             return "transferPage";
         }
 
-        return "index";
+        model.addAttribute("transferBean", tb);
+        return "transferConfirmPage";
     }
 
 
