@@ -1,6 +1,5 @@
 package dsb.web.controller;
 
-import dsb.web.controller.beans.AccountPageBean;
 import dsb.web.domain.*;
 import dsb.web.repository.AccountRepository;
 import dsb.web.service.AccountPageService;
@@ -9,12 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
-
-import java.util.List;
 
 @Controller
-@SessionAttributes("selectedAccountSession")
+//@SessionAttributes("selectedAccountSession")
 public class AccountPageController {
 
     private AccountPageService accountPageService;
@@ -30,7 +26,14 @@ public class AccountPageController {
     @GetMapping("accountPage")
     public String startAccountPage (@ModelAttribute("selectedAccount") Account account, Model model) {
 
-        model.addAttribute("selectedAccountSession", accountPageService.makeAccountPageBean(account));
+
+        //TODO dit moet beter, leiver echte account en dan per pag de printgegevens maken
+        //je hebt hier selected account, heeft miel er al in vorige pagina ingehangen: selectedAccount
+        //hier is ACCOUNT dus vanuit een session ebschikbaar, net als nu - even omzetten
+        //model.addAttribute("selectedAccountSession", accountPageService.makePrintAccountDataBean(account));
+
+        model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
+
 
         return "account_page";
     }

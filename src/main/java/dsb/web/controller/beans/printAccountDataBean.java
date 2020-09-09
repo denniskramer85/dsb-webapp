@@ -5,7 +5,7 @@ import dsb.web.domain.Transaction;
 
 import java.util.List;
 
-public class AccountPageBean {
+public class printAccountDataBean {
 
     private String typeAccount;
     private String accountNo;
@@ -15,8 +15,8 @@ public class AccountPageBean {
     private String timestamp;
     private List<String> transactionStrings;
 
-    public AccountPageBean(String typeAccount, String accountNo, String companyName, String holderNames,
-                           String balance, String timestamp, List<String> transactionStrings) {
+    public printAccountDataBean(String typeAccount, String accountNo, String companyName, String holderNames,
+                                String balance, String timestamp, List<String> transactionStrings) {
         this.typeAccount = typeAccount;
         this.accountNo = accountNo;
         this.companyName = companyName;

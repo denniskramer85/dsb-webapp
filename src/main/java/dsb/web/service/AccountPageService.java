@@ -1,7 +1,7 @@
 package dsb.web.service;
 
 
-import dsb.web.controller.beans.AccountPageBean;
+import dsb.web.controller.beans.printAccountDataBean;
 import dsb.web.domain.Account;
 import dsb.web.domain.Customer;
 import dsb.web.domain.SMEAccount;
@@ -26,7 +26,7 @@ public class AccountPageService {
         this.transactionRepository = transactionRepository;
     }
 
-    public AccountPageBean makeAccountPageBean(Account account) {
+    public printAccountDataBean makePrintAccountDataBean(Account account) {
 
         /**Achtereenvolgens beangegevens ophalen**/
         String typeAccount = account.printClassName();
@@ -37,7 +37,7 @@ public class AccountPageService {
         String currentTime = getCurrentTime();
         List<String> transactionStrings = getTransactionStrings(account);
 
-        return new AccountPageBean(typeAccount, accountNo, companyName,
+        return new printAccountDataBean(typeAccount, accountNo, companyName,
                 holderNames, balance, currentTime, transactionStrings);
     }
 

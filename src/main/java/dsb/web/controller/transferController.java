@@ -1,6 +1,6 @@
 package dsb.web.controller;
 
-import dsb.web.controller.beans.AccountPageBean;
+import dsb.web.controller.beans.printAccountDataBean;
 import dsb.web.controller.beans.TransferBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +18,7 @@ import java.util.List;
 @SessionAttributes("selectedAccountSession")
 public class transferController {
 
-    AccountPageBean dummy;
+    printAccountDataBean dummy;
 
     @GetMapping("transfer")
     public String startTransferPageHandler (Model model) {
@@ -26,7 +26,7 @@ public class transferController {
         //dummy
         String[] lijstje = {"x", "a",};
         List<String> lijstDummy = Arrays.asList(lijstje);
-        dummy = new AccountPageBean("SMEAccount", "123", "Hans BV",
+        dummy = new printAccountDataBean("SMEAccount", "123", "Hans BV",
                 "Kees en piet", "189,77", "1-4-33", lijstDummy);
 
 
