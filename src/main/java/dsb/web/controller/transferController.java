@@ -8,6 +8,7 @@ import dsb.web.domain.Customer;
 import dsb.web.repository.AccountRepository;
 import dsb.web.repository.CustomerRepository;
 import dsb.web.service.AccountPageService;
+import dsb.web.service.SignInService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +26,7 @@ import java.util.Optional;
 public class transferController {
 
     private AccountPageService accountPageService;
+    private SignInService signInService;
 
     //TODO weg
     private CustomerRepository customerRepository;
@@ -32,9 +34,10 @@ public class transferController {
 
 
     @Autowired
-    public transferController(AccountPageService accountPageService,
-                              CustomerRepository customerRepository, AccountRepository accountRepository) {
+    public transferController(AccountPageService accountPageService, CustomerRepository customerRepository,
+                              AccountRepository accountRepository, SignInService signInService) {
         this.accountPageService = accountPageService;
+        this.signInService = signInService;
         this.customerRepository = customerRepository;
         this.accountRepository = accountRepository;
     }
@@ -66,20 +69,21 @@ public class transferController {
     @PostMapping("transfer")
     public String transferDataHandler (@Valid @ModelAttribute TransferBean tb, Errors errors, Model model) {
 
-        /**validate for errors - if so return**/
-        if(errors.hasErrors()) {
-
-            //TODO dit evt via flash/redirect uit vorige methode?
-            Account account = (Account) model.getAttribute("selectedAccountSession");
-            tb.setDebitAccount(account);
-
-            model.addAttribute("transferBean", tb);
-
-            model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
-
-
-            return "transferPage";
-        }
+            //TODO DIT AANZETEN VOOR MIEL ZN TJEKS
+//        /**validate for errors - if so return**/
+//        if(errors.hasErrors()) {
+//
+//            //TODO dit evt via flash/redirect uit vorige methode?
+//            Account account = (Account) model.getAttribute("selectedAccountSession");
+//            tb.setDebitAccount(account);
+//
+//            model.addAttribute("transferBean", tb);
+//
+//            model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
+//
+//
+//            return "transferPage";
+//        }
 
         model.addAttribute("transferBean", tb);
 
@@ -91,9 +95,15 @@ public class transferController {
     }
 
     @PostMapping("transferConfirm")
-    public String transferConfirmHandler (@ModelAttribute LoginBean lb, Model model) {
+    public String transferConfirmHandler (@ModelAttribute LoginBean loginBean, Model model) {
 
-        System.out.println(lb);
+        //check of cust in db zit
+        Customer loginCustomer = signInService.checkCredentials(loginBean.getUsername(), loginBean.getPassword());
+
+        if (loginBean != null) {
+            //TODO doe iets in transferService
+
+        }
 
 
         return "index";
