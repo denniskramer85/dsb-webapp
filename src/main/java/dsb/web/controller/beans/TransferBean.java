@@ -12,6 +12,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
+/**
+ *  This bean is used for currency transfers that have not yet been validated.
+ *  All field validation happens in this bean, providing error messages to the front-end if validation fails.
+ *  If validation is successful, a Transaction object can be create for storage in the database.
+ */
+
 public class TransferBean {
     private Account debitAccount;
 
