@@ -2,11 +2,12 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../static/styles.css" th:href="@{styles.css}">
     <meta charset="UTF-8">
     <title>Rekeningpagina</title>
 
 
-    //TODO extern
+    <!--TODO: extern-->
     <style>
         .italic {
             font-style: italic;
@@ -21,6 +22,10 @@
             font-size: 120%;
             position: relative;
             top: 22px;
+        }
+
+        #accountData p {
+            line-height: 70%;
         }
 
         #transactionList {
@@ -38,7 +43,7 @@
 <div th:include="fragments/header :: header"></div>
 
 
-<div id="accountPage" th:object="${accountPageBean}">
+<div id="accountPage" th:object="${printAccountDataBean}">
     <div class="container">
         <br/>
 
@@ -60,7 +65,7 @@
                 </div>
 
                 <div id="generalButtons">
-                    <input type="button" class="btn btn-outline-dark" onclick="href='transfer';" value="Overboeken" />
+                    <input type="button" class="btn btn-outline-dark" onclick="location.href='transfer'" value="Overboeken" />
                     <input type="button" class="btn btn-outline-dark" onclick="href='new-account';" value="Rekeninghouder toevoegen" />
                 </div>
 

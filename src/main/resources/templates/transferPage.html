@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="styles.css"/>
+    <meta charset="UTF-8">
+    <title>Overboeken</title>
+
+</head>
+<body id="transferPage">
+    <div th:include="fragments/header :: header"></div>
+    <div class="container">
+
+        <div class = "card">
+
+            <div class="card-header"><h1>Overboeken</h1></div>
+
+            <div class="card-body">
+
+                <div id="accountData" th:object="${printAccountDataBean}">
+                    <p class="italic"><span th:text="*{timestamp}"/></p>
+                    <p th:if="*{typeAccount == 'SMEAccount'}"><strong>Bedrijf:</strong> <span th:text="*{companyName}"/></p>
+                    <p><strong>Houder(s):</strong>
+                        <!--                        <div >-->
+                        <span th:each="name : *{holderNames}" th:text="${name + ' '}"  />
+                        <!--                        </div>-->
+                    </p>
+                    <p><strong>Rekeningnummer:</strong> <span th:text="*{accountNo}"/></p>
+                    <p><strong>Saldo:</strong> € <span th:text="*{balance}"/></p>
+                </div>
+
+
+                <div id="inputTransferData">
+
+                    <form method="post" th:action="@{transfer}" th:object="${transferBean}">
+
+                        <div class="form-group">
+                            <table><tr><td>
+                                <label for="creditAccountNo">Rekeningnummer<br>begunstigde</label>
+                            </td><td>
+                                <input type="text" class="form-control" id="creditAccountNo" name="creditAccountNo" th:field="*{creditAccountNo}" autofocus>
+                            </td></tr><tr><td></td><td>
+                                    <p class="errors"><span th:if="${#fields.hasErrors('creditAccountNo')}" th:errors="*{creditAccountNo}"/></p>
+                            </td></tr>
+                            </table>
+                        </div>
+
+                        <div class="form-group">
+                            <table><tr><td>
+                                <label for="transferAmount">Bedrag</label>
+                            </td><td>
+                                <input type="text" class="form-control" id="transferAmount" name="transferAmount" th:field="*{transferAmount}">
+                            </td></tr><tr><td></td><td>
+                                <p class="errors"><span th:if="${#fields.hasErrors('sufficientFunds')}" th:errors="*{sufficientFunds}"/></p>
+                            </td></tr>
+                            </table>
+                        </div>
+
+                        <div class="form-group">
+                            <table><tr><td>
+                                <label for="message">Mededeling</label>
+                            </td><td>
+                                <input type="text" class="form-control" id="message" name="message" th:field="*{message}">
+                            </td></tr><tr><td></td><td>
+                                <p class="errors"><span th:if="${#fields.hasErrors('message')}" th:errors="*{message}"/></p>
+                            </td></tr>
+                            </table>
+                        </div>
+
+                        <div class="buttons">
+                            <input class="btn btn-outline-dark" type="submit" value="Bevestigen">
+                            <input class="btn btn-outline-dark" type="button" value="Annuleren" onclick="location.href='/'">
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>
