@@ -49,9 +49,9 @@
                             <table><tr><td>
                                 <label for="transferAmount">Bedrag</label>
                             </td><td>
-                                <input type="text" class="form-control" id="transferAmount" name="transferAmount" th:field="*{transferAmount}">
+                                <input type="text" class="form-control" id="transferAmount" name="transferAmountString" th:field="*{transferAmountString}">
                             </td></tr><tr><td></td><td>
-                                <p class="errors"><span th:if="${#fields.hasErrors('transferAmount')}" th:errors="*{transferAmount}"/></p>
+                                <p class="errors"><span th:if="${#fields.hasErrors('transferAmountString')}" th:errors="*{transferAmountString}"/></p>
                             </td></tr>
                             </table>
                         </div>

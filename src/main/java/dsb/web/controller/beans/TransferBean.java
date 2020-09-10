@@ -25,11 +25,12 @@ public class TransferBean {
     //@DSBAccountConstraint
     private String creditAccountNo;
 
-    @NotBlank(message = "Voer een bedrag in")
-    @BigDecimalConstraint
     //@Digits(integer = 50, fraction = 2, message = "Voer een bedrag in euro's en centen in")
     //@Positive(message = "Voer een bedrag groter dan 0 in")
+    @NotBlank(message = "Voer een bedrag in")
+    @BigDecimalConstraint
     private String transferAmountString;
+
     private BigDecimal transferAmount;
 
     //@AssertTrue(message = "Onvoldoende saldo voor transactie")

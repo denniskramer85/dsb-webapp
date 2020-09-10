@@ -1,5 +1,9 @@
 package dsb.web.service.validators;
 
+import dsb.web.controller.AccountOverviewController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.math.BigDecimal;
@@ -9,21 +13,28 @@ import java.text.ParseException;
 import java.util.Locale;
 
 public class BigDecimalValidator implements ConstraintValidator<BigDecimalConstraint, String> {
+    private Logger logger = LoggerFactory.getLogger(AccountOverviewController.class);
 
     public BigDecimalValidator() {
     }
 
     @Override
     public boolean isValid(String transferAmount, ConstraintValidatorContext constraintValidatorContext) {
-        String convertedAmount = transferAmount.replaceAll(",", ".");
 
-        // Try to convert currency String to BigDecimal, generate true or false based on outcome
-        try {
-            BigDecimal bigDecimalAmount = new BigDecimal(convertedAmount);
-            return true;
-        } catch (NumberFormatException exception) {
-            System.out.println("Mislukt!");
-            return false;
+        // Try to parse transferAmount String to Bigdecimal based on Dutch/German currenct formatting
+        NumberFormat nf = NumberFormat.getInstance(Locale.GERMAN);
+        if (nf instanceof DecimalFormat) {
+            DecimalFormat df = (DecimalFormat) nf;
+            df.setParseBigDecimal(true);
+            BigDecimal parsed = null;
+            try {
+                parsed = (BigDecimal) df.parse(transferAmount.trim());
+                return true;
+            } catch (ParseException parseError) {
+                logger.debug("Cannot parse transferAmount");;
+                return false;
+            }
         }
+        return false;
     }
 }
