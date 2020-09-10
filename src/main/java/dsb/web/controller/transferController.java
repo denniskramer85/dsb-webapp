@@ -1,7 +1,6 @@
 package dsb.web.controller;
 
 import dsb.web.controller.beans.LoginBean;
-import dsb.web.controller.beans.PrintAccountDataBean;
 import dsb.web.controller.beans.TransferBean;
 import dsb.web.domain.Account;
 import dsb.web.domain.Customer;
@@ -13,8 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -86,28 +87,17 @@ public class transferController {
 //            return "transferPage";
 //        }
 
-        //hier tb weer aanvullen met account en in sessie zetten
-        tb.setDebitAccount((Account) model.getAttribute("selectedAccountSession"));
-        model.addAttribute("transferBeanSession", tb);
 
+        //determine first or repeated flow: for preserving input in confirmation page
         if (request.getAttribute("transferBean") == null) {
-
-            //eerste flow
+            tb.setDebitAccount((Account) model.getAttribute("selectedAccountSession"));
+            model.addAttribute("transferBeanSession", tb);
             model.addAttribute("transferBean", tb);
-            model.addAttribute("loginBean", new LoginBean());
-            return "transferConfirmPage";
-
-
         } else {
-            //herhaalde flow
-
             model.addAttribute("transferBean", request.getAttribute("transferBean"));
-            model.addAttribute("loginBean", new LoginBean());
-            return "transferConfirmPage";
         }
-
-
-
+        model.addAttribute("loginBean", new LoginBean());
+        return "transferConfirmPage";
     }
 
     @PostMapping("transferConfirm")
@@ -115,9 +105,9 @@ public class transferController {
                                           Model model, HttpServletRequest request) {
 
         TransferBean tb_session = (TransferBean) model.getAttribute("transferBeanSession");
-        //System.out.println("dit nu op goeie plek" + tb_session);
 
         request.setAttribute("transferBean", tb_session);
+
 
 
         return "forward:transferPost";
