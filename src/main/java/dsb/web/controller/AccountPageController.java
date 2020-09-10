@@ -27,19 +27,16 @@ public class AccountPageController {
 
     //TODO oplossen met miel
     @GetMapping("accountPage")
-    public String startAccountPage (@ModelAttribute("selectedAccount") Account account, Model model) {
+    public String startAccountPage (/*@ModelAttribute("selectedAccount") Account account, */Model model) {
 
         //TODO dummy
-        Account accountX = (Account) model.getAttribute("selectedAccountSession");
-        //System.out.println("laat dit zien "+account);
+        Account account = (Account) model.getAttribute("selectedAccountSession");
 
-
-
-        //get selected Account from flash/redirect
-        System.out.println("account is: " + account);
-
-        //put account in session (for all later use)
-        model.addAttribute("selectedAccountSession", account);
+//        //get selected Account from flash/redirect
+//        System.out.println("account is: " + account);
+//
+//        //put account in session (for all later use)
+//        model.addAttribute("selectedAccountSession", account);
 
         //make bean voor printing account data
         model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
