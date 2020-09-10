@@ -12,8 +12,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({ FIELD })
 @Retention(RUNTIME)
 @Documented
-@Constraint(validatedBy = { BigDecimalValidator.class })
-public @interface BigDecimalConstraint {
+@Constraint(validatedBy = { CurrencyFormatValidator.class })
+public @interface CurrencyFormatConstraint {
 
     String message() default "Voer een bedrag in euro's en centen in, gescheiden voor een komma";
     Class<?>[] groups() default { };

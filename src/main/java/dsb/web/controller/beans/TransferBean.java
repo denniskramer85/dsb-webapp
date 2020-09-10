@@ -1,15 +1,18 @@
 package dsb.web.controller.beans;
 
+import dsb.web.controller.AccountOverviewController;
 import dsb.web.domain.Account;
-import dsb.web.service.validators.AccountNoConstraint;
-import dsb.web.service.validators.BigDecimalConstraint;
-import dsb.web.service.validators.DSBAccountConstraint;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.Range;
+import dsb.web.service.validators.CurrencyFormatConstraint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
 
 /**
  *  This bean is used for currency transfers that have not yet been validated.
@@ -18,6 +21,8 @@ import java.math.BigDecimal;
  */
 
 public class TransferBean {
+    private Logger logger = LoggerFactory.getLogger(AccountOverviewController.class);
+
     private Account debitAccount;
 
     //@NotBlank(message = "Vul een tegenrekening in")
@@ -25,12 +30,13 @@ public class TransferBean {
     //@DSBAccountConstraint
     private String creditAccountNo;
 
-    //@Digits(integer = 50, fraction = 2, message = "Voer een bedrag in euro's en centen in")
-    //@Positive(message = "Voer een bedrag groter dan 0 in")
+
     @NotBlank(message = "Voer een bedrag in")
-    @BigDecimalConstraint
+    @CurrencyFormatConstraint
     private String transferAmountString;
 
+    @Positive(message = "Voer een bedrag groter dan 0 in")
+    @Digits(integer = 50, fraction = 2, message = "Voer maximaal twee cijfers achter de komma in")
     private BigDecimal transferAmount;
 
     //@AssertTrue(message = "Onvoldoende saldo voor transactie")
@@ -39,16 +45,13 @@ public class TransferBean {
     //@Length(max = 50, message = "Maximaal 50 karakters")
     private String message;
 
-    public TransferBean(Account debitAccount, String creditAccountNo, String transferAmountString, String message) {
-        this.debitAccount = debitAccount;
-        this.creditAccountNo = creditAccountNo;
-        this.transferAmountString = transferAmountString;
-        this.message = message;
-    }
-
     public TransferBean() {
     }
 
+   /* private BigDecimal parseBigDecimal(String transferAmountString) {
+
+    }
+*/
     public Account getDebitAccount() {
         return debitAccount;
     }
