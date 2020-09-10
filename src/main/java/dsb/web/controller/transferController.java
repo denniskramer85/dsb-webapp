@@ -93,9 +93,14 @@ public class transferController {
             tb.setDebitAccount((Account) model.getAttribute("selectedAccountSession"));
             model.addAttribute("transferBeanSession", tb);
             model.addAttribute("transferBean", tb);
+            model.addAttribute("errorMessage", false);
+
         } else {
             model.addAttribute("transferBean", request.getAttribute("transferBean"));
+            model.addAttribute("errorMessage", true);
         }
+        boolean bo = (Boolean) model.getAttribute("errorMessage");
+        System.out.println(bo);
         model.addAttribute("loginBean", new LoginBean());
         return "transferConfirmPage";
     }

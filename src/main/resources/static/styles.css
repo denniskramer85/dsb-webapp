@@ -72,7 +72,7 @@ input[type=number] {
     grid-template-rows: repeat(1, 1fr);
 }
 
-#signUpPage .errors, #transferPage .errors {
+#signUpPage .errors, #transferPage .errors, #transferConfirmPage .errors {
     color: red;
     position: relative;
     top: -5px;
@@ -152,4 +152,9 @@ input[type=number] {
 
 #transferConfirmPage .form-group {
     margin-bottom: 10px;
+}
+
+#transferConfirmPage .buttons {
+    position: relative;
+    top: 30px;
 }
