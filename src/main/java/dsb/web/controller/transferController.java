@@ -13,16 +13,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
-@SessionAttributes({"loggedInCustomer", "selectedAccountSession"})
+@SessionAttributes({"loggedInCustomer", "selectedAccountSession", "transferBeanSession"})
 public class transferController {
 
     private AccountPageService accountPageService;
@@ -31,6 +30,7 @@ public class transferController {
     //TODO weg
     private CustomerRepository customerRepository;
     private AccountRepository accountRepository;
+    private TransferBean tbInClass;
 
 
     @Autowired
@@ -66,8 +66,9 @@ public class transferController {
         return "transferPage";
     }
 
-    @PostMapping("transfer")
-    public String transferDataHandler (@Valid @ModelAttribute TransferBean tb, Errors errors, Model model) {
+    @PostMapping("transferPost")
+    public String transferDataHandler (@Valid @ModelAttribute TransferBean tb,
+                                       Errors errors, Model model, HttpServletRequest request) {
 
             //TODO DIT AANZETEN VOOR MIEL ZN TJEKS
 //        /**validate for errors - if so return**/
@@ -85,28 +86,64 @@ public class transferController {
 //            return "transferPage";
 //        }
 
-        model.addAttribute("transferBean", tb);
+        //hier tb weer aanvullen met account en in sessie zetten
+        tb.setDebitAccount((Account) model.getAttribute("selectedAccountSession"));
+        model.addAttribute("transferBeanSession", tb);
 
-        model.addAttribute("loginBean", new LoginBean());
+        if (request.getAttribute("transferBean") == null) {
+
+            //eerste flow
+            model.addAttribute("transferBean", tb);
+            model.addAttribute("loginBean", new LoginBean());
+            return "transferConfirmPage";
 
 
+        } else {
+            //herhaalde flow
 
-        return "transferConfirmPage";
-    }
-
-    @PostMapping("transferConfirm")
-    public String transferConfirmHandler (@ModelAttribute LoginBean loginBean, Model model) {
-
-        //check of cust in db zit
-        Customer loginCustomer = signInService.checkCredentials(loginBean.getUsername(), loginBean.getPassword());
-
-        if (loginBean != null) {
-            //TODO doe iets in transferService
-
+            model.addAttribute("transferBean", request.getAttribute("transferBean"));
+            model.addAttribute("loginBean", new LoginBean());
+            return "transferConfirmPage";
         }
 
 
-        return "index";
+
+    }
+
+    @PostMapping("transferConfirm")
+    public String transferConfirmHandler (@ModelAttribute LoginBean loginBean,
+                                          Model model, HttpServletRequest request) {
+
+        TransferBean tb_session = (TransferBean) model.getAttribute("transferBeanSession");
+        //System.out.println("dit nu op goeie plek" + tb_session);
+
+        request.setAttribute("transferBean", tb_session);
+
+
+        return "forward:transferPost";
+
+
+
+
+        //        //check of cust in db zit
+//        Customer loginCustomer = signInService.checkCredentials(loginBean.getUsername(), loginBean.getPassword());
+//
+//        if (loginBean != null) {
+//            //TODO doe iets in transferService
+//
+//            return "redirect:accountPage";
+//        } else {
+//
+//
+//            model.addAttribute(tbInClass);
+//            model.addAttribute("loginBean", new LoginBean());
+//
+//            return "redirect:transferPost";
+//
+//
+//        }
+
+
     }
 }
 
