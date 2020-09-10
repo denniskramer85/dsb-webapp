@@ -2,7 +2,8 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
-    <link rel="stylesheet" href="styles.css"/>
+    <link rel="stylesheet" type="text/css" href="../static/styles.css" th:href="@{styles.css}">    <meta charset="UTF-8">
+
     <meta charset="UTF-8">
     <title>Overboeken</title>
 
@@ -68,6 +69,7 @@
                         <label for="password">Wachtwoord</label>
                     </td><td>
                         <input type="password" class="form-control" id="password" name="password" th:field="*{password}">
+                        <p class="errors" th:if="${errorMessage == true}">Validatie onjuist.<p>
                     </td></tr>
                     </table>
                 </div>
@@ -76,7 +78,7 @@
                     <input class="btn btn-outline-dark" type="submit" value="Bevestigen">
                     <input class="btn btn-outline-dark" type="button" value="Annuleren" onclick="location.href='/'">
                 </div>
-
+                <br>
             </form>
         </div>
     </div>

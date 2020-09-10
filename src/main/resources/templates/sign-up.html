@@ -2,60 +2,20 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
-    <!--    <link rel="stylesheet" type="text/css" th:href="styles.css"/>-->
+    <link rel="stylesheet" type="text/css" href="../static/styles.css" th:href="@{styles.css}">
 
     <meta charset="UTF-8">
     <title>Aanmelding</title>
 
 
-<!--    TODO: cs ww-gelijktjek en required weer aanzetten-->
+<!--    TODO: cs ww-gelijktjek en required (en nog meer die elders) weer aanzetten-->
 
 
-    <!--TODO extern zetten-->
-    <style>
-        /* Chrome, Safari, Edge, Opera */
-        input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
-        /* Firefox */
-        input[type=number] {
-            -moz-appearance: textfield;
-        }
 
 
-        .signuppage .grid {
-            display: grid;
-            grid-gap: 10px 40px;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(1, 1fr);
-        }
-
-        .signuppage #mandatory {
-            font-style: italic;
-        }
-
-        .errors {
-            color: red;
-            position: relative;
-            top: -5px;
-            margin-bottom: -200px;
-
-        }
-
-        label {
-            width: 130px;
-        }
-
-        .form-group {
-            margin-bottom: 30px;
-        }
-    </style>
 
 </head>
-<body class="signuppage">
+<body id="signUpPage">
 
 <div th:include="fragments/header :: header"></div>
 
@@ -63,7 +23,7 @@
     <br>
     <h1>Aanmeldingspagina</h1>
     <br>
-    <p id="mandatory">Velden met een * zijn verplicht</p>
+    <p class="italic">Velden met een * zijn verplicht</p>
     <br>
     <form method="POST" th:object="${customerBean}" th:action="@{customerCompleted}" onSubmit="return pass();">
         <div class="grid">

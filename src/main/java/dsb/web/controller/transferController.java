@@ -1,13 +1,14 @@
 package dsb.web.controller;
 
 import dsb.web.controller.beans.LoginBean;
-import dsb.web.controller.beans.PrintAccountDataBean;
 import dsb.web.controller.beans.TransferBean;
 import dsb.web.domain.Account;
 import dsb.web.domain.Customer;
 import dsb.web.repository.AccountRepository;
 import dsb.web.repository.CustomerRepository;
 import dsb.web.service.AccountPageService;
+import dsb.web.service.SignInService;
+import dsb.web.service.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,26 +18,30 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
-@SessionAttributes({"loggedInCustomer", "selectedAccountSession"})
+@SessionAttributes({"loggedInCustomer", "selectedAccountSession", "transferBeanSession"})
 public class transferController {
 
     private AccountPageService accountPageService;
+    private TransferService transferService;
 
     //TODO weg
     private CustomerRepository customerRepository;
     private AccountRepository accountRepository;
+    private TransferBean tbInClass;
 
 
     @Autowired
-    public transferController(AccountPageService accountPageService,
-                              CustomerRepository customerRepository, AccountRepository accountRepository) {
+    public transferController(AccountPageService accountPageService, CustomerRepository customerRepository,
+                              AccountRepository accountRepository, SignInService signInService, TransferService transferService) {
         this.accountPageService = accountPageService;
         this.customerRepository = customerRepository;
         this.accountRepository = accountRepository;
+        this.transferService = transferService;
     }
 
     @GetMapping("transfer")
@@ -63,40 +68,38 @@ public class transferController {
         return "transferPage";
     }
 
-    @PostMapping("transfer")
-    public String transferDataHandler (@Valid @ModelAttribute TransferBean tb, Errors errors, Model model) {
+    @PostMapping("transferPost")
+    public String transferDataHandler (@Valid @ModelAttribute TransferBean tb,
+                                       Errors errors, Model model, HttpServletRequest request) {
 
-        /**validate for errors - if so return**/
-        if(errors.hasErrors()) {
+            //TODO DIT AANZETEN VOOR MIEL ZN TJEKS
+//        /**validate for errors - if so return**/
+//        if(errors.hasErrors()) {
+//
+//            //TODO dit evt via flash/redirect uit vorige methode?
+//            Account account = (Account) model.getAttribute("selectedAccountSession");
+//            tb.setDebitAccount(account);
+//
+//            model.addAttribute("transferBean", tb);
+//
+//            model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
+//
+//
+//            return "transferPage";
+//        }
 
-            //TODO dit evt via flash/redirect uit vorige methode?
-            Account account = (Account) model.getAttribute("selectedAccountSession");
-            tb.setDebitAccount(account);
-
-            model.addAttribute("transferBean", tb);
-
-            model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
-
-
-            return "transferPage";
-        }
-
-        model.addAttribute("transferBean", tb);
-
-        model.addAttribute("loginBean", new LoginBean());
-
-
+        //determine flow and contents of tb, model and requests
+        transferService.determineFlowAndContents(tb, model, request);
 
         return "transferConfirmPage";
     }
 
     @PostMapping("transferConfirm")
-    public String transferConfirmHandler (@ModelAttribute LoginBean lb, Model model) {
+    public String transferConfirmHandler (@ModelAttribute LoginBean loginBean,
+                                          Model model, HttpServletRequest request) {
 
-        System.out.println(lb);
+        return transferService.handleFlowAndContentsThruValidation(loginBean, model, request);
 
-
-        return "index";
     }
 }
 

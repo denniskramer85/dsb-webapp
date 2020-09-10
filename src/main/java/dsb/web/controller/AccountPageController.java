@@ -29,6 +29,12 @@ public class AccountPageController {
     @GetMapping("accountPage")
     public String startAccountPage (@ModelAttribute("selectedAccount") Account account, Model model) {
 
+        //TODO dummy
+        Account accountX = (Account) model.getAttribute("selectedAccountSession");
+        //System.out.println("laat dit zien "+account);
+
+
+
         //get selected Account from flash/redirect
         System.out.println("account is: " + account);
 
