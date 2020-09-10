@@ -31,13 +31,13 @@ public class IbanService {
         return iban;
     }
 
-    private static int randomAccountNumber() {
+    private static long randomAccountNumber() {
         //Generates random ints and appends to String
         StringBuilder accountNumber = new StringBuilder(START_NUMBER_ACCOUNT);
         Random r = new Random();
         for (int i = 0; i < IBAN_ACCOUNT_NUMBER_LENGTH - START_NUMBER_ACCOUNT.length(); i++)
             accountNumber.append(r.nextInt(10 - 1 + 1));
-        return Integer.parseInt(accountNumber.toString());
+        return Long.parseLong(accountNumber.toString());
     }
 
     public static Iban stringToIBAN (String iban){
@@ -46,7 +46,7 @@ public class IbanService {
         String countryCode = iban.substring(0,2);
         int checkSum = Integer.parseInt(iban.substring(2,4));
         String bankCode = iban.substring(4,8);
-        int accountNumber = Integer.parseInt(iban.substring(8));
+        Long accountNumber = Long.parseLong(iban.substring(8));
         return new Iban(countryCode,checkSum,bankCode,accountNumber);
     }
 
@@ -64,6 +64,10 @@ public class IbanService {
     }
 
 
+    public static boolean verifyIban(String ibanStr){
+        return verifyIban(ibanStr,false);
+    }
+
     /**
      * Verifies Iban using three different strategies
      * 1. Iban length
@@ -71,20 +75,30 @@ public class IbanService {
      * 3. Calculates if Iban's checksum is valid
      *
      * @param ibanStr
-     * @return boolean
+     * @return boolean Set to true for more detailed terminal output
      */
-    public static boolean verifyIban(String ibanStr) {
+    public static boolean verifyIban(String ibanStr, boolean debug) {
+
         if (checkValidityIbanLength(ibanStr) &&
                 checkValidityIbanDigits(ibanStr) &&
                 calculateMod(ibanStr)==VALID_REMAINDER_MOD_97)
             return true;
+        else if (debug){
+            System.out.println("input: " + ibanStr);
+            System.out.println("ibanToStr: " + stringToIBAN(ibanStr).toString());
+            System.out.println("ibanToStr: " + stringToIBAN(ibanStr).toNumericalString());
+            System.out.println("length: " + checkValidityIbanLength(ibanStr));
+            System.out.println("digits: " + checkValidityIbanDigits(ibanStr));
+            System.out.println("mod: " + (calculateMod(ibanStr)==VALID_REMAINDER_MOD_97));
+            System.out.println("mod result: " + calculateMod(ibanStr));
+        }
         return false;
     }
 
 
     private static int calculateMod(String ibanStr) {
         long total = 0;
-        String str = ibanStr;
+        String str = stringToIBAN(ibanStr).toNumericalString();
         for (int i = 0; i < str.length(); i++) {
             int numericValue = Character.getNumericValue(str.charAt(i));
             if (numericValue < 0 || numericValue > ALPHABET_HIGHER_BOUND) {
