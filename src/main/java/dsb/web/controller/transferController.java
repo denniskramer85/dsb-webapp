@@ -104,34 +104,33 @@ public class transferController {
     public String transferConfirmHandler (@ModelAttribute LoginBean loginBean,
                                           Model model, HttpServletRequest request) {
 
-        TransferBean tb_session = (TransferBean) model.getAttribute("transferBeanSession");
 
-        request.setAttribute("transferBean", tb_session);
+        Customer loginCustomer = signInService.checkCredentials(loginBean.getUsername(),
+                loginBean.getPassword());
+
+        if (loginCustomer == null) {
+
+            TransferBean tb_session = (TransferBean) model.getAttribute("transferBeanSession");
+            request.setAttribute("transferBean", tb_session);
+            return "forward:transferPost";
+
+        } else {
+
+            request.setAttribute("transferBean", null);
+
+            //TODO doe iets in transfer-/ en of transactionService
+            System.out.println("transactie geslaagd");
 
 
 
-        return "forward:transferPost";
+            return "redirect:/";
+
+
+        }
 
 
 
 
-        //        //check of cust in db zit
-//        Customer loginCustomer = signInService.checkCredentials(loginBean.getUsername(), loginBean.getPassword());
-//
-//        if (loginBean != null) {
-//            //TODO doe iets in transferService
-//
-//            return "redirect:accountPage";
-//        } else {
-//
-//
-//            model.addAttribute(tbInClass);
-//            model.addAttribute("loginBean", new LoginBean());
-//
-//            return "redirect:transferPost";
-//
-//
-//        }
 
 
     }
