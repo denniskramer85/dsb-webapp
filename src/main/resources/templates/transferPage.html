@@ -32,8 +32,9 @@
 
 
                 <div id="inputTransferData">
-
-                    <form method="post" th:action="@{transferPost}" th:object="${transferBean}">
+                    <form method="post" th:action="@{transfer}" th:object="${transferBean}">
+                        <input type="hidden" th:field="*{accountBalance}">
+                        <input type="hidden" th:field="*{accountNo}">
 
                         <div class="form-group">
                             <table><tr><td>
@@ -52,7 +53,11 @@
                             </td><td>
                                 <input type="text" class="form-control" id="transferAmount" name="transferAmountString" th:field="*{transferAmountString}">
                             </td></tr><tr><td></td><td>
-                                <p class="errors"><span th:if="${#fields.hasErrors('transferAmountString')}" th:errors="*{transferAmountString}"/></p>
+                                <p class="errors">
+                                    <span th:if="${#fields.hasErrors('transferAmountString')}" th:errors="*{transferAmountString}"/>
+                                    <span th:if="${#fields.hasErrors('transferAmount')}" th:errors="*{transferAmount}"/>
+                                    <span th:if="${#fields.hasErrors('sufficientFunds')}" th:errors="*{sufficientFunds}"/>
+                                </p>
                             </td></tr>
                             </table>
                         </div>

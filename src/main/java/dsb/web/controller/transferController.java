@@ -59,37 +59,42 @@ public class transferController {
         //TODO aanzetten:
         //Account account = (Account) model.getAttribute("selectedAccountSession");
 
-        TransferBean tb = new TransferBean();
-        tb.setDebitAccount(account);
-        model.addAttribute("transferBean", new TransferBean());
+        model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
+
+        // TODO / Miel: Balance en AccountNo meegeven aan de TransferBean om in hidden fields te kunnen zetten
+        TransferBean transferBean = new TransferBean();
+        transferBean.setAccountNo(account.getAccountNo());
+        transferBean.setAccountBalance(account.getBalance());
+        model.addAttribute("transferBean", transferBean);
 
         model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
 
         return "transferPage";
     }
 
-    @PostMapping("transferPost")
-    public String transferDataHandler (@Valid @ModelAttribute TransferBean tb,
-                                       Errors errors, Model model, HttpServletRequest request) {
+    @PostMapping("transfer")
+    public String transferDataHandler (@Valid @ModelAttribute TransferBean tb, Errors errors, Model model) {
 
-            //TODO DIT AANZETEN VOOR MIEL ZN TJEKS
-//        /**validate for errors - if so return**/
-//        if(errors.hasErrors()) {
-//
-//            //TODO dit evt via flash/redirect uit vorige methode?
-//            Account account = (Account) model.getAttribute("selectedAccountSession");
-//            tb.setDebitAccount(account);
-//
-//            model.addAttribute("transferBean", tb);
-//
-//            model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
-//
-//
-//            return "transferPage";
-//        }
+        /**validate for errors - if so return**/
+        if(errors.hasErrors()) {
 
-        //determine flow and contents of tb, model and requests
-        transferService.determineFlowAndContents(tb, model, request);
+            //TODO dit evt via flash/redirect uit vorige methode?
+            Account account = (Account) model.getAttribute("selectedAccountSession");
+            model.addAttribute("transferBean", tb);
+
+            model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
+
+
+            return "transferPage";
+        }
+
+        model.addAttribute("transferBean", tb);
+
+        model.addAttribute("loginBean", new LoginBean());
+
+        //TODO / Miel: Dit heb ik even uitgezet
+//        //determine flow and contents of tb, model and requests
+//        transferService.determineFlowAndContents(tb, model, request);
 
         return "transferConfirmPage";
     }

@@ -26,7 +26,8 @@ public class TransferService {
     //determine flow and contents of tb, model and requests
     public void determineFlowAndContents(TransferBean tb, Model model, HttpServletRequest request) {
         if (request.getAttribute("transferBean") == null) {
-            tb.setDebitAccount((Account) model.getAttribute("selectedAccountSession"));
+            // TODO / Miel: setDebitAccount weggehaald uit de TransferBean, kan geen objecten meekrijgen
+            //tb.setDebitAccount((Account) model.getAttribute("selectedAccountSession"));
             model.addAttribute("transferBeanSession", tb);
             model.addAttribute("transferBean", tb);
             model.addAttribute("errorMessage", false);

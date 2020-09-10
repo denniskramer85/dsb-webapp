@@ -3,9 +3,10 @@ package dsb.web.controller.beans;
 import dsb.web.controller.AccountOverviewController;
 import dsb.web.domain.Account;
 import dsb.web.service.validators.CurrencyFormatConstraint;
+import dsb.web.service.validators.DSBAccountConstraint;
+import org.hibernate.validator.constraints.Length;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
@@ -23,11 +24,12 @@ import java.util.Locale;
 public class TransferBean {
     private Logger logger = LoggerFactory.getLogger(AccountOverviewController.class);
 
-    private Account debitAccount;
+    private double accountBalance;
+    private String accountNo;
 
-    //@NotBlank(message = "Vul een tegenrekening in")
+    @NotBlank(message = "Vul een tegenrekening in")
     // TODO: Werkend krijgen @AccountNoConstraint
-    //@DSBAccountConstraint
+    @DSBAccountConstraint
     private String creditAccountNo;
 
 
@@ -39,25 +41,49 @@ public class TransferBean {
     @Digits(integer = 50, fraction = 2, message = "Voer maximaal twee cijfers achter de komma in")
     private BigDecimal transferAmount;
 
-    //@AssertTrue(message = "Onvoldoende saldo voor transactie")
+    @AssertTrue(message = "Onvoldoende saldo voor transactie")
     private boolean sufficientFunds;
 
-    //@Length(max = 50, message = "Maximaal 50 karakters")
+    @Length(max = 50, message = "Maximaal 50 karakters")
     private String message;
 
     public TransferBean() {
     }
 
-   /* private BigDecimal parseBigDecimal(String transferAmountString) {
-
+    // Parse BigDecimal from transferAmountString
+    private void parseTransferAmount() {
+        NumberFormat numberFormat = NumberFormat.getInstance(Locale.GERMAN);
+        DecimalFormat decimalFormat = (DecimalFormat) numberFormat;
+        decimalFormat.setParseBigDecimal(true);
+        try {
+            transferAmount = (BigDecimal) decimalFormat.parse(transferAmountString.trim());
+        } catch (ParseException parseError) {
+            transferAmount = null;
+        }
     }
-*/
-    public Account getDebitAccount() {
-        return debitAccount;
+
+    // Compare parsed BigDecimal transferAmount to accountbalance
+    private void checkSufficientFunds() {
+        // TODO: WAT IS HIER GAANDE???
+        /*logger.debug("Account in Transferbean:" + debitAccount.toString());
+        System.out.println("IK KOM HIER");*/
+        setSufficientFunds(accountBalance > transferAmount.doubleValue());
     }
 
-    public void setDebitAccount(Account debitAccount) {
-        this.debitAccount = debitAccount;
+    public double getAccountBalance() {
+        return accountBalance;
+    }
+
+    public void setAccountBalance(double accountBalance) {
+        this.accountBalance = accountBalance;
+    }
+
+    public String getAccountNo() {
+        return accountNo;
+    }
+
+    public void setAccountNo(String accountNo) {
+        this.accountNo = accountNo;
     }
 
     public String getCreditAccountNo() {
@@ -74,6 +100,8 @@ public class TransferBean {
 
     public void setTransferAmountString(String transferAmountString) {
         this.transferAmountString = transferAmountString;
+        parseTransferAmount();
+        checkSufficientFunds();
     }
 
     public BigDecimal getTransferAmount() {
@@ -103,10 +131,11 @@ public class TransferBean {
     @Override
     public String toString() {
         return "TransferBean{" +
-                "debitAccount=" + debitAccount +
+                "accountBalance=" + accountBalance +
+                ", accountNo='" + accountNo + '\'' +
                 ", creditAccountNo='" + creditAccountNo + '\'' +
+                ", transferAmountString='" + transferAmountString + '\'' +
                 ", transferAmount=" + transferAmount +
-                ", sufficientFunds=" + sufficientFunds +
                 ", message='" + message + '\'' +
                 '}';
     }
