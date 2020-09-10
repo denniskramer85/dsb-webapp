@@ -1,8 +1,29 @@
+
+INSERT INTO `dsb`.`employee` (`employeeid`, `employee_user_name`, `initials`, `password`, `surname`) VALUES ('45', 'sicco.', 'S.', 'koetsier', 'Koetsier');
+INSERT INTO `dsb`.`employee` (`employeeid`, `employee_user_name`, `initials`, `password`, `surname`) VALUES ('46', 'linda.', 'L.', 'haest', 'Haest');
+
+INSERT INTO dsb.sector VALUES (0, 'Bouw')
+INSERT INTO dsb.sector VALUES (1, 'Cultuur, sport en recreatie')
+INSERT INTO dsb.sector VALUES (2, 'Detailhandel')
+INSERT INTO dsb.sector VALUES (3, 'Energie, water en milieu')
+INSERT INTO dsb.sector VALUES (4, 'Financiële instellingen')
+INSERT INTO dsb.sector VALUES (5, 'Gezondheid')
+INSERT INTO dsb.sector VALUES (6, 'Groothandel')
+INSERT INTO dsb.sector VALUES (7, 'Horeca')
+INSERT INTO dsb.sector VALUES (8, 'ICT en media')
+INSERT INTO dsb.sector VALUES (9, 'Industrie')
+INSERT INTO dsb.sector VALUES (10, 'Land- en tuinbouw')
+INSERT INTO dsb.sector VALUES (11, 'Logistiek')
+INSERT INTO dsb.sector VALUES (12, 'Overig')
+INSERT INTO dsb.sector VALUES (13, 'Zakelijke diensten')
+
 INSERT INTO `dsb`.`address` (`addressid`, `city`, `house_number`, `street`) VALUES ('11', 'Amsterdam', '1', 'Straat');
 INSERT INTO `dsb`.`customer` (`customerid`, `initials`, `password`, `social_security_no`, `surname`, `username`, `address_addressid`) VALUES ('11', 'D.', 'dennis', '123456', 'Kramer', 'dennis', '11');
 INSERT INTO `dsb`.`customer` (`customerid`, `initials`, `password`, `social_security_no`, `surname`, `username`, `address_addressid`) VALUES ('12', 'E.M.', 'miel', '123456', 'van Welzen', 'miel', '11');
 
-INSERT INTO `dsb`.`company` (`company_id`, `btwno`, `kvkno`, `name`) VALUES ('11', 'NL0012345B02', '14729462', 'HvA Corp.');
+INSERT INTO `dsb`.`company` (`company_id`, `btwno`, `kvkno`, `name`, `sector_sector_id`, `account_manager`) VALUES ('11', 'NL0012345B03', '14729462', 'HvA Corp.', 12, '45');
+INSERT INTO `dsb`.`company` (`company_id`, `btwno`, `kvkno`, `name`, `sector_sector_id`, `account_manager`) VALUES ('12', 'NL0012345B04', '66666666', 'Evil Corp.', 4, '45');
+INSERT INTO `dsb`.`company` (`company_id`, `btwno`, `kvkno`, `name`, `sector_sector_id`, `account_manager`) VALUES ('13', 'NL0012345B05', '26492741', 'AvH Corp.', 12, '45');
 
 INSERT INTO `dsb`.`account` (`accountid`, `account_no`, `balance`) VALUES ('110', 'NL40DSBB0123456789', '1000');
 INSERT INTO `dsb`.`account` (`accountid`, `account_no`, `balance`) VALUES ('111', 'NL41DSBB0123456789', '1500');
@@ -35,21 +56,3 @@ INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount
 INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, transaction_account_credit_accountid, transaction_account_debet_accountid) VALUES ('302', 'Hondevoer', 100, '2020-01-03 01:01:01', 111, 113);
 INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, transaction_account_credit_accountid, transaction_account_debet_accountid) VALUES ('303', 'Ballonvaart', 100, '2020-01-04 01:01:01', 110, 114);
 INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, transaction_account_credit_accountid, transaction_account_debet_accountid) VALUES ('304', 'Verjaardag', 100, '2020-01-05 01:01:01', 111, 115);
-
-INSERT INTO `dsb`.`employee` (`employeeid`, `employee_user_name`, `initials`, `password`, `surname`) VALUES ('45', 'sicco.', 'S.', 'koetsier', 'Koetsier');
-INSERT INTO `dsb`.`employee` (`employeeid`, `employee_user_name`, `initials`, `password`, `surname`) VALUES ('46', 'linda.', 'L.', 'haest', 'Haest');
-
-INSERT INTO dsb.sector VALUES (0, 'Bouw')
-INSERT INTO dsb.sector VALUES (1, 'Cultuur, sport en recreatie')
-INSERT INTO dsb.sector VALUES (2, 'Detailhandel')
-INSERT INTO dsb.sector VALUES (3, 'Energie, water en milieu')
-INSERT INTO dsb.sector VALUES (4, 'Financiële instellingen')
-INSERT INTO dsb.sector VALUES (5, 'Gezondheid')
-INSERT INTO dsb.sector VALUES (6, 'Groothandel')
-INSERT INTO dsb.sector VALUES (7, 'Horeca')
-INSERT INTO dsb.sector VALUES (8, 'ICT en media')
-INSERT INTO dsb.sector VALUES (9, 'Industrie')
-INSERT INTO dsb.sector VALUES (10, 'Land- en tuinbouw')
-INSERT INTO dsb.sector VALUES (11, 'Logistiek')
-INSERT INTO dsb.sector VALUES (12, 'Overig')
-INSERT INTO dsb.sector VALUES (13, 'Zakelijke diensten')

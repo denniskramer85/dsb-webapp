@@ -19,7 +19,7 @@
         <div class="new-account card-body">
 
             <p>Vul de volgende velden in:</p>
-            <form method="POST" th:object="${newAccountBean}" th:action="@{company-details-completed}">
+            <form method="POST" th:object="${companyBean}" th:action="@{company-details-completed}">
                 <div class="new-account table">
                     <div class="new-account row">
                         <label class="new-account label">KVK-nummer:</label>
@@ -27,14 +27,19 @@
                     </div>
                     <div class="new-account row">
                         <label class="new-account label">Bedrijfsnaam:</label>
-                        <input class="new-account field form-control" id="name" type="text" name="input-name" th:field="*{name}" required>
+                        <input class="new-account field form-control" id="name" type="text" name="input-name" th:field="*{Name}" required>
                     </div>
                     <div class="new-account row">
                         <label class="new-account label">BTW-nummer:</label>
                         <input class="new-account field form-control" id="btw" type="text" name="input-BTWno" th:field="*{BTWno}" required>
                     </div>
                     <div>
-                        <p>Segment: <input type="text" name="input-BTWno" th:field="*{Se}" required></p>
+                        <label class="new-account label">Sector:</label>
+                        <select th:field="*{sector}" required>
+                            <option value=""></option>
+                        <!--    <option th:each-->
+
+
                     </div>
                 </div>
                 <div style="display: inline;">
