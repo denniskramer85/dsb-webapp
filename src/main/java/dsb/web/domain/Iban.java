@@ -7,9 +7,9 @@ public class Iban {
     private String countryCode;
     private int checkSum;
     private String bankCode;
-    private int accountCode;
+    private Long accountCode;
 
-    public Iban(String countryCode, int checkSum, String bankCode, int accountCode) {
+    public Iban(String countryCode, int checkSum, String bankCode, Long accountCode) {
         this.countryCode = countryCode;
         this.checkSum = checkSum;
         this.bankCode = bankCode;
@@ -48,11 +48,11 @@ public class Iban {
         this.bankCode = bankCode;
     }
 
-    public int getAccountCode() {
+    public Long getAccountCode() {
         return accountCode;
     }
 
-    public void setAccountCode(int accountCode) {
+    public void setAccountCode(Long accountCode) {
         this.accountCode = accountCode;
     }
 
@@ -62,7 +62,7 @@ public class Iban {
         result.append(this.countryCode);
         result.append(String.format("%02d", this.checkSum));
         result.append(this.bankCode);
-        for (int i = 0; i < LENGTH_ACCOUNT_NUMBER-Integer.toString(this.accountCode).length(); i++) {
+        for (int i = 0; i < LENGTH_ACCOUNT_NUMBER-Long.toString(this.accountCode).length(); i++) {
             result.append(0);
         }
         result.append(this.accountCode);
@@ -72,7 +72,7 @@ public class Iban {
     public String toNumericalString() {
         StringBuilder result = new StringBuilder();
         result.append(IbanService.stringToNumericalString(this.bankCode));
-        for (int i = 0; i < LENGTH_ACCOUNT_NUMBER-Integer.toString(this.accountCode).length(); i++) {
+        for (int i = 0; i < LENGTH_ACCOUNT_NUMBER-Long.toString(this.accountCode).length(); i++) {
             result.append("0");
         }
         result.append(this.accountCode);
