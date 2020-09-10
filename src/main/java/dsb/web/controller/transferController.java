@@ -59,9 +59,7 @@ public class transferController {
 
         model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
 
-        TransferBean tb = new TransferBean();
-        tb.setDebitAccount(account);
-        model.addAttribute("transferBean", new TransferBean());
+        model.addAttribute("transferBean", new TransferBean(account));
 
 
         return "transferPage";
