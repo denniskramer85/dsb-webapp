@@ -21,19 +21,19 @@ import java.math.BigDecimal;
 public class TransferBean {
     private Account debitAccount;
 
-    @NotBlank(message = "Vul een tegenrekening in")
-    @AccountNoConstraint
-    @DSBAccountConstraint
+    //@NotBlank(message = "Vul een tegenrekening in")
+    // TODO: Werkend krijgen @AccountNoConstraint
+    //@DSBAccountConstraint
     private String creditAccountNo;
 
     @Digits(integer = 50, fraction = 2, message = "Voer een geldig bedrag in")
-    @Positive(message = "Voer een bedrag groter dan 0 in")
+    //@Positive(message = "Voer een bedrag groter dan 0 in")
     private BigDecimal transferAmount;
 
-    @AssertTrue(message = "Onvoldoende saldo voor transactie")
+    //@AssertTrue(message = "Onvoldoende saldo voor transactie")
     private boolean sufficientFunds;
 
-    @Length(max = 50, message = "Maximaal 50 karakters")
+    //@Length(max = 50, message = "Maximaal 50 karakters")
     private String message;
 
     @Autowired
