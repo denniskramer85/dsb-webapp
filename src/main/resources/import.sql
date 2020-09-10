@@ -38,3 +38,18 @@ INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount
 
 INSERT INTO `dsb`.`employee` (`employeeid`, `employee_user_name`, `initials`, `password`, `surname`) VALUES ('45', 'sicco.', 'S.', 'koetsier', 'Koetsier');
 INSERT INTO `dsb`.`employee` (`employeeid`, `employee_user_name`, `initials`, `password`, `surname`) VALUES ('46', 'linda.', 'L.', 'haest', 'Haest');
+
+INSERT INTO dsb.sector VALUES (0, 'Bouw')
+INSERT INTO dsb.sector VALUES (1, 'Cultuur, sport en recreatie')
+INSERT INTO dsb.sector VALUES (2, 'Detailhandel')
+INSERT INTO dsb.sector VALUES (3, 'Energie, water en milieu')
+INSERT INTO dsb.sector VALUES (4, 'Financiële instellingen')
+INSERT INTO dsb.sector VALUES (5, 'Gezondheid')
+INSERT INTO dsb.sector VALUES (6, 'Groothandel')
+INSERT INTO dsb.sector VALUES (7, 'Horeca')
+INSERT INTO dsb.sector VALUES (8, 'ICT en media')
+INSERT INTO dsb.sector VALUES (9, 'Industrie')
+INSERT INTO dsb.sector VALUES (10, 'Land- en tuinbouw')
+INSERT INTO dsb.sector VALUES (11, 'Logistiek')
+INSERT INTO dsb.sector VALUES (12, 'Overig')
+INSERT INTO dsb.sector VALUES (13, 'Zakelijke diensten')

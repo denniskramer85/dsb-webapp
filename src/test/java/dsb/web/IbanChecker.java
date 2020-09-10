@@ -18,8 +18,6 @@ public class IbanChecker {
         String iban4 = "NL74RABO7023532722";
         String iban5 = "NL92INGB7798392807";
         String iban6 = "NL96INGB7659536168";
-/*        System.out.println(IbanService.verifyIban(iban4, true));
-        System.out.println(IbanService.stringToIBAN("NL74RABO7023532722").toNumericalString());*/
         assertTrue(IbanService.verifyIban(iban1, debug));
         assertTrue(IbanService.verifyIban(iban2, debug));
         assertTrue(IbanService.verifyIban(iban3, debug));

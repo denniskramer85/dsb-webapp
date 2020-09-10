@@ -15,6 +15,8 @@ public class Company {
     private String BTWno;
     @OneToMany
     private List<SMEAccount> accounts;
+    @ManyToOne
+    private Sector sector;
 
     public Company(int companyId, String name, String KVKno, String BTWno, List<SMEAccount> accounts) {
         this.companyId = companyId;
