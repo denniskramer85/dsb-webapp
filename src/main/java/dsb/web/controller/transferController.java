@@ -8,6 +8,7 @@ import dsb.web.repository.AccountRepository;
 import dsb.web.repository.CustomerRepository;
 import dsb.web.service.AccountPageService;
 import dsb.web.service.SignInService;
+import dsb.web.service.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +27,7 @@ import java.util.Optional;
 public class transferController {
 
     private AccountPageService accountPageService;
-    private SignInService signInService;
+    private TransferService transferService;
 
     //TODO weg
     private CustomerRepository customerRepository;
@@ -36,11 +37,11 @@ public class transferController {
 
     @Autowired
     public transferController(AccountPageService accountPageService, CustomerRepository customerRepository,
-                              AccountRepository accountRepository, SignInService signInService) {
+                              AccountRepository accountRepository, SignInService signInService, TransferService transferService) {
         this.accountPageService = accountPageService;
-        this.signInService = signInService;
         this.customerRepository = customerRepository;
         this.accountRepository = accountRepository;
+        this.transferService = transferService;
     }
 
     @GetMapping("transfer")
@@ -87,21 +88,9 @@ public class transferController {
 //            return "transferPage";
 //        }
 
+        //determine flow and contents of tb, model and requests
+        transferService.determineFlowAndContents(tb, model, request);
 
-        //determine first or repeated flow: for preserving input in confirmation page
-        if (request.getAttribute("transferBean") == null) {
-            tb.setDebitAccount((Account) model.getAttribute("selectedAccountSession"));
-            model.addAttribute("transferBeanSession", tb);
-            model.addAttribute("transferBean", tb);
-            model.addAttribute("errorMessage", false);
-
-        } else {
-            model.addAttribute("transferBean", request.getAttribute("transferBean"));
-            model.addAttribute("errorMessage", true);
-        }
-        boolean bo = (Boolean) model.getAttribute("errorMessage");
-        System.out.println(bo);
-        model.addAttribute("loginBean", new LoginBean());
         return "transferConfirmPage";
     }
 
@@ -109,34 +98,7 @@ public class transferController {
     public String transferConfirmHandler (@ModelAttribute LoginBean loginBean,
                                           Model model, HttpServletRequest request) {
 
-
-        Customer loginCustomer = signInService.checkCredentials(loginBean.getUsername(),
-                loginBean.getPassword());
-
-        if (loginCustomer == null) {
-
-            TransferBean tb_session = (TransferBean) model.getAttribute("transferBeanSession");
-            request.setAttribute("transferBean", tb_session);
-            return "forward:transferPost";
-
-        } else {
-
-            request.setAttribute("transferBean", null);
-
-            //TODO doe iets in transfer-/ en of transactionService
-            System.out.println("transactie geslaagd");
-
-
-
-            return "redirect:/";
-
-
-        }
-
-
-
-
-
+        return transferService.handleFlowAndContentsThruValidation(loginBean, model, request);
 
     }
 }
