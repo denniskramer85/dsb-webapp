@@ -29,9 +29,6 @@ public class transferController {
     //TODO weg
     private CustomerRepository customerRepository;
     private AccountRepository accountRepository;
-    //private PrintAccountDataBean printAccountDataBean;
-
-
 
 
     @Autowired
@@ -57,12 +54,11 @@ public class transferController {
         //TODO aanzetten:
         //Account account = (Account) model.getAttribute("selectedAccountSession");
 
-        model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
-
         TransferBean tb = new TransferBean();
         tb.setDebitAccount(account);
         model.addAttribute("transferBean", new TransferBean());
 
+        model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
 
         return "transferPage";
     }
