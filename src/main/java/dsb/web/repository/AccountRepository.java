@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface AccountRepository extends CrudRepository<Account, Integer> {
@@ -14,5 +15,6 @@ public interface AccountRepository extends CrudRepository<Account, Integer> {
     List<Account> findAllByHolders(Customer customer);
     Account findAccountByAccountNo(String accountNo);
     Boolean existsByAccountNo(String accountNo);
+    Optional<Account> findByAccountID (int accountID);
 
 }

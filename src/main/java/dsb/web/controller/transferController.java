@@ -1,9 +1,12 @@
 package dsb.web.controller;
 
 import dsb.web.controller.beans.LoginBean;
-import dsb.web.controller.beans.printAccountDataBean;
+import dsb.web.controller.beans.PrintAccountDataBean;
 import dsb.web.controller.beans.TransferBean;
 import dsb.web.domain.Account;
+import dsb.web.domain.Customer;
+import dsb.web.repository.AccountRepository;
+import dsb.web.repository.CustomerRepository;
 import dsb.web.service.AccountPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,52 +18,72 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.validation.Valid;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Optional;
 
 @Controller
-@SessionAttributes("selectedAccountSession")
+@SessionAttributes({"loggedInCustomer", "selectedAccountSession"})
 public class transferController {
 
-    AccountPageService accountPageService;
+    private AccountPageService accountPageService;
 
-    printAccountDataBean dummy;
+    //TODO weg
+    private CustomerRepository customerRepository;
+    private AccountRepository accountRepository;
+    //private PrintAccountDataBean printAccountDataBean;
+
+
+
 
     @Autowired
-    public transferController(AccountPageService accountPageService) {
+    public transferController(AccountPageService accountPageService,
+                              CustomerRepository customerRepository, AccountRepository accountRepository) {
         this.accountPageService = accountPageService;
+        this.customerRepository = customerRepository;
+        this.accountRepository = accountRepository;
     }
 
     @GetMapping("transfer")
     public String startTransferPageHandler (Model model) {
 
-        //dummy
-        String[] lijstje = {"x", "a",};
-        List<String> lijstDummy = Arrays.asList(lijstje);
-        dummy = new printAccountDataBean("SMEAccount", "123", "Hans BV",
-                "Kees en piet", "189,77", "1-4-33", lijstDummy);
+        //TODO weg: ff dummydata cust en acc uit DB - en in sessie hangen
+        Optional<Customer> customerOptional = customerRepository.findOneByUsername("dennis");
+        Customer customer = customerOptional.get();
+        model.addAttribute("loggedInCustomer", customer);
+        Optional<Account> accountOptional = accountRepository.findByAccountID(110);
+        Account account = accountOptional.get();
+        model.addAttribute("selectedAccountSession", account);
 
-//        Account account = (Account) model.getAttribute("selectedAccountSession");
-//        model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
 
-        model.addAttribute("printAccountDataBean", dummy);
+        //TODO aanzetten:
+        //Account account = (Account) model.getAttribute("selectedAccountSession");
 
+        model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
+
+        TransferBean tb = new TransferBean();
+        tb.setDebitAccount(account);
         model.addAttribute("transferBean", new TransferBean());
+
 
         return "transferPage";
     }
 
     @PostMapping("transfer")
-    public String transferDataHandler (/*@Valid*/ @ModelAttribute TransferBean tb, Errors errors, Model model) {
+    public String transferDataHandler (@Valid @ModelAttribute TransferBean tb, Errors errors, Model model) {
 
-//        /**validate for errors - is fo return**/
-//        if(errors.hasErrors()) {
-//
-//            model.addAttribute("printAccountDataBean", dummy);
-//            model.addAttribute("transferBean", tb);
-//
-//            return "transferPage";
-//        }
+        /**validate for errors - if so return**/
+        if(errors.hasErrors()) {
+
+            //TODO dit evt via flash/redirect uit vorige methode?
+            Account account = (Account) model.getAttribute("selectedAccountSession");
+            tb.setDebitAccount(account);
+
+            model.addAttribute("transferBean", tb);
+
+            model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
+
+
+            return "transferPage";
+        }
 
         model.addAttribute("transferBean", tb);
 

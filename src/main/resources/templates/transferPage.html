@@ -60,7 +60,7 @@
                             <table><tr><td>
                                 <label for="message">Mededeling</label>
                             </td><td>
-                                <input type="textarea" class="form-control" id="message" name="message" th:field="*{message}">
+                                <input type="text" class="form-control" id="message" name="message" th:field="*{message}">
                             </td></tr><tr><td></td><td>
                                 <p class="errors"><span th:if="${#fields.hasErrors('message')}" th:errors="*{message}"/></p>
                             </td></tr>
