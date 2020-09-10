@@ -26,7 +26,10 @@ public class CurrencyFormatValidator implements ConstraintValidator<CurrencyForm
             return true;
         }
 
-        // Check if any nonnumeric characters are present, excluding one decimal comma
+        // Trim input
+        transferAmount = transferAmount.trim();
+
+        // Check if any nonnumeric characters are present, allow one decimal comma
         if (!StringUtils.isNumeric(transferAmount.replaceFirst(",", ""))) {
             return false;
         }

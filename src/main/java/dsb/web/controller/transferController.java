@@ -59,7 +59,10 @@ public class transferController {
 
         model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
 
-        model.addAttribute("transferBean", new TransferBean(account));
+        TransferBean transferBean = new TransferBean();
+        transferBean.setAccountNo(account.getAccountNo());
+        transferBean.setAccountBalance(account.getBalance());
+        model.addAttribute("transferBean", transferBean);
 
 
         return "transferPage";
@@ -73,8 +76,6 @@ public class transferController {
 
             //TODO dit evt via flash/redirect uit vorige methode?
             Account account = (Account) model.getAttribute("selectedAccountSession");
-            tb.setDebitAccount(account);
-
             model.addAttribute("transferBean", tb);
 
             model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
