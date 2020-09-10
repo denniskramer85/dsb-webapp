@@ -1,6 +1,7 @@
 package dsb.web.controller;
 
 import dsb.web.controller.beans.NewAccountBean;
+import dsb.web.domain.Company;
 import dsb.web.domain.Customer;
 import dsb.web.repository.AccountRepository;
 import dsb.web.repository.CompanyRepository;
@@ -17,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class NewAccountController {
     private NewAccountService newAccountService;
     private AccountRepository accountRepository;
-    private CompanyRepository bussinessRepository;
+    private CompanyRepository companyRepository;
     private CustomerRepository customerRepository;
 
     public NewAccountBean newAccountBean(){
@@ -25,10 +26,10 @@ public class NewAccountController {
     }
 
     @Autowired
-    public NewAccountController(NewAccountService newAccountService, AccountRepository accountRepository, CompanyRepository bussinessRepository) {
+    public NewAccountController(NewAccountService newAccountService, AccountRepository accountRepository, CompanyRepository companyRepository) {
         this.newAccountService = newAccountService;
         this.accountRepository = accountRepository;
-        this.bussinessRepository = bussinessRepository;
+        this.companyRepository = companyRepository;
     }
 
     @GetMapping("new-account")
@@ -52,6 +53,8 @@ public class NewAccountController {
         }
         return "index";
     }
+
+
 
     @GetMapping("confirm-new-account")
     public String confirmNewAccount(
@@ -91,5 +94,25 @@ public class NewAccountController {
         //model.addAttribute(AttributeMapping.LOGGED_IN_CUSTOMER, loggedInCustomer);
         return new ModelAndView("redirect:/account_overview");
     }
+
+    @RestController
+    @RequestMapping(value = "/kvks")
+    class BussinessDetailsController{
+        public BussinessDetailsController() {
+            super();
+        }
+
+        @GetMapping(value = "/{kvk}")
+        public String findCompanyByKVK(@PathVariable("kvk") String kvkno){
+            Company comp = companyRepository.findCompanyByKVKno(kvkno);
+            if (comp != null) {
+                System.out.println(comp);
+                return (comp.getName() + "," + comp.getBTWno());
+            }
+            return null;
+        }
+    }
+
 }
+
 

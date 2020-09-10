@@ -24,8 +24,6 @@ public class Company {
         this.accounts = accounts;
     }
 
-
-
     public Company(String name, String KVKno, String BTWno) {
         this.name = name;
         this.KVKno = KVKno;

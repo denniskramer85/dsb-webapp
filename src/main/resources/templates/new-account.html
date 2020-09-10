@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <link rel="stylesheet" href="styles.css"/>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <meta charset="UTF-8">
     <title>Aanvraag nieuwe rekening</title>
@@ -9,32 +10,27 @@
 
 <div th:include="fragments/header :: header"></div>
 
-<br/>
-<br/>
-
-<div class="container">
-    <div class="panel panel-default">
-        <div class="panel-heading new-account">
-            <h3 class="panel-title">Aanvraag nieuwe account</h3>
+<div class="container new-account">
+    <div class="card" >
+        <div class="card-header account-header-div">
+            <h5 class="account-header">Aanvraag nieuwe account</h5>
         </div>
-        <div class="panel-body new-account" style="margin-top: 30px">
-            <p>Wat voor account zou je aan willen maken?</p>
-        </div>
-        <div class="panel-body new-account">
-            <form method="post" th:action="new-account">
-                <div>
-                    <input type="radio" id="consumer" name="accountType" value="0" >
-                    <label for="consumer">Particulier</label>
-                </div>
-                <div>
-                    <input type="radio" id="SME" name="accountType" value="1" required>
-                    <label for="SME">Zakelijk</label>
-                </div>
-                <div>
-                    <input class="btn btn-outline-dark" type="submit" value="Volgende">
-                    <input class="btn btn-outline-dark" type="button" onclick="window.location.href='account_overview';" value="Cancel"/>
-                </div>
-            </form>
+    <div class="panel-body new-account" style="margin-top: 30px">
+        <p>Wat voor account zou je aan willen maken?</p>
+    </div>
+    <div class="panel-body new-account">
+        <form class="new-account table" method="post" th:action="new-account">
+            <div class="new-account row">
+                <input class="new-account field" type="radio" id="consumer" name="accountType" value="0" >
+                <labelx for="consumer">Particulier</labelx>
+            </div>
+            <div class="new-account row">
+                <input class="new-account field" type="radio" id="SME" name="accountType" value="1" required>
+                <label for="SME">Zakelijk</label>
+            </div>
+        </form>
+        <div style="display:inline;">
+            <input  class="btn btn-outline-dark" type="submit" value="Volgende"/><input class="btn btn-outline-dark" type="button" onclick="window.location.href='account_overview';" value="Cancel"/>
         </div>
     </div>
 </div>
