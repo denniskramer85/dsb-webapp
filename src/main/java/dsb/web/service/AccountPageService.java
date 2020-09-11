@@ -45,7 +45,7 @@ public class AccountPageService {
 
     private List<String> getTransactionStrings(Account account) {
 
-        //TODO dit vereenvoudiggen evt naar eigen klasse
+        //TODO dit vereenvoudiggen evt naar eigen klasse ()incl bovenstaande method?
 
         //set up needed variables
         String ownAccountNo = account.getAccountNo();
