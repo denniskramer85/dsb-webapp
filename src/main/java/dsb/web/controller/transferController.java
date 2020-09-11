@@ -72,6 +72,7 @@ public class transferController {
     public String transferDataHandler (@Valid @ModelAttribute TransferBean tb,
                                        Errors errors, Model model, HttpServletRequest request) {
 
+        //TODO elders plaatsen?
             //TODO DIT AANZETEN VOOR MIEL ZN TJEKS
 //        /**validate for errors - if so return**/
 //        if(errors.hasErrors()) {
