@@ -102,9 +102,10 @@ public class transferController {
     public String transferConfirmHandler (@ModelAttribute LoginBean loginBean,
                                           Model model/*, HttpServletRequest request*/) {
 
+        //TODO: dit toch allemaal/deels niet even naar transferService?
+
         Customer loginCustomer = signInService.
                 checkCredentials(loginBean.getUsername(), loginBean.getPassword());
-
 
         TransferBean transferBean = (TransferBean) model.getAttribute("transferBeanSession");
         Customer loggedInCustomer = (Customer) model.getAttribute(AttributeMapping.LOGGED_IN_CUSTOMER);
