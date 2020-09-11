@@ -33,7 +33,7 @@ public class SMEDashboardController {
     public String SmeDashboardOverview(Model model) {
 
         List<Transaction> top10Transaction = smeDashboardService.getTop10SmeTransaction();
-        List<SMEAccount> top10Balance = smeDashboardService.getTop10SmeBalance();
+        List<SMEAccount> top10Balance = smeDashboardService.getTop10bySmeBalance();
         //Model info verstuurt naar je template
         model.addAttribute("naam", "thijs");
         model.addAttribute("balances", top10Balance);

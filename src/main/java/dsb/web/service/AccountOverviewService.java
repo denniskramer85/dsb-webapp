@@ -5,8 +5,8 @@ import dsb.web.domain.ConsumerAccount;
 import dsb.web.domain.Customer;
 import dsb.web.domain.SMEAccount;
 import dsb.web.repository.AccountRepository;
-import dsb.web.repository.ConsumerAccountRepository;
 import dsb.web.repository.SMEAccountRepository;
+import dsb.web.repository.ConsumerAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +17,13 @@ import java.util.Optional;
 @Service
 public class AccountOverviewService {
     private ConsumerAccountRepository consumerAccountRepository;
-    private SMEAccountRepository smeAccountRepository;
+    private SMEAccountRepository accountRepositorySme;
     private AccountRepository accountRepository;
 
     @Autowired
-    public AccountOverviewService(ConsumerAccountRepository consumerAccountRepository, SMEAccountRepository smeAccountRepository, AccountRepository accountRepository) {
+    public AccountOverviewService(ConsumerAccountRepository consumerAccountRepository, SMEAccountRepository accountRepositorySme, AccountRepository accountRepository) {
         this.consumerAccountRepository = consumerAccountRepository;
-        this.smeAccountRepository = smeAccountRepository;
+        this.accountRepositorySme = accountRepositorySme;
         this.accountRepository = accountRepository;
     }
 
@@ -36,7 +36,7 @@ public class AccountOverviewService {
     }
 
     public List<SMEAccount> getSMEAccountsForCustomer(Customer customer) {
-        List<SMEAccount> smeAccountList = smeAccountRepository.findAllByHolders(customer);
+        List<SMEAccount> smeAccountList = accountRepositorySme.findAllByHolders(customer);
         return smeAccountList;
     }
 
