@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 
 @Service
@@ -69,12 +70,15 @@ public class TransactionService {
         BigDecimal creditBalanceBefore = BigDecimal.valueOf(creditAccount.getBalance()).stripTrailingZeros();
         BigDecimal transferAmount = BigDecimal.valueOf(transaction.getTransactionAmount()).stripTrailingZeros();
 
-        MathContext mathContext = new MathContext(2);
 
         // Adjust balance for debit account
-        debitAccount.setBalance(debitBalanceBefore.subtract(transferAmount, mathContext).doubleValue());
+        debitAccount.setBalance(debitBalanceBefore.subtract(transferAmount).setScale(2, RoundingMode.HALF_UP).doubleValue());
 
         // Adjust balance for credit account
-        creditAccount.setBalance(creditBalanceBefore.add(transferAmount, mathContext).doubleValue());
+        creditAccount.setBalance(creditBalanceBefore.add(transferAmount).setScale(2, RoundingMode.HALF_UP).doubleValue());
+
+        // Update new balances in database
+        accountRepository.save(debitAccount);
+        accountRepository.save(creditAccount);
     }
 }

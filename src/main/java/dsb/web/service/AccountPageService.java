@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -62,8 +63,8 @@ public class AccountPageService {
 
         //loop thru transactions to make proper strings for display
         for (Transaction t : transactions) {
-            timeStamp = new SimpleDateFormat("MM/dd/yyyy '-' HH:mm").
-                    format(t.getTransactionTimestamp());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            timeStamp = t.getTransactionTimestamp().format(formatter);
             message = t.getMessage();
             amount = t.getTransactionAmount();
 
