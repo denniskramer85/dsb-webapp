@@ -23,7 +23,7 @@ public class TransferService {
     }
 
 
-    //determine flow and contents of tb, model and requests
+    //determine flow [first or repeated iteration?] and contents of tb, model and requests
     public void determineFlowAndContents(TransferBean tb, Model model, HttpServletRequest request) {
         if (request.getAttribute("transferBean") == null) {
             tb.setDebitAccount((Account) model.getAttribute("selectedAccountSession"));
@@ -44,6 +44,7 @@ public class TransferService {
         Customer loginCustomer = signInService.checkCredentials(loginBean.getUsername(),
                 loginBean.getPassword());
 
+        //determine if validation is correct
         if (loginCustomer == null) {
 
             TransferBean tb_session = (TransferBean) model.getAttribute("transferBeanSession");

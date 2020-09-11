@@ -88,7 +88,7 @@ public class transferController {
 //            return "transferPage";
 //        }
 
-        //determine flow and contents of tb, model and requests
+        //determine flow [first or repeated iteration?] and contents of tb, model and requests
         transferService.determineFlowAndContents(tb, model, request);
 
         return "transferConfirmPage";
