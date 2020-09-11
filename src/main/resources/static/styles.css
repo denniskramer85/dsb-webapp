@@ -15,35 +15,27 @@
 /*new-account*/
 .container {
     padding: 25px 10px 10px;
+
 }
 
-.new-account h1{
-    margin: 0px 0px 25px;
+.new-account .form-row{
+    overflow: hidden;
+    padding:5px 0px 10px;
 }
 
-.new-account p{
-    margin: 0px 0px 25px;
-}
-
-.new-account .table{
-    display: table;
-}
-.new-account .row{
-    display: table-row;
-}
-.new-account .label{
-    width: 1%;
-    white-space: nowrap;
-    display: table-cell;
-    margin: 0px 10px 30px;
+.new-account .text{
+    width: 150px;
+    float: left;
 }
 .new-account .field{
-    width: 100%;
-    display: table-cell;
-    margin: 0px 10px 30px;
+    float: left;
 }
-.new-account .button{
-    margin-right: 5px;
+.cards{
+    margin-bottom: 20px;
+}
+
+.edit-btn{
+    float: right;
 }
 
 /*account_overview*/

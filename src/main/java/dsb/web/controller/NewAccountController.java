@@ -3,9 +3,11 @@ package dsb.web.controller;
 import dsb.web.controller.beans.CompanyBean;
 import dsb.web.domain.Company;
 import dsb.web.domain.Customer;
+import dsb.web.domain.Sector;
 import dsb.web.repository.AccountRepository;
 import dsb.web.repository.CompanyRepository;
 import dsb.web.repository.CustomerRepository;
+import dsb.web.repository.SectorRepository;
 import dsb.web.service.NewAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,23 +22,23 @@ public class NewAccountController {
     private NewAccountService newAccountService;
     private AccountRepository accountRepository;
     private CompanyRepository companyRepository;
-    private CustomerRepository customerRepository;
+    private SectorRepository sectorRepository;
 
     public CompanyBean newAccountBean(){
         return new CompanyBean();
     }
 
     @Autowired
-    public NewAccountController(NewAccountService newAccountService, AccountRepository accountRepository, CompanyRepository companyRepository) {
+    public NewAccountController(NewAccountService newAccountService, AccountRepository accountRepository, CompanyRepository companyRepository, SectorRepository sectorRepository) {
         this.newAccountService = newAccountService;
         this.accountRepository = accountRepository;
         this.companyRepository = companyRepository;
+        this.sectorRepository = sectorRepository;
     }
 
     @GetMapping("new-account")
     public String newAccountSetup(){
         return "new-account";
-
     }
 
     @PostMapping("new-account")
@@ -47,7 +49,8 @@ public class NewAccountController {
         if (accountType == 0) {                         // if Radio 'partiuculier' was selected
             return "confirm-new-account";
         } else if (accountType == 1) {                  // if Radio 'zakelijk' was selected
-            return "company-details";
+            System.out.println("bla");
+            return "redirect:/company-details";
         }
         return "index";
     }
@@ -56,8 +59,7 @@ public class NewAccountController {
 
     @GetMapping("confirm-new-account")
     public String confirmNewAccount(
-            @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean companyBean,
-            Model model){
+            @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean companyBean){
         return "confirm-new-account";
     }
 
@@ -65,6 +67,19 @@ public class NewAccountController {
     public String companyDetails (
             @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean companyBean,
             Model model) {
+        System.out.println("blasda1");
+        System.out.println(sectorRepository.findAll());
+        model.addAttribute("sectors", sectorRepository.findAll());
+        return "company-details";
+    }
+
+    @PostMapping("company-details")
+    public String companyDetails1 (
+            @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean companyBean,
+            Model model) {
+        System.out.println("blasda1");
+        //System.out.println(sectorRepository.findAll());
+        //model.addAttribute("sectors", sectorRepository.findAll());
         return "company-details";
     }
 
@@ -74,6 +89,9 @@ public class NewAccountController {
         //Check geldigheid KVK-nummer
         //companyBean.getKVKno()
         //Check geldigheid BTW-nummer
+        System.out.println("blabla");
+        System.out.println(sectorRepository.findAll());
+        model.addAttribute("sectors", sectorRepository.findAll());
         return "confirm-new-account";
     }
 
@@ -103,12 +121,11 @@ public class NewAccountController {
             Company comp = companyRepository.findCompanyByKVKno(kvkno);
             if (comp != null) {
                 System.out.println(comp);
-                return (comp.getName() + "," + comp.getBTWno());
+                return (comp.getName() + "," + comp.getBTWno() + "," + comp.getSector().getSectorId());
             }
             return null;
         }
     }
-
 }
 
 

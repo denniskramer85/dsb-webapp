@@ -10,30 +10,29 @@
 
 <div th:include="fragments/header :: header"></div>
 
-<div class="container new-account">
+<div class="container">
     <div class="card" >
         <div class="card-header account-header-div">
             <h5 class="account-header">Aanvraag nieuwe account</h5>
         </div>
-    <div class="panel-body new-account" style="margin-top: 30px">
-        <p>Wat voor account zou je aan willen maken?</p>
-    </div>
-    <div class="panel-body new-account">
-        <form method="post" th:action="new-account">
-            <div class="new-account">
-                <div class="new-account row">
-                    <input class="new-account" type="radio" id="consumer" name="accountType" value="0" >
-                    <label for="consumer">Particulier</label>
+        <div class="card-body">
+            <p>Wat voor account zou je aan willen maken?</p>
+            <form method="post" th:action="new-account">
+                <div>
+                    <div class="new-account">
+                        <input class="new-account label" type="radio" id="consumer" name="accountType" value="0" >
+                        <label for="consumer">Particulier</label>
+                    </div>
+                    <div class="new-account">
+                        <input class="new-account label" type="radio" id="SME" name="accountType" value="1" required>
+                        <label for="SME">Zakelijk</label>
+                    </div>
                 </div>
-                <div class="new-account row">
-                    <input class="new-account" type="radio" id="SME" name="accountType" value="1" required>
-                    <label for="SME">Zakelijk</label>
+                <div style="display:inline;">
+                    <input  class="btn btn-outline-dark" type="submit" value="Volgende"/><input class="btn btn-outline-dark" type="button" onclick="window.location.href='account_overview';" value="Cancel"/>
                 </div>
-            </div>
-            <div style="display:inline;">
-                <input  class="btn btn-outline-dark" type="submit" value="Volgende"/><input class="btn btn-outline-dark" type="button" onclick="window.location.href='account_overview';" value="Cancel"/>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 </body>

@@ -3,6 +3,7 @@ package dsb.web.domain;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Entity
 public class Company {
@@ -31,10 +32,11 @@ public class Company {
         this.sector = sector;
     }
 
-    public Company(String name, String KVKno, String BTWno, Sector sector) {
+    public Company(String name, String KVKno, String BTWno, Employee accountManager, Sector sector) {
         this.name = name;
         this.KVKno = KVKno;
         this.BTWno = BTWno;
+        this.accountManager = accountManager;
         this.sector = sector;
     }
 

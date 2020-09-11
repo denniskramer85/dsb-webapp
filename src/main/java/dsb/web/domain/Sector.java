@@ -20,6 +20,11 @@ public class Sector {
     public Sector() {
     }
 
+    @Override
+    public String toString() {
+        return sectorName;
+    }
+
     public int getSectorId() {
         return sectorId;
     }

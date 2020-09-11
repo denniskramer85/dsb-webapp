@@ -8,47 +8,65 @@
     <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-
 <div th:include="fragments/header :: header"></div>
 
-<div class="container">
-    <div class="card" >
+<div class="container ">
+    <div class="card" id="new-account">
+
         <div class="card-header account-header-div">
             <h5 class="account-header">Bedrijfsgegevens</h5>
         </div>
-        <div class="new-account card-body">
 
-            <p>Vul de volgende velden in:</p>
+        <div class="card-body">
             <form method="POST" th:object="${companyBean}" th:action="@{company-details-completed}">
-                <div class="new-account table">
-                    <div class="new-account row">
-                        <label class="new-account label">KVK-nummer:</label>
-                        <input class="new-account field form-control" id="kvk" type="text" name="input-KVKno" th:field="*{KVKno}" required onchange ="showText()">
-                    </div>
-                    <div class="new-account row">
-                        <label class="new-account label">Bedrijfsnaam:</label>
-                        <input class="new-account field form-control" id="name" type="text" name="input-name" th:field="*{Name}" required>
-                    </div>
-                    <div class="new-account row">
-                        <label class="new-account label">BTW-nummer:</label>
-                        <input class="new-account field form-control" id="btw" type="text" name="input-BTWno" th:field="*{BTWno}" required>
+                <div>
+                    <div>
+                        <p>Vul de volgende velden in:</p>
                     </div>
                     <div>
-                        <label class="new-account label">Sector:</label>
-                        <select th:field="*{sector}" required>
-                            <option value=""></option>
-                        <!--    <option th:each-->
-
-
+                        <div>
+                            <label>KVK-nummer:</label>
+                        </div>
+                        <div>
+                            <input class="form-control" id="kvk" type="text" name="input-KVKno" th:field="*{KVKno}" required onchange="showText()">
+                        </div>
                     </div>
-                </div>
-                <div style="display: inline;">
-                    <input class="btn btn-outline-dark button" type="submit" value="Volgende"/>
-                    <input class="btn btn-outline-dark button" type="button" onclick="window.location.href='account_overview';" value="Cancel"/>
+                    <div>
+                        <div>
+                            <label>Bedrijfsnaam:</label>
+                        </div>
+                        <div>
+                            <input class="form-control" id="name" type="text" name="input-name" th:field="*{Name}" required>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <label>BTW-nummer:</label>
+                        </div>
+                        <div>
+                            <input class="form-control" id="btw" type="text" name="input-BTWno" th:field="*{BTWno}" required>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <label>Sector:</label>
+                        </div>
+                        <div>
+                            <select class="form-control" th:field="*{sector}">
+                            <option value="" text=""></option>
+                            <option th:each="sec : ${sectors}" th:value="${sec.sectorId}" th:text="${sec.getSectorName()}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <input class="btn btn-outline-dark button" type="submit" value="Volgende"/>
+                        <input class="btn btn-outline-dark button" type="button" onclick="window.location.href='account_overview';" value="Cancel"/>
+                    </div>
                 </div>
             </form>
         </div>
-    </divclass>
+    </div>
+
 </div>
 
 <script>
@@ -68,6 +86,7 @@
                     //vul velden met response
                     document.getElementById("name").value = x[0];
                     document.getElementById("btw").value = x[1];
+                    document.getElementById("sector").value = x[2];
                 }
             }
         };
