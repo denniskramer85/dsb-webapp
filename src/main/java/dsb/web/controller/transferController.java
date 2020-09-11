@@ -65,8 +65,6 @@ public class transferController {
         transferBean.setAccountBalance(account.getBalance());
         model.addAttribute("transferBean", transferBean);
 
-        model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
-
         return "transferPage";
     }
 
@@ -74,7 +72,6 @@ public class transferController {
     @PostMapping("transferPost")
     public String transferDataHandler (@Valid @ModelAttribute TransferBean tb,
                                        Errors errors, Model model, HttpServletRequest request) {
-
 
         if (request.getAttribute("transferBean") == null) {
 
