@@ -32,8 +32,6 @@ public class TransferService {
             tb.setAccountBalance(account.getBalance());
             tb.setAccountNo(account.getAccountNo());
 
-
-
             model.addAttribute("transferBeanSession", tb);
             model.addAttribute("transferBean", tb);
             model.addAttribute("errorMessage", false);
@@ -56,6 +54,7 @@ public class TransferService {
 
             TransferBean tb_session = (TransferBean) model.getAttribute("transferBeanSession");
             request.setAttribute("transferBean", tb_session);
+
             return "forward:transferPost";
 
         } else {

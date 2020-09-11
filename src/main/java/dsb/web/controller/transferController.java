@@ -32,7 +32,7 @@ public class transferController {
     //TODO weg
     private CustomerRepository customerRepository;
     private AccountRepository accountRepository;
-    private TransferBean tbInClass;
+
 
 
     @Autowired
@@ -61,7 +61,6 @@ public class transferController {
 
         model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
 
-        // TODO / Miel: Balance en AccountNo meegeven aan de TransferBean om in hidden fields te kunnen zetten
         TransferBean transferBean = new TransferBean();
         transferBean.setAccountNo(account.getAccountNo());
         transferBean.setAccountBalance(account.getBalance());
@@ -77,25 +76,33 @@ public class transferController {
     public String transferDataHandler (@Valid @ModelAttribute TransferBean tb,
                                        Errors errors, Model model, HttpServletRequest request) {
 
-//        /**validate for errors - if so return**/
-//        if(errors.hasErrors()) {
-//
-//            //TODO dit evt via flash/redirect uit vorige methode?
-//            Account account = (Account) model.getAttribute("selectedAccountSession");
-//            model.addAttribute("transferBean", tb);
-//
-//            model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
-//
-//
-//            return "transferPage";
-//        }
+
+        if (request.getAttribute("transferBean") == null) {
+
+            /**validate for errors - if so return**/
+            if(errors.hasErrors()) {
+
+                //TODO dit evt via flash/redirect uit vorige methode?
+                Account account = (Account) model.getAttribute("selectedAccountSession");
+                model.addAttribute("transferBean", tb);
+
+                model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
+
+
+                return "transferPage";
+            }
+        }
+
+
+
+
 
         model.addAttribute("transferBean", tb);
 
         model.addAttribute("loginBean", new LoginBean());
 
         //TODO / Miel: Dit heb ik even uitgezet
-//        //determine flow and contents of tb, model and requests
+        //determine flow [first or repeated iteration?] and contents of tb, model and requests
         transferService.determineFlowAndContents(tb, model, request);
 
         return "transferConfirmPage";
