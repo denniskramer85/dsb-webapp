@@ -1,8 +1,8 @@
 package dsb.web.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Employee {
@@ -16,6 +16,7 @@ public class Employee {
     private String employeeUserName;
     private String password;
     //private Role role; TODO Aparte klasse Role?
+
 
     public Employee(int employeeID, String password) {
         this.employeeID = 0;
@@ -41,4 +42,5 @@ public class Employee {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

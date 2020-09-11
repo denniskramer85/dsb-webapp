@@ -3,6 +3,7 @@ package dsb.web.domain;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Entity
 public class Company {
@@ -15,21 +16,28 @@ public class Company {
     private String BTWno;
     @OneToMany
     private List<SMEAccount> accounts;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="accountManager", nullable=false)
+    private Employee accountManager;
+    @ManyToOne
+    private Sector sector;
 
-    public Company(int companyId, String name, String KVKno, String BTWno, List<SMEAccount> accounts) {
+    public Company(int companyId, String name, String KVKno, String BTWno, List<SMEAccount> accounts, Employee accountManager, Sector sector) {
         this.companyId = companyId;
         this.name = name;
         this.KVKno = KVKno;
         this.BTWno = BTWno;
         this.accounts = accounts;
+        this.accountManager = accountManager;
+        this.sector = sector;
     }
 
-
-
-    public Company(String name, String KVKno, String BTWno) {
+    public Company(String name, String KVKno, String BTWno, Employee accountManager, Sector sector) {
         this.name = name;
         this.KVKno = KVKno;
         this.BTWno = BTWno;
+        this.accountManager = accountManager;
+        this.sector = sector;
     }
 
     public Company() {
@@ -42,6 +50,8 @@ public class Company {
                 ", name='" + name + '\'' +
                 ", KVKno='" + KVKno + '\'' +
                 ", BTWno='" + BTWno + '\'' +
+                ", accountManager=" + accountManager +
+                ", sector=" + sector +
                 '}';
     }
 
@@ -57,11 +67,11 @@ public class Company {
     }
 
 
-    public int getcompanyId() {
+    public int getCompanyId() {
         return companyId;
     }
 
-    public void setcompanyId(int companyId) {
+    public void setCompanyId(int companyId) {
         this.companyId = companyId;
     }
 
@@ -87,5 +97,29 @@ public class Company {
 
     public void setBTWno(String BTWno) {
         this.BTWno = BTWno;
+    }
+
+    public List<SMEAccount> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<SMEAccount> accounts) {
+        this.accounts = accounts;
+    }
+
+    public Employee getAccountManager() {
+        return accountManager;
+    }
+
+    public void setAccountManager(Employee accountManager) {
+        this.accountManager = accountManager;
+    }
+
+    public Sector getSector() {
+        return sector;
+    }
+
+    public void setSector(Sector sector) {
+        this.sector = sector;
     }
 }

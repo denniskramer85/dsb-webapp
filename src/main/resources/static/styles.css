@@ -1,3 +1,5 @@
+
+
 .primary-color {
     background-color: #66bb6a;
 }
@@ -10,9 +12,30 @@
     background-color: #338a3e;
 }
 
-.new-account {
-    margin-top: 20em;
+/*new-account*/
+.container {
+    padding: 25px 10px 10px;
 
+}
+
+.new-account .form-row{
+    overflow: hidden;
+    padding:5px 0px 10px;
+}
+
+.new-account .text{
+    width: 150px;
+    float: left;
+}
+.new-account .field{
+    float: left;
+}
+.cards{
+    margin-bottom: 20px;
+}
+
+.edit-btn{
+    float: right;
 }
 
 /*account_overview*/

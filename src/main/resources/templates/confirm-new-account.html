@@ -1,83 +1,115 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <link rel="stylesheet" href="styles.css"/>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <meta charset="UTF-8">
     <title>Confirm new account page</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
 <body>
-
 <div th:include="fragments/header :: header"></div>
+<div class="container">
 
-    <div class="container">
-        <br/>
-        <div class="panel panel-default">
-            <div th:if="${newAccountBean.Name == null}">
-                <div class="panel-heading new-account">
-                    <h3 class="panel-title"> Particuliere rekening</h3>
-                </div>
-                <div class="panel-body new-account" style="margin-top: 30px" >
-                    <p>Je hebt gekozen voor de particulier rekening bij de DSB bank. Vanaf nu dus altijd VEILIG bankieren!</p>
-                </div>
-            </div>
-            <div th:if="${newAccountBean.Name != null}">
-                <div class="panel-heading new-account">
-                    <h3 class="panel-title"> Zakelijke rekening</h3>
-                </div>
-                <div class="panel-body new-account" style="margin-top: 30px" >
-                    <p>Je hebt gekozen voor de zakelijk rekening bij de DSB bank. Vanaf nu dus altijd VEILIG bankieren!</p>
-                </div>
-            </div>
+    <!--Deel 1-->
+    <div class="card new-account cards">
+        <!--Header-->
+        <div class="card-header account-header-div">
+            <h5 class="account-header" th:if="${companyBean.Name == null}">Particuliere rekening openen</h5>
+            <h5 class="account-header" th:if="${companyBean.Name != null}">Zakelijke rekening openen</h5>
+        </div>
 
+        <!--Body-->
+        <div class="card-body new-account">
             <div>
-
-                <p>Op dit moment is het openen van een DSB-rekening kostenloos. DSB hecht waarde aan snelle service, en daarom krijg je direct na het bevestigen van de onderstaande gegevens je nieuwe rekening.</p>
-
+                <p style="max-width: 600px">Op dit moment is het openen van een DSB-rekening kostenloos. DSB hecht waarde aan snelle service, en daarom krijg je direct na het bevestigen van de onderstaande gegevens je nieuwe rekening.</p>
             </div>
-            <div>
-                <div class="panel-heading new-account">
-                    <h3 class="panel-title">Rekening gegevens</h3>
-                </div>
-                <div class="panel-body new-account" style="margin-top: 30px">
-                    <div th:if="${loggedInCustomer != null}">
-                        <p>Rekeninghouder:
-                            <span th:text="${loggedInCustomer.getInitials()}"></span> <span th:text="${loggedInCustomer.getInserts()}"></span> <span th:text="${loggedInCustomer.getSurname()}"></span>
-                        </p>
-                    </div>
-                    <div>
-                        <p>Kosten:
-                            <span>0,00 €</span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div th:if="${newAccountBean.Name != null}">
-                <div class="panel-heading new-account">
-                    <h3 class="panel-title">Bedrijfsgegevens</h3>
-                </div>
-                <div>
-                    <p>Bedrijfsnaam:
-                        <span th:field="*{name}"  th:text="${newAccountBean.getName()}"></span></p>
-                </div>
-                <div>
-                    <p>KVK-nummer:
-                        <span th:field="*{KVKno}"  th:text="${newAccountBean.getKVKno()}"></span></p>
-                </div>
-                <div>
-                    <p>BTW-nummer:
-                        <span th:field="*{BTWno}" th:text="${newAccountBean.getBTWno()}"></span></p>
-                </div>
-            </div>
-            <form method="POST" th:action="@{account-confirmed}">
-            <div>
-                <input class="btn btn-outline-dark" type="submit" value="Bevestig">
-                <input class="btn btn-outline-dark" type="button" onclick="window.location.href='account_overview';" value="Cancel"/>
-            </div>
-            </form>
         </div>
     </div>
 
+    <!--Deel 2-->
+    <div class="card new-account cards">
+        <!--Header-->
+        <div class="card-header account-header-div">
+            <h5 class="account-header">Gegevens rekeninghouder</h5>
+        </div>
+        <!--Body-->
+        <div class="card-body new-account">
+            <div>
+                <div class="new-account form-row">
+                    <div class="new-account text">
+                        <p>Rekeninghouder: </p>
+                    </div>
+                    <div class="new-account field" th:if="${loggedInCustomer != null}">
+                        <p><span th:text="${loggedInCustomer.getInitials()}" ></span> <span th:text="${loggedInCustomer.getInserts()}"></span> <span th:text="${loggedInCustomer.getSurname()}"></span></p>
+                    </div>
+                </div>
+                <div class="new-account form-row">
+                    <div class="new-account text">
+                        <p>Kosten: </p>
+                    </div>
+                    <div class="new-account field">
+                        <p> 0,00 €</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Deel 3-->
+    <div class="card cards" th:if="${companyBean.Name != null}">
+        <!--Header-->
+        <div class="card-header account-header-div">
+            <h5 class="account-header">Bedrijfsgegevens</h5>
+            <input class="btn btn-outline-dark edit-btn" type="button" onclick="window.location.href='company-details';" value="Edit"/>
+        </div>
+        <!--Body-->
+        <div class="card-body new-account">
+            <div>
+                <div class="new-account form-row">
+                    <div class="new-account text">
+                        <p>Bedrijfsnaam: </p>
+                    </div>
+                    <div class="new-account field">
+                        <p th:field="*{name}"  th:text="${companyBean.getName()}"></p>
+                    </div>
+                </div>
+
+                <div class="new-account form-row">
+                    <div class="new-account text">
+                        <p>KVK-nummer: </p>
+                    </div>
+                    <div class="new-account field">
+                        <p th:field="*{KVKno}"  th:text="${companyBean.getKVKno()}"></p>
+                    </div>
+                </div>
+
+                <div class="new-account form-row">
+                    <div class="new-account text">
+                        <p>BTW-nummer: </p>
+                    </div>
+                    <div class="new-account field">
+                        <p th:field="*{BTWno}" th:text="${companyBean.getBTWno()}"></p>
+                    </div>
+                </div>
+
+                <div class="new-account form-row">
+                    <div class="new-account text">
+                        <p>Sector: </p>
+                    </div>
+                    <div class="new-account field">
+                        <p th:field="*{sector}" th:text="${companyBean.getSector()}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form method="POST" th:action="@{account-confirmed}">
+        <div>
+            <input class="btn btn-outline-dark" type="submit" value="Bevestig">
+            <input class="btn btn-outline-dark" type="button" onclick="window.location.href='account_overview';" value="Cancel"/>
+        </div>
+    </form>
 </div>
 </body>
 </html>

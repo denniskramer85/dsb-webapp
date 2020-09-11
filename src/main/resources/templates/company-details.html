@@ -1,40 +1,98 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <title>Fill out bussiness deatail</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <meta charset="UTF-8">
-    <title>Fill out bussiness deatail</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-
 <div th:include="fragments/header :: header"></div>
 
-<div class="container">
-    <div class="panel panel-default">
-        <div class="panel-heading new-account">
-            <h3 class="panel-title">Bedrijfsgegevens</h3>
+<div class="container ">
+    <div class="card" id="new-account">
+
+        <div class="card-header account-header-div">
+            <h5 class="account-header">Bedrijfsgegevens</h5>
         </div>
-        <div class="panel-body new-account" style="margin-top: 30px">
-            <p>Vul de volgende velden in:</p>
-            <form method="POST" th:object="${newAccountBean}" th:action="@{company-details-completed}">
-                <div id="input-company-details">
+
+        <div class="card-body">
+            <form method="POST" th:object="${companyBean}" th:action="@{company-details-completed}">
+                <div>
                     <div>
-                        <p>KVK-nummer: <input type="text" name="input-KVKno" th:field="*{KVKno}" required></p>
+                        <p>Vul de volgende velden in:</p>
                     </div>
                     <div>
-                        <p>Bedrijfsnaam: <input type="text" name="input-name" th:field="*{name}" required></p>
+                        <div>
+                            <label>KVK-nummer:</label>
+                        </div>
+                        <div>
+                            <input class="form-control" id="kvk" type="text" name="input-KVKno" th:field="*{KVKno}" required onchange="showText()">
+                        </div>
                     </div>
                     <div>
-                        <p>BTW-nummer: <input type="text" name="input-BTWno" th:field="*{BTWno}" required></p>
+                        <div>
+                            <label>Bedrijfsnaam:</label>
+                        </div>
+                        <div>
+                            <input class="form-control" id="name" type="text" name="input-name" th:field="*{Name}" required>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <label>BTW-nummer:</label>
+                        </div>
+                        <div>
+                            <input class="form-control" id="btw" type="text" name="input-BTWno" th:field="*{BTWno}" required>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <label>Sector:</label>
+                        </div>
+                        <div>
+                            <select class="form-control" th:field="*{sector}">
+                            <option value="" text=""></option>
+                            <option th:each="sec : ${sectors}" th:value="${sec.sectorId}" th:text="${sec.getSectorName()}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <input class="btn btn-outline-dark button" type="submit" value="Volgende"/>
+                        <input class="btn btn-outline-dark button" type="button" onclick="window.location.href='account_overview';" value="Cancel"/>
                     </div>
                 </div>
-                <input class="btn btn-outline-dark" type="submit" value="Volgende">
-                <input class="btn btn-outline-dark" onclick="window.location.href='account_overview';" value="Cancel"/>
             </form>
         </div>
     </div>
+
 </div>
+
+<script>
+    function showText() {
+        var str = document.getElementById("kvk").value;
+        var xhttp;
+        // als het veld leeg is, chill!
+        if (str == "") {
+            document.getElementById("txtHint").innerHTML = "";
+            return;
+        }
+        xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                if (this.responseText != "") {
+                    var x = this.responseText.split(",");
+                    //vul velden met response
+                    document.getElementById("name").value = x[0];
+                    document.getElementById("btw").value = x[1];
+                    document.getElementById("sector").value = x[2];
+                }
+            }
+        };
+        xhttp.open("GET", "/kvks/"+str, true);
+        xhttp.send();
+    }
+</script>
 </body>
 </html>

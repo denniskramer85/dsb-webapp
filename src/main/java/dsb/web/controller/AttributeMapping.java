@@ -7,10 +7,9 @@ public class AttributeMapping {
 
     public final static String SELECTED_ACCOUNT = "selectedAccount";
 
-
+    // Company Bean
+    public final static String COMPANY_BEAN= "companyBean";
 
     // Logged in employee from session
     public final static String LOGGED_IN_EMPLOYEE = "loggedInEmployee";
-
-
 }

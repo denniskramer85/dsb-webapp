@@ -6,8 +6,6 @@ import java.util.Objects;
 
 @Entity
 public class SMEAccount extends Account{
-
-
     @ManyToOne
     private Company company;
 
