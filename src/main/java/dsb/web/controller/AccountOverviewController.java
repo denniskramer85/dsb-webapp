@@ -45,16 +45,17 @@ public class AccountOverviewController {
     }
 
     @PostMapping("account_overview")
-    public ModelAndView selectAccount(@RequestParam("accountID") int accountID,
+    public String selectAccount(@RequestParam("accountID") int accountID,
                                       @ModelAttribute(AttributeMapping.LOGGED_IN_CUSTOMER) Customer loggedInCustomer,
-                                      RedirectAttributes redirectAttributes) {
+                                      RedirectAttributes redirectAttributes, Model model) {
         // Get selected account from DB
         Account selectedAccount = accountOverviewService.getAccountByID(accountID);
 
 
-
         // Check whether logged in customer has access to selected account
-        if (accountOverviewService.accessPermitted(selectedAccount, loggedInCustomer)) {
+        /**dit ff uitgezet en gewijzigde versie hieronder:
+         * om sessie te vullen en te werken met model**/
+        /*if (accountOverviewService.accessPermitted(selectedAccount, loggedInCustomer)) {
             ModelAndView modelAndView = new ModelAndView();
             modelAndView.setViewName("redirect:/accountPage");
 
@@ -64,7 +65,17 @@ public class AccountOverviewController {
             redirectAttributes.addAttribute(AttributeMapping.SELECTED_ACCOUNT, selectedAccount);
 
             return modelAndView;
+        }*/
+
+
+        //versie sicco nu
+        if (accountOverviewService.accessPermitted(selectedAccount, loggedInCustomer)) {
+            model.addAttribute(AttributeMapping.SELECTED_ACCOUNT, selectedAccount);
+            return "redirect:/accountPage";
         }
+
+
+
         return null; // TODO: Return Access Denied
     }
 }

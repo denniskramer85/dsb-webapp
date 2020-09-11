@@ -5,7 +5,7 @@ public class AttributeMapping {
     public final static String LOGGED_IN_CUSTOMER = "loggedInCustomer";
 
 
-    public final static String SELECTED_ACCOUNT = "selectedAccount";
+    public final static String SELECTED_ACCOUNT = "selectedAccountSession";
 
     // Company Bean
     public final static String COMPANY_BEAN= "companyBean";
