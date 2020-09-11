@@ -1,27 +1,44 @@
 package dsb.web.controller.beans;
 
+import dsb.web.controller.AccountOverviewController;
 import dsb.web.domain.Account;
-import dsb.web.service.validators.AccountNoConstraint;
+import dsb.web.service.validators.CurrencyFormatConstraint;
 import dsb.web.service.validators.DSBAccountConstraint;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
+
+/**
+ *  This bean is used for currency transfers that have not yet been validated.
+ *  All field validation happens in this bean, providing error messages to the front-end if validation fails.
+ *  If validation is successful, a Transaction object can be create for storage in the database.
+ */
 
 public class TransferBean {
-    private Account debitAccount;
+    private Logger logger = LoggerFactory.getLogger(AccountOverviewController.class);
+
+    private double accountBalance;
+    private String accountNo;
 
     @NotBlank(message = "Vul een tegenrekening in")
-    @AccountNoConstraint
+    // TODO: Werkend krijgen @AccountNoConstraint
     @DSBAccountConstraint
     private String creditAccountNo;
 
-    @Digits(integer = 50, fraction = 2, message = "Voer een geldig bedrag in")
+
+    @NotBlank(message = "Voer een bedrag in")
+    @CurrencyFormatConstraint
+    private String transferAmountString;
+
     @Positive(message = "Voer een bedrag groter dan 0 in")
+    @Digits(integer = 50, fraction = 2, message = "Voer maximaal twee cijfers achter de komma in")
     private BigDecimal transferAmount;
 
     @AssertTrue(message = "Onvoldoende saldo voor transactie")
@@ -30,28 +47,43 @@ public class TransferBean {
     @Length(max = 50, message = "Maximaal 50 karakters")
     private String message;
 
-    @Autowired
-    public TransferBean(Account debitAccount, String creditAccountNo, BigDecimal transferAmount, String message) {
-        this.debitAccount = debitAccount;
-        this.creditAccountNo = creditAccountNo;
-        this.transferAmount = transferAmount;
-        this.message = message;
-        checkSufficientFunds();
-    }
-
     public TransferBean() {
     }
 
+    // Parse BigDecimal from transferAmountString
+    private void parseTransferAmount() {
+        NumberFormat numberFormat = NumberFormat.getInstance(Locale.GERMAN);
+        DecimalFormat decimalFormat = (DecimalFormat) numberFormat;
+        decimalFormat.setParseBigDecimal(true);
+        try {
+            transferAmount = (BigDecimal) decimalFormat.parse(transferAmountString.trim());
+        } catch (ParseException parseError) {
+            transferAmount = new BigDecimal(0);
+        }
+    }
+
+    // Compare parsed BigDecimal transferAmount to accountbalance
     private void checkSufficientFunds() {
-        sufficientFunds = debitAccount.getBalance() > transferAmount.doubleValue();
+        // TODO: WAT IS HIER GAANDE???
+        /*logger.debug("Account in Transferbean:" + debitAccount.toString());
+        System.out.println("IK KOM HIER");*/
+        setSufficientFunds(accountBalance > transferAmount.doubleValue());
     }
 
-    public Account getDebitAccount() {
-        return debitAccount;
+    public double getAccountBalance() {
+        return accountBalance;
     }
 
-    public void setDebitAccount(Account debitAccount) {
-        this.debitAccount = debitAccount;
+    public void setAccountBalance(double accountBalance) {
+        this.accountBalance = accountBalance;
+    }
+
+    public String getAccountNo() {
+        return accountNo;
+    }
+
+    public void setAccountNo(String accountNo) {
+        this.accountNo = accountNo;
     }
 
     public String getCreditAccountNo() {
@@ -62,28 +94,22 @@ public class TransferBean {
         this.creditAccountNo = creditAccountNo;
     }
 
-    public Double getTransferAmount() {
-        try {
-            return transferAmount.doubleValue();
-        } catch (NullPointerException exception) {
-            System.out.println(exception);
-            return null;
-        }
-
-
+    public String getTransferAmountString() {
+        return transferAmountString;
     }
 
-    public void setTransferAmount(Double transferAmount) {
-        this.transferAmount = BigDecimal.valueOf(transferAmount);
+    public void setTransferAmountString(String transferAmountString) {
+        this.transferAmountString = transferAmountString;
+        parseTransferAmount();
         checkSufficientFunds();
     }
 
-    public String getMessage() {
-        return message;
+    public BigDecimal getTransferAmount() {
+        return transferAmount;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setTransferAmount(BigDecimal transferAmount) {
+        this.transferAmount = transferAmount;
     }
 
     public boolean isSufficientFunds() {
@@ -94,13 +120,22 @@ public class TransferBean {
         this.sufficientFunds = sufficientFunds;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     @Override
     public String toString() {
         return "TransferBean{" +
-                "debitAccount=" + debitAccount +
+                "accountBalance=" + accountBalance +
+                ", accountNo='" + accountNo + '\'' +
                 ", creditAccountNo='" + creditAccountNo + '\'' +
+                ", transferAmountString='" + transferAmountString + '\'' +
                 ", transferAmount=" + transferAmount +
-                ", sufficientFunds=" + sufficientFunds +
                 ", message='" + message + '\'' +
                 '}';
     }

@@ -1,39 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" href="../static/styles.css" th:href="@{styles.css}">
+
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
-    <link href="../static/styles.css" th:href="@{styles.css}" rel="stylesheet" />
 
 
-
-    <style>
-        .signupconfirmpage .grid {
-            display: grid;
-            grid-gap: 10px 40px;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(1, 1fr);
-        }
-
-        .signupconfirmpage .subheader {
-            margin-bottom: 0px;
-            font-weight: bold;
-        }
-
-        .signupconfirmpage {
-            font-size: 140%;
-        }
-        .signupconfirmpage .buttons {
-            margin-top: 10px;
-        }
-
-
-
-    </style>
 
 </head>
-<body th:object="${customerBean2}" class="signupconfirmpage">
+<body th:object="${customerBean2}" id="signupConfirmPage">
 
 <div th:include="fragments/header :: header"></div>
 

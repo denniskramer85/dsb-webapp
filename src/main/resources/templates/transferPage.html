@@ -2,7 +2,8 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
-    <link rel="stylesheet" href="styles.css"/>
+    <link rel="stylesheet" type="text/css" href="../static/styles.css" th:href="@{styles.css}">
+
     <meta charset="UTF-8">
     <title>Overboeken</title>
 
@@ -31,8 +32,9 @@
 
 
                 <div id="inputTransferData">
-
-                    <form method="post" th:action="@{transfer}" th:object="${transferBean}">
+                    <form method="post" th:action="@{transferPost}" th:object="${transferBean}">
+                        <input type="hidden" th:field="*{accountBalance}">
+                        <input type="hidden" th:field="*{accountNo}">
 
                         <div class="form-group">
                             <table><tr><td>
@@ -49,9 +51,13 @@
                             <table><tr><td>
                                 <label for="transferAmount">Bedrag</label>
                             </td><td>
-                                <input type="text" class="form-control" id="transferAmount" name="transferAmount" th:field="*{transferAmount}">
+                                <input type="text" class="form-control" id="transferAmount" name="transferAmountString" th:field="*{transferAmountString}">
                             </td></tr><tr><td></td><td>
-                                <p class="errors"><span th:if="${#fields.hasErrors('sufficientFunds')}" th:errors="*{sufficientFunds}"/></p>
+                                <p class="errors">
+                                    <span th:if="${#fields.hasErrors('transferAmountString')}" th:errors="*{transferAmountString}"/>
+                                    <span th:if="${#fields.hasErrors('transferAmount')}" th:errors="*{transferAmount}"/>
+                                    <span th:if="${#fields.hasErrors('sufficientFunds')}" th:errors="*{sufficientFunds}"/>
+                                </p>
                             </td></tr>
                             </table>
                         </div>
@@ -69,7 +75,7 @@
 
                         <div class="buttons">
                             <input class="btn btn-outline-dark" type="submit" value="Bevestigen">
-                            <input class="btn btn-outline-dark" type="button" value="Annuleren" onclick="location.href='/'">
+                            <input class="btn btn-outline-dark" type="button" value="Annuleren" onclick="location.href='accountPage'">
                         </div>
 
                     </form>

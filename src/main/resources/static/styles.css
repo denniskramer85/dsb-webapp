@@ -1,3 +1,22 @@
+
+
+/*General: disable arrows next to number inputs
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+
+
+
+/*for ???*/
+
 .primary-color {
     background-color: #66bb6a;
 }
@@ -41,28 +60,79 @@
 }
 
 
-/*for sign-up page*/
 
 
-/*for signup confirm page */
 
+/*for several pages*/
 
-/*for transfer page*/
-
-#transferPage label {
-    width: 130px;
+#signUpPage .grid, #signupConfirmPage .grid  {
+    display: grid;
+    grid-gap: 10px 40px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
 }
 
-#transferPage .errors {
+#signUpPage .errors, #transferPage .errors, #transferConfirmPage .errors {
     color: red;
     position: relative;
     top: -5px;
     margin-bottom: -200px;
 }
 
-#transferPage .form-group {
+#signUpPage label, #transferPage label, #transferConfirmPage label {
+    width: 130px;
+}
+
+#signUpPage .form-group, #transferPage .form-group {
     margin-bottom: 30px;
 }
+
+#signUpPage .italic, #accountPage .italic, #transferPage .italic {
+    font-style: italic;
+}
+
+
+
+/*for signup confirm page */
+
+#signupConfirmPage .subheader {
+    margin-bottom: 0px;
+    font-weight: bold;
+}
+
+#signupConfirmPage {
+    font-size: 140%;
+}
+
+#signupConfirmPage .buttons {
+    margin-top: 10px;
+}
+
+
+/** for account page? */
+
+#accountPage strong {
+    font-weight: bold;
+}
+
+#accountPage #legenda {
+    display: flex;
+    font-size: 120%;
+    position: relative;
+    top: 22px;
+}
+
+#accountPage #accountData p {
+    line-height: 70%;
+}
+
+#accountPage #transactionList {
+    font-family: monospace;
+    font-size: 120%;
+}
+
+
+/*for transfer page*/
 
 #transferPage .buttons {
     position: relative;
@@ -77,17 +147,14 @@
     line-height: 70%;
 }
 
-#transferPage .italic {
-    font-style: italic;
-}
-
 
 /*for transfer confirm page*/
 
-#transferConfirmPage label {
-    width: 130px;
-}
-
 #transferConfirmPage .form-group {
     margin-bottom: 10px;
+}
+
+#transferConfirmPage .buttons {
+    position: relative;
+    top: 30px;
 }

@@ -57,6 +57,7 @@ public class SignUpController {
             return "sign-up";
         }
 
+        //TODO dit kan ook allemaal weg naar service?
         /**namestylers for proper format of initals/surname**/
         cb.setInitials(signupService.initialsStyler(cb.getInitials()));
         cb.setSurname(signupService.surnameStyler(cb.getSurname()));
@@ -75,10 +76,11 @@ public class SignUpController {
 
         Customer customer = signupService.createAndSaveCustomer(cb2);
 
+        //TODO naar service?
         /** add domain Customer to session/model **/
         model.addAttribute("loggedInCustomer", customer);
 
-        return "account_overview"; //TODO link to rekeningoverzicht
+        return "account_overview";
     }
 
 
