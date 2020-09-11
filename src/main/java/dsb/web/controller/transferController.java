@@ -63,7 +63,7 @@ public class transferController {
 
         // TODO / Miel: Balance en AccountNo meegeven aan de TransferBean om in hidden fields te kunnen zetten
         TransferBean transferBean = new TransferBean();
-        transferBean.setAccountNo(account.getAccountNo());
+        transferBean.setDebitAccountNo(account.getAccountNo());
         transferBean.setAccountBalance(account.getBalance());
         model.addAttribute("transferBean", transferBean);
 

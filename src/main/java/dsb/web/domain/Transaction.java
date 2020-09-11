@@ -1,8 +1,10 @@
 package dsb.web.domain;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 @Entity
@@ -13,25 +15,22 @@ public class Transaction {
     private int transactionID;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Account transactionAccountDebet;
+    private Account debitAccount;
     @ManyToOne(fetch = FetchType.LAZY)
-    private Account transactionAccountCredit;
+    private Account creditAccount;
 
     private double transactionAmount;
     private String message;
-    private Timestamp transactionTimestamp;
+    private LocalDateTime transactionTimestamp;
 
-    public Transaction(int transactionID, Account transactionAccountDebet, Account transactionAccountCredit, double transactionAmount, String message, Timestamp transactionTimestamp) {
+    @Autowired
+    public Transaction(int transactionID, Account debitAccount, Account creditAccount, double transactionAmount, String message, LocalDateTime transactionTimestamp) {
         this.transactionID = transactionID;
-        this.transactionAccountDebet = transactionAccountDebet;
-        this.transactionAccountCredit = transactionAccountCredit;
+        this.debitAccount = debitAccount;
+        this.creditAccount = creditAccount;
         this.transactionAmount = transactionAmount;
         this.message = message;
         this.transactionTimestamp = transactionTimestamp;
-    }
-
-    public Transaction(Account transactionAccountDebet, Account transactionAccountCredit, double transactionAmount, String message, Timestamp transactionTimestamp) {
-        this(0, transactionAccountDebet, transactionAccountCredit, transactionAmount, message, transactionTimestamp);
     }
 
     public Transaction() {
@@ -41,10 +40,10 @@ public class Transaction {
     @Override
     //TODO evt nog bijwerken
     public String toString() {
-        String s = new SimpleDateFormat("MM/dd/yyyy '|' HH:mm").format(transactionTimestamp);
-        return String.format("%s - %s - %s - %.2f - %s", s, transactionAccountDebet.getAccountNo(),
-                transactionAccountCredit.getAccountNo(), transactionAmount, message);
-
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        String s = transactionTimestamp.format(formatter);
+        return String.format("%s - %s - %s - %.2f - %s", s, debitAccount.getAccountNo(),
+                creditAccount.getAccountNo(), transactionAmount, message);
     }
 
     @Override
@@ -53,15 +52,15 @@ public class Transaction {
         if (!(o instanceof Transaction)) return false;
         Transaction that = (Transaction) o;
         return  Double.compare(that.getTransactionAmount(), getTransactionAmount()) == 0 &&
-                getTransactionAccountDebet().equals(that.getTransactionAccountDebet()) &&
-                getTransactionAccountCredit().equals(that.getTransactionAccountCredit()) &&
+                getDebitAccount().equals(that.getDebitAccount()) &&
+                getCreditAccount().equals(that.getCreditAccount()) &&
                 getMessage().equals(that.getMessage()) &&
                 getTransactionTimestamp().equals(that.getTransactionTimestamp());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTransactionID(), getTransactionAccountDebet(), getTransactionAccountCredit(), getTransactionAmount(), getMessage(), getTransactionTimestamp());
+        return Objects.hash(getTransactionID(), getDebitAccount(), getCreditAccount(), getTransactionAmount(), getMessage(), getTransactionTimestamp());
     }
 
     public int getTransactionID() {
@@ -72,20 +71,20 @@ public class Transaction {
         this.transactionID = transactionID;
     }
 
-    public Account getTransactionAccountDebet() {
-        return transactionAccountDebet;
+    public Account getDebitAccount() {
+        return debitAccount;
     }
 
-    public void setTransactionAccountDebet(Account transactionAccountDebet) {
-        this.transactionAccountDebet = transactionAccountDebet;
+    public void setDebitAccount(Account transactionAccountDebet) {
+        this.debitAccount = transactionAccountDebet;
     }
 
-    public Account getTransactionAccountCredit() {
-        return transactionAccountCredit;
+    public Account getCreditAccount() {
+        return creditAccount;
     }
 
-    public void setTransactionAccountCredit(Account transactionAccountCredit) {
-        this.transactionAccountCredit = transactionAccountCredit;
+    public void setCreditAccount(Account transactionAccountCredit) {
+        this.creditAccount = transactionAccountCredit;
     }
 
     public double getTransactionAmount() {
@@ -104,11 +103,11 @@ public class Transaction {
         this.message = message;
     }
 
-    public Timestamp getTransactionTimestamp() {
+    public LocalDateTime getTransactionTimestamp() {
         return transactionTimestamp;
     }
 
-    public void setTransactionTimestamp(Timestamp transactionTimestamp) {
+    public void setTransactionTimestamp(LocalDateTime transactionTimestamp) {
         this.transactionTimestamp = transactionTimestamp;
     }
 }

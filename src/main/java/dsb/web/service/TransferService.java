@@ -30,7 +30,7 @@ public class TransferService {
 
             Account account = (Account) model.getAttribute("selectedAccountSession");
             tb.setAccountBalance(account.getBalance());
-            tb.setAccountNo(account.getAccountNo());
+            tb.setDebitAccountNo(account.getAccountNo());
 
 
 

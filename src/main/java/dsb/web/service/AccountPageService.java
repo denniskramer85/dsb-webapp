@@ -68,11 +68,11 @@ public class AccountPageService {
             amount = t.getTransactionAmount();
 
             //find counter account; if my account is credit [PLUS], if not [MINUS]
-            if (ownAccountNo.equals(t.getTransactionAccountCredit().getAccountNo())) {
-                counterAccount = t.getTransactionAccountDebet().getAccountNo();
+            if (ownAccountNo.equals(t.getCreditAccount().getAccountNo())) {
+                counterAccount = t.getDebitAccount().getAccountNo();
                 plusMinus = "+";
             } else {
-                counterAccount = t.getTransactionAccountCredit().getAccountNo();
+                counterAccount = t.getCreditAccount().getAccountNo();
                 plusMinus = "-";
             }
 
