@@ -58,7 +58,7 @@ public class TransferBean {
         try {
             transferAmount = (BigDecimal) decimalFormat.parse(transferAmountString.trim());
         } catch (ParseException parseError) {
-            transferAmount = null;
+            transferAmount = new BigDecimal(0);
         }
     }
 
