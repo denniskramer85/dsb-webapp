@@ -96,7 +96,7 @@ public class transferController {
 
         //TODO / Miel: Dit heb ik even uitgezet
 //        //determine flow and contents of tb, model and requests
-//        transferService.determineFlowAndContents(tb, model, request);
+        transferService.determineFlowAndContents(tb, model, request);
 
         return "transferConfirmPage";
     }
