@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="styles.css"/>
+    <meta charset="UTF-8">
+    <title>Welkom bij DSB</title>
+</head>
+<body>
+
+<div th:include="fragments/header :: header"></div>
+
+<body>
+
+
+
+<div>
+    <h1>Dashboard particulieren</h1>
+    <h2>Welkom (hier de naam medewerker)</h2>
+    <!--   <h1>Welkom <span th:text="${employee_name??}"/></h1> -->
+
+    <a href="/change_user_data">Wijzig je gegevens</a>
+</div>
+<br>
+<br>
+
+<div>
+    <h2>tabel met 10 hoogste saldi</h2>
+
+
+
+
+
+    <div th:each="account : ${consumerAccounts}">
+        <p><span th:text="${account}"  /></p>
+
+    </div>
+
+
+
+
+
+
+</div>
+
+
+
+</body>
+</body>
+</html>
