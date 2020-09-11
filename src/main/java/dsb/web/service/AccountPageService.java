@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -62,17 +63,17 @@ public class AccountPageService {
 
         //loop thru transactions to make proper strings for display
         for (Transaction t : transactions) {
-            timeStamp = new SimpleDateFormat("MM/dd/yyyy '-' HH:mm").
-                    format(t.getTransactionTimestamp());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            timeStamp = t.getTransactionTimestamp().format(formatter);
             message = t.getMessage();
             amount = t.getTransactionAmount();
 
             //find counter account; if my account is credit [PLUS], if not [MINUS]
-            if (ownAccountNo.equals(t.getTransactionAccountCredit().getAccountNo())) {
-                counterAccount = t.getTransactionAccountDebet().getAccountNo();
+            if (ownAccountNo.equals(t.getCreditAccount().getAccountNo())) {
+                counterAccount = t.getDebitAccount().getAccountNo();
                 plusMinus = "+";
             } else {
-                counterAccount = t.getTransactionAccountCredit().getAccountNo();
+                counterAccount = t.getCreditAccount().getAccountNo();
                 plusMinus = "-";
             }
 

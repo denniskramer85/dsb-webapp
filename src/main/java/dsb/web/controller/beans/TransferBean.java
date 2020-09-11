@@ -1,7 +1,6 @@
 package dsb.web.controller.beans;
 
 import dsb.web.controller.AccountOverviewController;
-import dsb.web.domain.Account;
 import dsb.web.service.validators.CurrencyFormatConstraint;
 import dsb.web.service.validators.DSBAccountConstraint;
 import org.hibernate.validator.constraints.Length;
@@ -25,7 +24,7 @@ public class TransferBean {
     private Logger logger = LoggerFactory.getLogger(AccountOverviewController.class);
 
     private double accountBalance;
-    private String accountNo;
+    private String debitAccountNo;
 
     @NotBlank(message = "Vul een tegenrekening in")
     // TODO: Werkend krijgen @AccountNoConstraint
@@ -78,12 +77,12 @@ public class TransferBean {
         this.accountBalance = accountBalance;
     }
 
-    public String getAccountNo() {
-        return accountNo;
+    public String getDebitAccountNo() {
+        return debitAccountNo;
     }
 
-    public void setAccountNo(String accountNo) {
-        this.accountNo = accountNo;
+    public void setDebitAccountNo(String debitAccountNo) {
+        this.debitAccountNo = debitAccountNo;
     }
 
     public String getCreditAccountNo() {
@@ -132,7 +131,7 @@ public class TransferBean {
     public String toString() {
         return "TransferBean{" +
                 "accountBalance=" + accountBalance +
-                ", accountNo='" + accountNo + '\'' +
+                ", accountNo='" + debitAccountNo + '\'' +
                 ", creditAccountNo='" + creditAccountNo + '\'' +
                 ", transferAmountString='" + transferAmountString + '\'' +
                 ", transferAmount=" + transferAmount +

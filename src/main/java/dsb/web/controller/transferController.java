@@ -8,6 +8,7 @@ import dsb.web.repository.AccountRepository;
 import dsb.web.repository.CustomerRepository;
 import dsb.web.service.AccountPageService;
 import dsb.web.service.SignInService;
+import dsb.web.service.TransactionService;
 import dsb.web.service.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,7 @@ public class transferController {
     private AccountPageService accountPageService;
     private TransferService transferService;
     private SignInService signInService;
+    private TransactionService transactionService;
 
     //TODO weg
     private CustomerRepository customerRepository;
@@ -38,12 +40,13 @@ public class transferController {
 
     @Autowired
     public transferController(AccountPageService accountPageService, CustomerRepository customerRepository,
-                              AccountRepository accountRepository, SignInService signInService, TransferService transferService) {
+                              AccountRepository accountRepository, SignInService signInService, TransferService transferService, TransactionService transactionService) {
         this.accountPageService = accountPageService;
         this.customerRepository = customerRepository;
         this.accountRepository = accountRepository;
         this.transferService = transferService;
         this.signInService = signInService;
+        this.transactionService = transactionService;
 
     }
 
@@ -70,7 +73,7 @@ public class transferController {
 
         //add needed real account data to transferBean and subsequently to model
         TransferBean transferBean = new TransferBean();
-        transferBean.setAccountNo(account.getAccountNo());
+        transferBean.setDebitAccountNo(account.getAccountNo());
         transferBean.setAccountBalance(account.getBalance());
         model.addAttribute("transferBean", transferBean);
 
@@ -105,10 +108,13 @@ public class transferController {
         Customer loginCustomer = signInService.checkCredentials(loginBean.getUsername(),
                 loginBean.getPassword());
 
+
+        TransferBean transferBean = (TransferBean) model.getAttribute("transferBeanSession");
+        Customer loggedInCustomer = (Customer) model.getAttribute(AttributeMapping.LOGGED_IN_CUSTOMER);
+
         //determine if validation is correct
         if (loginCustomer == null) {
 
-            TransferBean transferBean = (TransferBean) model.getAttribute("transferBeanSession");
             model.addAttribute("transferBeanSession", transferBean);
             model.addAttribute("loginBean", new LoginBean());
             model.addAttribute("errorMessage", true);
@@ -117,10 +123,13 @@ public class transferController {
 
         } else {
 
-            //TODO doe iets in transfer-/ en of transactionService
-            System.out.println("transactie geslaagd");
-
-            return "redirect:/";
+            // Execute transaction, return to index if passed
+            if (transactionService.doTransaction(transferBean, loggedInCustomer)) {
+                return "redirect:account_overview";
+            } else {
+                //TODO: Handle unauthorized transaction
+                return "/";
+            }
 
         }
     }
