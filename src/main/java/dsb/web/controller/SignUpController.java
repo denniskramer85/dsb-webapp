@@ -51,7 +51,7 @@ public class SignUpController {
     @PostMapping("customerCompleted")
     public String handlerCustomerCompleted (@Valid @ModelAttribute CustomerBean cb, Errors errors, Model model) {
 
-        /**validate for errors - is fo return**/
+        /**validate for errors - if so return**/
         if(errors.hasErrors()) {
             model.addAttribute(cb);
             return "sign-up";

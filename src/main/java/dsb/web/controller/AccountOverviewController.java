@@ -17,7 +17,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@SessionAttributes(AttributeMapping.LOGGED_IN_CUSTOMER)
+//TODO: Oplosssen zonder account in sessie
+@SessionAttributes({AttributeMapping.LOGGED_IN_CUSTOMER, AttributeMapping.SELECTED_ACCOUNT})
 public class AccountOverviewController {
     private AccountOverviewService accountOverviewService;
     private Logger logger = LoggerFactory.getLogger(AccountOverviewController.class);
@@ -50,10 +51,19 @@ public class AccountOverviewController {
         // Get selected account from DB
         Account selectedAccount = accountOverviewService.getAccountByID(accountID);
 
+
+
         // Check whether logged in customer has access to selected account
         if (accountOverviewService.accessPermitted(selectedAccount, loggedInCustomer)) {
-            redirectAttributes.addAttribute("selectedAccount", selectedAccount);
-            return new ModelAndView("redirect:/accountPage");
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("redirect:/accountPage");
+
+            // TODO: Oplossen zonder selectedAccount in session
+            // Add selected account to session and redirectAttributes
+            modelAndView.addObject(AttributeMapping.SELECTED_ACCOUNT, selectedAccount);
+            redirectAttributes.addAttribute(AttributeMapping.SELECTED_ACCOUNT, selectedAccount);
+
+            return modelAndView;
         }
         return null; // TODO: Return Access Denied
     }
