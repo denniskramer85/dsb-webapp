@@ -80,7 +80,7 @@ public class transferController {
 
     @PostMapping("transferPost")
     public String transferDataHandler (@Valid @ModelAttribute TransferBean transferBean,
-                                       Errors errors, Model model/*, HttpServletRequest request*/) {
+                                       Errors errors, Model model) {
 
         //validate for input errors - if so: return to transferPage
         if(errors.hasErrors()) return transferService.validateTransferData(transferBean, model);
@@ -94,7 +94,6 @@ public class transferController {
 
         return "transferConfirmPage";
 
-//        transferService.determineFlowAndContents(transferBean, model, request);
     }
 
 
@@ -117,8 +116,6 @@ public class transferController {
             return "transferConfirmPage";
 
         } else {
-
-            //request.setAttribute("transferBean", null);
 
             //TODO doe iets in transfer-/ en of transactionService
             System.out.println("transactie geslaagd");
