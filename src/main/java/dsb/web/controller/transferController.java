@@ -55,7 +55,6 @@ public class transferController {
         Account account = accountOptional.get();
         model.addAttribute("selectedAccountSession", account);
 
-
         //TODO aanzetten:
         //Account account = (Account) model.getAttribute("selectedAccountSession");
 
@@ -88,21 +87,14 @@ public class transferController {
 
                 model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
 
-
                 return "transferPage";
             }
         }
-
-
-
-
 
         model.addAttribute("transferBean", tb);
 
         model.addAttribute("loginBean", new LoginBean());
 
-        //TODO / Miel: Dit heb ik even uitgezet
-        //determine flow [first or repeated iteration?] and contents of tb, model and requests
         transferService.determineFlowAndContents(tb, model, request);
 
         return "transferConfirmPage";
