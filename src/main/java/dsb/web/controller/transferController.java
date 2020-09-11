@@ -72,8 +72,10 @@ public class transferController {
         return "transferPage";
     }
 
-    @PostMapping("transfer")
-    public String transferDataHandler (@Valid @ModelAttribute TransferBean tb, Errors errors, Model model) {
+
+    @PostMapping("transferPost")
+    public String transferDataHandler (@Valid @ModelAttribute TransferBean tb,
+                                       Errors errors, Model model, HttpServletRequest request) {
 
         /**validate for errors - if so return**/
         if(errors.hasErrors()) {

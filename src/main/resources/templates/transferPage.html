@@ -32,7 +32,7 @@
 
 
                 <div id="inputTransferData">
-                    <form method="post" th:action="@{transfer}" th:object="${transferBean}">
+                    <form method="post" th:action="@{transferPost}" th:object="${transferBean}">
                         <input type="hidden" th:field="*{accountBalance}">
                         <input type="hidden" th:field="*{accountNo}">
 
@@ -75,7 +75,7 @@
 
                         <div class="buttons">
                             <input class="btn btn-outline-dark" type="submit" value="Bevestigen">
-                            <input class="btn btn-outline-dark" type="button" value="Annuleren" onclick="location.href='/'">
+                            <input class="btn btn-outline-dark" type="button" value="Annuleren" onclick="location.href='accountPage'">
                         </div>
 
                     </form>

@@ -28,7 +28,7 @@ public class AccountPageService {
 
     public PrintAccountDataBean makePrintAccountDataBean(Account account) {
 
-        /**Achtereenvolgens beangegevens ophalen**/
+        /**Get all bean data subsequently**/
         String typeAccount = account.printClassName();
         String accountNo = account.getAccountNo();
         String companyName = getCompanyName(account);
@@ -44,6 +44,8 @@ public class AccountPageService {
 
 
     private List<String> getTransactionStrings(Account account) {
+
+        //TODO dit vereenvoudiggen evt naar eigen klasse ()incl bovenstaande method?
 
         //set up needed variables
         String ownAccountNo = account.getAccountNo();
@@ -99,6 +101,8 @@ public class AccountPageService {
 
 
     public String createHoldersString(List<Customer> listHolders) {
+
+        //TODO dit vereenvoudigen evt naar eigen klasse +  de aux methode
 
         //sort by surname
         Collections.sort(listHolders);

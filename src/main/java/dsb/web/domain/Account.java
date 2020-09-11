@@ -11,7 +11,7 @@ public abstract class Account {
     private int accountID;
     private String accountNo;
     private double balance;
-    @ManyToMany ( fetch = FetchType.LAZY)
+    @ManyToMany ( fetch = FetchType.EAGER)
     private List<Customer> holders;
 
     public Account(int accountID, String accountNo, double balance, List<Customer> holders) {
