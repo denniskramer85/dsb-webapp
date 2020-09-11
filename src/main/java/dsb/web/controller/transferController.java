@@ -88,15 +88,12 @@ public class transferController {
         //validate for input errors - if so: return to transferPage
         if(errors.hasErrors()) return transferService.validateTransferData(transferBean, model);
 
-
-        //transferBean in sessie hangen ; nwe loginbean erbij
+        //put transferBean and loginBean in session (and model)
         model.addAttribute("transferBeanSession", transferBean);
         model.addAttribute("loginBean", new LoginBean());
         model.addAttribute("errorMessage", false);
 
-
         return "transferConfirmPage";
-
     }
 
 
@@ -105,8 +102,8 @@ public class transferController {
     public String transferConfirmHandler (@ModelAttribute LoginBean loginBean,
                                           Model model/*, HttpServletRequest request*/) {
 
-        Customer loginCustomer = signInService.checkCredentials(loginBean.getUsername(),
-                loginBean.getPassword());
+        Customer loginCustomer = signInService.
+                checkCredentials(loginBean.getUsername(), loginBean.getPassword());
 
 
         TransferBean transferBean = (TransferBean) model.getAttribute("transferBeanSession");
