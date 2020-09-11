@@ -77,18 +77,18 @@ public class transferController {
     public String transferDataHandler (@Valid @ModelAttribute TransferBean tb,
                                        Errors errors, Model model, HttpServletRequest request) {
 
-        /**validate for errors - if so return**/
-        if(errors.hasErrors()) {
-
-            //TODO dit evt via flash/redirect uit vorige methode?
-            Account account = (Account) model.getAttribute("selectedAccountSession");
-            model.addAttribute("transferBean", tb);
-
-            model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
-
-
-            return "transferPage";
-        }
+//        /**validate for errors - if so return**/
+//        if(errors.hasErrors()) {
+//
+//            //TODO dit evt via flash/redirect uit vorige methode?
+//            Account account = (Account) model.getAttribute("selectedAccountSession");
+//            model.addAttribute("transferBean", tb);
+//
+//            model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
+//
+//
+//            return "transferPage";
+//        }
 
         model.addAttribute("transferBean", tb);
 
