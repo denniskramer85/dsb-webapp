@@ -48,6 +48,9 @@
         <br>
 
         <div>Gemiddeld saldo per segment</div>
+          <tr th:each="average : ${averageBalanceBySector}">
+              <p th:text="${average}"><</p>
+          </tr>
         <br>
 
         <a id="sicco" href="/change_user_data">Wijzig je gegevens</a>

@@ -29,6 +29,7 @@ public class SmeDashboardService {
 
 
 
+
         // door deze lijst heen loope, alle transcaties bijbehorende bedragen optellen, sorteren op de grootste. Compartor schrijven, 2 transacties. Alle transacties per klant,
         // Lijst per klant hebben waarin al de transacties in staan, in de from of de to, als die lijsten heb je top 10.
         // map maken(has) key customer, int(counter). value is een lijst van aantal transacties. Voor elke transactie heb je een from en to, voor beide ga je hashmap ophogen, aan het einde van de loop heb je een.
@@ -39,6 +40,11 @@ public class SmeDashboardService {
     public List<SMEAccount> getTop10bySmeBalance() {
         List<SMEAccount> smeAccountsList = smeAccountRepository.findTop10ByOrderByBalanceDesc();
         return smeAccountsList;
+    }
+
+    public List<SMEAccount> getAverageTop10bySector() {
+        List<SMEAccount> smeAccountListbySector = smeAccountRepository.findTop10ByOrderByBalanceAsc();
+        return smeAccountListbySector;
     }
 
 

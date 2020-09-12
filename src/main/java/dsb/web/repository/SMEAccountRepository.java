@@ -3,8 +3,10 @@ package dsb.web.repository;
 import dsb.web.domain.Account;
 import dsb.web.domain.Customer;
 import dsb.web.domain.SMEAccount;
+import dsb.web.domain.Transaction;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
@@ -17,7 +19,11 @@ public interface SMEAccountRepository extends PagingAndSortingRepository<SMEAcco
     List<SMEAccount> findAllByHolders(Customer customer);
     List<SMEAccount> findAll();
     List<SMEAccount> findTop10ByOrderByBalanceDesc(); // zoek op group bij en everage.
+    List<SMEAccount> findTop10ByOrderByBalanceAsc();
 
+    @Query(value = "SELECT avg(balance) FROM Product")
+    public Double avg();
+    List<SMEAccount> findAverageBySector();
 }
 
 

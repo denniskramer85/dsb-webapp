@@ -50,7 +50,7 @@ public class SignupService {
         return mid.substring(0,1).toUpperCase() + mid.substring(1);
     }
 
-
+    /**styler for address data**/
     public String createAddressPrint(CustomerBean cb) {
         String street = cb.getStreet();
         String houseNumber = cb.getHouseNumberString();

@@ -1,53 +1,59 @@
 package dsb.web.service;
 
-import dsb.web.controller.beans.NewAccountBean;
+import dsb.web.controller.beans.CompanyBean;
 import dsb.web.domain.*;
 import dsb.web.repository.AccountRepository;
 import dsb.web.repository.SMEAccountRepository;
 import dsb.web.repository.CompanyRepository;
 import dsb.web.repository.ConsumerAccountRepository;
+import dsb.web.repository.*;
 import org.springframework.stereotype.Service;
+import dsb.web.domain.Employee;
 
 import java.util.*;
 
 @Service
 public class NewAccountService {
+    public static final int BAllANCE = 25;
+
     private AccountRepository accountRepository;
     private CompanyRepository companyRepository;
     private SMEAccountRepository accountRepositorySme;
     private ConsumerAccountRepository consumerAccountRepository;
+    private EmployeeRepository employeeRepository;
+
 
     public NewAccountService(CompanyRepository companyRepository, SMEAccountRepository accountRepositorySme, ConsumerAccountRepository consumerAccountRepository, AccountRepository accountRepository) {
         this.companyRepository = companyRepository;
         this.accountRepositorySme  = accountRepositorySme;
         this.consumerAccountRepository = consumerAccountRepository;
         this.accountRepository = accountRepository;
+        this.employeeRepository = employeeRepository;
     }
 
-    public void saveNewAccount(NewAccountBean nab){
+    public void saveNewAccount(CompanyBean companyBean){
         Iban iban = IbanService.randIBAN();
-        System.out.println(iban.toString());
-        System.out.println(accountRepository.existsByAccountNo(iban.toString()));
         while (accountRepository.existsByAccountNo(iban.toString()))
             iban = IbanService.randIBAN();
-        Company comp = null;
-        Account acc;
-        if (nab.getName() != null){
-            Company company = new Company(nab.getName(),nab.getKVKno(), nab.getBTWno());
-            comp = companyRepository.save(company);
+        Company company = null;
+        Account account;
+        if (companyBean.getName() != null){
+            Employee accountManager = employeeRepository.findById(45).get();
+            company = new Company(companyBean.getName(),companyBean.getKVKno(), companyBean.getBTWno(), accountManager, companyBean.getSector());
+            company = companyRepository.save(company);
             System.out.println("New company created");
-            acc = accountRepositorySme.save(
-                    new SMEAccount(
+            account = accountRepositorySme.save(
+            new SMEAccount(
                             IbanService.randIBAN().toString(),
-                            nab.getBalance(),
-                            Arrays.asList(nab.getHolder()),
+                            BAllANCE,
+                            Arrays.asList(companyBean.getCurrentCustomer()),
                             company));
         } else {
-            acc = consumerAccountRepository.save(
+            account = consumerAccountRepository.save(
                     new ConsumerAccount(
                             IbanService.randIBAN().toString(),
-                            nab.getBalance(),
-                            Arrays.asList(nab.getHolder())));
+                            BAllANCE,
+                            Arrays.asList(companyBean.getCurrentCustomer())));
         }
         System.out.println("New account created");
     }

@@ -34,10 +34,12 @@ public class SMEDashboardController {
 
         List<Transaction> top10Transaction = smeDashboardService.getTop10SmeTransaction();
         List<SMEAccount> top10Balance = smeDashboardService.getTop10bySmeBalance();
+        List<SMEAccount> averageTop10BySector = smeDashboardService.getAverageTop10bySector();
         //Model info verstuurt naar je template
         model.addAttribute("naam", "thijs");
         model.addAttribute("balances", top10Balance);
         model.addAttribute("transaction", top10Transaction);
+        model.addAttribute("averageBalanceBySector", averageTop10BySector);
 
         return "sme_employee_dashboard";
     }
