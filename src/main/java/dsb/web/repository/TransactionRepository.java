@@ -21,4 +21,8 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
     List<Transaction> findTransactionByAccounts (int accountID);
 
     List<Transaction> findAll();
+
+
+
+
 }

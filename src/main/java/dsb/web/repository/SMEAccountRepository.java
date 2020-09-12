@@ -19,11 +19,17 @@ public interface SMEAccountRepository extends PagingAndSortingRepository<SMEAcco
     List<SMEAccount> findAllByHolders(Customer customer);
     List<SMEAccount> findAll();
     List<SMEAccount> findTop10ByOrderByBalanceDesc(); // zoek op group bij en everage.
-    List<SMEAccount> findTop10ByOrderByBalanceAsc();
 
-    @Query(value = "SELECT avg(balance) FROM Product")
-    public Double avg();
-    List<SMEAccount> findAverageBySector();
+
+    @Query(value = "SELECT * FROM dsb.account AS ac " +
+            "JOIN dsb.smeaccount AS sme_ac " +
+            "   ON ac.accountid = sme_ac.accountid " +
+
+            "ORDER BY balance desc; "
+            , nativeQuery = true)
+    List<SMEAccount> findAverageBalanceBySector();
+
+
 }
 
 

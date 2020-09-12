@@ -43,8 +43,8 @@ public class SmeDashboardService {
     }
 
     public List<SMEAccount> getAverageTop10bySector() {
-        List<SMEAccount> smeAccountListbySector = smeAccountRepository.findTop10ByOrderByBalanceAsc();
-        return smeAccountListbySector;
+        List<SMEAccount> top10list = smeAccountRepository.findAverageBalanceBySector();
+        return top10list;
     }
 
 
