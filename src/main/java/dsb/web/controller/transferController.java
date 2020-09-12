@@ -8,6 +8,7 @@ import dsb.web.repository.AccountRepository;
 import dsb.web.repository.CustomerRepository;
 import dsb.web.service.AccountPageService;
 import dsb.web.service.SignInService;
+import dsb.web.service.TransactionService;
 import dsb.web.service.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,8 @@ public class transferController {
 
     private AccountPageService accountPageService;
     private TransferService transferService;
+    private SignInService signInService;
+    private TransactionService transactionService;
 
     //TODO weg
     private CustomerRepository customerRepository;
@@ -37,17 +40,20 @@ public class transferController {
 
     @Autowired
     public transferController(AccountPageService accountPageService, CustomerRepository customerRepository,
-                              AccountRepository accountRepository, SignInService signInService, TransferService transferService) {
+                              AccountRepository accountRepository, SignInService signInService, TransferService transferService, TransactionService transactionService) {
         this.accountPageService = accountPageService;
         this.customerRepository = customerRepository;
         this.accountRepository = accountRepository;
         this.transferService = transferService;
+        this.signInService = signInService;
+        this.transactionService = transactionService;
+
     }
 
     @GetMapping("transfer")
     public String startTransferPageHandler (Model model) {
 
-        //TODO weg: ff dummydata cust en acc uit DB - en in sessie hangen
+        //TODO weg: dit is dummydata vw snelle link (data cust en acc uit db halen en in sessie hangen)
         Optional<Customer> customerOptional = customerRepository.findOneByUsername("dennis");
         Customer customer = customerOptional.get();
         model.addAttribute("loggedInCustomer", customer);
@@ -55,13 +61,19 @@ public class transferController {
         Account account = accountOptional.get();
         model.addAttribute("selectedAccountSession", account);
 
-        //TODO aanzetten:
+        //TODO aanzetten: dit is de normale flow
+        //get account data
         //Account account = (Account) model.getAttribute("selectedAccountSession");
 
+        //*********************************************************************************//
+
+
+        //add printable account data (string) to model (only for display purpose)
         model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
 
+        //add needed real account data to transferBean and subsequently to model
         TransferBean transferBean = new TransferBean();
-        transferBean.setAccountNo(account.getAccountNo());
+        transferBean.setDebitAccountNo(account.getAccountNo());
         transferBean.setAccountBalance(account.getBalance());
         model.addAttribute("transferBean", transferBean);
 
@@ -70,39 +82,54 @@ public class transferController {
 
 
     @PostMapping("transferPost")
-    public String transferDataHandler (@Valid @ModelAttribute TransferBean tb,
-                                       Errors errors, Model model, HttpServletRequest request) {
+    public String transferDataHandler (@Valid @ModelAttribute TransferBean transferBean,
+                                       Errors errors, Model model) {
 
-        if (request.getAttribute("transferBean") == null) {
+        //validate for input errors - if so: return to transferPage
+        if(errors.hasErrors()) return transferService.validateTransferData(transferBean, model);
 
-            /**validate for errors - if so return**/
-            if(errors.hasErrors()) {
-
-                //TODO dit evt via flash/redirect uit vorige methode?
-                Account account = (Account) model.getAttribute("selectedAccountSession");
-                model.addAttribute("transferBean", tb);
-
-                model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
-
-                return "transferPage";
-            }
-        }
-
-        model.addAttribute("transferBean", tb);
-
+        //put transferBean and loginBean in session (and model)
+        model.addAttribute("transferBeanSession", transferBean);
         model.addAttribute("loginBean", new LoginBean());
-
-        transferService.determineFlowAndContents(tb, model, request);
+        model.addAttribute("errorMessage", false);
 
         return "transferConfirmPage";
     }
 
+
+
     @PostMapping("transferConfirm")
     public String transferConfirmHandler (@ModelAttribute LoginBean loginBean,
-                                          Model model, HttpServletRequest request) {
+                                          Model model/*, HttpServletRequest request*/) {
 
-        return transferService.handleFlowAndContentsThruValidation(loginBean, model, request);
+        //TODO: dit toch allemaal/deels niet even naar transferService?
 
+        Customer loginCustomer = signInService.
+                checkCredentials(loginBean.getUsername(), loginBean.getPassword());
+
+        TransferBean transferBean = (TransferBean) model.getAttribute("transferBeanSession");
+        Customer loggedInCustomer = (Customer) model.getAttribute(AttributeMapping.LOGGED_IN_CUSTOMER);
+
+        //determine if validation is correct
+        if (loginCustomer == null) {
+
+            model.addAttribute("transferBeanSession", transferBean);
+            model.addAttribute("loginBean", new LoginBean());
+            model.addAttribute("errorMessage", true);
+
+            return "transferConfirmPage";
+
+        } else {
+
+            // Execute transaction, return to index if passed
+            if (transactionService.doTransaction(transferBean, loggedInCustomer)) {
+                return "redirect:account_overview";
+            } else {
+                //TODO: Handle unauthorized transaction
+                return "/";
+            }
+
+        }
     }
 }
 
