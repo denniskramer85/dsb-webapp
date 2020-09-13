@@ -20,6 +20,15 @@
 
             <div class="form-group">
                 <table><tr><td>
+                    <label for="creditAccountNo">Eigen<br>rekeningnummer</label>
+                </td><td>
+                    <input type="text" class="form-control" id="debitAccountNo" name="debitAccountNo" th:field="*{debitAccountNo}" readonly>
+                </td></tr>
+                </table>
+            </div>
+
+            <div class="form-group">
+                <table><tr><td>
                     <label for="creditAccountNo">Rekeningnummer<br>begunstigde</label>
                 </td><td>
                     <input type="text" class="form-control" id="creditAccountNo" name="creditAccountNo" th:field="*{creditAccountNo}" readonly>

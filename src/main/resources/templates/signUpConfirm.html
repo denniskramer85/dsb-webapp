@@ -23,21 +23,9 @@
     <div class="grid">
 
         <div id="personalData">
-            <div id="surname">
-                <p class="subheader">Achternaam:</p>
-                <p><span th:text="*{surname}"/></p>
-            </div>
-            <div id="inserts">
-                <p class="subheader">Tussenvoegsels:</p>
-                <p><span th:text="*{inserts}"/></p>
-            </div>
-            <div id="initials">
-                <p class="subheader">Initialen: </p>
-                <p><span th:text="*{initials}"/></p>
-            </div>
-            <div id="BSN">
-                <p class="subheader">BSN-nummer:</p>
-                <p><span th:text="*{socialSecurityNoString}"/></p>
+            <div id="name">
+                <p class="subheader">Naam:</p>
+                <p><span th:text="${namePrint}"/></p>
             </div>
         </div>
 
