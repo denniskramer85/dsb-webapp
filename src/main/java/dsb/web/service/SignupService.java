@@ -41,9 +41,9 @@ public class SignupService {
 
     /**2 stylers for name data**/
     public String initialsStyler(String initials) {
-        String[] asArray = initials.trim().replaceAll("[^a-zA-Z0-9]", "")
+        String[] asArray = initials.trim().replaceAll("[^a-zA-Z]", "")
                 .toUpperCase().split("");
-        return String.join(".", asArray);
+        return String.join(".", asArray) + ".";
     }
     public String surnameStyler(String surname) {
         String mid = surname.toLowerCase();
