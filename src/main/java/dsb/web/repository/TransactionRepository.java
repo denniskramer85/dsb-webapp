@@ -17,9 +17,9 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
 
 
 
-    @Query(value = "SELECT * FROM dsb.transaction WHERE credit_account_accountid = ?1 OR debit_account_accountid = ?1 ORDER BY transaction_timestamp DESC LIMIT 10;",
+    @Query(value = "SELECT * FROM dsb.transaction WHERE credit_account_accountid = :accountID OR debit_account_accountid = :accountID ORDER BY transaction_timestamp DESC LIMIT :limit ;",
             nativeQuery = true)
-    List<Transaction> findTransactionByAccounts (int accountID);
+    List<Transaction> findTopNTransactionByAccounts(@Param("accountID") int accountID, @Param("limit") int limit);
 
     List<Transaction> findAll();
 }

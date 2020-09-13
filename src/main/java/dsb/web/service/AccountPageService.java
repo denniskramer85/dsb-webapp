@@ -20,7 +20,7 @@ public class AccountPageService {
     private TransactionRepository transactionRepository;
 
     /**max number of holders shown**/
-    private int maxNrHoldersShown = 3;
+    private int maxNrHoldersShown = 10;
 
     @Autowired
     public AccountPageService(TransactionRepository transactionRepository) {
@@ -52,13 +52,13 @@ public class AccountPageService {
         String ownAccountNo = account.getAccountNo();
         String stringResult, timeStamp, counterAccount, message, plusMinus;
         double amount;
-
         //final result list
         List<String> transactionStrings = new ArrayList<>();
 
         //getting transactions from database
         //TODO LIMIT WERKT NIET MET PARAM!!!
-        List<Transaction> transactions = transactionRepository.findTransactionByAccounts(account.getAccountID());
+        List<Transaction> transactions = transactionRepository.
+                findTopNTransactionByAccounts(account.getAccountID(), maxNrHoldersShown);
 
 
         //loop thru transactions to make proper strings for display
