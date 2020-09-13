@@ -3,6 +3,7 @@ package dsb.web.repository;
 import dsb.web.domain.ConsumerAccount;
 import dsb.web.domain.Customer;
 import dsb.web.domain.Transaction;
+import org.hibernate.mapping.Join;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -26,5 +27,8 @@ public interface ConsumerAccountRepository extends CrudRepository<ConsumerAccoun
             "ORDER BY balance DESC;  ",
             nativeQuery = true)
     List<ConsumerAccount> findConsumerAccountByHighestBalance();
+
+
+
 
 }
