@@ -1,8 +1,8 @@
 package dsb.web.controller;
 
-import dsb.web.domain.Customer;
-import dsb.web.domain.SMEAccount;
-import dsb.web.domain.Transaction;
+import dsb.web.controller.beans.EmployeeLoginBean;
+import dsb.web.controller.beans.LoginBean;
+import dsb.web.domain.*;
 import dsb.web.service.SmeDashboardService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +26,7 @@ public class SMEDashboardController {
         this.smeDashboardService = smeDashboardService;
     }
 
+
     public SMEDashboardController() {
     }
 
@@ -36,9 +37,9 @@ public class SMEDashboardController {
         List<SMEAccount> top10Balance = smeDashboardService.getTop10bySmeBalance();
         List<SMEAccount> averageTop10BySector = smeDashboardService.getAverageTop10bySector();
         //Model info verstuurt naar je template
-        model.addAttribute("naam", "thijs");
+        model.addAttribute("naam", "Naam medewerker");
         model.addAttribute("balances", top10Balance);
-        model.addAttribute("transaction", top10Transaction);
+        model.addAttribute("transactions", top10Transaction);
         model.addAttribute("averageBalanceBySector", averageTop10BySector);
 
         return "sme_employee_dashboard";

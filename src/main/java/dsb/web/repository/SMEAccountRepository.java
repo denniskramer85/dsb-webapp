@@ -28,12 +28,12 @@ public interface SMEAccountRepository extends PagingAndSortingRepository<SMEAcco
             "ORDER BY balance desc; "
             , nativeQuery = true)
     List<SMEAccount> findAverageBalanceBySector();
-
+//            "JOIN dsb.smeaccount AS sme_ac " +
+//                    "   ON ac.accountid = sme_ac.accountid " +
+////            "JOIN dsb.company AS com " +
+////            "   ON sme.accountid = com.accountid"
+//                    , nativeQuery = true)
 
 }
 
 
-    //    @Query(value = "SELECT * FROM dsb.account WHERE balance = ?1 ORDER BY balance DESC LIMIT 10;",
-//            nativeQuery = true)
-
-//  replace crudrepository for jpa repo.
