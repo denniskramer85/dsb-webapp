@@ -1,8 +1,8 @@
 INSERT INTO `dsb`.`role` (`roleid`, `role_name`) VALUES('1', 'Retail')
 INSERT INTO `dsb`.`role` (`roleid`, `role_name`) VALUES('2', 'Commercial')
 
-INSERT INTO `dsb`.`employee` (`employeeid`, `employee_user_name`, `initials`, `password`, `surname`, `role_roleid`) VALUES ('44', 'linda.', 'L.', 'linda', 'Haest', '1' );
-INSERT INTO `dsb`.`employee` (`employeeid`, `employee_user_name`, `initials`, `password`, `surname`, `role_roleid`) VALUES ('45', 'thijs.', 'T.', 'thijs', 'Rodenburg', '2');
+INSERT INTO `dsb`.`employee` (`employeeid`, `employee_user_name`, `initials`, `password`, `surname`, `role_roleid`) VALUES ('44', 'linda', 'L.', 'linda', 'Haest', '1' );
+INSERT INTO `dsb`.`employee` (`employeeid`, `employee_user_name`, `initials`, `password`, `surname`, `role_roleid`) VALUES ('45', 'thijs', 'T.', 'thijs', 'Rodenburg', '2');
 
 INSERT INTO dsb.sector VALUES (0, 'Bouw')
 INSERT INTO dsb.sector VALUES (1, 'Cultuur, sport en recreatie')
