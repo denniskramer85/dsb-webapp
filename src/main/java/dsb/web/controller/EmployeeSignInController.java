@@ -35,7 +35,7 @@ public class EmployeeSignInController {
                 employeeLoginBean.getEmployeePassword());
         if (loginEmployee != null) {
             model.addAttribute(AttributeMapping.LOGGED_IN_EMPLOYEE, loginEmployee);
-            return new ModelAndView("employee_dashboard"); //TODO nog aanpassen (2 inlogs?)
+            return new ModelAndView("employee_consumer_dashboard"); //TODO nog aanpassen (2 inlogs?)
         } else {
             model.addAttribute("employeeUserName", employeeLoginBean.getEmployeeUserName());
             return new ModelAndView("employee_sign-in");

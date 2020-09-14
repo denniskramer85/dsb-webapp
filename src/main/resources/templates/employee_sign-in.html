@@ -9,7 +9,7 @@
     <br>
     <br>
 <div class="container">
-    <form method="post" th:object="${employeeLoginBean}" th:action="@{employee_sign-in}" class="needs-validation" novalidate>
+    <form method="post" th:object="${employeeLoginBean}" th:action="@{employee_sign-in}">
         <div class="form-group">
             <label for="employee_username">Gebruikersnaam</label>
             <input type="text" class="form-control" id="employee_username" name="employee_username" th:field="*{employeeUserName}" th:value="${employeeUserName}" placeholder="Voer gebruikersnaam in" required>
