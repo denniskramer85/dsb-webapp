@@ -9,7 +9,7 @@ public class SocSecNoValidator implements ConstraintValidator<SocSecNoConstraint
     @Override
     public boolean isValid(String string, ConstraintValidatorContext constraintValidatorContext) {
 
-        //two checks alreay provied by other annotations (@NotBlank & @IntegerValidator)
+        //two checks alreay covered by other annotations (@NotBlank & @IntegerValidator)
         if (string == null || string.trim().equals("")) return true;
         try {
             Integer.parseInt(string);

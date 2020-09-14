@@ -2,17 +2,17 @@ package dsb.web.controller;
 
 import dsb.web.controller.beans.CustomerBean;
 import dsb.web.domain.Customer;
-import dsb.web.repository.TransactionRepository;
 import dsb.web.service.SignupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.validation.Valid;
-import java.util.List;
 
 
 @Controller
@@ -20,14 +20,11 @@ import java.util.List;
 public class SignUpController {
 
     private SignupService signupService;
-    private TransactionRepository transactionRepository;
 
     @Autowired
-    public SignUpController(SignupService signupService, TransactionRepository transactionRepository) {
+    public SignUpController(SignupService signupService) {
         this.signupService = signupService;
-        this.transactionRepository = transactionRepository;
     }
-
 
     @GetMapping("pre-sign-up")
     public String emptyCustomerDataInSession (Model model) {
@@ -39,7 +36,6 @@ public class SignUpController {
     @GetMapping("sign-up")
     public String handlerSignUp (Model model) {
 
-        //session uitlezen
         CustomerBean cb2 = (CustomerBean) model.getAttribute("customerBean2");
         model.addAttribute("customerBean", cb2);
 
@@ -68,7 +64,6 @@ public class SignUpController {
 
         /**create printable format of address**/
         model.addAttribute("addressPrint", signupService.createAddressPrint(customerBean));
-
 
         model.addAttribute("customerBean2", customerBean);
         return "signUpConfirm";

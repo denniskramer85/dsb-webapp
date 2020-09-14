@@ -8,11 +8,7 @@
     <title>Aanmelding</title>
 
 
-<!--    TODO: cs ww-gelijktjek en required (en nog meer die elders) weer aanzetten-->
-
-
-
-
+<!--    TODO: cs ww-gelijktjek, number en required weer aanzetten-->
 
 </head>
 <body id="signUpPage">
@@ -28,7 +24,6 @@
     <form method="POST" th:object="${customerBean}" th:action="@{customerCompleted}" onSubmit="return pass();">
         <div class="grid">
 
-
             <div id="personalData">
                 <div class="form-group">
                     <table><tr><td>
@@ -36,7 +31,8 @@
                     </td><td>
                         <input type="text" class="form-control" id="surname" name="surname" th:field="*{surname}" autofocus>
                     </td></tr><tr><td></td><td>
-                        <p class="errors"><span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"/></p>
+                        <p class="errors"><span t
+                                                e}"/></p>
                     </td></tr>
                     </table>
                 </div>
@@ -71,8 +67,6 @@
                     </table>
                 </div>
             </div>
-
-
 
             <div id="addressData">
                 <div class="form-group">
@@ -163,12 +157,9 @@
                     </td></tr><tr><td></td><td>
                         <p class="errors"><span th:if="${#fields.hasErrors('password2')}" th:errors="*{password2}"/></p>
                         <p class="errors" style="position: relative; top: 200px;"><span th:if="${#fields.hasGlobalErrors()}" th:each="error : ${#fields.errors('global')}" th:text="${error}"/></p>
-
                     </td></tr>
                     </table>
                 </div>
-
-
 
 
             </div>
@@ -188,6 +179,8 @@
 
 </div>
 
+
+<!--TODO dit moet nog extern-->
 <script>
     // Code for retrieving ZIP information from bwnr.nl API
     // Declare empty variables
@@ -269,6 +262,7 @@
         xmlHttpRequest.send();
     }
 
+    /*TODO Dit moet nog aan*/
     // function pass() {
     //     var password = document.getElementById("password").value
     //     var password2 = document.getElementById("password2").value

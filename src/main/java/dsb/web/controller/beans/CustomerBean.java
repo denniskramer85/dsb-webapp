@@ -94,15 +94,12 @@ public class CustomerBean {
 
     public Integer checkIfInteger(String ageString) {
 
-
         try {
             int age = Integer.parseInt(ageString);
             return age;
         } catch(NumberFormatException e){
             return null;
         }
-
-
     }
 
 
