@@ -54,7 +54,9 @@ public class CustomerBean {
 
 
 
-    public CustomerBean(String surname, String inserts, String initials, String street, Integer houseNumber, String affixes, String zipCode, String city, Integer socialSecurityNo, String username, String password, String password2) {
+    public CustomerBean(String surname, String inserts, String initials, String street,
+                        Integer houseNumber, String affixes, String zipCode, String city,
+                        Integer socialSecurityNo, String username, String password, String password2) {
         this.surname = surname;
         this.inserts = inserts;
         this.initials = initials;

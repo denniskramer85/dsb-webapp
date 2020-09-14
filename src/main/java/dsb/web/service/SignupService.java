@@ -16,28 +16,11 @@ public class SignupService {
 
     private CustomerRepository customerRepository;
 
-
     @Autowired
     public SignupService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 
-    /** create domain Customer form bean and save in db **/
-    public Customer createAndSaveCustomer(CustomerBean customerBean) {
-        Address address = new Address(customerBean.getStreet(), customerBean.getHouseNumber(),
-                customerBean.getAffixes(), customerBean.getZipCode(), customerBean.getCity());
-
-        Customer customer = new Customer(
-                customerBean.getSocialSecurityNo(), customerBean.getInitials(), customerBean.getInserts(),
-                customerBean.getSurname(), address, customerBean.getUsername(), customerBean.getPassword(), null);
-
-        customerRepository.save(customer);
-        System.out.println("klant met achternaam " + customer.getSurname() + " is opgeslagen");
-
-        //TODO hier in sess hangen?
-
-        return customer;
-    }
 
     /**2 stylers for name data**/
     public String initialsStyler(String initials) {
@@ -50,7 +33,7 @@ public class SignupService {
         return mid.substring(0,1).toUpperCase() + mid.substring(1);
     }
 
-    /**styler for address data**/
+    /**styler for name data**/
     public String createNamePrint(CustomerBean customerBean) {
         String initials = customerBean.getInitials();
         String inserts = customerBean.getInserts() + " ";
@@ -70,4 +53,24 @@ public class SignupService {
 
         return String.format("%s %s %s\n%s %s", street, houseNumber, affixes, zipCode, city);
     }
+
+    /** create domain Customer form bean and save in db **/
+    public Customer createAndSaveCustomer(CustomerBean customerBean) {
+        Address address = new Address(customerBean.getStreet(), customerBean.getHouseNumber(),
+                customerBean.getAffixes(), customerBean.getZipCode(), customerBean.getCity());
+
+        Customer customer = new Customer(
+                customerBean.getSocialSecurityNo(), customerBean.getInitials(), customerBean.getInserts(),
+                customerBean.getSurname(), address, customerBean.getUsername(), customerBean.getPassword(), null);
+
+        customerRepository.save(customer);
+        System.out.println("klant met achternaam " + customer.getSurname() + " is opgeslagen");
+
+        //TODO hier in sess hangen?
+
+        return customer;
+    }
+
+
+
 }

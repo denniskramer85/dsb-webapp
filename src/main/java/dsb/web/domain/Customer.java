@@ -20,7 +20,9 @@ public class Customer implements Comparable<Customer> {
     @ManyToMany (mappedBy = "holders", cascade = {CascadeType.MERGE} , fetch = FetchType.EAGER)
     private List<Account> accounts;
 
-    public Customer(int customerID, int socialSecurityNo, String initials, String inserts, String surname, Address address, String username, String password, List<Account> accounts) {
+    public Customer(int customerID, int socialSecurityNo, String initials, String inserts,
+                    String surname, Address address, String username, String password,
+                    List<Account> accounts) {
         this.customerID = customerID;
         this.socialSecurityNo = socialSecurityNo;
         this.initials = initials;
