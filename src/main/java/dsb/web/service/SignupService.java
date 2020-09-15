@@ -7,6 +7,7 @@ import dsb.web.repository.AddressRepository;
 import dsb.web.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -22,36 +23,23 @@ public class SignupService {
     }
 
 
-    /**2 stylers for name data**/
-    public String initialsStyler(String initials) {
-        String[] asArray = initials.trim().replaceAll("[^a-zA-Z]", "")
-                .toUpperCase().split("");
-        return String.join(".", asArray) + ".";
-    }
-    public String surnameStyler(String surname) {
-        String mid = surname.toLowerCase();
-        return mid.substring(0,1).toUpperCase() + mid.substring(1);
-    }
 
+    public void printformatNameAndAddress(CustomerBean customerBean, Model model) {
+    }
+    
     /**styler for name data**/
-    public String createNamePrint(CustomerBean customerBean) {
-        String initials = customerBean.getInitials();
-        String inserts = customerBean.getInserts() + " ";
-        if (customerBean.getInserts() == null) inserts = "";
-        String surname = customerBean.getSurname();
+    public String createNamePrint(CustomerBean cb) {
 
-        return String.format("%s %s%s", initials, inserts, surname);
+        Customer custPrint = new Customer(cb.getInitials(), cb.getInserts(), cb.getSurname());
+        return custPrint.printWholeName();
+
     }
 
     /**styler for address data**/
-    public String createAddressPrint(CustomerBean customerBean) {
-        String street = customerBean.getStreet();
-        String houseNumber = customerBean.getHouseNumberString();
-        String affixes = customerBean.getAffixes();
-        String zipCode = customerBean.getZipCode();
-        String city = customerBean.getCity();
-
-        return String.format("%s %s %s\n%s %s", street, houseNumber, affixes, zipCode, city);
+    public String createAddressPrint(CustomerBean cb) {
+        int houseNumber = Integer.parseInt(cb.getHouseNumberString());
+        Address addressPrint = new Address(cb.getStreet(), houseNumber, cb.getAffixes(), cb.getZipCode(), cb.getCity());
+        return addressPrint.printWholeAddress();
     }
 
     /** create domain Customer form bean and save in db **/

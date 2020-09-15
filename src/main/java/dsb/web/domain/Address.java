@@ -44,6 +44,22 @@ public class Address {
                 '}';
     }
 
+    public String printWholeAddress () {
+        return String.format("%s %s %s\n%s %s", street, houseNumber, affixes, zipCode, city);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

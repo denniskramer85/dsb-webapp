@@ -54,16 +54,17 @@ public class SignUpController {
             return "sign-up";
         }
 
-        //TODO dit kan ook allemaal weg naar service?
-        /**namestylers for proper format of initals/surname**/
-        customerBean.setInitials(signupService.initialsStyler(customerBean.getInitials()));
-        customerBean.setSurname(signupService.surnameStyler(customerBean.getSurname()));
+        customerBean.nameStyler();
 
-        /**create printable format of name**/
-        model.addAttribute("namePrint", signupService.createNamePrint(customerBean));
+        signupService.printformatNameAndAddress(customerBean, model) {
 
-        /**create printable format of address**/
-        model.addAttribute("addressPrint", signupService.createAddressPrint(customerBean));
+        }
+
+//        /**create printable format of name**/
+//        model.addAttribute("namePrint", signupService.createNamePrint(customerBean));
+//
+//        /**create printable format of address**/
+//        model.addAttribute("addressPrint", signupService.createAddressPrint(customerBean));
 
         model.addAttribute("customerBean2", customerBean);
         return "signUpConfirm";
