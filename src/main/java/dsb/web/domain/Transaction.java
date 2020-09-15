@@ -38,15 +38,18 @@ public class Transaction {
     }
 
 
-    @Override
-    //TODO evt nog bijwerken
-    public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy '|' HH:mm");
-        String s = transactionTimestamp.format(formatter);
+//    @Override
+//    //TODO evt nog bijwerken
+//    public String toString() {
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy '|' HH:mm");
+//        String s = transactionTimestamp.format(formatter);
+//
+//        return String.format("%s - %s - %s - %.2f - %s", s, debitAccount.getAccountNo(),
+//                creditAccount.getAccountNo(), transactionAmount, message);
+//    }
 
-        return String.format("%s - %s - %s - %.2f - %s", s, debitAccount.getAccountNo(),
-                creditAccount.getAccountNo(), transactionAmount, message);
-    }
+
+
 
     @Override
     public boolean equals(Object o) {
