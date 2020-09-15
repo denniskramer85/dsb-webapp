@@ -55,8 +55,10 @@
                             </td></tr><tr><td></td><td>
                                 <p class="errors">
                                     <span th:if="${#fields.hasErrors('transferAmountString')}" th:errors="*{transferAmountString}"/>
-                                    <span th:if="${#fields.hasErrors('transferAmount')}" th:errors="*{transferAmount}"/>
-                                    <span th:if="${#fields.hasErrors('sufficientFunds')}" th:errors="*{sufficientFunds}"/>
+                                    <span th:unless="${#fields.hasErrors('transferAmountString')}">
+                                        <span th:if="${#fields.hasErrors('transferAmount')}" th:errors="*{transferAmount}"/>
+                                        <span th:if="${#fields.hasErrors('sufficientFunds')}" th:errors="*{sufficientFunds}"/>
+                                    </span>
                                 </p>
                             </td></tr>
                             </table>

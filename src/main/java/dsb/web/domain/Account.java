@@ -81,8 +81,6 @@ public abstract class Account {
                 '}';
     }
 
-
-
     public String getHolderString() {
         String returnString = "";
         for (Customer holder : holders) {

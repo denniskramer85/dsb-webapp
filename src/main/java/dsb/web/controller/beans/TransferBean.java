@@ -1,8 +1,10 @@
 package dsb.web.controller.beans;
 
 import dsb.web.controller.AccountOverviewController;
+import dsb.web.service.validators.AccountNoConstraint;
 import dsb.web.service.validators.CurrencyFormatConstraint;
 import dsb.web.service.validators.DSBAccountConstraint;
+import dsb.web.service.validators.TransferAmountConstraint;
 import org.hibernate.validator.constraints.Length;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,10 +29,9 @@ public class TransferBean {
     private String debitAccountNo;
 
     @NotBlank(message = "Vul een tegenrekening in")
-    // TODO: Werkend krijgen @AccountNoConstraint
+    @AccountNoConstraint
     @DSBAccountConstraint
     private String creditAccountNo;
-
 
     @NotBlank(message = "Voer een bedrag in")
     @CurrencyFormatConstraint
@@ -63,9 +64,6 @@ public class TransferBean {
 
     // Compare parsed BigDecimal transferAmount to accountbalance
     private void checkSufficientFunds() {
-        // TODO: WAT IS HIER GAANDE???
-        /*logger.debug("Account in Transferbean:" + debitAccount.toString());
-        System.out.println("IK KOM HIER");*/
         setSufficientFunds(accountBalance > transferAmount.doubleValue());
     }
 
