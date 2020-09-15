@@ -104,28 +104,29 @@ public class AccountPageService {
         for (Transaction t : transactions) {
 
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-            timeStamp = t.getTransactionTimestamp().format(formatter);
-            message = t.getMessage();
-            amount = t.getTransactionAmount();
-
-            //find counter account; if my account is credit [PLUS], if not [MINUS]
-            if (ownAccountNo.equals(t.getCreditAccount().getAccountNo())) {
-                counterAccount = t.getDebitAccount().getAccountNo();
-                plusMinus = "+";
-            } else {
-                counterAccount = t.getCreditAccount().getAccountNo();
-                plusMinus = "-";
-            }
-
-            //stylize transaction string
-            stringResult = String.format("%s    |    %s    |    %s%.2f    |    %s",
-                    timeStamp, counterAccount, plusMinus, amount, message);
-
-
-
-
-            transactionStrings.add(stringResult);
+//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+//            timeStamp = t.getTransactionTimestamp().format(formatter);
+//            message = t.getMessage();
+//            amount = t.getTransactionAmount();
+//
+//            //find counter account; if my account is credit [PLUS], if not [MINUS]
+//            if (ownAccountNo.equals(t.getCreditAccount().getAccountNo())) {
+//                counterAccount = t.getDebitAccount().getAccountNo();
+//                plusMinus = "+";
+//            } else {
+//                counterAccount = t.getCreditAccount().getAccountNo();
+//                plusMinus = "-";
+//            }
+//
+//            //stylize transaction string
+//            stringResult = String.format("%s    |    %s    |    %s%.2f    |    %s",
+//                    timeStamp, counterAccount, plusMinus, amount, message);
+//
+//
+//
+//
+//            transactionStrings.add(stringResult);
+            transactionStrings.add(t.printStyledTransaction());
         }
 
         return transactionStrings;
