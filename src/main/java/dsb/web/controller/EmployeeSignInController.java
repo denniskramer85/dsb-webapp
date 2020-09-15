@@ -28,17 +28,19 @@ public class EmployeeSignInController {
     }
 
     @PostMapping("employee_sign-in")
-    public ModelAndView employeeSignInHandler(
+    public String employeeSignInHandler(
             @ModelAttribute EmployeeLoginBean employeeLoginBean,
             Model model) {
         Employee loginEmployee = employeeSignInService.validateLogin(employeeLoginBean.getEmployeeUserName(),
                 employeeLoginBean.getEmployeePassword());
         if (loginEmployee != null) {
             model.addAttribute(AttributeMapping.LOGGED_IN_EMPLOYEE, loginEmployee);
-            return new ModelAndView("employee_dashboard"); //TODO nog aanpassen (2 inlogs?)
+            return "employee_consumer_dashboard";
         } else {
             model.addAttribute("employeeUserName", employeeLoginBean.getEmployeeUserName());
-            return new ModelAndView("employee_sign-in");
+            model.addAttribute("employeeLoginFailed", "true");
+            return "employee_sign-in";
         }
     }
+
 }

@@ -49,24 +49,28 @@ public class SignUpController {
 
 
     @PostMapping("customerCompleted")
-    public String handlerCustomerCompleted (@Valid @ModelAttribute CustomerBean cb, Errors errors, Model model) {
+    public String handlerCustomerCompleted (@Valid @ModelAttribute CustomerBean customerBean,
+                                            Errors errors, Model model) {
 
         /**validate for errors - if so return**/
         if(errors.hasErrors()) {
-            model.addAttribute(cb);
+            model.addAttribute(customerBean);
             return "sign-up";
         }
 
         //TODO dit kan ook allemaal weg naar service?
         /**namestylers for proper format of initals/surname**/
-        cb.setInitials(signupService.initialsStyler(cb.getInitials()));
-        cb.setSurname(signupService.surnameStyler(cb.getSurname()));
+        customerBean.setInitials(signupService.initialsStyler(customerBean.getInitials()));
+        customerBean.setSurname(signupService.surnameStyler(customerBean.getSurname()));
+
+        /**create printable format of name**/
+        model.addAttribute("namePrint", signupService.createNamePrint(customerBean));
 
         /**create printable format of address**/
-        model.addAttribute("addressPrint", signupService.createAddressPrint(cb));
+        model.addAttribute("addressPrint", signupService.createAddressPrint(customerBean));
 
 
-        model.addAttribute("customerBean2", cb);
+        model.addAttribute("customerBean2", customerBean);
         return "signUpConfirm";
     }
 

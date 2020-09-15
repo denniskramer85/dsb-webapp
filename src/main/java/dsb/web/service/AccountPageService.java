@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -19,7 +20,7 @@ public class AccountPageService {
     private TransactionRepository transactionRepository;
 
     /**max number of holders shown**/
-    private int maxNrHoldersShown = 3;
+    private int maxNrHoldersShown = 10;
 
     @Autowired
     public AccountPageService(TransactionRepository transactionRepository) {
@@ -51,28 +52,28 @@ public class AccountPageService {
         String ownAccountNo = account.getAccountNo();
         String stringResult, timeStamp, counterAccount, message, plusMinus;
         double amount;
-
         //final result list
         List<String> transactionStrings = new ArrayList<>();
 
         //getting transactions from database
         //TODO LIMIT WERKT NIET MET PARAM!!!
-        List<Transaction> transactions = transactionRepository.findTransactionByAccounts(account.getAccountID());
+        List<Transaction> transactions = transactionRepository.
+                findTopNTransactionByAccounts(account.getAccountID(), maxNrHoldersShown);
 
 
         //loop thru transactions to make proper strings for display
         for (Transaction t : transactions) {
-            timeStamp = new SimpleDateFormat("MM/dd/yyyy '-' HH:mm").
-                    format(t.getTransactionTimestamp());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            timeStamp = t.getTransactionTimestamp().format(formatter);
             message = t.getMessage();
             amount = t.getTransactionAmount();
 
             //find counter account; if my account is credit [PLUS], if not [MINUS]
-            if (ownAccountNo.equals(t.getTransactionAccountCredit().getAccountNo())) {
-                counterAccount = t.getTransactionAccountDebet().getAccountNo();
+            if (ownAccountNo.equals(t.getCreditAccount().getAccountNo())) {
+                counterAccount = t.getDebitAccount().getAccountNo();
                 plusMinus = "+";
             } else {
-                counterAccount = t.getTransactionAccountCredit().getAccountNo();
+                counterAccount = t.getCreditAccount().getAccountNo();
                 plusMinus = "-";
             }
 

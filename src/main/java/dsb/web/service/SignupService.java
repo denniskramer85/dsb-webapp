@@ -41,9 +41,9 @@ public class SignupService {
 
     /**2 stylers for name data**/
     public String initialsStyler(String initials) {
-        String[] asArray = initials.trim().replaceAll("[^a-zA-Z0-9]", "")
+        String[] asArray = initials.trim().replaceAll("[^a-zA-Z]", "")
                 .toUpperCase().split("");
-        return String.join(".", asArray);
+        return String.join(".", asArray) + ".";
     }
     public String surnameStyler(String surname) {
         String mid = surname.toLowerCase();
@@ -51,13 +51,22 @@ public class SignupService {
     }
 
     /**styler for address data**/
-    public String createAddressPrint(CustomerBean cb) {
-        String street = cb.getStreet();
-        String houseNumber = cb.getHouseNumberString();
-        String affixes = cb.getAffixes();
-        String zipCode = cb.getZipCode();
-        String city = cb.getCity();
+    public String createAddressPrint(CustomerBean customerBean) {
+        String street = customerBean.getStreet();
+        String houseNumber = customerBean.getHouseNumberString();
+        String affixes = customerBean.getAffixes();
+        String zipCode = customerBean.getZipCode();
+        String city = customerBean.getCity();
 
         return String.format("%s %s %s\n%s %s", street, houseNumber, affixes, zipCode, city);
+    }
+
+    /**styler for address data**/
+    public String createNamePrint(CustomerBean customerBean) {
+        String initials = customerBean.getInitials();
+        String inserts = customerBean.getInserts() + " ";
+        if (customerBean.getInserts() == null) inserts = "";
+        String surname = customerBean.getSurname();
+        return String.format("%s %s%s", initials, inserts, surname);
     }
 }

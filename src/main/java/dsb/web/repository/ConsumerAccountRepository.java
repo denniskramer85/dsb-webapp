@@ -3,6 +3,8 @@ package dsb.web.repository;
 import dsb.web.domain.ConsumerAccount;
 import dsb.web.domain.Customer;
 import dsb.web.domain.Transaction;
+import org.hibernate.mapping.Join;
+import nonapi.io.github.classgraph.json.JSONUtils;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -17,14 +19,11 @@ public interface ConsumerAccountRepository extends CrudRepository<ConsumerAccoun
 
     @Query(value = "SELECT * FROM dsb.account AS ac " +
             "JOIN dsb.consumer_account AS c_ac " +
-            "   ON ac.accountid = c_ac.accountid " +
-            "JOIN dsb.account_holders AS ah " +
-            "   ON c_ac.accountid = ah.accounts_accountid " +
-            "JOIN dsb.customer AS cus " +
-            "   ON ah.holders_customerid = cus.customerid " +
-            "" +
-            "ORDER BY balance DESC;  ",
+            "   ON ac.accountid = c_ac.accountid ORDER BY balance DESC;  ",
             nativeQuery = true)
     List<ConsumerAccount> findConsumerAccountByHighestBalance();
+
+
+
 
 }

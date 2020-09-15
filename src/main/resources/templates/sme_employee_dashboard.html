@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="styles.css"/>
+    <meta charset="UTF-8">
+    <title>Employee Dashboard hoofd-MKB</title>
+</head>
+<body>
+
+<div th:include="fragments/header :: header"></div>
+<div class="container">
+
+    <div class="card">
+        <h1 class="account-header">Medewerkersdashboard hoofd-MKB</h1>
+    </div>
+
+    <div class="card">
+        <p>Welkom <span th:text="${naam}"></span></p>
+    </div>
+
+    <div class="card new-account cards">
+        <div class="card-header account-header-div">
+            <h5 class="account-header">Koppelverzoeken</h5>
+        </div>
+    </div>
+
+
+        <div class="card new-account cards">
+                <div class="card-header account-header-div">
+            <h5 class="account-header">10 hoogste saldo's MKB klanten</h5>
+            <div th:each="balance : ${balances}">
+                <table class="top10saldo-table">
+                    <tr>
+                        <td>
+                            <img class="account-icon" th:src="@{/images/icons/credit-card.svg}" alt="">
+                            <span th:text="${balance.getAccountNo()}"/>
+                        </td>
+                        <td>
+                            <img class="account-icon" th:src="@{/images/icons/people.svg}" alt="">
+                            <span th:text="${balance.getHolderString()}"/>
+                        </td>
+                        <td>
+                            <img class="account-icon" th:src="@{/images/icons/wallet2.svg}" alt="">
+                            €
+                            <span th:text="${#numbers.formatDecimal(balance.getBalance(), 0, 'POINT', 2, 'COMMA')}"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="card new-account cards">
+        <div class="card-header account-header-div">
+        <h5 class="account-header">Gemiddeld saldo per segment</h5>
+        <div th:each="average : ${averageBalanceBySector}">
+            <table class="averageBalanceBySector">
+                <tr>
+                    <td>
+<!--                        <img class="account-icon" th:src="@{/images/icons/credit-card.svg}" alt="">-->
+<!--                        <span th:text="${Company.getSector()}"/>-->
+                    </td>
+                    <td>
+<!--                        <img class="account-icon" th:src="@{/images/icons/people.svg}" alt="">-->
+<!--                        <span th:text="${average.getCreditAccount()}"/>-->
+                    </td>
+                    <td>
+                        <img class="account-icon" th:src="@{/images/icons/wallet2.svg}" alt="">
+                        €
+                        <span th:text="${#numbers.formatDecimal(average.getBalance(), 0, 'POINT', 2, 'COMMA')}"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        </div>
+    </div>
+
+
+    <div class="card new-account cards">
+        <div class="card-header account-header-div">
+        <h5 class="account-header">10 meest actieve klanten</h5>
+        <div th:each="transaction : ${transactions}">
+            <table class="top10transactions-table">
+                <tr>
+                    <td>
+                        <img class="account-icon" th:src="@{/images/icons/credit-card.svg}" alt="">
+                        <span th:text="${transaction.getCreditAccount()}"/>
+                    </td>
+                    <td>
+                        <img class="account-icon" th:src="@{/images/icons/people.svg}" alt="">
+                        <span th:text="${transaction.getCreditAccount()}"/>
+                    </td>
+                    <td>
+                        <img class="account-icon" th:src="@{/images/icons/wallet2.svg}" alt="">
+                        €
+                        <span th:text="${#numbers.formatDecimal(transaction.getCreditAccount(), 0, 'POINT', 2, 'COMMA')}"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    </div>
+
+</div>
+
+</body>
+
+</html>
