@@ -57,9 +57,4 @@ public class NewAccountService {
         }
         System.out.println("New account created");
     }
-
-    public void checkAccountNumber(){
-        //Check if number is 8 digits
-        //Check if number appears in DB
-    }
 }

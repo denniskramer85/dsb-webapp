@@ -84,7 +84,8 @@ public class NewAccountController {
     }
 
     @PostMapping("company-details-completed")
-    public String companyDetailsCompleted(@ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean companyBean,
+    public String companyDetailsCompleted(
+            @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean companyBean,
             Model model){
         //Check geldigheid KVK-nummer
         //companyBean.getKVKno()

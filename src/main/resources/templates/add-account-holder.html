@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" href="../static/styles.css" th:href="@{styles.css}">    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <title>Toevoegen rekeninghouder</title>
+</head>
+<body>
+<div th:include="fragments/header :: header"></div>
+<div class="container">
+    <form method="post" th:object="${loginBean}" th:action="@{confirm-add-account-holder}">
+        <div class = "card">
+            <div class="card-header"><h5>Zoek DSB klant</h5></div>
+            <div class="card-body" id="signUpPage">
+                <p>Type hier de gebruikersnaam van de DSB gebruiker die je als rekeninghouder wilt toevoegen.</p>
+                <label name="accountNo">Rekeningnummer: </label>
+                <p th:text="${accountNo}"></p>
+                <label name="username">Gebruikersnaam: </label>
+                <input type="text" id="username" name="username" onchange="checkUser()" th:field="*{username}"/>
+            </div>
+            <div id="auth" th:replace="fragments/user_auth :: user_auth"></div>
+        </div>
+        <div class="buttons">
+            <input class="btn btn-outline-dark" type="submit" value="Volgende">
+            <input class="btn btn-outline-dark" type="button" value="Annuleren" onclick="location.href='accountPage'">
+        </div>
+    </form>
+</div>
+<script>
+    function checkUser() {
+        var str = document.getElementById("username").value;
+        var xhttp;
+        // als het veld leeg is, chill!
+        if (str == "") {
+            document.getElementById("txtHint").innerHTML = "";
+            return;
+        }
+        xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                if (this.responseText != "") {
+                    var x = this.responseText
+                    console.log(x)
+                    document.getElementById("username").style.backgroundColor = "#ccffcc";
+                } else {
+                    document.getElementById("username").style.backgroundColor = "transparent";
+                }
+            }
+        };
+        xhttp.open("GET", "/find_users/"+str, true);
+        xhttp.send();
+    }
+</script>
+</body>
+</html>

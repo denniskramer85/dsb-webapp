@@ -28,12 +28,10 @@ public class AccountPageController {
 
     @GetMapping("accountPage")
     public String startAccountPage (Model model) {
-
         Account account = (Account) model.getAttribute("selectedAccountSession");
-
+        System.out.println(account);
         //make bean for printing account data
         model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
-
         return "account_page";
     }
 

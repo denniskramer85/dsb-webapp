@@ -26,16 +26,21 @@ input[type=number] {
 .dark-color {
     background-color: #338a3e;
 }
-
-/*new-account*/
+/*container*/
 .container {
     padding: 25px 10px 10px;
 
 }
 
+/*new-account*/
+
 .new-account .form-row{
     overflow: hidden;
     padding:5px 0px 10px;
+}
+
+.form-row2{
+    padding: 15px 0px 10px;
 }
 
 .new-account .text{
@@ -52,6 +57,37 @@ input[type=number] {
 .edit-btn{
     float: right;
 }
+
+.radioo{
+    display: inline;
+    width: 1%;
+    flex-wrap: wrap;
+    padding-right: 5px;
+}
+
+/* Confirm page*/
+
+#confirm .cards{
+    margin-bottom: 20px;
+}
+
+#confirm .header-div {
+    line-height: 38px;
+}
+
+#confirm .header {
+    display:inline-block;
+}
+
+#confirm .buttons {
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+#confirm .message {
+    width: 60%
+}
+
 
 /*account_overview*/
 
@@ -80,8 +116,6 @@ input[type=number] {
 
 
 
-
-
 /*for several pages*/
 
 #signUpPage .grid, #signupConfirmPage .grid  {
@@ -92,7 +126,7 @@ input[type=number] {
 }
 
 #signUpPage .errors, #transferPage .errors, #transferConfirmPage .errors {
-    color: red;
+    color: #ff0000;
     position: relative;
     top: -5px;
     margin-bottom: -200px;

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<th:block th:fragment="user_auth">
+    <div class = "card">
+
+        <div class="card-header"><h5>Validatie</h5>
+        </div>
+        <div class="card-body" id="confirm">
+            <div class="signUpPage form-group">
+                <table><tr><td>
+                    <label for="password">Wachtwoord</label>
+                </td><td>
+                    <input type="password" class="form-control" id="password" name="password" th:field="*{password}">
+                </td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</th:block>
+</body>
+</html>
