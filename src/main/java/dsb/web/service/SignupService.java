@@ -1,16 +1,12 @@
 package dsb.web.service;
 
-import dsb.web.controller.beans.CustomerBean;
+import dsb.web.controller.beans.SignUpBean;
 import dsb.web.domain.Address;
 import dsb.web.domain.Customer;
-import dsb.web.repository.AddressRepository;
 import dsb.web.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-
-import java.lang.reflect.Field;
-import java.util.List;
 
 @Service
 public class SignupService {
@@ -24,26 +20,26 @@ public class SignupService {
 
 
     //create printable name and address data + add to model
-    public void printNameAndAddress(CustomerBean customerBean, Model model) {
+    public void printNameAndAddress(SignUpBean signUpBean, Model model) {
 
-        Customer customerPrint = new Customer(customerBean.getInitials(),
-                customerBean.getInserts(), customerBean.getSurname());
+        Customer customerPrint = new Customer(signUpBean.getInitials(),
+                signUpBean.getInserts(), signUpBean.getSurname());
         model.addAttribute("namePrint", customerPrint.printWholeName());
 
-        int houseNumber = Integer.parseInt(customerBean.getHouseNumberString());
-        Address addressPrint = new Address(customerBean.getStreet(), houseNumber, customerBean.getAffixes(),
-                customerBean.getZipCode(), customerBean.getCity());
+        int houseNumber = Integer.parseInt(signUpBean.getHouseNumberString());
+        Address addressPrint = new Address(signUpBean.getStreet(), houseNumber, signUpBean.getAffixes(),
+                signUpBean.getZipCode(), signUpBean.getCity());
         model.addAttribute("addressPrint", addressPrint.printWholeAddress());
     }
 
     //create real customer (incl. address) from bean + save in DB
-    public Customer createAndSaveCustomer(CustomerBean customerBean) {
-        Address address = new Address(customerBean.getStreet(), customerBean.getHouseNumber(),
-                customerBean.getAffixes(), customerBean.getZipCode(), customerBean.getCity());
+    public Customer createAndSaveCustomer(SignUpBean signUpBean) {
+        Address address = new Address(signUpBean.getStreet(), signUpBean.getHouseNumber(),
+                signUpBean.getAffixes(), signUpBean.getZipCode(), signUpBean.getCity());
 
         Customer customer = new Customer(
-                customerBean.getSocialSecurityNo(), customerBean.getInitials(), customerBean.getInserts(),
-                customerBean.getSurname(), address, customerBean.getUsername(), customerBean.getPassword(), null);
+                signUpBean.getSocialSecurityNo(), signUpBean.getInitials(), signUpBean.getInserts(),
+                signUpBean.getSurname(), address, signUpBean.getUsername(), signUpBean.getPassword(), null);
 
         customerRepository.save(customer);
         System.out.println("klant met achternaam " + customer.getSurname() + " is opgeslagen");

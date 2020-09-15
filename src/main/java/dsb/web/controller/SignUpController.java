@@ -1,6 +1,6 @@
 package dsb.web.controller;
 
-import dsb.web.controller.beans.CustomerBean;
+import dsb.web.controller.beans.SignUpBean;
 import dsb.web.domain.Customer;
 import dsb.web.service.SignupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import javax.validation.Valid;
 
 
 @Controller
-@SessionAttributes({"customerBean2", "loggedInCustomer"})
+@SessionAttributes({"signUpBeanSession", "loggedInCustomer"})
 public class SignUpController {
 
     private SignupService signupService;
@@ -28,7 +28,7 @@ public class SignUpController {
 
     @GetMapping("pre-sign-up")
     public String emptyCustomerDataInSession (Model model) {
-        model.addAttribute("customerBean2", new CustomerBean());
+        model.addAttribute("signUpBeanSession", new SignUpBean());
         return "redirect:sign-up";
     }
 
@@ -36,8 +36,8 @@ public class SignUpController {
     @GetMapping("sign-up")
     public String handlerSignUp (Model model) {
 
-        CustomerBean cb2 = (CustomerBean) model.getAttribute("customerBean2");
-        model.addAttribute("customerBean", cb2);
+        SignUpBean cb2 = (SignUpBean) model.getAttribute("signUpBeanSession");
+        model.addAttribute("signUpBean", cb2);
 
         return "sign-up";
     }
@@ -45,28 +45,28 @@ public class SignUpController {
 
 
     @PostMapping("customerCompleted")
-    public String handlerCustomerCompleted (@Valid @ModelAttribute CustomerBean customerBean,
+    public String handlerCustomerCompleted (@Valid @ModelAttribute SignUpBean signUpBean,
                                             Errors errors, Model model) {
 
         //validate for errors - if so return
         if(errors.hasErrors()) {
-            model.addAttribute(customerBean);
+            model.addAttribute(signUpBean);
             return "sign-up";
         }
 
         //style name data to proper format (data level)
-        customerBean.nameStyler();
+        signUpBean.nameStyler();
 
         //create printable name and address data + add to model
-        signupService.printNameAndAddress(customerBean, model);
+        signupService.printNameAndAddress(signUpBean, model);
 
-        model.addAttribute("customerBean2", customerBean);
+        model.addAttribute("signUpBeanSession", signUpBean);
         return "signUpConfirm";
     }
 
     @GetMapping("customerConfirmed")
     public String handlerCustomerConfirmed(Model model) {
-        CustomerBean cb2 = (CustomerBean) model.getAttribute("customerBean2");
+        SignUpBean cb2 = (SignUpBean) model.getAttribute("signUpBeanSession");
 
         //create real customer (incl. address) from bean + save in DB
         Customer customer = signupService.createAndSaveCustomer(cb2);

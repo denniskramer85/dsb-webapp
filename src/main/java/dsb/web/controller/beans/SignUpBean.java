@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 
 
 @FieldsValueMatch(field = "password", fieldMatch = "password2")
-public class CustomerBean {
+public class SignUpBean {
 
     //TODO default message not blank wijz
     //TODO alles 1 annotatie
@@ -57,7 +57,7 @@ public class CustomerBean {
 
 
     //TODO weghalen//
-//    public CustomerBean(String surname, String inserts, String initials, String street,
+//    public signUpBean(String surname, String inserts, String initials, String street,
 //                        Integer houseNumber, String affixes, String zipCode, String city,
 //                        Integer socialSecurityNo, String username, String password, String password2) {
 //        this.surname = surname;
@@ -74,12 +74,12 @@ public class CustomerBean {
 //        this.password2 = password2;
 //    }
 
-    public CustomerBean() {
+    public SignUpBean() {
     }
 
     @Override
     public String toString() {
-        return "CustomerBean{" +
+        return "signUpBean{" +
                 "surname='" + surname + '\'' +
                 ", inserts='" + inserts + '\'' +
                 ", initials='" + initials + '\'' +
