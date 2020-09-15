@@ -24,6 +24,7 @@ public class SignupService {
 
         Customer customerPrint = new Customer(signUpBean.getInitials(),
                 signUpBean.getInserts(), signUpBean.getSurname());
+
         model.addAttribute("namePrint", customerPrint.printWholeName());
 
         int houseNumber = Integer.parseInt(signUpBean.getHouseNumberString());
@@ -40,6 +41,8 @@ public class SignupService {
         Customer customer = new Customer(
                 signUpBean.getSocialSecurityNo(), signUpBean.getInitials(), signUpBean.getInserts(),
                 signUpBean.getSurname(), address, signUpBean.getUsername(), signUpBean.getPassword(), null);
+
+        System.out.println();
 
         customerRepository.save(customer);
         System.out.println("klant met achternaam " + customer.getSurname() + " is opgeslagen");

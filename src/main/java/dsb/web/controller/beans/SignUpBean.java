@@ -56,8 +56,8 @@ public class SignUpBean {
 
 
 
-    //TODO weghalen//
-//    public signUpBean(String surname, String inserts, String initials, String street,
+//    //TODO weghalen
+//    public SignUpBean(String surname, String inserts, String initials, String street,
 //                        Integer houseNumber, String affixes, String zipCode, String city,
 //                        Integer socialSecurityNo, String username, String password, String password2) {
 //        this.surname = surname;
@@ -98,6 +98,7 @@ public class SignUpBean {
     }
 
     public Integer checkIfInteger(String ageString) {
+
 
         try {
             int age = Integer.parseInt(ageString);
@@ -215,8 +216,10 @@ public class SignUpBean {
         this.password = password;
     }
 
+    //TODO dit moet nog opgelost
     public String getHouseNumberString() {
         setHouseNumber(checkIfInteger(houseNumberString));
+        setSocialSecurityNo(checkIfInteger(socialSecurityNoString));
         return houseNumberString;
     }
 

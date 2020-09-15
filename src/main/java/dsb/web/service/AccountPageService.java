@@ -59,6 +59,16 @@ public class AccountPageService {
         return " - ";
     }
 
+    public String getCurrentTime() {
+        System.currentTimeMillis();
+        SimpleDateFormat formatter= new SimpleDateFormat("EEEE, dd MMMM yyyy '-' HH:mm 'uur'");
+        Date timestamp = new Date(System.currentTimeMillis());
+        String temp = formatter.format(timestamp);
+        return temp.substring(0, 1).toUpperCase() + temp.substring(1);
+    }
+
+
+
 
     public String createHoldersString(List<Customer> listHolders) {
 
@@ -113,13 +123,7 @@ public class AccountPageService {
     }
 
 
-    public String getCurrentTime() {
-        System.currentTimeMillis();
-        SimpleDateFormat formatter= new SimpleDateFormat("EEEE, dd MMMM yyyy '-' HH:mm 'uur'");
-        Date timestamp = new Date(System.currentTimeMillis());
-        String temp = formatter.format(timestamp);
-        return temp.substring(0, 1).toUpperCase() + temp.substring(1);
-    }
+
 
 
 
