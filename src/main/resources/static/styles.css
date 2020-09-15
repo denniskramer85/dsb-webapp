@@ -153,17 +153,8 @@ input[type=number] {
 
 /*for transfer page*/
 
-#transferPage .buttons {
-    position: relative;
-    top: 20px;
-}
-
-#transferPage #inputTransferData {
-    margin-top: 30px;
-}
-
-#transferPage #accountData p {
-    line-height: 70%;
+.transfer-account-data {
+    line-height: 200%;
 }
 
 
