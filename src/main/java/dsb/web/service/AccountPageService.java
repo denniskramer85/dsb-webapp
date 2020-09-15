@@ -38,15 +38,17 @@ public class AccountPageService {
         String typeAccount = account.printClassName();
         String accountNo = account.getAccountNo();
         String companyName = getCompanyName(account);
-
-
-
-        String holderNames = account.getHoldersString(2);
-
-
+        String holderNames = account.getHoldersString(3);
         String balance = String.format("%.2f", account.getBalance());
         String currentTime = getCurrentTime();
+
+
+
         List<String> transactionStrings = getTransactionStrings(account);
+
+
+
+
 
         return new PrintAccountDataBean(typeAccount, accountNo, companyName,
                 holderNames, balance, currentTime, transactionStrings);
@@ -100,25 +102,31 @@ public class AccountPageService {
 
         //loop thru transactions to make proper strings for display
         for (Transaction t : transactions) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-            timeStamp = t.getTransactionTimestamp().format(formatter);
-            message = t.getMessage();
-            amount = t.getTransactionAmount();
 
-            //find counter account; if my account is credit [PLUS], if not [MINUS]
-            if (ownAccountNo.equals(t.getCreditAccount().getAccountNo())) {
-                counterAccount = t.getDebitAccount().getAccountNo();
-                plusMinus = "+";
-            } else {
-                counterAccount = t.getCreditAccount().getAccountNo();
-                plusMinus = "-";
-            }
 
-            //stylize transaction string
-            stringResult = String.format("%s    |    %s    |    %s%.2f    |    %s",
-                    timeStamp, counterAccount, plusMinus, amount, message);
-
-            transactionStrings.add(stringResult);
+//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+//            timeStamp = t.getTransactionTimestamp().format(formatter);
+//            message = t.getMessage();
+//            amount = t.getTransactionAmount();
+//
+//            //find counter account; if my account is credit [PLUS], if not [MINUS]
+//            if (ownAccountNo.equals(t.getCreditAccount().getAccountNo())) {
+//                counterAccount = t.getDebitAccount().getAccountNo();
+//                plusMinus = "+";
+//            } else {
+//                counterAccount = t.getCreditAccount().getAccountNo();
+//                plusMinus = "-";
+//            }
+//
+//            //stylize transaction string
+//            stringResult = String.format("%s    |    %s    |    %s%.2f    |    %s",
+//                    timeStamp, counterAccount, plusMinus, amount, message);
+//
+//
+//
+//
+//            transactionStrings.add(stringResult);
+            transactionStrings.add(t.printStyledTransaction());
         }
 
         return transactionStrings;

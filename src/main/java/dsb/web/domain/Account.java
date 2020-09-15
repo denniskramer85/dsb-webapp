@@ -84,26 +84,12 @@ public abstract class Account {
     }
 
 
-
-    public String getHolderString() {
-        String returnString = "";
-        for (Customer holder : holders) {
-            returnString += holder.getInitials() + " ";
-            if (holder.getInserts() != null) {
-                returnString += holder.getInserts() + " ";
-            }
-            returnString += holder.getSurname();
-        }
-        return returnString;
-    }
-
     //zoeken met ctrl+R en wijzigen
     public String getHoldersString (int maxHoldersShown) {
         CreateAccountHoldersString createAccountHoldersString =
                 new CreateAccountHoldersString(holders, maxHoldersShown);
         return createAccountHoldersString.createAccountHoldersString();
     }
-
 
 
     @Override
