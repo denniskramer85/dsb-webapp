@@ -109,7 +109,6 @@ public class CustomerBean {
 
 
     public void nameStyler() {
-
         //styling of initials
         String[] asArray = initials.trim().replaceAll("[^a-zA-Z]", "")
                 .toUpperCase().split("");
@@ -118,28 +117,7 @@ public class CustomerBean {
         //styling of surname
         String mid = surname.toLowerCase();
         surname = mid.substring(0,1).toUpperCase() + mid.substring(1);
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -16,7 +16,8 @@ public class Address {
     private String zipCode;
     private String city;
 
-    public Address(int addressID, String street, int houseNumber, String affixes, String zipCode, String city) {
+    public Address(int addressID, String street, int houseNumber, String affixes,
+                   String zipCode, String city) {
         this.addressID = 0;
         this.street = street;
         this.houseNumber = houseNumber;
@@ -25,7 +26,8 @@ public class Address {
         this.city = city;
     }
 
-    public Address(String street, int houseNumber, String affixes, String zipCode, String city) {
+    public Address(String street, int houseNumber, String affixes, String zipCode,
+                   String city) {
         this(0, street, houseNumber, affixes, zipCode, city);
     }
 

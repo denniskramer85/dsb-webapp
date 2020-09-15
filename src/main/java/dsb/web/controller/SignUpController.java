@@ -48,13 +48,13 @@ public class SignUpController {
     public String handlerCustomerCompleted (@Valid @ModelAttribute CustomerBean customerBean,
                                             Errors errors, Model model) {
 
-        /**validate for errors - if so return**/
+        //validate for errors - if so return
         if(errors.hasErrors()) {
             model.addAttribute(customerBean);
             return "sign-up";
         }
 
-        //style name data to proper format
+        //style name data to proper format (data level)
         customerBean.nameStyler();
 
         //create printable name and address data + add to model
@@ -68,17 +68,13 @@ public class SignUpController {
     public String handlerCustomerConfirmed(Model model) {
         CustomerBean cb2 = (CustomerBean) model.getAttribute("customerBean2");
 
+        //create real customer (incl. address) from bean + save in DB
         Customer customer = signupService.createAndSaveCustomer(cb2);
 
-        //TODO naar service?
-        /** add domain Customer to session/model **/
+        //add customer to session
         model.addAttribute("loggedInCustomer", customer);
 
         return "account_overview";
     }
-
-
-
-
 
 }

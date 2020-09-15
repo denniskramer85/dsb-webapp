@@ -23,7 +23,7 @@ public class SignupService {
     }
 
 
-
+    //create printable name and address data + add to model
     public void printNameAndAddress(CustomerBean customerBean, Model model) {
 
         Customer customerPrint = new Customer(customerBean.getInitials(),
@@ -36,9 +36,7 @@ public class SignupService {
         model.addAttribute("addressPrint", addressPrint.printWholeAddress());
     }
 
-
-
-    /** create domain Customer form bean and save in db **/
+    //create real customer (incl. address) from bean + save in DB
     public Customer createAndSaveCustomer(CustomerBean customerBean) {
         Address address = new Address(customerBean.getStreet(), customerBean.getHouseNumber(),
                 customerBean.getAffixes(), customerBean.getZipCode(), customerBean.getCity());
@@ -49,8 +47,6 @@ public class SignupService {
 
         customerRepository.save(customer);
         System.out.println("klant met achternaam " + customer.getSurname() + " is opgeslagen");
-
-        //TODO hier in sess hangen?
 
         return customer;
     }
