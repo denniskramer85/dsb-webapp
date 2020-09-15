@@ -54,17 +54,11 @@ public class SignUpController {
             return "sign-up";
         }
 
+        //style name data to proper format
         customerBean.nameStyler();
 
-        signupService.printformatNameAndAddress(customerBean, model) {
-
-        }
-
-//        /**create printable format of name**/
-//        model.addAttribute("namePrint", signupService.createNamePrint(customerBean));
-//
-//        /**create printable format of address**/
-//        model.addAttribute("addressPrint", signupService.createAddressPrint(customerBean));
+        //create printable name and address data + add to model
+        signupService.printNameAndAddress(customerBean, model);
 
         model.addAttribute("customerBean2", customerBean);
         return "signUpConfirm";

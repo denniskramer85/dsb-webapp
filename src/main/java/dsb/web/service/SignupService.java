@@ -24,23 +24,19 @@ public class SignupService {
 
 
 
-    public void printformatNameAndAddress(CustomerBean customerBean, Model model) {
-    }
-    
-    /**styler for name data**/
-    public String createNamePrint(CustomerBean cb) {
+    public void printNameAndAddress(CustomerBean customerBean, Model model) {
 
-        Customer custPrint = new Customer(cb.getInitials(), cb.getInserts(), cb.getSurname());
-        return custPrint.printWholeName();
+        Customer customerPrint = new Customer(customerBean.getInitials(),
+                customerBean.getInserts(), customerBean.getSurname());
+        model.addAttribute("namePrint", customerPrint.printWholeName());
 
+        int houseNumber = Integer.parseInt(customerBean.getHouseNumberString());
+        Address addressPrint = new Address(customerBean.getStreet(), houseNumber, customerBean.getAffixes(),
+                customerBean.getZipCode(), customerBean.getCity());
+        model.addAttribute("addressPrint", addressPrint.printWholeAddress());
     }
 
-    /**styler for address data**/
-    public String createAddressPrint(CustomerBean cb) {
-        int houseNumber = Integer.parseInt(cb.getHouseNumberString());
-        Address addressPrint = new Address(cb.getStreet(), houseNumber, cb.getAffixes(), cb.getZipCode(), cb.getCity());
-        return addressPrint.printWholeAddress();
-    }
+
 
     /** create domain Customer form bean and save in db **/
     public Customer createAndSaveCustomer(CustomerBean customerBean) {
