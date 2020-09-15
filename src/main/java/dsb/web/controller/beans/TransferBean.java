@@ -4,6 +4,7 @@ import dsb.web.controller.AccountOverviewController;
 import dsb.web.service.validators.AccountNoConstraint;
 import dsb.web.service.validators.CurrencyFormatConstraint;
 import dsb.web.service.validators.DSBAccountConstraint;
+import dsb.web.service.validators.FieldsValueDifferent;
 import org.hibernate.validator.constraints.Length;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,7 @@ import java.util.Locale;
  *  If validation is successful, a Transaction object can be create for storage in the database.
  */
 
+@FieldsValueDifferent(first = "debitAccountNo", second = "CreditAccountNo")
 public class TransferBean {
     private Logger logger = LoggerFactory.getLogger(AccountOverviewController.class);
 

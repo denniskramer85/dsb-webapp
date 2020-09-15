@@ -42,7 +42,12 @@
                             </td><td>
                                 <input type="text" class="form-control" id="creditAccountNo" name="creditAccountNo" th:field="*{creditAccountNo}" autofocus>
                             </td></tr><tr><td></td><td>
-                                    <p class="errors"><span th:if="${#fields.hasErrors('creditAccountNo')}" th:errors="*{creditAccountNo}"/></p>
+                                    <p class="errors">
+                                        <span th:if="${#fields.hasErrors('creditAccountNo')}" th:errors="*{creditAccountNo}"/>
+                                        <span th:unless="${#fields.hasErrors('creditAccountNo')}">
+                                            <span th:if="${#fields.hasGlobalErrors()}" th:each="error : ${#fields.errors('global')}" th:text="${error}"/>
+                                        </span>
+                                    </p>
                             </td></tr>
                             </table>
                         </div>
