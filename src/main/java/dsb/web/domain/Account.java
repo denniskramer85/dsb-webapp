@@ -84,18 +84,18 @@ public abstract class Account {
     }
 
 
-
-    public String getHolderString() {
-        String returnString = "";
-        for (Customer holder : holders) {
-            returnString += holder.getInitials() + " ";
-            if (holder.getInserts() != null) {
-                returnString += holder.getInserts() + " ";
-            }
-            returnString += holder.getSurname();
-        }
-        return returnString;
-    }
+    //TODO weghalen
+//    public String getHolderString() {
+//        String returnString = "";
+//        for (Customer holder : holders) {
+//            returnString += holder.getInitials() + " ";
+//            if (holder.getInserts() != null) {
+//                returnString += holder.getInserts() + " ";
+//            }
+//            returnString += holder.getSurname();
+//        }
+//        return returnString;
+//    }
 
     //zoeken met ctrl+R en wijzigen
     public String getHoldersString (int maxHoldersShown) {

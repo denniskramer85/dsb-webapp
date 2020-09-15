@@ -41,7 +41,7 @@ public class AccountPageService {
 
 
 
-        String holderNames = account.getHoldersString(2);
+        String holderNames = account.getHoldersString(3);
 
 
         String balance = String.format("%.2f", account.getBalance());
