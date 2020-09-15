@@ -7,6 +7,7 @@ import dsb.web.domain.Customer;
 import dsb.web.domain.SMEAccount;
 import dsb.web.domain.Transaction;
 import dsb.web.repository.TransactionRepository;
+import dsb.web.service.service_helpers.PrintTransactionsForAccountPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,17 +21,13 @@ import java.util.List;
 @Service
 public class AccountPageService {
 
-    private TransactionRepository transactionRepository;
 
-
-    private static final int MAX_NR_TRANSACTIONS_SHOWN = 10;
-
+    PrintTransactionsForAccountPage printTransactionsForAccountPage;
 
     @Autowired
-    public AccountPageService(TransactionRepository transactionRepository) {
-        this.transactionRepository = transactionRepository;
+    public AccountPageService(PrintTransactionsForAccountPage printTransactionsForAccountPage) {
+        this.printTransactionsForAccountPage = printTransactionsForAccountPage;
     }
-
 
     public PrintAccountDataBean makePrintAccountDataBean(Account account) {
 
@@ -43,11 +40,7 @@ public class AccountPageService {
         String currentTime = getCurrentTime();
 
 
-
         List<String> transactionStrings = getTransactionStrings(account);
-
-
-
 
 
         return new PrintAccountDataBean(typeAccount, accountNo, companyName,
@@ -76,60 +69,11 @@ public class AccountPageService {
 
 
 
-
-
-
-
-
-
-
-
     private List<String> getTransactionStrings(Account account) {
 
-        //TODO dit vereenvoudiggen evt naar eigen klasse ()incl bovenstaande method?
-
-        //set up needed variables
-        String ownAccountNo = account.getAccountNo();
-        String stringResult, timeStamp, counterAccount, message, plusMinus;
-        double amount;
-        //final result list
-        List<String> transactionStrings = new ArrayList<>();
-
-        //getting transactions from database
-        List<Transaction> transactions = transactionRepository.
-                findTopNTransactionByAccounts(account.getAccountID(), MAX_NR_TRANSACTIONS_SHOWN);
+        return printTransactionsForAccountPage.printTransactionsForAccountPage(account);
 
 
-        //loop thru transactions to make proper strings for display
-        for (Transaction t : transactions) {
-
-
-//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-//            timeStamp = t.getTransactionTimestamp().format(formatter);
-//            message = t.getMessage();
-//            amount = t.getTransactionAmount();
-//
-//            //find counter account; if my account is credit [PLUS], if not [MINUS]
-//            if (ownAccountNo.equals(t.getCreditAccount().getAccountNo())) {
-//                counterAccount = t.getDebitAccount().getAccountNo();
-//                plusMinus = "+";
-//            } else {
-//                counterAccount = t.getCreditAccount().getAccountNo();
-//                plusMinus = "-";
-//            }
-//
-//            //stylize transaction string
-//            stringResult = String.format("%s    |    %s    |    %s%.2f    |    %s",
-//                    timeStamp, counterAccount, plusMinus, amount, message);
-//
-//
-//
-//
-//            transactionStrings.add(stringResult);
-            transactionStrings.add(t.printStyledTransaction());
-        }
-
-        return transactionStrings;
     }
 
 }
