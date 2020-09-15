@@ -22,9 +22,9 @@ public class AccountPageService {
 
     private TransactionRepository transactionRepository;
 
-    private static final int MAX_NR_HOLDERS_SHOWN = 3;
+
     private static final int MAX_NR_TRANSACTIONS_SHOWN = 10;
-    private static final String STRING_ETCETERA = " e.a.";
+
 
     @Autowired
     public AccountPageService(TransactionRepository transactionRepository) {
@@ -38,7 +38,12 @@ public class AccountPageService {
         String typeAccount = account.printClassName();
         String accountNo = account.getAccountNo();
         String companyName = getCompanyName(account);
-        String holderNames = createHoldersString(account.getHolders());
+
+
+
+        String holderNames = account.getHoldersString(2);
+
+
         String balance = String.format("%.2f", account.getBalance());
         String currentTime = getCurrentTime();
         List<String> transactionStrings = getTransactionStrings(account);
@@ -70,57 +75,7 @@ public class AccountPageService {
 
 
 
-    public String createHoldersString(List<Customer> listHolders) {
 
-        //TODO dit vereenvoudigen evt naar eigen klasse +  de aux methode
-
-        //sort by surname
-        Collections.sort(listHolders);
-
-        //create unified name strings from Customer attributes (outsourced to aux method)
-        List<String> holderNames = createListHolderNames(listHolders);
-
-        //create final String with proper styling
-        StringBuilder sb = new StringBuilder();
-
-        //prevent outOfBound
-        int maxLoop = MAX_NR_HOLDERS_SHOWN;
-        if (holderNames.size() < MAX_NR_HOLDERS_SHOWN) {
-            maxLoop = holderNames.size();
-        };
-
-        //compose string by appending
-        for (int i = 0; i < maxLoop ; i++) {
-            sb.append(holderNames.get(i)).append(", ");
-        };
-
-        //create actual String and remove last comma
-        String finalString = sb.toString();
-        finalString = finalString.substring(0, finalString.length() - 2);
-
-        //add "etc." if number of holders exceeds maxNrHoldersShown
-        if (holderNames.size() > MAX_NR_HOLDERS_SHOWN) {
-            finalString = finalString + STRING_ETCETERA;
-        };
-
-        return finalString;
-    }
-
-    //aux method for previous one
-    private List<String> createListHolderNames(List<Customer> listHolders) {
-        List<String> holderNames = new ArrayList<>();
-        String inits, inserts, surname, result;
-        for (Customer c : listHolders) {
-            inits = c.getInitials();
-            inserts = c.getInserts() + " ";
-            if (c.getInserts() == null) inserts = "";
-            surname = c.getSurname();
-
-            result = String.format("%s %s%s", inits, inserts, surname);
-            holderNames.add(result);
-        }
-        return holderNames;
-    }
 
 
 
