@@ -12,20 +12,25 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class AccountPageService {
 
     private TransactionRepository transactionRepository;
 
-    /**max number of holders shown**/
-    private int maxNrHoldersShown = 10;
+    private static final int MAX_NR_HOLDERS_SHOWN = 3;
+    private static final int MAX_NR_TRANSACTIONS_SHOWN = 10;
+    private static final String STRING_ETCETERA = " e.a.";
 
     @Autowired
     public AccountPageService(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
     }
+
 
     public PrintAccountDataBean makePrintAccountDataBean(Account account) {
 
@@ -43,58 +48,12 @@ public class AccountPageService {
     }
 
 
-
-    private List<String> getTransactionStrings(Account account) {
-
-        //TODO dit vereenvoudiggen evt naar eigen klasse ()incl bovenstaande method?
-
-        //set up needed variables
-        String ownAccountNo = account.getAccountNo();
-        String stringResult, timeStamp, counterAccount, message, plusMinus;
-        double amount;
-        //final result list
-        List<String> transactionStrings = new ArrayList<>();
-
-        //getting transactions from database
-        //TODO LIMIT WERKT NIET MET PARAM!!!
-        List<Transaction> transactions = transactionRepository.
-                findTopNTransactionByAccounts(account.getAccountID(), maxNrHoldersShown);
-
-
-        //loop thru transactions to make proper strings for display
-        for (Transaction t : transactions) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-            timeStamp = t.getTransactionTimestamp().format(formatter);
-            message = t.getMessage();
-            amount = t.getTransactionAmount();
-
-            //find counter account; if my account is credit [PLUS], if not [MINUS]
-            if (ownAccountNo.equals(t.getCreditAccount().getAccountNo())) {
-                counterAccount = t.getDebitAccount().getAccountNo();
-                plusMinus = "+";
-            } else {
-                counterAccount = t.getCreditAccount().getAccountNo();
-                plusMinus = "-";
-            }
-
-            //stylize transaction string
-            stringResult = String.format("%s    |    %s    |    %s%.2f    |    %s",
-                    timeStamp, counterAccount, plusMinus, amount, message);
-
-            transactionStrings.add(stringResult);
-        }
-
-        return transactionStrings;
-    }
-
-
-
     private String getCompanyName(Account account) {
         if (account instanceof SMEAccount) {
             try {
                 return ((SMEAccount) account).getCompany().getName();
             } catch (NullPointerException e) {
-
+                System.out.println("No company found");
             }
         }
         return " - ";
@@ -115,18 +74,24 @@ public class AccountPageService {
         StringBuilder sb = new StringBuilder();
 
         //prevent outOfBound
-        int maxLoop = maxNrHoldersShown;
-        if (holderNames.size() < maxNrHoldersShown) maxLoop = holderNames.size();
+        int maxLoop = MAX_NR_HOLDERS_SHOWN;
+        if (holderNames.size() < MAX_NR_HOLDERS_SHOWN) {
+            maxLoop = holderNames.size();
+        };
 
         //compose string by appending
-        for (int i = 0; i < maxLoop ; i++) sb.append(holderNames.get(i)).append(", ");
+        for (int i = 0; i < maxLoop ; i++) {
+            sb.append(holderNames.get(i)).append(", ");
+        };
 
         //create actual String and remove last comma
         String finalString = sb.toString();
         finalString = finalString.substring(0, finalString.length() - 2);
 
         //add "etc." if number of holders exceeds maxNrHoldersShown
-        if (holderNames.size() > maxNrHoldersShown) finalString = finalString + " e.a.";
+        if (holderNames.size() > MAX_NR_HOLDERS_SHOWN) {
+            finalString = finalString + STRING_ETCETERA;
+        };
 
         return finalString;
     }
@@ -157,5 +122,47 @@ public class AccountPageService {
     }
 
 
+
+    private List<String> getTransactionStrings(Account account) {
+
+        //TODO dit vereenvoudiggen evt naar eigen klasse ()incl bovenstaande method?
+
+        //set up needed variables
+        String ownAccountNo = account.getAccountNo();
+        String stringResult, timeStamp, counterAccount, message, plusMinus;
+        double amount;
+        //final result list
+        List<String> transactionStrings = new ArrayList<>();
+
+        //getting transactions from database
+        List<Transaction> transactions = transactionRepository.
+                findTopNTransactionByAccounts(account.getAccountID(), MAX_NR_TRANSACTIONS_SHOWN);
+
+
+        //loop thru transactions to make proper strings for display
+        for (Transaction t : transactions) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            timeStamp = t.getTransactionTimestamp().format(formatter);
+            message = t.getMessage();
+            amount = t.getTransactionAmount();
+
+            //find counter account; if my account is credit [PLUS], if not [MINUS]
+            if (ownAccountNo.equals(t.getCreditAccount().getAccountNo())) {
+                counterAccount = t.getDebitAccount().getAccountNo();
+                plusMinus = "+";
+            } else {
+                counterAccount = t.getCreditAccount().getAccountNo();
+                plusMinus = "-";
+            }
+
+            //stylize transaction string
+            stringResult = String.format("%s    |    %s    |    %s%.2f    |    %s",
+                    timeStamp, counterAccount, plusMinus, amount, message);
+
+            transactionStrings.add(stringResult);
+        }
+
+        return transactionStrings;
+    }
 
 }

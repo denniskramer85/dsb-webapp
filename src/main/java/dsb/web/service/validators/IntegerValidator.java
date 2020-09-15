@@ -8,7 +8,7 @@ public class IntegerValidator implements ConstraintValidator<IntegerConstraint, 
     @Override
     public boolean isValid(String string, ConstraintValidatorContext constraintValidatorContext) {
 
-        //already provided by @NotBlank
+        //already covered by @NotBlank
         if (string == null || string.trim().equals("")) return true;
 
         //actual check

@@ -54,7 +54,9 @@ public class CustomerBean {
 
 
 
-    public CustomerBean(String surname, String inserts, String initials, String street, Integer houseNumber, String affixes, String zipCode, String city, Integer socialSecurityNo, String username, String password, String password2) {
+    public CustomerBean(String surname, String inserts, String initials, String street,
+                        Integer houseNumber, String affixes, String zipCode, String city,
+                        Integer socialSecurityNo, String username, String password, String password2) {
         this.surname = surname;
         this.inserts = inserts;
         this.initials = initials;
@@ -94,15 +96,12 @@ public class CustomerBean {
 
     public Integer checkIfInteger(String ageString) {
 
-
         try {
             int age = Integer.parseInt(ageString);
             return age;
         } catch(NumberFormatException e){
             return null;
         }
-
-
     }
 
 

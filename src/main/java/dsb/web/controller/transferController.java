@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -30,11 +29,11 @@ public class transferController {
     private AccountPageService accountPageService;
     private TransferService transferService;
     private SignInService signInService;
-    private TransactionService transactionService;
 
     //TODO weg
     private CustomerRepository customerRepository;
     private AccountRepository accountRepository;
+    private TransactionService transactionService;
 
 
 
@@ -69,12 +68,14 @@ public class transferController {
 
 
         //add printable account data (string) to model (only for display purpose)
-        model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
+        model.addAttribute("printAccountDataBean",
+                accountPageService.makePrintAccountDataBean(account));
 
-        //add needed real account data to transferBean and subsequently to model
+        //add needed real account data to transferBean + model
         TransferBean transferBean = new TransferBean();
         transferBean.setDebitAccountNo(account.getAccountNo());
         transferBean.setAccountBalance(account.getBalance());
+
         model.addAttribute("transferBean", transferBean);
 
         return "transferPage";
@@ -99,8 +100,7 @@ public class transferController {
 
 
     @PostMapping("transferConfirm")
-    public String transferConfirmHandler (@ModelAttribute LoginBean loginBean,
-                                          Model model/*, HttpServletRequest request*/) {
+    public String transferConfirmHandler (@ModelAttribute LoginBean loginBean, Model model) {
 
         //TODO: dit toch allemaal/deels niet even naar transferService?
 
