@@ -24,7 +24,8 @@ public class Transaction {
     private LocalDateTime transactionTimestamp;
 
     @Autowired
-    public Transaction(int transactionID, Account debitAccount, Account creditAccount, double transactionAmount, String message, LocalDateTime transactionTimestamp) {
+    public Transaction(int transactionID, Account debitAccount, Account creditAccount,
+                       double transactionAmount, String message, LocalDateTime transactionTimestamp) {
         this.transactionID = transactionID;
         this.debitAccount = debitAccount;
         this.creditAccount = creditAccount;

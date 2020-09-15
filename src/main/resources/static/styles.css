@@ -84,29 +84,37 @@ input[type=number] {
 
 /*for several pages*/
 
-#signUpPage .grid, #signupConfirmPage .grid  {
+#signUpPage .grid,
+#signupConfirmPage .grid  {
     display: grid;
     grid-gap: 10px 40px;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(1, 1fr);
 }
 
-#signUpPage .errors, #transferPage .errors, #transferConfirmPage .errors {
+#signUpPage .errors,
+#transferPage .errors,
+#transferConfirmPage .errors {
     color: red;
     position: relative;
     top: -5px;
     margin-bottom: -200px;
 }
 
-#signUpPage label, #transferPage label, #transferConfirmPage label {
+#signUpPage label,
+#transferPage label,
+#transferConfirmPage label {
     width: 130px;
 }
 
-#signUpPage .form-group, #transferPage .form-group {
+#signUpPage .form-group,
+#transferPage .form-group {
     margin-bottom: 30px;
 }
 
-#signUpPage .italic, #accountPage .italic, #transferPage .italic {
+#signUpPage .italic,
+#accountPage .italic,
+#transferPage .italic {
     font-style: italic;
 }
 

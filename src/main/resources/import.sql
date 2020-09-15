@@ -42,17 +42,16 @@ INSERT INTO `dsb`.`smeaccount` (`accountid`, `company_company_id`) VALUES ('113'
 INSERT INTO `dsb`.`smeaccount` (`accountid`, `company_company_id`) VALUES ('114', '11');
 INSERT INTO `dsb`.`smeaccount` (`accountid`, `company_company_id`) VALUES ('115', '11');
 
-INSERT INTO dsb.account_holders VALUES (110, 11);
-INSERT INTO dsb.account_holders VALUES (111, 11);
-INSERT INTO dsb.account_holders VALUES (112, 11);
-INSERT INTO dsb.account_holders VALUES (113, 11);
-INSERT INTO dsb.account_holders VALUES (114, 11);
-INSERT INTO dsb.account_holders VALUES (115, 11);
-
 INSERT INTO `dsb`.`company_accounts` (`company_company_id`, `accounts_accountid`) VALUES ('11', '113');
 INSERT INTO `dsb`.`company_accounts` (`company_company_id`, `accounts_accountid`) VALUES ('11', '114');
 INSERT INTO `dsb`.`company_accounts` (`company_company_id`, `accounts_accountid`) VALUES ('11', '115');
 
+INSERT INTO `dsb`.`account_holders` (`accounts_accountid`, `holders_customerid`) VALUES (110, 11);
+INSERT INTO `dsb`.`account_holders` (`accounts_accountid`, `holders_customerid`) VALUES (111, 11);
+INSERT INTO `dsb`.`account_holders` (`accounts_accountid`, `holders_customerid`) VALUES (112, 11);
+INSERT INTO `dsb`.`account_holders` (`accounts_accountid`, `holders_customerid`) VALUES (113, 11);
+INSERT INTO `dsb`.`account_holders` (`accounts_accountid`, `holders_customerid`) VALUES (114, 11);
+INSERT INTO `dsb`.`account_holders` (`accounts_accountid`, `holders_customerid`) VALUES (115, 11);
 
 INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, credit_account_accountid, debit_account_accountid) VALUES ('300', 'Huur', 100, '2020-01-01 01:01:01', 110, 111);
 INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, credit_account_accountid, debit_account_accountid) VALUES ('301', 'Etentje', 100, '2020-01-02 01:01:01', 110, 112);

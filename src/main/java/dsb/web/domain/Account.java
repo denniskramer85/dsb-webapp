@@ -1,5 +1,7 @@
 package dsb.web.domain;
 
+import dsb.web.domain.domain_helpers.CreateAccountHoldersString;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -94,6 +96,15 @@ public abstract class Account {
         }
         return returnString;
     }
+
+    //zoeken met ctrl+R en wijzigen
+    public String getHoldersString (int maxHoldersShown) {
+        CreateAccountHoldersString createAccountHoldersString =
+                new CreateAccountHoldersString(holders, maxHoldersShown);
+        return createAccountHoldersString.createAccountHoldersString();
+    }
+
+
 
     @Override
     public boolean equals(Object o) {
