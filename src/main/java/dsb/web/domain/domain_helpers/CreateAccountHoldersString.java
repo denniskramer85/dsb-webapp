@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class CreateHoldersString {
+public class CreateAccountHoldersString {
 
     private static final String STRING_ETCETERA = " e.a.";
 
@@ -15,12 +15,12 @@ public class CreateHoldersString {
     private int maxHoldersShown;
 
 
-    public CreateHoldersString(List<Customer> listHolders, int maxHoldersShown) {
+    public CreateAccountHoldersString(List<Customer> listHolders, int maxHoldersShown) {
         this.listHolders = listHolders;
         this.maxHoldersShown = maxHoldersShown;
     }
 
-    public String createHoldersString() {
+    public String createAccountHoldersString() {
 
         //cover edge case
         if (maxHoldersShown == 0) {
