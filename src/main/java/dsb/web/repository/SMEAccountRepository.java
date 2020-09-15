@@ -18,11 +18,11 @@ import java.util.List;
 public interface SMEAccountRepository extends PagingAndSortingRepository<SMEAccount, Integer> {
     List<SMEAccount> findAllByHolders(Customer customer);
     List<SMEAccount> findAll();
-    List<SMEAccount> findTop10ByOrderByBalanceDesc(); // zoek op group bij en everage.
+    List<SMEAccount> findTop10ByOrderByBalanceDesc(); // Find group by Average.
 
 
     @Query(value =
-            " SELECT L.name avg(balance) AS Average " +
+            " SELECT S.sector_name avg(balance) AS Average " +
             " FROM account L JOIN smeaccount D " +
             " ON L.accountid = D.accountid " +
             " JOIN company C ON D.company_company_id = C.company_id" +
@@ -30,6 +30,10 @@ public interface SMEAccountRepository extends PagingAndSortingRepository<SMEAcco
             " group by sector_id ORDER BY Average DESC "
             , nativeQuery = true)
     List<SMEAccount> findAverageBalanceBySector();
+
+
+
+
 //            "JOIN dsb.smeaccount AS sme_ac " +
 //                    "   ON ac.accountid = sme_ac.accountid " +
 ////            "JOIN dsb.company AS com " +
