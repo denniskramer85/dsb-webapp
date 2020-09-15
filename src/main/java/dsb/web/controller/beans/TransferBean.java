@@ -4,7 +4,6 @@ import dsb.web.controller.AccountOverviewController;
 import dsb.web.service.validators.AccountNoConstraint;
 import dsb.web.service.validators.CurrencyFormatConstraint;
 import dsb.web.service.validators.DSBAccountConstraint;
-import dsb.web.service.validators.TransferAmountConstraint;
 import org.hibernate.validator.constraints.Length;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +41,7 @@ public class TransferBean {
     private BigDecimal transferAmount;
 
     @AssertTrue(message = "Onvoldoende saldo voor transactie")
-    private boolean sufficientFunds;
+    private boolean sufficientFunds = false;
 
     @Length(max = 50, message = "Maximaal 50 karakters")
     private String message;
@@ -58,13 +57,15 @@ public class TransferBean {
         try {
             transferAmount = (BigDecimal) decimalFormat.parse(transferAmountString.trim());
         } catch (ParseException parseError) {
-            transferAmount = new BigDecimal(0);
+            transferAmount = null;
         }
     }
 
     // Compare parsed BigDecimal transferAmount to accountbalance
     private void checkSufficientFunds() {
-        setSufficientFunds(accountBalance > transferAmount.doubleValue());
+        if (transferAmount != null) {
+            setSufficientFunds(accountBalance > transferAmount.doubleValue());
+        }
     }
 
     public double getAccountBalance() {
