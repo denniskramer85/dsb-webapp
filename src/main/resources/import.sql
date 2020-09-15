@@ -22,6 +22,7 @@ INSERT INTO dsb.sector VALUES (13, 'Zakelijke diensten')
 INSERT INTO `dsb`.`address` (`addressid`, `city`, `house_number`, `street`) VALUES ('11', 'Amsterdam', '1', 'Straat');
 INSERT INTO `dsb`.`customer` (`customerid`, `initials`, `password`, `social_security_no`, `surname`, `username`, `address_addressid`) VALUES ('11', 'D.', 'dennis', '123456', 'Kramer', 'dennis', '11');
 INSERT INTO `dsb`.`customer` (`customerid`, `initials`, `password`, `social_security_no`, `surname`, `username`, `address_addressid`) VALUES ('12', 'E.M.', 'miel', '123456', 'van Welzen', 'miel', '11');
+INSERT INTO `dsb`.`customer` (`customerid`, `initials`, `password`, `social_security_no`, `surname`, `username`, `address_addressid`) VALUES ('13', 'M.C.', 'asd', '123456', 'Escher', 'asd', '11');
 
 INSERT INTO `dsb`.`company` (`company_id`, `btwno`, `kvkno`, `name`, `sector_sector_id`, `account_manager`) VALUES ('11', 'NL0012345B03', '14729462', 'HvA Corp.', 12, '45');
 INSERT INTO `dsb`.`company` (`company_id`, `btwno`, `kvkno`, `name`, `sector_sector_id`, `account_manager`) VALUES ('12', 'NL0012345B04', '66666666', 'Evil Corp.', 4, '45');
@@ -60,6 +61,7 @@ INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount
 INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, credit_account_accountid, debit_account_accountid) VALUES ('303', 'Ballonvaart', 100, '2020-01-04 01:01:01', 110, 114);
 INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, credit_account_accountid, debit_account_accountid) VALUES ('304', 'Verjaardag', 100, '2020-01-05 01:01:01', 111, 115);
 
+INSERT INTO dsb.account_holder_token VALUES (110,0,110,13)
 
 
 

@@ -23,7 +23,7 @@ public class NewAccountService {
     private EmployeeRepository employeeRepository;
 
 
-    public NewAccountService(CompanyRepository companyRepository, SMEAccountRepository accountRepositorySme, ConsumerAccountRepository consumerAccountRepository, AccountRepository accountRepository) {
+    public NewAccountService(CompanyRepository companyRepository, SMEAccountRepository accountRepositorySme, ConsumerAccountRepository consumerAccountRepository, AccountRepository accountRepository, EmployeeRepository employeeRepository) {
         this.companyRepository = companyRepository;
         this.accountRepositorySme  = accountRepositorySme;
         this.consumerAccountRepository = consumerAccountRepository;

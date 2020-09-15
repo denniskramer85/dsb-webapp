@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.w3c.dom.Attr;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -80,6 +81,26 @@ public class AddAccountHolderController {
         return "confirm";
     }
 
+    /*resolve tokens:*/
+
+    @PostMapping("resolve-account-holder-token")
+    String resolve(@ModelAttribute("tokenId") String tokenId,
+                   Model model){
+        System.out.println(tokenId);
+        return "resolve-account-holder-token";
+    }
+
+
+    @PostMapping("resolve-account-holder-token-verify")
+    String compareTokens(@RequestParam(name = "tokenCode") int tokenCode,
+                         @ModelAttribute("accountHolderTokens") AccountHolderToken accountHolderToken,
+                         Model model){
+
+        System.out.println(accountHolderToken);
+        return "";
+    }
+
+
     @RestController
     @RequestMapping(value = "/find_users")
     class FindUserController{
@@ -97,4 +118,5 @@ public class AddAccountHolderController {
             return null;
         }
     }
+
 }

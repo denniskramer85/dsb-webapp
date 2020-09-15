@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" href="../static/styles.css" th:href="@{styles.css}">    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <title>Mederekeninghouder worden</title>
+</head>
+<body>
+<div class="container ">
+    <form method="get" th:action="resolve-account-holder-token-verify" th:object="${token}">
+        <div class="card cards" >
+            <div class="card-header account-header-div">
+                <h5 class="account-header">Mederekeninghouder worden</h5>
+            </div>
+            <div class="card-body">
+                <div>
+                    <p>Als het goed is heb je een 5-cijferige code gekregen van een van de rekeninghouders. Voer deze in om mederekeninghouder te worden.</p>
+                </div>
+                <div>
+                    <label for="tokenCode">Code: </label>
+                    <input type="text" id="tokenCode" name="tokenCode" >
+                </div>
+            </div>
+        </div>
+        <div class="new-account form-row" style="display:inline;">
+            <input  class="btn btn-outline-dark" type="submit" value="Volgende"/>
+            <input class="btn btn-outline-dark" type="button" onclick="window.location.href='account_overview';" value="Cancel"/>
+        </div>
+    </form>
+</div>
+</body>
+</html>

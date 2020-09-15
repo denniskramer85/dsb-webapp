@@ -63,4 +63,14 @@ public class AccountHolderToken {
     public void setToken(int token) {
         this.token = token;
     }
+
+    @Override
+    public String toString() {
+        return "AccountHolderToken{" +
+                "accountHolderTokenId=" + accountHolderTokenId +
+                ", newAccountHolder=" + newAccountHolder +
+                ", account=" + account +
+                ", token=" + token +
+                '}';
+    }
 }
