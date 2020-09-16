@@ -18,8 +18,6 @@ public class TransferService {
     private SignInService signInService;
     private TransactionService transactionService;
 
-
-
     @Autowired
     public TransferService(AccountPageService accountPageService,
                            SignInService signInService, TransactionService transactionService) {
@@ -28,13 +26,13 @@ public class TransferService {
         this.transactionService = transactionService;
     }
 
+
     public String validateTransferData (TransferBean transferBean, Model model) {
         Account account = (Account) model.getAttribute("selectedAccountSession");
         model.addAttribute("transferBean", transferBean);
         model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
         return "transferPage";
     }
-
 
 
     public String determineFlow(LoginBean loginBean, Model model) {
