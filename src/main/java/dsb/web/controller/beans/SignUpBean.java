@@ -7,7 +7,10 @@ import javax.validation.constraints.Size;
 
 
 @FieldsValueMatch(field = "password", fieldMatch = "password2")
-public class CustomerBean {
+public class SignUpBean {
+
+    //TODO default message not blank wijz
+    //TODO alles 1 annotatie
 
     @Size(min=2, message = "Moet minimaal 2 letters zijn")
     private String surname;
@@ -53,28 +56,30 @@ public class CustomerBean {
 
 
 
+//    //TODO weghalen
+//    public SignUpBean(String surname, String inserts, String initials, String street,
+//                        Integer houseNumber, String affixes, String zipCode, String city,
+//                        Integer socialSecurityNo, String username, String password, String password2) {
+//        this.surname = surname;
+//        this.inserts = inserts;
+//        this.initials = initials;
+//        this.street = street;
+//        this.houseNumber = houseNumber;
+//        this.affixes = affixes;
+//        this.zipCode = zipCode;
+//        this.city = city;
+//        this.socialSecurityNo = socialSecurityNo;
+//        this.username = username;
+//        this.password = password;
+//        this.password2 = password2;
+//    }
 
-    public CustomerBean(String surname, String inserts, String initials, String street, Integer houseNumber, String affixes, String zipCode, String city, Integer socialSecurityNo, String username, String password, String password2) {
-        this.surname = surname;
-        this.inserts = inserts;
-        this.initials = initials;
-        this.street = street;
-        this.houseNumber = houseNumber;
-        this.affixes = affixes;
-        this.zipCode = zipCode;
-        this.city = city;
-        this.socialSecurityNo = socialSecurityNo;
-        this.username = username;
-        this.password = password;
-        this.password2 = password2;
-    }
-
-    public CustomerBean() {
+    public SignUpBean() {
     }
 
     @Override
     public String toString() {
-        return "CustomerBean{" +
+        return "signUpBean{" +
                 "surname='" + surname + '\'' +
                 ", inserts='" + inserts + '\'' +
                 ", initials='" + initials + '\'' +
@@ -96,14 +101,28 @@ public class CustomerBean {
 
 
         try {
-            int age = Integer.parseInt(ageString);
-            return age;
+            return Integer.parseInt(ageString);
         } catch(NumberFormatException e){
             return null;
         }
-
-
     }
+
+
+    public void nameStyler() {
+        //styling of initials
+        String[] asArray = initials.trim().replaceAll("[^a-zA-Z]", "")
+                .toUpperCase().split("");
+        initials = String.join(".", asArray) + ".";
+
+        //styling of surname
+        String mid = surname.toLowerCase();
+        surname = mid.substring(0,1).toUpperCase() + mid.substring(1);
+    }
+
+
+
+
+
 
 
 
@@ -196,8 +215,10 @@ public class CustomerBean {
         this.password = password;
     }
 
+    //TODO dit moet nog opgelost
     public String getHouseNumberString() {
         setHouseNumber(checkIfInteger(houseNumberString));
+        setSocialSecurityNo(checkIfInteger(socialSecurityNoString));
         return houseNumberString;
     }
 

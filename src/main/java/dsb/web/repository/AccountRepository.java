@@ -2,8 +2,6 @@ package dsb.web.repository;
 
 import dsb.web.domain.Account;
 import dsb.web.domain.Customer;
-import dsb.web.domain.Transaction;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,8 +1,6 @@
 package dsb.web.controller.beans;
 
 
-import dsb.web.domain.Transaction;
-
 import java.util.List;
 
 public class PrintAccountDataBean {

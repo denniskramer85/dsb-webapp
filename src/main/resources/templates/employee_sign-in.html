@@ -8,19 +8,24 @@
 <body style="background: darkgray">
     <br>
     <br>
-<div class="container">
-    <form method="post" th:object="${employeeLoginBean}" th:action="@{employee_sign-in}" class="needs-validation" novalidate>
-        <div class="form-group">
-            <label for="employee_username">Gebruikersnaam</label>
-            <input type="text" class="form-control" id="employee_username" name="employee_username" th:field="*{employeeUserName}" th:value="${employeeUserName}" placeholder="Voer gebruikersnaam in" required>
+    <span th:if="${employeeLoginFailed == 'true'}">
+        <div class="alert alert-warning" role="alert">
+            Gebruikersnaam en/of wachtwoord incorrect. Probeer het nog eens.
         </div>
-        <div class="form-group">
-            <label for="employee_password">Wachtwoord</label></td>
-            <input type="password" class="form-control" id="employee_password" name="employee_password" placeholder="Voer wachtwoord in" required>
-        </div>
-        <button type="submit" name="login" value="Login"/>Enter Dirk's Darkside Control Center</td>
-    </form>
-</div>
+    </span>
+    <div class="container">
+        <form method="post" th:object="${employeeLoginBean}" th:action="@{employee_sign-in}">
+            <div class="form-group">
+                <label for="employee_username">Gebruikersnaam</label>
+                <input type="text" class="form-control" id="employee_username" name="employee_username" th:field="*{employeeUserName}" placeholder="Voer gebruikersnaam in" required>
+            </div>
+            <div class="form-group">
+                <label for="employee_password">Wachtwoord</label></td>
+                <input type="password" class="form-control" id="employee_password" name="employee_password" th:field="*{employeePassword}" placeholder="Voer wachtwoord in" required>
+            </div>
+            <button type="submit">Enter Dirk's Darkside Control Center</button>
+        </form>
+    </div>
 </body>
 </html>
 

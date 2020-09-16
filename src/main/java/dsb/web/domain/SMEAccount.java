@@ -6,6 +6,7 @@ import java.util.Objects;
 
 @Entity
 public class SMEAccount extends Account{
+
     @ManyToOne
     private Company company;
 
@@ -36,11 +37,11 @@ public class SMEAccount extends Account{
 
 
     @Override
-    public String getHolderString() {
+    public String getHoldersString(int maxHoldersShown) {
         if (this.company != null) {
-            return this.company.getName() + " (" + super.getHolderString() + ")";
+            return this.company.getName() + " (" + super.getHoldersString(maxHoldersShown) + ")";
         } else {
-            return super.getHolderString();
+            return super.getHoldersString(maxHoldersShown);
         }
     }
 

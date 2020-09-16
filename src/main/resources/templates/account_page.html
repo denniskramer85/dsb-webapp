@@ -7,9 +7,6 @@
     <meta charset="UTF-8">
     <title>Rekeningpagina</title>
 
-
-
-
 </head>
 
 <body>
@@ -30,9 +27,7 @@
                     <p class="italic"><span th:text="*{timestamp}"/></p>
                     <p th:if="*{typeAccount == 'SMEAccount'}"><strong>Bedrijf:</strong> <span th:text="*{companyName}"/></p>
                     <p><strong>Houder(s):</strong>
-<!--                        <div >-->
                             <span th:each="name : *{holderNames}" th:text="${name + ' '}"  />
-<!--                        </div>-->
                     </p>
                     <p><strong>Rekeningnummer:</strong> <span th:text="*{accountNo}"/></p>
                     <p><strong>Saldo:</strong> € <span th:text="*{balance}"/></p>
@@ -46,7 +41,7 @@
                 </div>
 
                 <div id="SMEAButtons" th:if="*{typeAccount == 'SMEAccount'}">
-                    <input type="button" class="btn btn-outline-dark" onclick="href='request-paymentmachine';" value="Aanvragen pinautomaat" />
+                    <input type="button" class="btn btn-outline-dark" onclick="location.href='request-paymentmachine';" value="Aanvragen pinautomaat" />
                 </div>
 
             </div>

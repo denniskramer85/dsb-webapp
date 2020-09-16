@@ -1,8 +1,10 @@
 package dsb.web.controller.beans;
 
 import dsb.web.controller.AccountOverviewController;
+import dsb.web.service.validators.AccountNoConstraint;
 import dsb.web.service.validators.CurrencyFormatConstraint;
 import dsb.web.service.validators.DSBAccountConstraint;
+import dsb.web.service.validators.FieldsValueDifferent;
 import org.hibernate.validator.constraints.Length;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +22,7 @@ import java.util.Locale;
  *  If validation is successful, a Transaction object can be create for storage in the database.
  */
 
+@FieldsValueDifferent(first = "debitAccountNo", second = "CreditAccountNo")
 public class TransferBean {
     private Logger logger = LoggerFactory.getLogger(AccountOverviewController.class);
 
@@ -27,10 +30,9 @@ public class TransferBean {
     private String debitAccountNo;
 
     @NotBlank(message = "Vul een tegenrekening in")
-    // TODO: Werkend krijgen @AccountNoConstraint
+    @AccountNoConstraint
     @DSBAccountConstraint
     private String creditAccountNo;
-
 
     @NotBlank(message = "Voer een bedrag in")
     @CurrencyFormatConstraint
@@ -41,7 +43,7 @@ public class TransferBean {
     private BigDecimal transferAmount;
 
     @AssertTrue(message = "Onvoldoende saldo voor transactie")
-    private boolean sufficientFunds;
+    private boolean sufficientFunds = false;
 
     @Length(max = 50, message = "Maximaal 50 karakters")
     private String message;
@@ -57,16 +59,15 @@ public class TransferBean {
         try {
             transferAmount = (BigDecimal) decimalFormat.parse(transferAmountString.trim());
         } catch (ParseException parseError) {
-            transferAmount = new BigDecimal(0);
+            transferAmount = null;
         }
     }
 
     // Compare parsed BigDecimal transferAmount to accountbalance
     private void checkSufficientFunds() {
-        // TODO: WAT IS HIER GAANDE???
-        /*logger.debug("Account in Transferbean:" + debitAccount.toString());
-        System.out.println("IK KOM HIER");*/
-        setSufficientFunds(accountBalance > transferAmount.doubleValue());
+        if (transferAmount != null) {
+            setSufficientFunds(accountBalance > transferAmount.doubleValue());
+        }
     }
 
     public double getAccountBalance() {

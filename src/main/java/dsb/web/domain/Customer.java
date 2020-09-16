@@ -20,7 +20,11 @@ public class Customer implements Comparable<Customer> {
     @ManyToMany (mappedBy = "holders", cascade = {CascadeType.MERGE} , fetch = FetchType.EAGER)
     private List<Account> accounts;
 
-    public Customer(int customerID, int socialSecurityNo, String initials, String inserts, String surname, Address address, String username, String password, List<Account> accounts) {
+
+    //TODO beide constructors nodig? of fluent interface?
+    public Customer(int customerID, int socialSecurityNo, String initials, String inserts,
+                    String surname, Address address, String username, String password,
+                    List<Account> accounts) {
         this.customerID = customerID;
         this.socialSecurityNo = socialSecurityNo;
         this.initials = initials;
@@ -35,6 +39,14 @@ public class Customer implements Comparable<Customer> {
     public Customer(int socialSecurityNo, String initials, String inserts, String surname,
                     Address address, String username, String password, List<Account> accounts) {
         this(0, socialSecurityNo, initials, inserts, surname, address, username, password, accounts);
+    }
+
+    //constructor only for printing whole names
+    public Customer(String initials, String inserts, String surname) {
+        this();
+        this.setInitials(initials);
+        this.setInserts(inserts);
+        this.setSurname(surname);
     }
 
     public Customer() {
@@ -55,6 +67,14 @@ public class Customer implements Comparable<Customer> {
                 ", accounts=" + accounts +
                 '}';
     }
+
+    public String printWholeName() {
+        if (inserts == null) {
+            inserts = "";
+        }
+        return String.format("%s %s%s", initials, inserts, surname);
+    }
+
 
 
 

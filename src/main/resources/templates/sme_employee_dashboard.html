@@ -38,7 +38,7 @@
                         </td>
                         <td>
                             <img class="account-icon" th:src="@{/images/icons/people.svg}" alt="">
-                            <span th:text="${balance.getHolderString()}"/>
+                            <span th:text="${balance.getHoldersString(3)}"/>
                         </td>
                         <td>
                             <img class="account-icon" th:src="@{/images/icons/wallet2.svg}" alt="">
