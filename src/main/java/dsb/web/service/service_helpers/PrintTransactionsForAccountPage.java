@@ -16,15 +16,14 @@ public class PrintTransactionsForAccountPage {
 
 
     private static final int MAX_NR_TRANSACTIONS_SHOWN = 10;
-    private TransactionRepository transactionRepository;
-
 
     private Account account;
-    private String ownAccountNo, stringResult, timeStamp, counterAccount, message, plusMinus;
+    private String ownAccountNo, timeStamp, counterAccount, message, plusMinus;
     double amount;
     private List<Transaction> transactions;
-    private List<String> transactionStrings = new ArrayList<>();
+    //private List<String> transactionStrings = new ArrayList<>();
 
+    private TransactionRepository transactionRepository;
 
 
     @Autowired
@@ -35,31 +34,40 @@ public class PrintTransactionsForAccountPage {
 
     public List<String> printTransactionsForAccountPage(Account accountMP) {
 
+        //set up variables
         account = accountMP;
         ownAccountNo = account.getAccountNo();
+        List<String> transactionStrings = new ArrayList<>();
 
         //get all transactions for this account
         transactions = transactionRepository.
                 findTopNTransactionByAccounts(account.getAccountID(), MAX_NR_TRANSACTIONS_SHOWN);
 
-
         //loop thru each transaction to make stylized strings for display
-        for (Transaction t : transactions) {
-            createIndividualTransaction(t);
+        for (Transaction transaction : transactions) {
+            transactionStrings.add(createIndividualTransaction(transaction));
         }
 
         return transactionStrings;
-
     }
 
-    private void createIndividualTransaction(Transaction transaction) {
+    private String createIndividualTransaction(Transaction transaction) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         timeStamp = transaction.getTransactionTimestamp().format(formatter);
         message = transaction.getMessage();
         amount = transaction.getTransactionAmount();
 
-        //find counter account; if my account is credit [PLUS], if not [MINUS]
+        determineCounterAccount(transaction);
+
+        //stylize transaction string
+        return String.format("%s    |    %s    |    %s%.2f    |    %s",
+                timeStamp, counterAccount, plusMinus, amount, message);
+    }
+
+    private void determineCounterAccount(Transaction transaction) {
+        //determine counter account
+        //if my own account is credit, display '+' before amount and vice versa
         if (ownAccountNo.equals(transaction.getCreditAccount().getAccountNo())) {
             counterAccount = transaction.getDebitAccount().getAccountNo();
             plusMinus = "+";
@@ -67,12 +75,6 @@ public class PrintTransactionsForAccountPage {
             counterAccount = transaction.getCreditAccount().getAccountNo();
             plusMinus = "-";
         }
-
-        //stylize transaction string
-        stringResult = String.format("%s    |    %s    |    %s%.2f    |    %s",
-                timeStamp, counterAccount, plusMinus, amount, message);
-
-        transactionStrings.add(stringResult);
     }
 
 

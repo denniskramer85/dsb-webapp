@@ -17,6 +17,7 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
             nativeQuery = true)
     List<Transaction> findTopNTransactionByAccounts(@Param("accountID") int accountID, @Param("limit") int limit);
 
+
     List<Transaction> findAll();
 
 

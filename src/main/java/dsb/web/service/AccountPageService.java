@@ -3,18 +3,12 @@ package dsb.web.service;
 
 import dsb.web.controller.beans.PrintAccountDataBean;
 import dsb.web.domain.Account;
-import dsb.web.domain.Customer;
 import dsb.web.domain.SMEAccount;
-import dsb.web.domain.Transaction;
-import dsb.web.repository.TransactionRepository;
 import dsb.web.service.service_helpers.PrintTransactionsForAccountPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -41,6 +35,8 @@ public class AccountPageService {
 
 
         List<String> transactionStrings = getTransactionStrings(account);
+
+
 
 
         return new PrintAccountDataBean(typeAccount, accountNo, companyName,
