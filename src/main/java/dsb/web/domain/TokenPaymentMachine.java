@@ -11,7 +11,7 @@ public class TokenPaymentMachine {
 
     @ManyToOne
     private SMEAccount smeAccount;
-    private String securityCode;
+    private int securityCode;
 
     public TokenPaymentMachine(int tokenID, SMEAccount smeAccount) {
         this.tokenID = tokenID;

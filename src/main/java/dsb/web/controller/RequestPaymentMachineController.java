@@ -28,7 +28,6 @@ public class RequestPaymentMachineController {
     @GetMapping("request-paymentmachine")
     public String requestPaymentMachine(Model model, @ModelAttribute(AttributeMapping.SELECTED_ACCOUNT) SMEAccount smeAccount) {
        TokenPaymentMachine token = requestPaymentMachineService.createAndSaveToken(smeAccount);
-        System.out.println(token);
         return "confirm_paymentmachine_request";
     }
 }
