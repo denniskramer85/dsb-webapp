@@ -101,8 +101,7 @@ public class SignUpBean {
 
 
         try {
-            int age = Integer.parseInt(ageString);
-            return age;
+            return Integer.parseInt(ageString);
         } catch(NumberFormatException e){
             return null;
         }

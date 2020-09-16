@@ -27,8 +27,6 @@ public class UsernameOccupiedValidator implements ConstraintValidator<UsernameOc
 
         //actual check
         List<Customer> customer = customerRepository.findAllByUsername(string);
-        if (customer.size() == 0) {
-            return true;
-        } else return false;
+        return customer.size() == 0;
     }
 }

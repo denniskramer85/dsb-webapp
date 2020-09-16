@@ -23,7 +23,7 @@ public class Transaction {
     private String message;
     private LocalDateTime transactionTimestamp;
 
-    @Autowired
+    //TODO weghalen: @Autowired
     public Transaction(int transactionID, Account debitAccount, Account creditAccount,
                        double transactionAmount, String message, LocalDateTime transactionTimestamp) {
         this.transactionID = transactionID;

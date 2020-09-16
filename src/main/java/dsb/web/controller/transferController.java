@@ -7,8 +7,6 @@ import dsb.web.domain.Customer;
 import dsb.web.repository.AccountRepository;
 import dsb.web.repository.CustomerRepository;
 import dsb.web.service.AccountPageService;
-import dsb.web.service.SignInService;
-import dsb.web.service.TransactionService;
 import dsb.web.service.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +22,7 @@ import java.util.Optional;
 
 @Controller
 @SessionAttributes({"loggedInCustomer", "selectedAccountSession", "transferBeanSession"})
-public class transferController {
+public class TransferController {
 
     private AccountPageService accountPageService;
     private TransferService transferService;
@@ -35,7 +33,7 @@ public class transferController {
 
 
     @Autowired
-    public transferController(AccountPageService accountPageService, CustomerRepository customerRepository,
+    public TransferController(AccountPageService accountPageService, CustomerRepository customerRepository,
                               AccountRepository accountRepository, TransferService transferService) {
         this.accountPageService = accountPageService;
         this.customerRepository = customerRepository;

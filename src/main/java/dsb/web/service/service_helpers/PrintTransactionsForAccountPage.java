@@ -4,7 +4,6 @@ import dsb.web.domain.Account;
 import dsb.web.domain.Transaction;
 import dsb.web.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.time.format.DateTimeFormatter;

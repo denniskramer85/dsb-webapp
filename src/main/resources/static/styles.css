@@ -123,7 +123,9 @@ input[type=number] {
 /*for signup confirm page */
 
 #signupConfirmPage .subheader {
+    /*TODO weg
     margin-bottom: 0px;
+    */
     font-weight: bold;
 }
 
@@ -136,7 +138,7 @@ input[type=number] {
 }
 
 
-/** for account page? */
+/** for account page **/
 
 #accountPage strong {
     font-weight: bold;

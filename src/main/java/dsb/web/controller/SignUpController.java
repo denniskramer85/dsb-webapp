@@ -36,8 +36,8 @@ public class SignUpController {
     @GetMapping("sign-up")
     public String handlerSignUp (Model model) {
 
-        SignUpBean cb2 = (SignUpBean) model.getAttribute("signUpBeanSession");
-        model.addAttribute("signUpBean", cb2);
+        SignUpBean signUpBean2 = (SignUpBean) model.getAttribute("signUpBeanSession");
+        model.addAttribute("signUpBean", signUpBean2);
 
         return "sign-up";
     }
@@ -66,10 +66,10 @@ public class SignUpController {
 
     @GetMapping("customerConfirmed")
     public String handlerCustomerConfirmed(Model model) {
-        SignUpBean cb2 = (SignUpBean) model.getAttribute("signUpBeanSession");
+        SignUpBean signUpBean2 = (SignUpBean) model.getAttribute("signUpBeanSession");
 
         //create real customer (incl. address) from bean + save in DB
-        Customer customer = signupService.createAndSaveCustomer(cb2);
+        Customer customer = signupService.createAndSaveCustomer(signUpBean2);
 
         //add customer to session
         model.addAttribute("loggedInCustomer", customer);

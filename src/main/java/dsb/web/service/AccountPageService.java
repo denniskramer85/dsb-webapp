@@ -25,7 +25,7 @@ public class AccountPageService {
 
     public PrintAccountDataBean makePrintAccountDataBean(Account account) {
 
-        /**Get all bean data subsequently**/
+        /*Get all bean data subsequently**/
         String typeAccount = account.printClassName();
         String accountNo = account.getAccountNo();
         String companyName = getCompanyName(account);
