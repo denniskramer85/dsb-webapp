@@ -83,7 +83,6 @@ public abstract class Account {
                 '}';
     }
 
-
     //zoeken met ctrl+R en wijzigen
     public String getHoldersString (int maxHoldersShown) {
         CreateAccountHoldersString createAccountHoldersString =
