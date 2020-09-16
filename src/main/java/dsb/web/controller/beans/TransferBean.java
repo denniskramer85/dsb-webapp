@@ -1,6 +1,7 @@
 package dsb.web.controller.beans;
 
 import dsb.web.controller.AccountOverviewController;
+import dsb.web.service.service_helpers.BigDecimalHelper;
 import dsb.web.service.validators.AccountNoConstraint;
 import dsb.web.service.validators.CurrencyFormatConstraint;
 import dsb.web.service.validators.DSBAccountConstraint;
@@ -51,19 +52,7 @@ public class TransferBean {
     public TransferBean() {
     }
 
-    // Parse BigDecimal from transferAmountString
-    private void parseTransferAmount() {
-        NumberFormat numberFormat = NumberFormat.getInstance(Locale.GERMAN);
-        DecimalFormat decimalFormat = (DecimalFormat) numberFormat;
-        decimalFormat.setParseBigDecimal(true);
-        try {
-            transferAmount = (BigDecimal) decimalFormat.parse(transferAmountString.trim());
-        } catch (ParseException parseError) {
-            transferAmount = null;
-        }
-    }
-
-    // Compare parsed BigDecimal transferAmount to accountbalance
+    // Compare parsed BigDecimal transferAmount to account balance
     private void checkSufficientFunds() {
         if (transferAmount != null) {
             setSufficientFunds(accountBalance > transferAmount.doubleValue());
@@ -100,7 +89,7 @@ public class TransferBean {
 
     public void setTransferAmountString(String transferAmountString) {
         this.transferAmountString = transferAmountString;
-        parseTransferAmount();
+        transferAmount = BigDecimalHelper.parse(transferAmountString);
         checkSufficientFunds();
     }
 
