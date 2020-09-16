@@ -25,7 +25,7 @@ import java.util.Optional;
 
 @Controller
 @SessionAttributes({"loggedInCustomer", "selectedAccountSession", "transferBeanSession"})
-public class transferController {
+public class TransferController {
 
     private AccountPageService accountPageService;
     private TransferService transferService;
@@ -39,7 +39,7 @@ public class transferController {
 
 
     @Autowired
-    public transferController(AccountPageService accountPageService, CustomerRepository customerRepository,
+    public TransferController(AccountPageService accountPageService, CustomerRepository customerRepository,
                               AccountRepository accountRepository, SignInService signInService, TransferService transferService, TransactionService transactionService) {
         this.accountPageService = accountPageService;
         this.customerRepository = customerRepository;
