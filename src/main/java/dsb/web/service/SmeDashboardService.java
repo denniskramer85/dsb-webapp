@@ -1,24 +1,29 @@
 package dsb.web.service;
 
 
-import dsb.web.domain.SMEAccount;
-import dsb.web.domain.Transaction;
+import dsb.web.domain.*;
 import dsb.web.repository.SMEAccountRepository;
+import dsb.web.repository.SectorRepository;
 import dsb.web.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SmeDashboardService {
     private SMEAccountRepository smeAccountRepository;
     private TransactionRepository transactionRepository;
+    private SectorRepository sectorRepository;
 
     @Autowired
-    public SmeDashboardService(SMEAccountRepository smeAccountRepository, TransactionRepository transactionRepository) {
+    public SmeDashboardService(SMEAccountRepository smeAccountRepository, TransactionRepository transactionRepository, SectorRepository sectorRepository) {
         this.smeAccountRepository = smeAccountRepository;
         this.transactionRepository = transactionRepository;
+        this.sectorRepository = sectorRepository;
     }
 
     public SmeDashboardService() {
@@ -35,9 +40,20 @@ public class SmeDashboardService {
         return smeAccountsList;
     }
 
-    public List<SMEAccount> getAverageTop10BySector() {
-        List<SMEAccount> AverageTop10BySector = smeAccountRepository.findAverageBalanceBySector();
-        return AverageTop10BySector;
+    public Map<Sector, Integer> averageTop10BySector() {
+        Map<Sector, Integer> averageTop10BySector = new HashMap<>();
+        for (Sector sec : sectorRepository.findAll()) {
+           int average = 0;
+           List<SMEAccount> list = smeAccountRepository.findAllByCompany_Sector(sec);
+           for (SMEAccount acc : list) {
+               average += acc.getBalance();
+           }
+           if (list.size() > 0)
+               average = average/list.size();
+           averageTop10BySector.put(sec,average);
+        }
+        return averageTop10BySector;
+
     }
 
 

@@ -1,9 +1,6 @@
 package dsb.web.repository;
 
-import dsb.web.domain.Account;
-import dsb.web.domain.Customer;
-import dsb.web.domain.SMEAccount;
-import dsb.web.domain.Transaction;
+import dsb.web.domain.*;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,19 +14,20 @@ import java.util.List;
 @Repository
 public interface SMEAccountRepository extends PagingAndSortingRepository<SMEAccount, Integer> {
     List<SMEAccount> findAllByHolders(Customer customer);
-    List<SMEAccount> findAll();
+    List<SMEAccount> findAllByCompany_Sector(Sector sec);
     List<SMEAccount> findTop10ByOrderByBalanceDesc(); // Find group by Average.
 
-
-    @Query(value =
-            " SELECT S.sector_name avg(balance) AS Average " +
-            " FROM account L JOIN smeaccount D " +
-            " ON L.accountid = D.accountid " +
-            " JOIN company C ON D.company_company_id = C.company_id" +
-            " JOIN sector S WHERE C.sector_sector_id = S.sector_id " +
-            " group by sector_id ORDER BY Average DESC "
-            , nativeQuery = true)
-    List<SMEAccount> findAverageBalanceBySector();
+//
+//
+//    @Query(value =
+//            " SELECT S.sector_name avg(balance) AS Average " +
+//            " FROM account L JOIN smeaccount D " +
+//            " ON L.accountid = D.accountid " +
+//            " JOIN company C ON D.company_company_id = C.company_id" +
+//            " JOIN sector S WHERE C.sector_sector_id = S.sector_id " +
+//            " group by sector_id ORDER BY Average DESC "
+//            , nativeQuery = true)
+//    List<SMEAccount> findAverageBalanceBySector();
 
 
 

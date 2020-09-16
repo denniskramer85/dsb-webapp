@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -35,13 +36,13 @@ public class SMEDashboardController {
 
         List<Transaction> top10Transaction = smeDashboardService.getTop10SmeTransaction();
         List<SMEAccount> top10Balance = smeDashboardService.getTop10bySmeBalance();
-        List<SMEAccount> averageTop10BySector = smeDashboardService.getAverageTop10BySector();
+        Map<Sector, Integer> averageTop10BySector = smeDashboardService.averageTop10BySector();
         //Model info verstuurt naar je template
         model.addAttribute("naam", "Naam medewerker");
         model.addAttribute("balances", top10Balance);
         model.addAttribute("transactions", top10Transaction);
         model.addAttribute("averageBalanceBySector", averageTop10BySector);
-
+        System.out.println(averageTop10BySector);
         return "sme_employee_dashboard";
     }
 
