@@ -54,48 +54,9 @@ public class SignUpBean {
     private String password2;
 
 
-
-
-//    //TODO weghalen
-//    public SignUpBean(String surname, String inserts, String initials, String street,
-//                        Integer houseNumber, String affixes, String zipCode, String city,
-//                        Integer socialSecurityNo, String username, String password, String password2) {
-//        this.surname = surname;
-//        this.inserts = inserts;
-//        this.initials = initials;
-//        this.street = street;
-//        this.houseNumber = houseNumber;
-//        this.affixes = affixes;
-//        this.zipCode = zipCode;
-//        this.city = city;
-//        this.socialSecurityNo = socialSecurityNo;
-//        this.username = username;
-//        this.password = password;
-//        this.password2 = password2;
-//    }
-
     public SignUpBean() {
     }
 
-    @Override
-    public String toString() {
-        return "signUpBean{" +
-                "surname='" + surname + '\'' +
-                ", inserts='" + inserts + '\'' +
-                ", initials='" + initials + '\'' +
-                ", street='" + street + '\'' +
-                ", houseNumberString='" + houseNumberString + '\'' +
-                ", houseNumber=" + houseNumber +
-                ", affixes='" + affixes + '\'' +
-                ", zipCode='" + zipCode + '\'' +
-                ", city='" + city + '\'' +
-                ", socialSecurityNoString='" + socialSecurityNoString + '\'' +
-                ", socialSecurityNo=" + socialSecurityNo +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", password2='" + password2 + '\'' +
-                '}';
-    }
 
     public Integer checkIfInteger(String ageString) {
 
@@ -118,12 +79,6 @@ public class SignUpBean {
         String mid = surname.toLowerCase();
         surname = mid.substring(0,1).toUpperCase() + mid.substring(1);
     }
-
-
-
-
-
-
 
 
 

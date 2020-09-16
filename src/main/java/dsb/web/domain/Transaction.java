@@ -23,7 +23,6 @@ public class Transaction {
     private String message;
     private LocalDateTime transactionTimestamp;
 
-    //TODO weghalen: @Autowired
     public Transaction(int transactionID, Account debitAccount, Account creditAccount,
                        double transactionAmount, String message, LocalDateTime transactionTimestamp) {
         this.transactionID = transactionID;
@@ -50,7 +49,7 @@ public class Transaction {
                 '}';
     }
 
-    //TODO breedte bedrag constant
+    //TODO breedte alles constant, ongeacht monospace
     public String printStyledTransaction() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         String timeStamp = transactionTimestamp.format(formatter);

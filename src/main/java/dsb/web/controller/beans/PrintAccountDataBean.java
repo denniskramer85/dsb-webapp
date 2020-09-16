@@ -13,6 +13,7 @@ public class PrintAccountDataBean {
     private String timestamp;
     private List<String> transactionStrings;
 
+
     public PrintAccountDataBean(String typeAccount, String accountNo, String companyName, String holderNames,
                                 String balance, String timestamp, List<String> transactionStrings) {
         this.typeAccount = typeAccount;
