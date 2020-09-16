@@ -35,22 +35,24 @@ public class TransferService {
         return "transferPage";
     }
 
+
+
     public String determineFlow(LoginBean loginBean, Model model) {
 
+        //get logged-in customer
         Customer loggedInCustomer = (Customer) model.getAttribute(AttributeMapping.LOGGED_IN_CUSTOMER);
 
+        //check if validation is correct via signInService
         Customer loginCustomer = signInService.
                 checkCredentials(loginBean.getUsername(), loginBean.getPassword());
 
         return checkPassword(model, loggedInCustomer, loginCustomer);
     }
 
-
     private String checkPassword(Model model, Customer loggedInCustomer, Customer loginCustomer) {
-
         TransferBean transferBean = (TransferBean) model.getAttribute("transferBeanSession");
 
-        //determine if validation is correct
+        //determine flow based on validation (in)correct
         if (loginCustomer == null) {
             return ifPasswordIncorrect(model, transferBean);
         } else {
