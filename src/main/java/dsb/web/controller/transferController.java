@@ -28,29 +28,24 @@ public class transferController {
 
     private AccountPageService accountPageService;
     private TransferService transferService;
-    private SignInService signInService;
 
-    //TODO weg
+    //TODO weg als dummygegevs niet meer nodig
     private CustomerRepository customerRepository;
     private AccountRepository accountRepository;
-    private TransactionService transactionService;
-
 
 
     @Autowired
     public transferController(AccountPageService accountPageService, CustomerRepository customerRepository,
-                              AccountRepository accountRepository, SignInService signInService, TransferService transferService, TransactionService transactionService) {
+                              AccountRepository accountRepository, TransferService transferService) {
         this.accountPageService = accountPageService;
         this.customerRepository = customerRepository;
         this.accountRepository = accountRepository;
         this.transferService = transferService;
-        this.signInService = signInService;
-        this.transactionService = transactionService;
 
     }
 
     @GetMapping("transfer")
-    public String startTransferPageHandler (Model model) {
+    public String startTransferPageHandler(Model model) {
 
         //TODO weg: dit is dummydata vw snelle link (data cust en acc uit db halen en in sessie hangen)
         Optional<Customer> customerOptional = customerRepository.findOneByUsername("dennis");
@@ -83,11 +78,11 @@ public class transferController {
 
 
     @PostMapping("transferPost")
-    public String transferDataHandler (@Valid @ModelAttribute TransferBean transferBean,
-                                       Errors errors, Model model) {
+    public String transferDataHandler(@Valid @ModelAttribute TransferBean transferBean,
+                                      Errors errors, Model model) {
 
         //validate for input errors - if so: return to transferPage
-        if(errors.hasErrors()) {
+        if (errors.hasErrors()) {
             return transferService.validateTransferData(transferBean, model);
         }
 
@@ -99,39 +94,11 @@ public class transferController {
         return "transferConfirmPage";
     }
 
-
-
     @PostMapping("transferConfirm")
-    public String transferConfirmHandler (@ModelAttribute LoginBean loginBean, Model model) {
+    public String transferConfirmHandler(@ModelAttribute LoginBean loginBean, Model model) {
 
-        //TODO: dit toch allemaal/deels niet even naar transferService?
-
-        Customer loginCustomer = signInService.
-                checkCredentials(loginBean.getUsername(), loginBean.getPassword());
-
-        TransferBean transferBean = (TransferBean) model.getAttribute("transferBeanSession");
-        Customer loggedInCustomer = (Customer) model.getAttribute(AttributeMapping.LOGGED_IN_CUSTOMER);
-
-        //determine if validation is correct
-        if (loginCustomer == null) {
-
-            model.addAttribute("transferBeanSession", transferBean);
-            model.addAttribute("loginBean", new LoginBean());
-            model.addAttribute("errorMessage", true);
-
-            return "transferConfirmPage";
-
-        } else {
-
-            // Execute transaction, return to index if passed
-            if (transactionService.doTransaction(transferBean, loggedInCustomer)) {
-                return "redirect:account_overview";
-            } else {
-                //TODO: Handle unauthorized transaction
-                return "/";
-            }
-
-        }
+        //determine flow depending on whether validation succeeds
+        return transferService.determineFlow(loginBean, model);
     }
 }
 
