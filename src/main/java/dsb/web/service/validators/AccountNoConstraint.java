@@ -18,7 +18,4 @@ public @interface AccountNoConstraint {
     String message() default "Voer een geldig IBAN-nummer in";
     Class<?>[] groups() default { };
     Class<? extends Payload>[] payload() default { };
-
-
-
 }
