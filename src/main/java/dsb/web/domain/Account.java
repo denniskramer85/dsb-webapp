@@ -83,7 +83,7 @@ public abstract class Account {
                 '}';
     }
 
-    //zoeken met ctrl+R en wijzigen
+    //also define max number of holders shown!
     public String getHoldersString (int maxHoldersShown) {
         CreateAccountHoldersString createAccountHoldersString =
                 new CreateAccountHoldersString(holders, maxHoldersShown);
