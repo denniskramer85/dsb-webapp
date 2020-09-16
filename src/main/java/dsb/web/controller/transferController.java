@@ -87,7 +87,9 @@ public class transferController {
                                        Errors errors, Model model) {
 
         //validate for input errors - if so: return to transferPage
-        if(errors.hasErrors()) return transferService.validateTransferData(transferBean, model);
+        if(errors.hasErrors()) {
+            return transferService.validateTransferData(transferBean, model);
+        }
 
         //put transferBean and loginBean in session (and model)
         model.addAttribute("transferBeanSession", transferBean);
