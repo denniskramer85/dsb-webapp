@@ -43,6 +43,14 @@ public class TokenPaymentMachine {
         this.smeAccount = smeAccount;
     }
 
+    public int getSecurityCode() {
+        return securityCode;
+    }
+
+    public void setSecurityCode(int securityCode) {
+        this.securityCode = securityCode;
+    }
+
     @Override
     public String toString() {
         return "TokenPaymentMachine{" +
