@@ -23,18 +23,12 @@
     <div class="card new-account cards">
         <div class="card-header account-header-div">
             <h5 class="account-header">Koppelverzoeken</h5>
-        </div>
-        <div class="card-body">
-            <table>
-                <tr th:each=" linkRequest : ${linkRequestList}">
-                    <td th:text="${linkRequest.getTokenID()}">keyvalue</td>
-                    €
-                    <td th:text="${linkRequest.getSmeAccount()}">num</td>
-                </tr>
-            </table>
-        </div>
+                    <div th:if="${not #lists.isEmpty(linkRequestList)}">
+                        <div class="card-body">
+                            <p>Er zijn nieuwe koppelverzoeken</p>
+                        </div>
+                    </div>
 
-    </div>
 
 
         <div class="card new-account cards">

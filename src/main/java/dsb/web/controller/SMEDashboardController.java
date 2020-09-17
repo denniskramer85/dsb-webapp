@@ -1,7 +1,5 @@
 package dsb.web.controller;
 
-import dsb.web.controller.beans.EmployeeLoginBean;
-import dsb.web.controller.beans.LoginBean;
 import dsb.web.domain.*;
 import dsb.web.service.RequestPaymentMachineService;
 import dsb.web.service.SmeDashboardService;
@@ -36,17 +34,16 @@ public class SMEDashboardController {
     @GetMapping("SME_dashboard")
     public String SmeDashboardOverview(Model model) {
 
-        List<TokenPaymentMachine> getAllLinkRequests = smeDashboardService.getLinkRequest();
+        List<TokenPaymentMachine> getAllLinkRequests = smeDashboardService.getAllByLinkRequest();
         List<Transaction> top10Transaction = smeDashboardService.getTop10SmeTransaction();
         List<SMEAccount> top10Balance = smeDashboardService.getTop10bySmeBalance();
         Map<Sector, Integer> averageTop10BySector = smeDashboardService.averageTop10BySector();
-        //Model info verstuurt naar je template
+        System.out.println(getAllLinkRequests);
         model.addAttribute("naam", "Naam medewerker");
         model.addAttribute("linkRequestList", getAllLinkRequests);
         model.addAttribute("transactions", top10Transaction);
         model.addAttribute("balances", top10Balance);
         model.addAttribute("averageBalanceBySector", averageTop10BySector);
-        System.out.println(averageTop10BySector);
         return "sme_employee_dashboard";
     }
 

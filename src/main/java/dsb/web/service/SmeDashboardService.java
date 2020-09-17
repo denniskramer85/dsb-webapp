@@ -1,9 +1,8 @@
 package dsb.web.service;
 
 
-import antlr.Token;
 import dsb.web.domain.*;
-import dsb.web.repository.RequestPaymentMachineRepository;
+import dsb.web.repository.TokenPaymentMachineRepository;
 import dsb.web.repository.SMEAccountRepository;
 import dsb.web.repository.SectorRepository;
 import dsb.web.repository.TransactionRepository;
@@ -20,14 +19,14 @@ public class SmeDashboardService {
     private SMEAccountRepository smeAccountRepository;
     private TransactionRepository transactionRepository;
     private SectorRepository sectorRepository;
-    private RequestPaymentMachineRepository requestPaymentMachineRepository;
+    private TokenPaymentMachineRepository tokenPaymentMachineRepository;
 
     @Autowired
-    public SmeDashboardService(SMEAccountRepository smeAccountRepository, TransactionRepository transactionRepository, SectorRepository sectorRepository, RequestPaymentMachineRepository requestPaymentMachineRepository) {
+    public SmeDashboardService(SMEAccountRepository smeAccountRepository, TransactionRepository transactionRepository, SectorRepository sectorRepository, TokenPaymentMachineRepository tokenPaymentMachineRepository) {
         this.smeAccountRepository = smeAccountRepository;
         this.transactionRepository = transactionRepository;
         this.sectorRepository = sectorRepository;
-        this.requestPaymentMachineRepository = requestPaymentMachineRepository;
+        this.tokenPaymentMachineRepository = tokenPaymentMachineRepository;
     }
 
     public SmeDashboardService() {
@@ -43,13 +42,21 @@ public class SmeDashboardService {
 
     public List<SMEAccount> getTop10bySmeBalance() {
         List<SMEAccount> smeAccountsList = smeAccountRepository.findTop10ByOrderByBalanceDesc();
+        System.out.println();
         return smeAccountsList;
     }
 
-    public List<TokenPaymentMachine> getLinkRequest() {
-        List<TokenPaymentMachine> linkRequestList = requestPaymentMachineRepository.findAll();
+    public List<TokenPaymentMachine> getAllByLinkRequest() {
+            List<TokenPaymentMachine> listRequest = tokenPaymentMachineRepository.findAll();
+            List<TokenPaymentMachine> newRequests = new ArrayList<>();
+            for(TokenPaymentMachine token : listRequest) {
+                if(token.getSecurityCode() == 0) {
+                    newRequests.add(token);
+                }
+            }
 
-        return linkRequestList;
+        return listRequest;
+    // bootstrapalert toevoegen
     }
 
     public Map<Sector, Integer> averageTop10BySector() {

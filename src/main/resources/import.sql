@@ -85,10 +85,10 @@ INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount
 
 INSERT INTO `dsb`.`token_payment_machine` (`tokenid`, `security_code`, `sme_account_accountid`) VALUES ('1', '25481', '113');
 INSERT INTO `dsb`.`token_payment_machine` (`tokenid`, `security_code`, `sme_account_accountid`) VALUES ('2', '26847', '114');
-INSERT INTO `dsb`.`token_payment_machine` (`tokenid`, `security_code`, `sme_account_accountid`) VALUES ('3', '47853', '115');
+INSERT INTO `dsb`.`token_payment_machine` (`tokenid`, `security_code`, `sme_account_accountid`) VALUES ('3', '0', '115');
 INSERT INTO `dsb`.`token_payment_machine` (`tokenid`, `security_code`, `sme_account_accountid`) VALUES ('4', '53697', '116');
 INSERT INTO `dsb`.`token_payment_machine` (`tokenid`, `security_code`, `sme_account_accountid`) VALUES ('5', '35875', '117');
-INSERT INTO `dsb`.`token_payment_machine` (`tokenid`, `security_code`, `sme_account_accountid`) VALUES ('6', '47553', '118');
+INSERT INTO `dsb`.`token_payment_machine` (`tokenid`, `security_code`, `sme_account_accountid`) VALUES ('6', '0', '118');
 INSERT INTO `dsb`.`token_payment_machine` (`tokenid`, `security_code`, `sme_account_accountid`) VALUES ('7', '88697', '119');
-INSERT INTO `dsb`.`token_payment_machine` (`tokenid`, `security_code`, `sme_account_accountid`) VALUES ('8', '95875', '120');
+INSERT INTO `dsb`.`token_payment_machine` (`tokenid`, `security_code`, `sme_account_accountid`) VALUES ('8', '0', '120');
 
