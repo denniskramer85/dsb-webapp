@@ -59,7 +59,6 @@ public class AccountOverviewController {
             ModelAndView modelAndView = new ModelAndView();
             modelAndView.setViewName("redirect:/accountPage");
 
-            // TODO: Oplossen zonder selectedAccount in session
             // Add selected account to session and redirectAttributes
             modelAndView.addObject(AttributeMapping.SELECTED_ACCOUNT, selectedAccount);
             redirectAttributes.addAttribute(AttributeMapping.SELECTED_ACCOUNT, selectedAccount);

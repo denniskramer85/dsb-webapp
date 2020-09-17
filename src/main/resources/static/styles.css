@@ -118,29 +118,38 @@ input[type=number] {
 
 /*for several pages*/
 
-#signUpPage .grid, #signupConfirmPage .grid  {
+#signUpPage .grid,
+#signupConfirmPage .grid  {
     display: grid;
     grid-gap: 10px 40px;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(1, 1fr);
 }
 
-#signUpPage .errors, #transferPage .errors, #transferConfirmPage .errors {
-    color: #ff0000;
+
+#signUpPage .errors,
+#transferPage .errors,
+#transferConfirmPage .errors {
+    color: red;
     position: relative;
     top: -5px;
     margin-bottom: -200px;
 }
 
-#signUpPage label, #transferPage label, #transferConfirmPage label {
+#signUpPage label,
+#transferPage label,
+#transferConfirmPage label {
     width: 130px;
 }
 
-#signUpPage .form-group, #transferPage .form-group {
+#signUpPage .form-group,
+#transferPage .form-group {
     margin-bottom: 30px;
 }
 
-#signUpPage .italic, #accountPage .italic, #transferPage .italic {
+#signUpPage .italic,
+#accountPage .italic,
+#transferPage .italic {
     font-style: italic;
 }
 
@@ -149,7 +158,6 @@ input[type=number] {
 /*for signup confirm page */
 
 #signupConfirmPage .subheader {
-    margin-bottom: 0px;
     font-weight: bold;
 }
 
@@ -162,7 +170,7 @@ input[type=number] {
 }
 
 
-/** for account page? */
+/** for account page **/
 
 #accountPage strong {
     font-weight: bold;
@@ -187,17 +195,8 @@ input[type=number] {
 
 /*for transfer page*/
 
-#transferPage .buttons {
-    position: relative;
-    top: 20px;
-}
-
-#transferPage #inputTransferData {
-    margin-top: 30px;
-}
-
-#transferPage #accountData p {
-    line-height: 70%;
+.transfer-account-data {
+    line-height: 200%;
 }
 
 

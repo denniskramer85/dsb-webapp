@@ -23,8 +23,8 @@ public class Transaction {
     private String message;
     private LocalDateTime transactionTimestamp;
 
-    @Autowired
-    public Transaction(int transactionID, Account debitAccount, Account creditAccount, double transactionAmount, String message, LocalDateTime transactionTimestamp) {
+    public Transaction(int transactionID, Account debitAccount, Account creditAccount,
+                       double transactionAmount, String message, LocalDateTime transactionTimestamp) {
         this.transactionID = transactionID;
         this.debitAccount = debitAccount;
         this.creditAccount = creditAccount;
@@ -38,14 +38,25 @@ public class Transaction {
 
 
     @Override
-    //TODO evt nog bijwerken
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy '|' HH:mm");
-        String s = transactionTimestamp.format(formatter);
-
-        return String.format("%s - %s - %s - %.2f - %s", s, debitAccount.getAccountNo(),
-                creditAccount.getAccountNo(), transactionAmount, message);
+        return "Transaction{" +
+                "transactionID=" + transactionID +
+                ", debitAccount=" + debitAccount +
+                ", creditAccount=" + creditAccount +
+                ", transactionAmount=" + transactionAmount +
+                ", message='" + message + '\'' +
+                ", transactionTimestamp=" + transactionTimestamp +
+                '}';
     }
+
+    //TODO breedte alles constant, ongeacht monospace
+    public String printStyledTransaction() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        String timeStamp = transactionTimestamp.format(formatter);
+        return String.format("%s    |    %s    |    %30s    |    %7.2f    |    %s",
+                timeStamp, debitAccount.getAccountNo(), creditAccount.getAccountNo(), transactionAmount, message);
+    }
+
 
     @Override
     public boolean equals(Object o) {

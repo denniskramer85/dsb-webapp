@@ -1,8 +1,6 @@
 package dsb.web.controller.beans;
 
 
-import dsb.web.domain.Transaction;
-
 import java.util.List;
 
 public class PrintAccountDataBean {
@@ -14,6 +12,7 @@ public class PrintAccountDataBean {
     private String balance;
     private String timestamp;
     private List<String> transactionStrings;
+
 
     public PrintAccountDataBean(String typeAccount, String accountNo, String companyName, String holderNames,
                                 String balance, String timestamp, List<String> transactionStrings) {

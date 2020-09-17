@@ -1,6 +1,7 @@
 package dsb.web.service.validators;
 
 import dsb.web.controller.AccountOverviewController;
+import dsb.web.service.service_helpers.BigDecimalHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,30 +36,10 @@ public class CurrencyFormatValidator implements ConstraintValidator<CurrencyForm
         }
 
         // Check if string can be converted to BigDecimal
-        if (validBigDecimal(transferAmount)) {
+        if (BigDecimalHelper.parse(transferAmount) != null) {
             return true;
         }
 
-        return false;
-    }
-
-    // Try to parse transferAmount String to Bigdecimal based on Dutch/German currency formatting,
-    // ruling out any other faulty characters
-    private boolean validBigDecimal(String transferAmount) {
-        NumberFormat numberFormat = NumberFormat.getInstance(Locale.GERMAN);
-        if (numberFormat instanceof DecimalFormat) {
-            DecimalFormat decimalFormat = (DecimalFormat) numberFormat;
-            decimalFormat.setParseBigDecimal(true);
-            BigDecimal parsedAmount = null;
-            try {
-                parsedAmount = (BigDecimal) decimalFormat.parse(transferAmount.trim());
-                logger.debug(parsedAmount.toString());
-                return true;
-            } catch (ParseException parseError) {
-                logger.debug("Cannot parse transferAmount");;
-                return false;
-            }
-        }
         return false;
     }
 }

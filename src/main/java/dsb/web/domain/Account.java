@@ -1,5 +1,7 @@
 package dsb.web.domain;
 
+import dsb.web.domain.domain_helpers.CreateAccountHoldersString;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -81,19 +83,13 @@ public abstract class Account {
                 '}';
     }
 
-
-
-    public String getHolderString() {
-        String returnString = "";
-        for (Customer holder : holders) {
-            returnString += holder.getInitials() + " ";
-            if (holder.getInserts() != null) {
-                returnString += holder.getInserts() + " ";
-            }
-            returnString += holder.getSurname();
-        }
-        return returnString;
+    //also define max number of holders shown!
+    public String getHoldersString (int maxHoldersShown) {
+        CreateAccountHoldersString createAccountHoldersString =
+                new CreateAccountHoldersString(holders, maxHoldersShown);
+        return createAccountHoldersString.createAccountHoldersString();
     }
+
 
     @Override
     public boolean equals(Object o) {

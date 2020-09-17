@@ -22,12 +22,11 @@ public class UsernameOccupiedValidator implements ConstraintValidator<UsernameOc
     @Override
     public boolean isValid(String string, ConstraintValidatorContext constraintValidatorContext) {
 
+        //already covered by @NotBlank
         if (string == null || string.trim().equals("")) return true;
 
+        //actual check
         List<Customer> customer = customerRepository.findAllByUsername(string);
-
-        if (customer.size() == 0) {
-            return true;
-        } else return false;
+        return customer.size() == 0;
     }
 }

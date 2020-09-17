@@ -7,8 +7,6 @@ import dsb.web.domain.Customer;
 import dsb.web.repository.AccountRepository;
 import dsb.web.repository.CustomerRepository;
 import dsb.web.service.AccountPageService;
-import dsb.web.service.SignInService;
-import dsb.web.service.TransactionService;
 import dsb.web.service.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,39 +17,33 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
 @SessionAttributes({"loggedInCustomer", "selectedAccountSession", "transferBeanSession"})
-public class transferController {
+public class TransferController {
 
     private AccountPageService accountPageService;
     private TransferService transferService;
-    private SignInService signInService;
-    private TransactionService transactionService;
 
-    //TODO weg
+    //TODO weg als dummygegevs niet meer nodig
     private CustomerRepository customerRepository;
     private AccountRepository accountRepository;
 
 
-
     @Autowired
-    public transferController(AccountPageService accountPageService, CustomerRepository customerRepository,
-                              AccountRepository accountRepository, SignInService signInService, TransferService transferService, TransactionService transactionService) {
+    public TransferController(AccountPageService accountPageService, CustomerRepository customerRepository,
+                              AccountRepository accountRepository, TransferService transferService) {
         this.accountPageService = accountPageService;
         this.customerRepository = customerRepository;
         this.accountRepository = accountRepository;
         this.transferService = transferService;
-        this.signInService = signInService;
-        this.transactionService = transactionService;
 
     }
 
     @GetMapping("transfer")
-    public String startTransferPageHandler (Model model) {
+    public String startTransferPageHandler(Model model) {
 
         //TODO weg: dit is dummydata vw snelle link (data cust en acc uit db halen en in sessie hangen)
         Optional<Customer> customerOptional = customerRepository.findOneByUsername("dennis");
@@ -69,12 +61,14 @@ public class transferController {
 
 
         //add printable account data (string) to model (only for display purpose)
-        model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
+        model.addAttribute("printAccountDataBean",
+                accountPageService.makePrintAccountDataBean(account));
 
-        //add needed real account data to transferBean and subsequently to model
+        //add needed real account data to transferBean + model
         TransferBean transferBean = new TransferBean();
         transferBean.setDebitAccountNo(account.getAccountNo());
         transferBean.setAccountBalance(account.getBalance());
+
         model.addAttribute("transferBean", transferBean);
 
         return "transferPage";
@@ -82,11 +76,13 @@ public class transferController {
 
 
     @PostMapping("transferPost")
-    public String transferDataHandler (@Valid @ModelAttribute TransferBean transferBean,
-                                       Errors errors, Model model) {
+    public String transferDataHandler(@Valid @ModelAttribute TransferBean transferBean,
+                                      Errors errors, Model model) {
 
         //validate for input errors - if so: return to transferPage
-        if(errors.hasErrors()) return transferService.validateTransferData(transferBean, model);
+        if (errors.hasErrors()) {
+            return transferService.validateTransferData(transferBean, model);
+        }
 
         //put transferBean and loginBean in session (and model)
         model.addAttribute("transferBeanSession", transferBean);
@@ -96,40 +92,11 @@ public class transferController {
         return "transferConfirmPage";
     }
 
-
-
     @PostMapping("transferConfirm")
-    public String transferConfirmHandler (@ModelAttribute LoginBean loginBean,
-                                          Model model/*, HttpServletRequest request*/) {
+    public String transferConfirmHandler(@ModelAttribute LoginBean loginBean, Model model) {
 
-        //TODO: dit toch allemaal/deels niet even naar transferService?
-
-        Customer loginCustomer = signInService.
-                checkCredentials(loginBean.getUsername(), loginBean.getPassword());
-
-        TransferBean transferBean = (TransferBean) model.getAttribute("transferBeanSession");
-        Customer loggedInCustomer = (Customer) model.getAttribute(AttributeMapping.LOGGED_IN_CUSTOMER);
-
-        //determine if validation is correct
-        if (loginCustomer == null) {
-
-            model.addAttribute("transferBeanSession", transferBean);
-            model.addAttribute("loginBean", new LoginBean());
-            model.addAttribute("errorMessage", true);
-
-            return "transferConfirmPage";
-
-        } else {
-
-            // Execute transaction, return to index if passed
-            if (transactionService.doTransaction(transferBean, loggedInCustomer)) {
-                return "redirect:account_overview";
-            } else {
-                //TODO: Handle unauthorized transaction
-                return "/";
-            }
-
-        }
+        //determine flow depending on whether validation succeeds
+        return transferService.determineFlow(loginBean, model);
     }
 }
 
