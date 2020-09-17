@@ -3,7 +3,7 @@ package dsb.web.service.validators;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class SocSecNoValidator implements ConstraintValidator<SocSecNoConstraint, String> {
+public class SocSecNoValidator implements ConstraintValidator<TokenCodeConstraint, String> {
 
 
     @Override

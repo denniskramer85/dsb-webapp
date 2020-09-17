@@ -1,9 +1,7 @@
 package dsb.web.controller;
 
-import dsb.web.domain.Account;
-import dsb.web.domain.ConsumerAccount;
-import dsb.web.domain.Customer;
-import dsb.web.domain.SMEAccount;
+import dsb.web.controller.beans.AccountHolderTokenBean;
+import dsb.web.domain.*;
 import dsb.web.service.AccountOverviewService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -34,6 +31,11 @@ public class AccountOverviewController {
     @GetMapping("account_overview")
     public String accountOverview(@ModelAttribute(AttributeMapping.LOGGED_IN_CUSTOMER) Customer loggedInCustomer, Model model) {
         // Retrieve list of consumer- and SME-accounts for logged in customer
+
+        // find all addAccountHolderTokens and add to model
+        model.addAttribute("accountHolderTokenBeans", accountOverviewService.getAccountHolderTokens(loggedInCustomer) );
+        model.addAttribute("NewAccountHolderTokenBean", new AccountHolderTokenBean());
+
         List<ConsumerAccount> consumerAccountList = accountOverviewService.getConsumerAccountsForCustomer(loggedInCustomer);
         List<SMEAccount> smeAccountList = accountOverviewService.getSMEAccountsForCustomer(loggedInCustomer);
         logger.debug("ConsumerAccounts: " + consumerAccountList.toString());

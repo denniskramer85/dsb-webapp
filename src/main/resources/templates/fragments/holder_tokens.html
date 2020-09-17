@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<th:block th:fragment="holder_tokens">
+    <div class = "card">
+
+        <div class="card-header"><h5>Je bent toegevoegd als rekeninghouder</h5>
+        </div>
+        <div class="card-body" id="confirm">
+            <div th:each="tokenBean : ${accountHolderTokenBeans}" class="signUpPage form-group">
+                <table class="account-table">
+                    <tr><td>
+
+                        <img class="account-icon" th:src="@{/images/icons/credit-card.svg}" alt="" src="">
+                        <span th:text="${tokenBean.accountNo}"></span>
+
+                        </td><td>
+
+                        <img class="account-icon" th:src="@{/images/icons/people.svg}" alt="" src="">
+                        <span th:text="${tokenBean.holders}"></span>
+
+                        </td><td>
+
+                        <form method="post" th:action="@{resolve-account-holder-token}">
+                            <input type="hidden" name="tokenId" th:value="${tokenBean.tokenId}">
+                            <button type="submit" class="btn btn-outline-dark">
+                                <img th:src="@{/images/icons/arrow-right-short.svg}" alt="">
+                            </button>
+                        </form>
+
+                    </td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</th:block>
+</body>
+</html>
