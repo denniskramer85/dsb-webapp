@@ -35,13 +35,13 @@ public class SMEDashboardController {
     public String SmeDashboardOverview(Model model) {
 
         List<TokenPaymentMachine> getAllLinkRequests = smeDashboardService.getAllByLinkRequest();
-        List<Transaction> top10Transaction = smeDashboardService.getTop10SmeTransaction();
+        Map<Transaction, Integer> top10Transaction = smeDashboardService.getTop10SmeTransaction();
         List<SMEAccount> top10Balance = smeDashboardService.getTop10bySmeBalance();
         Map<Sector, Integer> averageTop10BySector = smeDashboardService.averageTop10BySector();
-        System.out.println(getAllLinkRequests);
         model.addAttribute("naam", "Naam medewerker");
         model.addAttribute("linkRequestList", getAllLinkRequests);
         model.addAttribute("transactions", top10Transaction);
+//        System.out.println(top10Transaction);
         model.addAttribute("balances", top10Balance);
         model.addAttribute("averageBalanceBySector", averageTop10BySector);
         return "sme_employee_dashboard";

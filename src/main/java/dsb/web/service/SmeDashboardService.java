@@ -33,10 +33,7 @@ public class SmeDashboardService {
     }
 
 
-    public List<Transaction> getTop10SmeTransaction() {
-        List<Transaction> transactionList = transactionRepository.findAll();
-        return transactionList;
-    }
+
 
 
 
@@ -58,6 +55,20 @@ public class SmeDashboardService {
         return listRequest;
     // bootstrapalert toevoegen
     }
+
+    public Map<Transaction, Integer> getTop10SmeTransaction() {
+        Map<Transaction, Integer> transactionList = new HashMap<>();
+        for (Transaction transaction : transactionRepository.findAll()) {
+            if(transactionList.containsKey(transaction)) {
+               transactionList.put(transaction, transactionList.get(transaction)+1);
+            }
+            else transactionList.put(transaction, 1);
+        }
+
+
+        return transactionList;
+    }
+
 
     public Map<Sector, Integer> averageTop10BySector() {
         Map<Sector, Integer> averageTop10BySector = new HashMap<>();
