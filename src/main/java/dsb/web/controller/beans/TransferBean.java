@@ -35,6 +35,10 @@ public class TransferBean {
     @DSBAccountConstraint
     private String creditAccountNo;
 
+    @NotBlank(message = "Vul de naam van de ontvanger in")
+    @Length(max = 100, message = "Gebruik maximaal 100 karakters")
+    private String name;
+
     @NotBlank(message = "Voer een bedrag in")
     @CurrencyFormatConstraint
     private String transferAmountString;
@@ -46,7 +50,7 @@ public class TransferBean {
     @AssertTrue(message = "Onvoldoende saldo voor transactie")
     private boolean sufficientFunds = false;
 
-    @Length(max = 50, message = "Maximaal 50 karakters")
+    @Length(max = 100, message = "Gebruik maximaal 100 karakters")
     private String message;
 
     public TransferBean() {
@@ -81,6 +85,14 @@ public class TransferBean {
 
     public void setCreditAccountNo(String creditAccountNo) {
         this.creditAccountNo = creditAccountNo;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getTransferAmountString() {

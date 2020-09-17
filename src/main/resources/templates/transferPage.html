@@ -49,6 +49,18 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="creditAccountNo" class="col-sm-2 col-form-label">Ontvanger</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="name" name="namer" th:field="*{name}" placeholder="Voer de naam van de ontvanger in" onfocusout="matchName()">
+                                <div class = "text-danger form-error">
+                                    <small>
+                                        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"/>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="transferAmount" class="col-sm-2 col-form-label">Bedrag</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="transferAmount" name="transferAmountString" th:field="*{transferAmountString}" placeholder="Voer een bedrag in">
@@ -92,6 +104,35 @@
         </div>
     </div>
 
+    <script>
+        // Check whether name matches to the supplied account number
+        function matchName() {
+            let creditAccountNo = document.getElementById("creditAccountNo").value;
+            let name = document.getElementById("name").value;
 
+            // Return if credit account is empty
+            if (creditAccountNo == "") {
+                return;
+            }
+
+            // Create fetch URL
+            let url = `/transfer-name-checks/${creditAccountNo}/${name}`
+
+            // Handle request
+            fetch(url)
+            .then(response => response.json())
+            .then(jsonObject => {
+                handleMatchRequest(jsonObject)
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+        }
+
+        function handleMatchRequest(transferName) {
+            console.log(transferName)
+        }
+
+    </script>
 </body>
 </html>
