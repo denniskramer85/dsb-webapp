@@ -1,5 +1,6 @@
 package dsb.web.controller;
 
+import dsb.web.controller.beans.AccountHolderTokenBean;
 import dsb.web.controller.beans.ConfirmBean;
 import dsb.web.controller.beans.LoginBean;
 import dsb.web.controller.beans.PrintAccountDataBean;
@@ -19,10 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.w3c.dom.Attr;
 
 import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @Controller
@@ -67,12 +65,12 @@ public class AddAccountHolderController {
                     "account_overview");
             model.addAttribute("confirmBean", confirmBean);
             int tokenCode = 00000;
-            addAccountHolderService.createAddAccountHolderToken(loggedInCustomer,account,tokenCode);
-            return "confirm";
+            addAccountHolderService.createAddAccountHolderToken(loggedInCustomer,account,Integer.toString(tokenCode));
+            return "confirm-add-holder";
         }
     }
 
-    @GetMapping("confirm")
+    @GetMapping("confirm-add-holder")
     String addAccountHolderConfirm(
             @ModelAttribute ConfirmBean confirmBean,
             Model model){
@@ -84,21 +82,58 @@ public class AddAccountHolderController {
     /*resolve tokens:*/
 
     @PostMapping("resolve-account-holder-token")
-    String resolve(@ModelAttribute("tokenId") String tokenId,
+    String resolve(@RequestParam(name = "tokenId") String tokenId,
                    Model model){
-        System.out.println(tokenId);
+        //print Map:
+        /*Map<String,Object> map = model.asMap();
+        for (Map.Entry<String,Object> entry : map.entrySet()) {
+            System.out.println("Key: " + entry.getKey());
+            System.out.println("Value: " + entry.getValue());
+        }*/
+        model.addAttribute("tokenId", tokenId);
         return "resolve-account-holder-token";
     }
 
-
-    @PostMapping("resolve-account-holder-token-verify")
-    String compareTokens(@RequestParam(name = "tokenCode") int tokenCode,
-                         @ModelAttribute("accountHolderTokens") AccountHolderToken accountHolderToken,
-                         Model model){
-
-        System.out.println(accountHolderToken);
-        return "";
+    @PostMapping("resolve-account-holder-token-2")
+    String resolve2(@RequestParam(name = "tokenCode") String tokenCode,
+                    @ModelAttribute("tokenId") String tokenId,
+                   @ModelAttribute(AttributeMapping.LOGGED_IN_CUSTOMER) Customer loggedInCustomer,
+                   Model model){
+        Account acc = addAccountHolderService.resolveToken(tokenId, tokenCode, loggedInCustomer);
+        if (acc != null)
+            model.addAttribute(new ConfirmBean("Gefeliciteerd!", Arrays.asList("Je bent toegevoegd als nieuwe rekeninghouder aan" + acc.getAccountNo()),"account_overview"));
+        return "confirm";
     }
+
+
+
+/*    @GetMapping("resolve-account-holder-token")
+    String compareTokens(@ModelAttribute("accountHolderTokens") List<AccountHolderTokenBean> tokens,
+                         Model model){
+        System.out.println(tokens);
+        model.addAttribute("accountHolderTokenBean", new AccountHolderTokenBean());
+        return "confirm";
+    }*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     @RestController

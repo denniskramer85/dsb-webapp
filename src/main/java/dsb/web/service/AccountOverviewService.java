@@ -1,5 +1,6 @@
 package dsb.web.service;
 
+import dsb.web.controller.beans.AccountHolderTokenBean;
 import dsb.web.domain.*;
 import dsb.web.repository.AccountHolderTokenRepository;
 import dsb.web.repository.AccountRepository;
@@ -8,6 +9,7 @@ import dsb.web.repository.ConsumerAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,12 +32,13 @@ public class AccountOverviewService {
     public AccountOverviewService() {
     }
 
-    public List<AccountHolderToken> getAccountHolderTokens(Customer customer){
-/*        List<AccountHolderTokenBean> tokens = new ArrayList<>();
-        for (AccountHolderToken token : accountHolderTokenRepository.findAccountHolderTokensByNewAccountHolder(customer)){
-            tokens.add(new AccountHolderTokenBean(token.getAccount().getAccountNo(),token.getAccount().getHolders().toString(), token));
-        }*/
-        return accountHolderTokenRepository.findAccountHolderTokensByNewAccountHolder(customer);
+    public List<AccountHolderTokenBean> getAccountHolderTokens(Customer customer){
+        /*Creates accountTokenBean list of all available tokens */
+        List<AccountHolderToken> tokens = accountHolderTokenRepository.findAccountHolderTokensByNewAccountHolder(customer);
+        List<AccountHolderTokenBean> list = new ArrayList<>();
+        for (AccountHolderToken t : tokens)
+            list.add(new AccountHolderTokenBean(t.getAccount().getAccountNo(),t.getAccount().getHolderString(),Integer.toString(t.getAccountHolderTokenId())));
+        return list;
     }
 
     public List<ConsumerAccount> getConsumerAccountsForCustomer(Customer customer) {

@@ -1,5 +1,6 @@
 package dsb.web.controller;
 
+import dsb.web.controller.beans.AccountHolderTokenBean;
 import dsb.web.domain.*;
 import dsb.web.service.AccountOverviewService;
 import org.slf4j.Logger;
@@ -32,8 +33,8 @@ public class AccountOverviewController {
         // Retrieve list of consumer- and SME-accounts for logged in customer
 
         // find all addAccountHolderTokens and add to model
-        if (!accountOverviewService.getAccountHolderTokens(loggedInCustomer).isEmpty() )
-            model.addAttribute("accountHolderTokens", accountOverviewService.getAccountHolderTokens(loggedInCustomer) );
+        model.addAttribute("accountHolderTokenBeans", accountOverviewService.getAccountHolderTokens(loggedInCustomer) );
+        model.addAttribute("NewAccountHolderTokenBean", new AccountHolderTokenBean());
 
         List<ConsumerAccount> consumerAccountList = accountOverviewService.getConsumerAccountsForCustomer(loggedInCustomer);
         List<SMEAccount> smeAccountList = accountOverviewService.getSMEAccountsForCustomer(loggedInCustomer);

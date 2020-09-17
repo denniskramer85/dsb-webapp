@@ -36,7 +36,6 @@ public class CustomerBean {
 
     @NotBlank(message = "Veld is leeg")
     @IntegerConstraint
-    @SocSecNoConstraint
     private String socialSecurityNoString;
     private Integer socialSecurityNo;
 

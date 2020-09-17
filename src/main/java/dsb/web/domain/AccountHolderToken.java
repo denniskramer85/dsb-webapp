@@ -14,16 +14,16 @@ public class AccountHolderToken {
     @ManyToOne
     private Account account;
 
-    private int token;
+    private String token;
 
-    public AccountHolderToken(int accountHolderTokenId, Customer newAccountHolder, Account account, int token) {
+    public AccountHolderToken(int accountHolderTokenId, Customer newAccountHolder, Account account, String token) {
         this.accountHolderTokenId = accountHolderTokenId;
         this.newAccountHolder = newAccountHolder;
         this.account = account;
         this.token = token;
     }
 
-    public AccountHolderToken(Customer newAccountHolder, Account account, int token) {
+    public AccountHolderToken(Customer newAccountHolder, Account account, String token) {
         this.newAccountHolder = newAccountHolder;
         this.account = account;
         this.token = token;
@@ -56,11 +56,11 @@ public class AccountHolderToken {
         this.account = account;
     }
 
-    public int getToken() {
+    public String getToken() {
         return token;
     }
 
-    public void setToken(int token) {
+    public void setToken(String token) {
         this.token = token;
     }
 

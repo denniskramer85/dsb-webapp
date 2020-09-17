@@ -8,22 +8,23 @@
 </head>
 <body>
 <div class="container ">
-    <form method="get" th:action="resolve-account-holder-token-verify" th:object="${token}">
+    <form method="post" th:action="resolve-account-holder-token-2">
         <div class="card cards" >
             <div class="card-header account-header-div">
                 <h5 class="account-header">Mederekeninghouder worden</h5>
             </div>
             <div class="card-body">
                 <div>
-                    <p>Als het goed is heb je een 5-cijferige code gekregen van een van de rekeninghouders. Voer deze in om mederekeninghouder te worden.</p>
+                    <p>Ben je uitgenodigd om mederekinghouder te worden en heb je een vijfcijferige code ontvangen? Voer deze dan hieronder in.</p>
                 </div>
                 <div>
                     <label for="tokenCode">Code: </label>
-                    <input type="text" id="tokenCode" name="tokenCode" >
+                    <input type="text" id="tokenCode" name="tokenCode">
                 </div>
             </div>
         </div>
         <div class="new-account form-row" style="display:inline;">
+            <input type="hidden" name="tokenId" th:value="${tokenId}">
             <input  class="btn btn-outline-dark" type="submit" value="Volgende"/>
             <input class="btn btn-outline-dark" type="button" onclick="window.location.href='account_overview';" value="Cancel"/>
         </div>
