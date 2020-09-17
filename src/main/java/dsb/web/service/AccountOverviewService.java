@@ -37,7 +37,8 @@ public class AccountOverviewService {
         List<AccountHolderToken> tokens = accountHolderTokenRepository.findAccountHolderTokensByNewAccountHolder(customer);
         List<AccountHolderTokenBean> list = new ArrayList<>();
         for (AccountHolderToken t : tokens)
-            list.add(new AccountHolderTokenBean(t.getAccount().getAccountNo(),t.getAccount().getHolderString(),Integer.toString(t.getAccountHolderTokenId())));
+            list.add(new AccountHolderTokenBean(t.getAccount().getAccountNo(),t.getAccount().getHoldersString(3),Integer.toString(t.getAccountHolderTokenId())));
+
         return list;
     }
 

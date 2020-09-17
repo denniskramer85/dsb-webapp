@@ -66,7 +66,7 @@ public class AddAccountHolderController {
             model.addAttribute("confirmBean", confirmBean);
             int tokenCode = 00000;
             addAccountHolderService.createAddAccountHolderToken(loggedInCustomer,account,Integer.toString(tokenCode));
-            return "confirm-add-holder";
+            return "confirm";
         }
     }
 
