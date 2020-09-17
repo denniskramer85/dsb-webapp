@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 <head>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" href="styles.css"/>
@@ -19,11 +19,16 @@
         <p>Welkom <span th:text="${naam}"></span></p>
     </div>
 
+
     <div class="card new-account cards">
         <div class="card-header account-header-div">
             <h5 class="account-header">Koppelverzoeken</h5>
-        </div>
-    </div>
+                    <div th:if="${not #lists.isEmpty(linkRequestList)}">
+                        <div class="card-body">
+                            <p>Er zijn nieuwe koppelverzoeken</p>
+                        </div>
+                    </div>
+
 
 
         <div class="card new-account cards">
@@ -38,7 +43,7 @@
                         </td>
                         <td>
                             <img class="account-icon" th:src="@{/images/icons/people.svg}" alt="">
-                            <span th:text="${balance.getHoldersString(3)}"/>
+                            <span th:text="${balance.getHoldersString(0)}"/>
                         </td>
                         <td>
                             <img class="account-icon" th:src="@{/images/icons/wallet2.svg}" alt="">
@@ -51,31 +56,22 @@
         </div>
     </div>
 
+
     <div class="card new-account cards">
         <div class="card-header account-header-div">
-        <h5 class="account-header">Gemiddeld saldo per segment</h5>
-        <div th:each="average : ${averageBalanceBySector}">
-            <table class="averageBalanceBySector">
-                <tr>
-                    <td>
-<!--                        <img class="account-icon" th:src="@{/images/icons/credit-card.svg}" alt="">-->
-<!--                        <span th:text="${Company.getSector()}"/>-->
-                    </td>
-                    <td>
-<!--                        <img class="account-icon" th:src="@{/images/icons/people.svg}" alt="">-->
-<!--                        <span th:text="${average.getCreditAccount()}"/>-->
-                    </td>
-                    <td>
-                        <img class="account-icon" th:src="@{/images/icons/wallet2.svg}" alt="">
-                        €
-                        <span th:text="${#numbers.formatDecimal(average.getBalance(), 0, 'POINT', 2, 'COMMA')}"/>
-                    </td>
+            <h5 class="account-header">Gemiddeld saldo per segment</h5>
+        </div>
+        <div class="card-body">
+            <table>
+                <tr th:each=" sector : ${averageBalanceBySector}">
+                    <td th:text="${sector.key}">keyvalue</td>
+                    €
+                    <td th:text="${sector.value}">num</td>
                 </tr>
             </table>
         </div>
-        </div>
-    </div>
 
+    </div>
 
     <div class="card new-account cards">
         <div class="card-header account-header-div">
@@ -88,8 +84,8 @@
                         <span th:text="${transaction.getCreditAccount()}"/>
                     </td>
                     <td>
-                        <img class="account-icon" th:src="@{/images/icons/people.svg}" alt="">
-                        <span th:text="${transaction.getCreditAccount()}"/>
+<!--                        <img class="account-icon" th:src="@{/images/icons/people.svg}" alt="">-->
+<!--                        <span th:text="${transaction.getCreditAccount()}"/>-->
                     </td>
                     <td>
                         <img class="account-icon" th:src="@{/images/icons/wallet2.svg}" alt="">
