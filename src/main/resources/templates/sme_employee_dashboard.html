@@ -19,10 +19,21 @@
         <p>Welkom <span th:text="${naam}"></span></p>
     </div>
 
+
     <div class="card new-account cards">
         <div class="card-header account-header-div">
             <h5 class="account-header">Koppelverzoeken</h5>
         </div>
+        <div class="card-body">
+            <table>
+                <tr th:each=" linkRequest : ${linkRequestList}">
+                    <td th:text="${linkRequest.getTokenID()}">keyvalue</td>
+                    €
+                    <td th:text="${linkRequest.getSmeAccount()}">num</td>
+                </tr>
+            </table>
+        </div>
+
     </div>
 
 
@@ -38,7 +49,7 @@
                         </td>
                         <td>
                             <img class="account-icon" th:src="@{/images/icons/people.svg}" alt="">
-                            <span th:text="${balance.getHoldersString(3)}"/>
+                            <span th:text="${balance.getHoldersString(0)}"/>
                         </td>
                         <td>
                             <img class="account-icon" th:src="@{/images/icons/wallet2.svg}" alt="">

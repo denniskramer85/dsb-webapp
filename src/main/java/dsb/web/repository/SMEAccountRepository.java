@@ -17,47 +17,10 @@ public interface SMEAccountRepository extends PagingAndSortingRepository<SMEAcco
     List<SMEAccount> findAllByCompany_Sector(Sector sec);
     List<SMEAccount> findTop10ByOrderByBalanceDesc(); // Find group by Average.
 
-//
-//
-//    @Query(value =
-//            " SELECT S.sector_name avg(balance) AS Average " +
-//            " FROM account L JOIN smeaccount D " +
-//            " ON L.accountid = D.accountid " +
-//            " JOIN company C ON D.company_company_id = C.company_id" +
-//            " JOIN sector S WHERE C.sector_sector_id = S.sector_id " +
-//            " group by sector_id ORDER BY Average DESC "
-//            , nativeQuery = true)
-//    List<SMEAccount> findAverageBalanceBySector();
 
 
 
 
-//            "JOIN dsb.smeaccount AS sme_ac " +
-//                    "   ON ac.accountid = sme_ac.accountid " +
-////            "JOIN dsb.company AS com " +
-////            "   ON sme.accountid = com.accountid"
-//                    , nativeQuery = true)
-
-    /*"SELECT * FROM dsb.account AS ac " +
-            "JOIN dsb.smeaccount AS sme_ac " +
-            "   ON ac.accountid = sme_ac.accountid " +
-
-            "ORDER BY balance desc; "
-            , nativeQuery = true)
-     */
-
-    /*  " SELECT name, avg(balance) " +
-            " FROM account L " +
-            " JOIN smeaccount D " +
-            " ON L.accountid = D.accountid " +
-            " JOIN company C " +
-            " ON D.company_company_id = C.company_id" +
-            " JOIN sector S" +
-            " WHERE C.sector_sector_id = S.sector_id " +
-            " group by sector_id" +
-            " ORDER BY balance DESC "
-
-     */
 
 }
 
