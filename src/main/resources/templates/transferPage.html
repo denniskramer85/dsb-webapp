@@ -77,9 +77,9 @@
                                         <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"/>
                                     </small>
                                 </div>
-                                <div class ="text-success" id="nameMessage" style="visibility: hidden;">
+                                <div class ="text-success d-none" id="nameMessage">
                                     <small>
-                                        <span>Tenaamstelling automatisch aangevuld</span>
+                                        Tenaamstelling automatisch aangevuld
                                     </small>
                                 </div>
                             </div>
@@ -136,8 +136,8 @@
     <script>
         // Check whether name matches to the supplied account number
         function matchName() {
-            let creditAccountNo = document.getElementById("creditAccountNo").value;
-            let name = document.getElementById("name").value;
+            let creditAccountNo = document.getElementById("creditAccountNo").value.trim();
+            let name = document.getElementById("name").value.trim();
 
             // Return false if credit account is empty
             if (creditAccountNo == "") {
@@ -151,9 +151,10 @@
             fetch(url)
             .then(response => response.json())
             .then(jsonObject => {
+                // If a match is found, fill in suggested name and display a message
                 if (jsonObject.suggestedName != null) {
                     document.getElementById("name").value = jsonObject.suggestedName;
-                    document.getElementById("nameMessage").style.visibility = "visible";
+                    document.getElementById("nameMessage").classList.replace("d-none", "d-block");
                 }
             })
             .catch(function (error) {
