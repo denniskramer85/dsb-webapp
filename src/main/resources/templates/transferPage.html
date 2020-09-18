@@ -72,7 +72,7 @@
                             <label for="creditAccountNo" class="col-sm-2 col-form-label">Ontvanger</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="name" name="namer" th:field="*{name}" placeholder="Voer de naam van de ontvanger in" onfocusout="matchName()">
-                                <div class = "text-danger form-error">
+                                <div class = "text-danger form-error" id="nameErrors">
                                     <small>
                                         <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"/>
                                     </small>
@@ -144,6 +144,8 @@
                 return false;
             }
 
+            // Remove any old errors
+            document.getElementById("nameErrors").classList.add("d-none");
             // Create fetch URL
             let url = `/transfer-name-checks/${creditAccountNo}/${name}`
 
