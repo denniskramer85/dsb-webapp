@@ -10,6 +10,26 @@
 </head>
 <body>
     <div th:include="fragments/header :: header"></div>
+
+    <div class="modal fade" id="nameError" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tenaamstelling onjuist</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="errorBody">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
 
         <div class="card">
@@ -29,7 +49,7 @@
 
 
                 <div id="inputTransferData">
-                    <form method="post" th:action="@{transferPost}" th:object="${transferBean}">
+                    <form method="post" id="transferForm" th:action="@{transferPost}" th:object="${transferBean}">
                         <input type="hidden" th:field="*{accountBalance}">
                         <input type="hidden" th:field="*{debitAccountNo}">
 
@@ -43,6 +63,23 @@
                                         <span th:unless="${#fields.hasErrors('creditAccountNo')}">
                                                 <span th:if="${#fields.hasGlobalErrors()}" th:each="error : ${#fields.errors('global')}" th:text="${error}"/>
                                         </span>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="creditAccountNo" class="col-sm-2 col-form-label">Ontvanger</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="name" name="namer" th:field="*{name}" placeholder="Voer de naam van de ontvanger in" onfocusout="matchName()">
+                                <div class = "text-danger form-error" id="nameErrors">
+                                    <small>
+                                        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"/>
+                                    </small>
+                                </div>
+                                <div class ="text-success d-none" id="nameMessage">
+                                    <small>
+                                        Tenaamstelling automatisch aangevuld
                                     </small>
                                 </div>
                             </div>
@@ -92,6 +129,42 @@
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
+    <script>
+        // Check whether name matches to the supplied account number
+        function matchName() {
+            let creditAccountNo = document.getElementById("creditAccountNo").value.trim();
+            let name = document.getElementById("name").value.trim();
+
+            // Return false if credit account is empty
+            if (creditAccountNo == "") {
+                return false;
+            }
+
+            // Remove any old errors
+            document.getElementById("nameErrors").classList.add("d-none");
+            // Create fetch URL
+            let url = `/transfer-name-checks/${creditAccountNo}/${name}`
+
+            // Handle request
+            fetch(url)
+            .then(response => response.json())
+            .then(jsonObject => {
+                // If a match is found, fill in suggested name and display a message
+                if (jsonObject.suggestedName != null) {
+                    document.getElementById("name").value = jsonObject.suggestedName;
+                    document.getElementById("nameMessage").classList.replace("d-none", "d-block");
+                }
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+        }
+
+
+    </script>
 </body>
 </html>
