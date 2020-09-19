@@ -75,28 +75,20 @@
 
     <div class="card new-account cards">
         <div class="card-header account-header-div">
-        <h5 class="account-header">10 meest actieve klanten</h5>
-        <div th:each="transaction : ${transactions}">
-            <table class="top10transactions-table">
-                <tr>
-                    <td>
-                        <img class="account-icon" th:src="@{/images/icons/credit-card.svg}" alt="">
-                        <span th:text="${transaction.getCreditAccount()}"/>
-                    </td>
-                    <td>
-<!--                        <img class="account-icon" th:src="@{/images/icons/people.svg}" alt="">-->
-<!--                        <span th:text="${transaction.getCreditAccount()}"/>-->
-                    </td>
-                    <td>
-                        <img class="account-icon" th:src="@{/images/icons/wallet2.svg}" alt="">
-                        €
-                        <span th:text="${#numbers.formatDecimal(transaction.getCreditAccount(), 0, 'POINT', 2, 'COMMA')}"/>
-                    </td>
+            <h5 class="account-header">10 meest actieve klanten</h5>
+        </div>
+        <div class="card-body">
+            <table>
+                <tr th:each=" transaction: ${transactionsList}">
+                    <td th:text="${transaction.key}">keyvalue</td>
+                    <td th:text="${transaction.value}">num</td>
+
                 </tr>
             </table>
         </div>
+
     </div>
-    </div>
+
 
 </div>
 
