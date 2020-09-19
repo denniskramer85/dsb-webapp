@@ -32,7 +32,7 @@ public class SMEDashboardController {
     }
 
     @GetMapping("SME_dashboard")
-    public String SmeDashboardOverview(Model model) {
+    public String smeDashboardOverview(Model model) {
 
         List<TokenPaymentMachine> getAllLinkRequests = smeDashboardService.getAllByLinkRequest();
         List<Transaction> top10Transaction = smeDashboardService.getTop10SmeTransaction();
