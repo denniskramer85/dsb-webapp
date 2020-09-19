@@ -4,94 +4,99 @@
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" href="styles.css"/>
     <meta charset="UTF-8">
-    <title>Employee Dashboard hoofd-MKB</title>
+    <title>Employee Dashboard head-MKB</title>
 </head>
 <body>
 
 <div th:include="fragments/header :: header"></div>
+
 <div class="container">
+    <br/>
+    <br/>
 
     <div class="card">
-        <h1 class="account-header">Medewerkersdashboard hoofd-MKB</h1>
+        <h3 class="account-header">Medewerkersdashboard hoofd-MKB</h3>
     </div>
 
     <div class="card">
-        <p>Welkom <span th:text="${naam}"></span></p>
+        <p>Welkom <span th:text="${selectedEmployee}"></span></p>
     </div>
 
 
-    <div class="card new-account cards">
+    <div class="card">
+        <h5 class="account-header-">Koppelverzoeken</h5>
         <div class="card-header account-header-div">
-            <h5 class="account-header">Koppelverzoeken</h5>
-                    <div th:if="${not #lists.isEmpty(linkRequestList)}">
-                        <div class="card-body">
-                            <p>Er zijn nieuwe koppelverzoeken</p>
-                        </div>
+            <div class="card-body">
+                <div th:if="${not #lists.isEmpty(linkRequestList)}">
+                    <div class="card-body">
+                        <p class="account-header">Er zijn nieuwe koppelverzoeken</p>
+                        <a href="/LinkRequest_overview" class="btn-open-account btn btn-outline-dark">Naar koppelverzoeken</a>
                     </div>
-
-
-
-        <div class="card new-account cards">
-                <div class="card-header account-header-div">
-            <h5 class="account-header">10 hoogste saldo's MKB klanten</h5>
-            <div th:each="balance : ${balances}">
-                <table class="top10saldo-table">
-                    <tr>
-                        <td>
-                            <img class="account-icon" th:src="@{/images/icons/credit-card.svg}" alt="">
-                            <span th:text="${balance.getAccountNo()}"/>
-                        </td>
-                        <td>
-                            <img class="account-icon" th:src="@{/images/icons/people.svg}" alt="">
-                            <span th:text="${balance.getHoldersString(0)}"/>
-                        </td>
-                        <td>
-                            <img class="account-icon" th:src="@{/images/icons/wallet2.svg}" alt="">
-                            €
-                            <span th:text="${#numbers.formatDecimal(balance.getBalance(), 0, 'POINT', 2, 'COMMA')}"/>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+                </div>
         </div>
     </div>
+    </div>
+    <br>
 
 
-    <div class="card new-account cards">
-        <div class="card-header account-header-div">
+    <div class="card">
+            <h5 class="account-header">10 hoogste saldo's MKB klanten</h5>
+             <div class="card-header account-header-div">
+            <div class="card-body">
+                <div th:each="balance : ${balances}">
+                    <table class="top10saldo-table">
+                        <tr>
+                            <td>
+                                <img class="account-icon" th:src="@{/images/icons/credit-card.svg}" alt="">
+                                <span th:text="${balance.getAccountNo()}"/>
+                            </td>
+                            <td>
+                                <img class="account-icon" th:src="@{/images/icons/people.svg}" alt="">
+                                <span th:text="${balance.getHoldersString(0)}"/>
+                            </td>
+                            <td>
+                                <img class="account-icon" th:src="@{/images/icons/wallet2.svg}" alt="">
+                                €&nbsp;
+                                <span th:text="${#numbers.formatDecimal(balance.getBalance(), 0, 'POINT', 2, 'COMMA')}"/
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+                 </div>
+    </div>
+    <br>
+
+    <div class="card">
             <h5 class="account-header">Gemiddeld saldo per segment</h5>
-        </div>
-        <div class="card-body">
-            <table>
+        <div class="card-header account-header-div">
+            <div class="card-body">
+            <table class="AverageSaldo_sme">
                 <tr th:each=" sector : ${averageBalanceBySector}">
                     <td th:text="${sector.key}">keyvalue</td>
-                    €
                     <td th:text="${sector.value}">num</td>
                 </tr>
             </table>
+            </div>
         </div>
+        </div>
+    <br>
 
-    </div>
-
-    <div class="card new-account cards">
-        <div class="card-header account-header-div">
+    <div class="card">
             <h5 class="account-header">10 meest actieve klanten</h5>
-        </div>
-        <div class="card-body">
+                <div class="card-header account-header-div">
+                    <div class="card-body">
             <table>
                 <tr th:each=" transaction: ${transactionsList}">
                     <td th:text="${transaction.key}">keyvalue</td>
                     <td th:text="${transaction.value}">num</td>
-
                 </tr>
             </table>
-        </div>
-
+                </div>
+            </div>
     </div>
-
 
 </div>
 
 </body>
-
 </html>

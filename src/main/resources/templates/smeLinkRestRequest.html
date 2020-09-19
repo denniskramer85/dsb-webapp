@@ -8,12 +8,13 @@
 </head>
 <body>
 
+
 <div th:include="fragments/header :: header"></div>
 <div class="container">
 
     <div class="card">
         <div class="card-header account-header-div">
-            <h1 class="account-header">Koppelverzoeken</h1>
+            <h3 class="account-header">Koppelverzoeken</h3>
         </div>
 
         <div th:each="request : ${linkRequest}">
