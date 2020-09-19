@@ -9,10 +9,7 @@ import dsb.web.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class SmeDashboardService {
@@ -31,11 +28,6 @@ public class SmeDashboardService {
 
     public SmeDashboardService() {
     }
-
-
-
-
-
 
     public List<SMEAccount> getTop10bySmeBalance() {
         List<SMEAccount> smeAccountsList = smeAccountRepository.findTop10ByOrderByBalanceDesc();
@@ -56,19 +48,17 @@ public class SmeDashboardService {
     // bootstrapalert toevoegen
     }
 
-    public Map<Transaction, Integer> getTop10SmeTransaction() {
-        Map<Transaction, Integer> transactionList = new HashMap<>();
-        for (Transaction transaction : transactionRepository.findAll()) {
-            if(transactionList.containsKey(transaction)) {
-               transactionList.put(transaction, transactionList.get(transaction)+1);
-            }
-            else transactionList.put(transaction, 1);
+    public Map<SMEAccount, Integer> getTop10SmeTransaction() {
+        Map<SMEAccount, Integer> result = new HashMap<>();
+        for (SMEAccount account : smeAccountRepository.findAll()) {
+            int credits = transactionRepository.countTransactionsByCreditAccount(account);
+            int debits = transactionRepository.countTransactionsByDebitAccount(account);
+            int total = credits + debits;
+            result.put(account, total);
         }
+        return result;
 
-
-        return transactionList;
     }
-
 
     public Map<Sector, Integer> averageTop10BySector() {
         Map<Sector, Integer> averageTop10BySector = new HashMap<>();
@@ -85,9 +75,5 @@ public class SmeDashboardService {
         return averageTop10BySector;
 
     }
-
-
-
-
 
 }
