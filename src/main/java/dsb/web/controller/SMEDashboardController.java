@@ -39,16 +39,20 @@ public class SMEDashboardController {
     }
 
     @GetMapping("SME_dashboard")
-    public String SmeDashboardOverview(Model model) {
+    public String smeDashboardOverview(Model model) {
+
+        Map<SMEAccount, Integer> top10Transaction = smeDashboardService.getTop10SmeTransaction();
+        for (Map.Entry<SMEAccount, Integer> entry : top10Transaction.entrySet()) {
+            System.out.println("Rekeningnummer: " + entry.getKey().getAccountNo());
+            System.out.println("Aantal: " + entry.getValue());
+        }
 
         List<TokenPaymentMachine> getAllLinkRequests = smeDashboardService.getAllByLinkRequest();
-        List<Transaction> top10Transaction = smeDashboardService.getTop10SmeTransaction();
         List<SMEAccount> top10Balance = smeDashboardService.getTop10bySmeBalance();
         Map<Sector, Integer> averageTop10BySector = smeDashboardService.averageTop10BySector();
-        System.out.println(getAllLinkRequests);
         model.addAttribute("naam", "Naam medewerker");
         model.addAttribute("linkRequestList", getAllLinkRequests);
-        model.addAttribute("transactions", top10Transaction);
+        model.addAttribute("transactionsList", top10Transaction);
         model.addAttribute("balances", top10Balance);
         model.addAttribute("averageBalanceBySector", averageTop10BySector);
         return "sme_employee_dashboard";
