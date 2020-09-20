@@ -211,6 +211,3 @@ input[type=number] {
     top: 30px;
 }
 
-#signUpPage .form-control::-webkit-input-placeholder {
-    color: red;
-}
