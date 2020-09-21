@@ -75,7 +75,6 @@ public class TransactionService {
         BigDecimal creditBalanceBefore = BigDecimal.valueOf(creditAccount.getBalance()).stripTrailingZeros();
         BigDecimal transferAmount = BigDecimal.valueOf(transaction.getTransactionAmount()).stripTrailingZeros();
 
-
         // Adjust balance for debit account
         debitAccount.setBalance(debitBalanceBefore.subtract(transferAmount).setScale(2, RoundingMode.HALF_UP).doubleValue());
 
@@ -86,13 +85,14 @@ public class TransactionService {
         accountRepository.save(debitAccount);
         accountRepository.save(creditAccount);
 
-        updateBalance(creditAccount);
+        updateBalance(debitAccount);
     }
 
     private void updateBalance(Account account) {
         // Get updated account balance with native SQL query
-        Query query = entityManager.createNativeQuery("SELECT (SELECT SUM(transaction_amount) FROM transaction WHERE debit_account_accountid = ?) - (\n" +
-                "SELECT SUM(transaction_amount) FROM transaction WHERE credit_account_accountid = ?);");
+        Query query = entityManager.createNativeQuery("SELECT \n" +
+                "IFNULL((SELECT SUM(transaction_amount) FROM dsb.transaction WHERE credit_account_accountid = ?), 0) - \n" +
+                "IFNULL((SELECT SUM(transaction_amount) FROM dsb.transaction WHERE debit_account_accountid = ?), 0);");
         query.setParameter(1, account.getAccountID());
         query.setParameter(2, account.getAccountID());
 
