@@ -7,8 +7,11 @@
     <meta charset="UTF-8">
     <title>Aanmelding</title>
 
-
-<!--    TODO: cs ww-gelijktjek, number en required weer aanzetten-->
+    <style>
+        .form-control::-webkit-input-placeholder {
+            color: red;
+        }
+    </style>
 
 </head>
 <body id="signUpPage">
@@ -18,6 +21,8 @@
 <div class="container">
     <br>
     <h1>Aanmeldingspagina</h1>
+    <br>
+    <input class="btn btn-outline-dark" style="background-color: cyan" id="validationToggle" type="button" value="Selecteer client-side validatie">
     <br>
     <p class="italic">Velden met een * zijn verplicht</p>
     <br>
@@ -29,7 +34,7 @@
                     <table><tr><td>
                         <label for="surname">Achternaam*</label>
                     </td><td>
-                        <input type="text" class="form-control" id="surname" name="surname" th:field="*{surname}" autofocus>
+                        <input type="text" class="form-control notEmpty minSize onlyLetters" id="surname" name="surname" th:field="*{surname}">
                     </td></tr><tr><td></td><td>
                     </td></tr><tr><td></td><td>
                         <p class="errors"><span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"/></p>
@@ -40,7 +45,7 @@
                     <table><tr><td>
                         <label for="inserts">Tussenvoegsels</label>
                     </td><td>
-                        <input type="text" class="form-control" id="inserts" name="inserts" th:field="*{inserts}">
+                        <input type="text" class="form-control onlyLetters" id="inserts" name="inserts" th:field="*{inserts}">
                     </td></tr><tr><td></td><td>
                         <p class="errors"><span th:if="${#fields.hasErrors('inserts')}" th:errors="*{inserts}"/></p>
                     </td></tr>
@@ -50,7 +55,7 @@
                     <table><tr><td>
                         <label for="initials">Voorletters*</label>
                     </td><td>
-                        <input type="text" class="form-control" id="initials" name="initials" th:field="*{initials}">
+                        <input type="text" class="form-control notEmpty onlyLetters" id="initials" name="initials" th:field="*{initials}">
                     </td></tr><tr><td></td><td>
                         <p class="errors"><span th:if="${#fields.hasErrors('initials')}" th:errors="*{initials}"/></p>
                     </td></tr>
@@ -60,7 +65,7 @@
                     <table><tr><td>
                         <label for="socialSecurityNo">BSN-nummer*</label>
                     </td><td>
-                        <input type="text" class="form-control" id="socialSecurityNo" name="socialSecurityNo" th:field="*{socialSecurityNoString}">
+                        <input type="text" class="form-control notEmpty onlyNumbers elfTest" id="socialSecurityNo" name="socialSecurityNo" th:field="*{socialSecurityNoString}">
                     </td></tr><tr><td></td><td>
                         <p class="errors"><span th:if="${#fields.hasErrors('socialSecurityNoString')}" th:errors="*{socialSecurityNoString}"/></p>
                     </td></tr>
@@ -73,7 +78,7 @@
                     <table><tr><td>
                         <label for="zipcode">Postcode*</label>
                     </td><td>
-                        <input type="text" class="form-control" id="zipcode" name="zipcode" th:field="*{zipCode}"
+                        <input type="text" class="form-control notEmpty" id="zipcode" name="zipcode" th:field="*{zipCode}"
                                onkeyup="retrieve_address('zipcode',this.value)">
                     </td></tr><tr><td></td><td>
                         <p class="errors"><span th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}"/></p>
@@ -84,7 +89,7 @@
                     <table><tr><td>
                         <label for="housenumber">Huisnummer*</label>
                     </td><td>
-                        <input type="text" class="form-control" id="housenumber" name="housenumber"
+                        <input type="text" class="form-control notEmpty onlyNumbers" id="housenumber" name="housenumber"
                                th:field="*{houseNumberString}" onkeyup="retrieve_address('housenumber', this.value)">
                     </td></tr><tr><td></td><td>
                         <p class="errors"><span th:if="${#fields.hasErrors('houseNumberString')}"
@@ -107,7 +112,7 @@
                     <table><tr><td>
                         <label for="street">Straat</label>
                     </td><td>
-                        <input type="text" class="form-control" id="street" name="street" th:field="*{street}" readonly>
+                        <input type="text" class="form-control notEmpty" id="street" name="street" th:field="*{street}" readonly>
                     </td></tr><tr><td></td><td>
                         <p class="errors"><span th:if="${#fields.hasErrors('street')}" th:errors="*{street}"/></p>
                     </td></tr>
@@ -117,7 +122,7 @@
                     <table><tr><td>
                         <label for="city">Plaats</label>
                     </td><td>
-                        <input type="text" class="form-control" id="city" name="city" th:field="*{city}" readonly />
+                        <input type="text" class="form-control notEmpty" id="city" name="city" th:field="*{city}" readonly />
                     </td></tr><tr><td></td><td>
                         <p class="errors"><span th:if="${#fields.hasErrors('city')}" th:errors="*{city}"/></p>
                     </td></tr>
@@ -133,7 +138,7 @@
                     <table><tr><td>
                         <label for="username">Gebruikersnaam*</label>
                     </td><td>
-                        <input type="text" class="form-control" id="username" name="username" th:field="*{username}">
+                        <input type="text" class="form-control notEmpty minSize userOccupied" id="username" name="username" th:field="*{username}">
                     </td></tr><tr><td></td><td>
                         <p class="errors"><span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"/></p>
                     </td></tr>
@@ -143,7 +148,7 @@
                     <table><tr><td>
                         <label for="password">Wachtwoord*</label>
                     </td><td>
-                        <input type="password" class="form-control" id="password" name="password" th:field="*{password}">
+                        <input type="password" class="form-control notEmpty" id="password" name="password" th:field="*{password}">
                     </td></tr><tr><td></td><td>
                         <p class="errors"><span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"/></p>
                     </td></tr>
@@ -153,7 +158,7 @@
                     <table><tr><td>
                         <label for="password2">Herhaal wachtwoord*</label>
                     </td><td>
-                        <input type="password" class="form-control" id="password2" name="password2">
+                        <input type="password" class="form-control notEmpty passCheck" id="password2" name="password2">
                     </td></tr><tr><td></td><td>
                         <p class="errors"><span th:if="${#fields.hasErrors('password2')}" th:errors="*{password2}"/></p>
                         <p class="errors" style="position: relative; top: 200px;"><span th:if="${#fields.hasGlobalErrors()}" th:each="error : ${#fields.errors('global')}" th:text="${error}"/></p>
@@ -166,8 +171,8 @@
 
 
             <div class="buttons">
-                <input class="btn btn-outline-dark" type="submit" value="Bevestigen">
-                <input class="btn btn-outline-dark" type="button" value="Annuleren" onclick="location.href='/'">
+                <input class="btn btn-outline-dark" id="confirmButton" type="submit" value="Bevestigen">
+                <input class="btn btn-outline-dark" id="cancelButton" type="button" value="Annuleren" onclick="location.href='/'">
             </div>
 
         </div>
@@ -180,104 +185,7 @@
 </div>
 
 
-<!--TODO dit moet nog extern-->
-<script>
-    // Code for retrieving ZIP information from bwnr.nl API
-    // Declare empty variables
-    var zipcode = "";
-    var housenumber = "";
-    var affix = "";
-
-    function retrieve_address(id, value) {
-        console.log("Methode wordt aangeroepen")
-        // Load form data into variables
-        // Return if no valid input (yet)
-        if (id == "zipcode") {
-            var zip = value.trim();
-            console.log(zip);
-            // Check for minimum of 6 characters
-            if (zip.length < 6) {
-                return;
-            }
-            // Check for numeric value of >1000
-            var zip_numeric = zip.substr(0, 4);
-            if (parseFloat(zip_numeric) < 1000) {
-                return;
-            }
-            // Check if last 2 characters are alphabetical
-            var zip_alpha = zip.substr(-2);
-            if (zip_alpha.charCodeAt(0) < 65 || zip_alpha.charCodeAt(0) > 122 || zip_alpha.charCodeAt(1) < 65 || zip_alpha.charCodeAt(1) > 122) {
-                return;
-            }
-            // Concatenate final zipcode
-            zipcode = zip_numeric + zip_alpha.toUpperCase();
-            document.getElementById("zipcode").value = zipcode;
-        }
-        if (id == "housenumber") {
-            // Check if housenumber is not empty and >0
-            housenumber = parseFloat(value);
-            if (!housenumber || housenumber == 0) {
-                return;
-            }
-            document.getElementById("housenumber").value = housenumber;
-        }
-        if (id == "affix") {
-            affix = value.trim();
-            document.getElementById("affix").value = affix;
-        }
-        if (!housenumber) {
-            return;
-        }
-
-        // Create API url
-        var apiRequest = "https://bwnr.nl/postcode.php?pc=" + zipcode + "&hn=" + housenumber + "&tv=" + affix + "&tg=data";
-        var xmlHttpRequest = new XMLHttpRequest();
-
-        // Catch responses
-        xmlHttpRequest.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                var rString = this.responseText;
-                if (rString == "Geen resultaat.") {
-                    return;
-                }
-                if (rString == "Input onvolledig.") {
-                    return;
-                }
-                if (rString == "Onbekende API Key.") {
-                    return;
-                }
-                if (rString == "Over quota") {
-                    return;
-                }
-
-                // Autofill responses
-                var aResponse = rString.split(";");
-                document.getElementById("street").value = aResponse[0];
-                document.getElementById("city").value = aResponse[1];
-            }
-        }
-
-        // Execute API request
-        xmlHttpRequest.open("GET", apiRequest, true);
-        xmlHttpRequest.send();
-    }
-
-    /*TODO Dit moet nog aan*/
-    // function pass() {
-    //     var password = document.getElementById("password").value
-    //     var password2 = document.getElementById("password2").value
-    //     if (password != password2) {
-    //         alert("Wachtwoorden komen niet overeen");
-    //         return false;
-    //     }
-    //     return true;
-    //
-    //
-    // }
-
-
-</script>
-
+<script type="text/javascript" th:src="@{/signUpActions.js}"></script>
 
 </body>
 </html>
