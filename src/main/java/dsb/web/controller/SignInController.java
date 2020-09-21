@@ -2,6 +2,8 @@ package dsb.web.controller;
 
 import dsb.web.controller.beans.LoginBean;
 import dsb.web.domain.Customer;
+import dsb.web.domain.Employee;
+import dsb.web.domain.User;
 import dsb.web.repository.CustomerRepository;
 import dsb.web.service.SignInService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +31,25 @@ public class SignInController {
         return "sign-in";
     }
 
+    @GetMapping("employee_sign-in")
+    public String employeeSignIn(Model model) {
+        model.addAttribute("loginBean", new LoginBean());
+        return "employee_sign-in";
+    }
+
     @PostMapping("sign-in")
     public ModelAndView signInHandler(
             @ModelAttribute LoginBean loginBean,
             Model model) {
-        Customer loginCustomer = signInService.checkCredentials(loginBean.getUsername(), loginBean.getPassword());
-        if (loginCustomer != null) {
-            model.addAttribute(AttributeMapping.LOGGED_IN_CUSTOMER, loginCustomer);
-            return new ModelAndView("redirect:/account_overview");
+        User loginUser = signInService.checkCredentials(loginBean.getUsername(), loginBean.getPassword());
+        if (loginUser != null) {
+            if (loginUser instanceof Customer) {
+                model.addAttribute(AttributeMapping.LOGGED_IN_CUSTOMER, loginUser);
+                return new ModelAndView("redirect:/account_overview");
+            } else {
+                model.addAttribute(AttributeMapping.LOGGED_IN_EMPLOYEE, loginUser);
+                return new ModelAndView("redirect:/employee_consumer_dashboard");
+            }
         } else {
             model.addAttribute("username", loginBean.getUsername());
             model.addAttribute("password", loginBean.getPassword());
