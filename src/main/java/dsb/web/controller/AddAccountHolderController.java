@@ -43,34 +43,32 @@ public class AddAccountHolderController {
         ModelAndView mav = new ModelAndView("add-account-holder");
         Account account = (Account) model.getAttribute(AttributeMapping.SELECTED_ACCOUNT);
         mav.addObject("accountNo", account.getAccountNo());
-        mav.addObject("loginBean",new LoginBean());
-        mav.addObject("tokenCode", "");
         return mav;
     }
 
     @PostMapping("confirm-add-account-holder")
-    public String addAccountHolderVerify(
-            @ModelAttribute LoginBean loginBean,
+    public String addAccountHolderVerifyHandler(
+            @RequestParam(name = "password") String password,
+            @RequestParam(name = "new_account_holder") String newAccountHolder,
+            @RequestParam(name = "tokenCode") String tokenCode,
             @ModelAttribute(AttributeMapping.LOGGED_IN_CUSTOMER) Customer loggedInCustomer,
             @ModelAttribute(AttributeMapping.SELECTED_ACCOUNT) Account account,
-            Model model){
-        String usernameValid = addAccountHolderService.checkUsernameValidity(loginBean.getUsername(), loggedInCustomer, account);
-        if (usernameValid ==  loginBean.getUsername()) {
-            loginBean.setPassword(null);
-            model.addAttribute("loginBean", loginBean);
+            Model model) {
+        String usernameValid = addAccountHolderService.checkUsernameValidity(newAccountHolder, loggedInCustomer, account);
+        Customer passwordCorrect = signInService.checkCredentials(loggedInCustomer.getUsername(), password);
+        if (usernameValid != "" || passwordCorrect == null) {
             model.addAttribute("errorMessage", usernameValid);
             return ("add-account-holder");
         } else {
             model.addAttribute("confirmBean", addAccountHolderService.getConfirmBeanAccountHolderToken());
-            int tokenCode = 00000;
-            addAccountHolderService.createAddAccountHolderToken(loggedInCustomer,account,Integer.toString(tokenCode));
+            addAccountHolderService.createAddAccountHolderToken(customerRepository.findOneByUsername(newAccountHolder).get(), account, tokenCode);
             return "confirm";
         }
     }
 
 
     @GetMapping("confirm-add-holder")
-    String addAccountHolderConfirm(
+    String addAccountHolderConfirmHandler(
             @ModelAttribute ConfirmBean confirmBean,
             Model model){
         System.out.println(confirmBean);
@@ -78,41 +76,38 @@ public class AddAccountHolderController {
         return "confirm";
     }
 
+
+
     /*resolve tokens:*/
 
     @PostMapping("resolve-account-holder-token")
-    String resolve(@RequestParam(name = "tokenId") String tokenId,
+    String resolvePageHandler(@RequestParam(name = "tokenId") String tokenId,
                    Model model){
         //print Map:
-        Map<String,Object> map = model.asMap();
+        /*Map<String,Object> map = model.asMap();
         for (Map.Entry<String,Object> entry : map.entrySet()) {
             System.out.println("Key: " + entry.getKey());
             System.out.println("Value: " + entry.getValue());
-        }
+        }*/
         model.addAttribute("tokenId", tokenId);
+        model.addAttribute("errorMsg", null);
         return "resolve-account-holder-token";
     }
 
-    @PostMapping("resolve-account-holder-token-2")
-    String resolve2(@RequestParam(name = "tokenCode") String tokenCode,
+    @PostMapping("resolve-account-holder-token-verify")
+    String resolvePageVerifyHandler(@RequestParam(name = "tokenCode") String tokenCode,
                     @ModelAttribute("tokenId") String tokenId,
-                   @ModelAttribute(AttributeMapping.LOGGED_IN_CUSTOMER) Customer loggedInCustomer,
+                    @ModelAttribute(AttributeMapping.LOGGED_IN_CUSTOMER) Customer loggedInCustomer,
                    Model model){
         Account acc = addAccountHolderService.resolveToken(tokenId, tokenCode, loggedInCustomer);
-        if (acc != null)
-            model.addAttribute(new ConfirmBean("Gefeliciteerd!", "Je bent toegevoegd als nieuwe rekeninghouder aan " + acc.getAccountNo()));
-        return "confirm";
+        if (acc != null) {
+            model.addAttribute(new ConfirmBean("Gefeliciteerd!", "Je bent toegevoegd als nieuwe rekeninghouder aan " + acc.getAccountNo(), "account_overview", "OK"));
+            return "confirm";
+        }
+        model.addAttribute("tokenId", tokenId);
+        model.addAttribute("errorMsg", "De door jou ingevoerde code is incorrect, probeer het nogmaals");
+        return "resolve-account-holder-token";
     }
-
-
-
-/*    @GetMapping("resolve-account-holder-token")
-    String compareTokens(@ModelAttribute("accountHolderTokens") List<AccountHolderTokenBean> tokens,
-                         Model model){
-        System.out.println(tokens);
-        model.addAttribute("accountHolderTokenBean", new AccountHolderTokenBean());
-        return "confirm";
-    }*/
 
 
     @RestController
@@ -125,17 +120,13 @@ public class AddAccountHolderController {
             super();
         }
 
-        @GetMapping(value = "/{username}")
-        public String findUser(@PathVariable("username") String username,
+        @GetMapping(value = "/{usernameCheck}")
+        public String findUser(@PathVariable("usernameCheck") String usernameCheck,
                                @ModelAttribute(AttributeMapping.LOGGED_IN_CUSTOMER) Customer loggedInCustomer,
                                @ModelAttribute(AttributeMapping.SELECTED_ACCOUNT) Account account){
-            String isValid = addAccountHolderService.checkUsernameValidity(username, loggedInCustomer, account);
-            System.out.println(username);
-            System.out.println(loggedInCustomer);
-            System.out.println(account);
-            System.out.println(isValid);
+            String isValid = addAccountHolderService.checkUsernameValidity(usernameCheck, loggedInCustomer, account);
             if (isValid == null) {
-                return username;
+                return usernameCheck;
             }
             return isValid;
         }

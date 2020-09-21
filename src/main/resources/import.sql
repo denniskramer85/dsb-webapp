@@ -19,6 +19,7 @@ INSERT INTO `dsb`.`customer` (`customerid`, `initials`, `password`, `social_secu
 INSERT INTO `dsb`.`customer` (`customerid`, `initials`, `password`, `social_security_no`, `surname`, `username`, `address_addressid`) VALUES ('11', 'D.', 'dennis', '123456', 'Kramer', 'dennis', '11');
 INSERT INTO `dsb`.`customer` (`customerid`, `initials`, `password`, `social_security_no`, `surname`, `username`, `address_addressid`) VALUES ('12', 'E.M.', 'miel', '123456', 'van Welzen', 'miel', '11');
 INSERT INTO `dsb`.`customer` (`customerid`, `initials`, `password`, `social_security_no`, `surname`, `username`, `address_addressid`) VALUES ('13', 'M.C.', 'asd', '123456', 'Escher', 'asd', '11');
+INSERT INTO `dsb`.`customer` (`customerid`, `initials`, `password`, `social_security_no`, `surname`, `username`, `address_addressid`) VALUES ('14', 'A.M.G', 'anni', '123456', 'Schmit', 'anni', '11');
 
 INSERT INTO `dsb`.`role` (`roleid`, `role_name`) VALUES('1', 'Retail')
 INSERT INTO `dsb`.`role` (`roleid`, `role_name`) VALUES('2', 'Commercial')
