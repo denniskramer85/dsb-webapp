@@ -67,7 +67,7 @@
             <div class="card-body">
                 <div id="transactionList">
                     <p class="italic" th:if="*{transactionStrings.empty}">Voor deze rekening zijn geen transacties beschikbaar.</p>
-                    <div th:each="transaction : *{transactionStrings}">
+                    <div  th:each="transaction : *{transactionStrings}">
                         <p><span th:text="${transaction}"  /></p>
                     </div>
                 </div>
