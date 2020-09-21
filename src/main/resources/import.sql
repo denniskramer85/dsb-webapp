@@ -13,7 +13,9 @@ INSERT INTO dsb.sector VALUES (11, 'Logistiek')
 INSERT INTO dsb.sector VALUES (12, 'Overig')
 INSERT INTO dsb.sector VALUES (13, 'Zakelijke diensten')
 
+INSERT INTO `dsb`.`address` (`addressid`, `city`, `house_number`, `street`) VALUES ('99999999', 'Wognum', '6', 'Dick Ketlaan');
 INSERT INTO `dsb`.`address` (`addressid`, `city`, `house_number`, `street`) VALUES ('11', 'Amsterdam', '1', 'Straat');
+INSERT INTO `dsb`.`customer` (`customerid`, `initials`, `password`, `social_security_no`, `surname`, `username`, `address_addressid`) VALUES ('99999999', 'DSB', 'dsbb', '000000', 'Bank', 'dsbb', '99999999');
 INSERT INTO `dsb`.`customer` (`customerid`, `initials`, `password`, `social_security_no`, `surname`, `username`, `address_addressid`) VALUES ('11', 'D.', 'dennis', '123456', 'Kramer', 'dennis', '11');
 INSERT INTO `dsb`.`customer` (`customerid`, `initials`, `password`, `social_security_no`, `surname`, `username`, `address_addressid`) VALUES ('12', 'E.M.', 'miel', '123456', 'van Welzen', 'miel', '11');
 INSERT INTO `dsb`.`customer` (`customerid`, `initials`, `password`, `social_security_no`, `surname`, `username`, `address_addressid`) VALUES ('13', 'M.C.', 'asd', '123456', 'Escher', 'asd', '11');
@@ -29,21 +31,19 @@ INSERT INTO `dsb`.`company` (`company_id`, `btwno`, `kvkno`, `name`, `sector_sec
 INSERT INTO `dsb`.`company` (`company_id`, `btwno`, `kvkno`, `name`, `sector_sector_id`, `account_manager`) VALUES ('13', 'NL0012345B05', '26492741', 'AvH Corp.', 12, '45');
 INSERT INTO `dsb`.`company` (`company_id`, `btwno`, `kvkno`, `name`, `account_manager`, `sector_sector_id`) VALUES ('14', 'NL0012345B06', '26492744', 'ThijsICT', '45', '6');
 
-
-INSERT INTO `dsb`.`account` (`accountid`, `account_no`, `balance`) VALUES ('110', 'NL32DSBB0123456780', '1000');
-INSERT INTO `dsb`.`account` (`accountid`, `account_no`, `balance`) VALUES ('111', 'NL05DSBB0123456781', '1500');
-INSERT INTO `dsb`.`account` (`accountid`, `account_no`, `balance`) VALUES ('112', 'NL75DSBB0123456782', '1250');
-INSERT INTO `dsb`.`account` (`accountid`, `account_no`, `balance`) VALUES ('113', 'NL48DSBB0123456783', '10000');
-INSERT INTO `dsb`.`account` (`accountid`, `account_no`, `balance`) VALUES ('114', 'NL21DSBB0123456784', '12500');
-INSERT INTO `dsb`.`account` (`accountid`, `account_no`, `balance`) VALUES ('115', 'NL91DSBB0123456785', '15000');
-INSERT INTO `dsb`.`account` (`accountid`, `account_no`, `balance`) VALUES ('116', 'NL64DSBB0123456786', '2000');
-INSERT INTO `dsb`.`account` (`accountid`, `account_no`, `balance`) VALUES ('117', 'NL37DSBB0123456787', '5000');
-INSERT INTO `dsb`.`account` (`accountid`, `account_no`, `balance`) VALUES ('118', 'NL10DSBB0123456788', '1000');
-INSERT INTO `dsb`.`account` (`accountid`, `account_no`, `balance`) VALUES ('119', 'NL80DSBB0123456789', '12000');
-INSERT INTO `dsb`.`account` (`accountid`, `account_no`, `balance`) VALUES ('120', 'NL53DSBB0123456790', '10000');
-INSERT INTO `dsb`.`account` (`accountid`, `account_no`, `balance`) VALUES ('121', 'NL26DSBB0123456791', '22000');
-
-
+INSERT INTO `dsb`.`account` (`accountid`, `account_no`, `balance`) VALUES ('99999999', 'NL39DSBB0000000001', 0);
+INSERT INTO `dsb`.`account` (`accountid`, `account_no`, `balance`) VALUES ('110', 'NL32DSBB0123456780', 0);
+INSERT INTO `dsb`.`account` (`accountid`, `account_no`, `balance`) VALUES ('111', 'NL05DSBB0123456781', 0);
+INSERT INTO `dsb`.`account` (`accountid`, `account_no`, `balance`) VALUES ('112', 'NL75DSBB0123456782', 0);
+INSERT INTO `dsb`.`account` (`accountid`, `account_no`, `balance`) VALUES ('113', 'NL48DSBB0123456783', 0);
+INSERT INTO `dsb`.`account` (`accountid`, `account_no`, `balance`) VALUES ('114', 'NL21DSBB0123456784', 0);
+INSERT INTO `dsb`.`account` (`accountid`, `account_no`, `balance`) VALUES ('115', 'NL91DSBB0123456785', 0);
+INSERT INTO `dsb`.`account` (`accountid`, `account_no`, `balance`) VALUES ('116', 'NL64DSBB0123456786', 0);
+INSERT INTO `dsb`.`account` (`accountid`, `account_no`, `balance`) VALUES ('117', 'NL37DSBB0123456787', 0);
+INSERT INTO `dsb`.`account` (`accountid`, `account_no`, `balance`) VALUES ('118', 'NL10DSBB0123456788', 0);
+INSERT INTO `dsb`.`account` (`accountid`, `account_no`, `balance`) VALUES ('119', 'NL80DSBB0123456789', 0);
+INSERT INTO `dsb`.`account` (`accountid`, `account_no`, `balance`) VALUES ('120', 'NL53DSBB0123456790', 0);
+INSERT INTO `dsb`.`account` (`accountid`, `account_no`, `balance`) VALUES ('121', 'NL26DSBB0123456791', 0);
 
 INSERT INTO `dsb`.`consumer_account` (`accountid`) VALUES ('110');
 INSERT INTO `dsb`.`consumer_account` (`accountid`) VALUES ('111');
@@ -74,6 +74,20 @@ INSERT INTO `dsb`.`account_holders` (`accounts_accountid`, `holders_customerid`)
 INSERT INTO `dsb`.`account_holders` (`accounts_accountid`, `holders_customerid`) VALUES (113, 11);
 INSERT INTO `dsb`.`account_holders` (`accounts_accountid`, `holders_customerid`) VALUES (114, 11);
 INSERT INTO `dsb`.`account_holders` (`accounts_accountid`, `holders_customerid`) VALUES (115, 11);
+
+INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, credit_account_accountid, debit_account_accountid) VALUES ('99999980', 'DSB Startkapitaal', 1000, '2020-01-01 01:01:01', 99999999, 110);
+INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, credit_account_accountid, debit_account_accountid) VALUES ('99999981', 'DSB Startkapitaal', 1250, '2020-01-01 01:01:01', 99999999, 111);
+INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, credit_account_accountid, debit_account_accountid) VALUES ('99999982', 'DSB Startkapitaal', 1500, '2020-01-01 01:01:01', 99999999, 112);
+INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, credit_account_accountid, debit_account_accountid) VALUES ('99999983', 'DSB Startkapitaal', 10000, '2020-01-01 01:01:01', 99999999, 113);
+INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, credit_account_accountid, debit_account_accountid) VALUES ('99999984', 'DSB Startkapitaal', 20000, '2020-01-01 01:01:01', 99999999, 114);
+INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, credit_account_accountid, debit_account_accountid) VALUES ('99999985', 'DSB Startkapitaal', 30000, '2020-01-01 01:01:01', 99999999, 115);
+INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, credit_account_accountid, debit_account_accountid) VALUES ('99999986', 'DSB Startkapitaal', 15000, '2020-01-01 01:01:01', 99999999, 116);
+INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, credit_account_accountid, debit_account_accountid) VALUES ('99999987', 'DSB Startkapitaal', 17000, '2020-01-01 01:01:01', 99999999, 117);
+INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, credit_account_accountid, debit_account_accountid) VALUES ('99999988', 'DSB Startkapitaal', 12000, '2020-01-01 01:01:01', 99999999, 118);
+INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, credit_account_accountid, debit_account_accountid) VALUES ('99999989', 'DSB Startkapitaal', 42000, '2020-01-01 01:01:01', 99999999, 119);
+INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, credit_account_accountid, debit_account_accountid) VALUES ('99999990', 'DSB Startkapitaal', 50000, '2020-01-01 01:01:01', 99999999, 120);
+INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, credit_account_accountid, debit_account_accountid) VALUES ('99999991', 'DSB Startkapitaal', 610000, '2020-01-01 01:01:01', 99999999, 121);
+
 
 INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, credit_account_accountid, debit_account_accountid) VALUES ('300', 'Huur', 100, '2020-01-01 01:01:01', 110, 111);
 INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, credit_account_accountid, debit_account_accountid) VALUES ('301', 'Etentje', 100, '2020-01-02 01:01:01', 110, 112);

@@ -14,7 +14,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.validation.Valid;
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
 
@@ -49,13 +48,15 @@ public class TransactionService {
             transactionRepository.save(stagedTransaction);
 
             // Adjust account balances for debit- and creditaccount
-            adjustBalances(stagedTransaction);
+            updateBalance(debitAccount);
+            updateBalance(creditAccount);
 
             return true;
         }
         return false;
     }
 
+    // Create a pre-filled transaction object from a TransferBean
     private Transaction transactionFactory(TransferBean transferBean) {
         Transaction stagedTransaction = new Transaction();
 
@@ -68,7 +69,23 @@ public class TransactionService {
         return stagedTransaction;
     }
 
-    // Calculate new balance through BigDecimal conversion and arithmetics
+    // Calculate new balance for account based on full transaction history of account
+    public void updateBalance(Account account) {
+        // Get updated account balance with native SQL query
+        Query query = entityManager.createNativeQuery("SELECT \n" +
+                "IFNULL((SELECT SUM(transaction_amount) FROM dsb.transaction WHERE credit_account_accountid = ?), 0) - \n" +
+                "IFNULL((SELECT SUM(transaction_amount) FROM dsb.transaction WHERE debit_account_accountid = ?), 0);");
+        query.setParameter(1, account.getAccountID());
+        query.setParameter(2, account.getAccountID());
+
+        Double balance = (Double) query.getSingleResult();
+
+        // Update balance in account attributes and persist to database
+        account.setBalance(balance);
+        accountRepository.save(account);
+    }
+
+    /*    // Calculate new balance through BigDecimal conversion and arithmetics
     private void adjustBalances(Transaction transaction) {
         // Get BigDecimal values of account balances and transfer amount
         BigDecimal debitBalanceBefore = BigDecimal.valueOf(debitAccount.getBalance()).stripTrailingZeros();
@@ -86,20 +103,5 @@ public class TransactionService {
         accountRepository.save(creditAccount);
 
         updateBalance(debitAccount);
-    }
-
-    private void updateBalance(Account account) {
-        // Get updated account balance with native SQL query
-        Query query = entityManager.createNativeQuery("SELECT \n" +
-                "IFNULL((SELECT SUM(transaction_amount) FROM dsb.transaction WHERE credit_account_accountid = ?), 0) - \n" +
-                "IFNULL((SELECT SUM(transaction_amount) FROM dsb.transaction WHERE debit_account_accountid = ?), 0);");
-        query.setParameter(1, account.getAccountID());
-        query.setParameter(2, account.getAccountID());
-
-        Double newBalance = (Double) query.getSingleResult();
-
-        System.out.println("Balance of " + account.getAccountNo() + " = " + newBalance);
-
-
-    }
+    }*/
 }
