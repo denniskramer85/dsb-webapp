@@ -49,7 +49,7 @@ public class SMEDashboardController {
 
         List<TokenPaymentMachine> getAllLinkRequests = smeDashboardService.getAllByLinkRequest();
         List<SMEAccount> top10Balance = smeDashboardService.getTop10bySmeBalance();
-        Map<Sector, Integer> averageTop10BySector = smeDashboardService.averageTop10BySector();
+        Map<Sector, Integer> averageTop10BySector = smeDashboardService.averageBySector();
         model.addAttribute("naam", "Naam medewerker");
         model.addAttribute("linkRequestList", getAllLinkRequests);
         model.addAttribute("transactionsList", top10Transaction);
