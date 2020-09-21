@@ -1,5 +1,6 @@
 package dsb.web.controller;
 
+import dsb.web.controller.beans.PrintAccountDataBean;
 import dsb.web.domain.Account;
 import dsb.web.service.AccountPageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,13 @@ public class AccountPageController {
         System.out.println(account);
         //make bean for printing account data
         model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
+
+
+        //TODO weg, ivm test
+        PrintAccountDataBean padb = (PrintAccountDataBean) model.getAttribute("printAccountDataBean");
+        System.out.println("print in de controller" + padb);
+
+
         return "account_page";
     }
 }

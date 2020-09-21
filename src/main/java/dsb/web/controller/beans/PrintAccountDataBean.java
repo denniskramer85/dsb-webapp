@@ -25,6 +25,19 @@ public class PrintAccountDataBean {
         this.transactionStrings = transactionStrings;
     }
 
+    @Override
+    public String toString() {
+        return "PrintAccountDataBean{" +
+                "typeAccount='" + typeAccount + '\'' +
+                ", accountNo='" + accountNo + '\'' +
+                ", companyName='" + companyName + '\'' +
+                ", holderNames='" + holderNames + '\'' +
+                ", balance='" + balance + '\'' +
+                ", timestamp='" + timestamp + '\'' +
+                ", transactionStrings=" + transactionStrings +
+                '}';
+    }
+
     public String getTypeAccount() {
         return typeAccount;
     }
