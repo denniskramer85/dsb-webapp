@@ -1,5 +1,6 @@
 package dsb.web.controller;
 
+import dsb.web.controller.beans.LoginBean;
 import dsb.web.domain.SMEAccount;
 import dsb.web.domain.TokenPaymentMachine;
 import dsb.web.service.RequestPaymentMachineService;
@@ -27,7 +28,15 @@ public class RequestPaymentMachineController {
 
     @GetMapping("request-paymentmachine")
     public String requestPaymentMachine(Model model, @ModelAttribute(AttributeMapping.SELECTED_ACCOUNT) SMEAccount smeAccount) {
-       TokenPaymentMachine token = requestPaymentMachineService.createAndSaveToken(smeAccount);
+        model.addAttribute("loginBean", new LoginBean());
         return "confirm_paymentmachine_request";
+    }
+
+    @PostMapping("add-paymentmachine")
+    public String confirmPaymentMachine(Model model, @ModelAttribute(AttributeMapping.SELECTED_ACCOUNT) SMEAccount smeAccount, @ModelAttribute ("loginBean") LoginBean loginBean) {
+    loginBean.getPassword();
+        System.out.println(loginBean);
+        TokenPaymentMachine token = requestPaymentMachineService.createAndSaveToken(smeAccount);
+        return "index";
     }
 }
