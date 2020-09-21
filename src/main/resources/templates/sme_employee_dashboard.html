@@ -88,8 +88,9 @@
                     <div class="card-body">
             <table>
                 <tr th:each=" transaction: ${transactionsList}">
-                    <td th:text="${transaction.key}">keyvalue</td>
                     <td th:text="${transaction.value}">num</td>
+                    <td th:text="${transaction.key.company.name}">keyvalue</td>
+                    <td th:text="${transaction.key.company.KVKno}">keyvalue</td>
                 </tr>
             </table>
                 </div>
