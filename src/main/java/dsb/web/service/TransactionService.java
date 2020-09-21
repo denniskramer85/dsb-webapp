@@ -88,7 +88,7 @@ public class TransactionService {
             }
         }
 
-        // Update balance in account attributes and persist to database
+        // Update balance in account attributes and update in database
         account.setBalance(balance);
         accountRepository.save(account);
     }
