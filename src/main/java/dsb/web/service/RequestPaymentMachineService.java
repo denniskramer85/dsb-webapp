@@ -2,11 +2,12 @@ package dsb.web.service;
 
 
 
-import dsb.web.domain.SMEAccount;
-import dsb.web.domain.TokenPaymentMachine;
+import dsb.web.domain.*;
 import dsb.web.repository.TokenPaymentMachineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.security.SecureRandom;
 
 @Service
 public class RequestPaymentMachineService {
@@ -25,6 +26,14 @@ public class RequestPaymentMachineService {
         TokenPaymentMachine token = new TokenPaymentMachine(smeAccount);
         tokenPaymentMachineRepository.save(token);
         return token;
+    }
+
+    public TokenPaymentMachine generateSecCodeToken(TokenPaymentMachine tokenPaymentMachine) {
+        SecureRandom random = new SecureRandom();
+        int securityCode = random.nextInt(100000);
+        tokenPaymentMachine.setSecurityCode(securityCode);
+        return tokenPaymentMachineRepository.save(tokenPaymentMachine);
+        //TODO if succesful delete or modify token?
     }
 
 
