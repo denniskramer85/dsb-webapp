@@ -25,9 +25,9 @@ public class ApplicationStartupService {
     }
 
     public void setupBalances() {
-        List<Account> accounts = accountRepository.findAll();
+        /*List<Account> accounts = accountRepository.findAll();
         for (Account account : accounts) {
             transactionService.updateBalance(account);
-        }
+        }*/
     }
 }

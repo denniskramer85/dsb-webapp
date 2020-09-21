@@ -14,21 +14,22 @@ import java.util.*;
 
 @Service
 public class NewAccountService {
-    public static final int BAllANCE = 25;
+    public static final int BALANCE = 0;
 
     private AccountRepository accountRepository;
     private CompanyRepository companyRepository;
     private SMEAccountRepository accountRepositorySme;
     private ConsumerAccountRepository consumerAccountRepository;
     private EmployeeRepository employeeRepository;
+    private TransactionService transactionService;
 
-
-    public NewAccountService(CompanyRepository companyRepository, SMEAccountRepository accountRepositorySme, ConsumerAccountRepository consumerAccountRepository, AccountRepository accountRepository, EmployeeRepository employeeRepository) {
-        this.companyRepository = companyRepository;
-        this.accountRepositorySme  = accountRepositorySme;
-        this.consumerAccountRepository = consumerAccountRepository;
+    public NewAccountService(AccountRepository accountRepository, CompanyRepository companyRepository, SMEAccountRepository accountRepositorySme, ConsumerAccountRepository consumerAccountRepository, EmployeeRepository employeeRepository, TransactionService transactionService) {
         this.accountRepository = accountRepository;
+        this.companyRepository = companyRepository;
+        this.accountRepositorySme = accountRepositorySme;
+        this.consumerAccountRepository = consumerAccountRepository;
         this.employeeRepository = employeeRepository;
+        this.transactionService = transactionService;
     }
 
     public void saveNewAccount(CompanyBean companyBean){
@@ -45,16 +46,17 @@ public class NewAccountService {
             account = accountRepositorySme.save(
             new SMEAccount(
                             IbanService.randIBAN().toString(),
-                            BAllANCE,
+                            BALANCE,
                             Arrays.asList(companyBean.getCurrentCustomer()),
                             company));
         } else {
             account = consumerAccountRepository.save(
                     new ConsumerAccount(
                             IbanService.randIBAN().toString(),
-                            BAllANCE,
+                            BALANCE,
                             Arrays.asList(companyBean.getCurrentCustomer())));
         }
+        transactionService.doInitialTransaction(account);
         System.out.println("New account created");
     }
 }
