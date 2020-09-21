@@ -71,7 +71,10 @@ public class Customer implements Comparable<Customer> {
     public String printWholeName() {
         if (inserts == null) {
             inserts = "";
+        } else {
+            inserts += " ";
         }
+
         return String.format("%s %s%s", initials, inserts, surname);
     }
 

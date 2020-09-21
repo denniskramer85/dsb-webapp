@@ -20,6 +20,9 @@ public class CreateAccountHoldersString {
         this.maxHoldersShown = maxHoldersShown;
     }
 
+    public CreateAccountHoldersString() {
+        this.listHolders = new ArrayList<>();
+    }
 
     public String createAccountHoldersString() {
 
@@ -74,6 +77,10 @@ public class CreateAccountHoldersString {
             maxLoop = holderNames.size();
         };
         return maxLoop;
+    }
+
+    public void addHolder(Customer customer) {
+        listHolders.add(customer);
     }
 
 

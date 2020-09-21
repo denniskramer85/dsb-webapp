@@ -196,4 +196,13 @@ public class SignUpBean {
     public void setPassword2(String password2) {
         this.password2 = password2;
     }
+
+    @Override
+    public String toString() {
+        return "SignUpBean{" +
+                "surname='" + surname + '\'' +
+                ", inserts='" + inserts + '\'' +
+                ", initials='" + initials + '\'' +
+                '}';
+    }
 }
