@@ -74,6 +74,7 @@ INSERT INTO `dsb`.`account_holders` (`accounts_accountid`, `holders_customerid`)
 INSERT INTO `dsb`.`account_holders` (`accounts_accountid`, `holders_customerid`) VALUES (113, 11);
 INSERT INTO `dsb`.`account_holders` (`accounts_accountid`, `holders_customerid`) VALUES (114, 11);
 INSERT INTO `dsb`.`account_holders` (`accounts_accountid`, `holders_customerid`) VALUES (115, 11);
+INSERT INTO `dsb`.`account_holders` (`accounts_accountid`, `holders_customerid`) VALUES (110, 13);
 
 INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, credit_account_accountid, debit_account_accountid) VALUES ('300', 'Huur', 100, '2020-01-01 01:01:01', 110, 111);
 INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, credit_account_accountid, debit_account_accountid) VALUES ('301', 'Etentje', 100, '2020-01-02 01:01:01', 110, 112);

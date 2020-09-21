@@ -44,31 +44,30 @@ public class AddAccountHolderController {
         Account account = (Account) model.getAttribute(AttributeMapping.SELECTED_ACCOUNT);
         mav.addObject("accountNo", account.getAccountNo());
         mav.addObject("loginBean",new LoginBean());
+        mav.addObject("tokenCode", "");
         return mav;
     }
 
     @PostMapping("confirm-add-account-holder")
-    Object addAccountHolderVerify(
+    public String addAccountHolderVerify(
             @ModelAttribute LoginBean loginBean,
             @ModelAttribute(AttributeMapping.LOGGED_IN_CUSTOMER) Customer loggedInCustomer,
             @ModelAttribute(AttributeMapping.SELECTED_ACCOUNT) Account account,
             Model model){
-        Optional<Customer> newAccountHolder = customerRepository.findOneByUsername(loginBean.getUsername());
-        if (!newAccountHolder.isPresent()) {
+        String usernameValid = addAccountHolderService.checkUsernameValidity(loginBean.getUsername(), loggedInCustomer, account);
+        if (usernameValid ==  loginBean.getUsername()) {
             loginBean.setPassword(null);
             model.addAttribute("loginBean", loginBean);
-            return new ModelAndView("redirect:/add-account-holder");
+            model.addAttribute("errorMessage", usernameValid);
+            return ("add-account-holder");
         } else {
-            ConfirmBean confirmBean = new ConfirmBean(
-                    "Aanvraag nieuwe rekeninghouder geslaagd",
-                    new ArrayList<String>(Arrays.asList("Je aanvraag om een nieuwe rekeninghouder toe te voegen is geslaagd. Klik op volgende om naar de rekeningpagina terug te keren")),
-                    "account_overview");
-            model.addAttribute("confirmBean", confirmBean);
+            model.addAttribute("confirmBean", addAccountHolderService.getConfirmBeanAccountHolderToken());
             int tokenCode = 00000;
             addAccountHolderService.createAddAccountHolderToken(loggedInCustomer,account,Integer.toString(tokenCode));
             return "confirm";
         }
     }
+
 
     @GetMapping("confirm-add-holder")
     String addAccountHolderConfirm(
@@ -85,11 +84,11 @@ public class AddAccountHolderController {
     String resolve(@RequestParam(name = "tokenId") String tokenId,
                    Model model){
         //print Map:
-        /*Map<String,Object> map = model.asMap();
+        Map<String,Object> map = model.asMap();
         for (Map.Entry<String,Object> entry : map.entrySet()) {
             System.out.println("Key: " + entry.getKey());
             System.out.println("Value: " + entry.getValue());
-        }*/
+        }
         model.addAttribute("tokenId", tokenId);
         return "resolve-account-holder-token";
     }
@@ -101,7 +100,7 @@ public class AddAccountHolderController {
                    Model model){
         Account acc = addAccountHolderService.resolveToken(tokenId, tokenCode, loggedInCustomer);
         if (acc != null)
-            model.addAttribute(new ConfirmBean("Gefeliciteerd!", Arrays.asList("Je bent toegevoegd als nieuwe rekeninghouder aan" + acc.getAccountNo()),"account_overview"));
+            model.addAttribute(new ConfirmBean("Gefeliciteerd!", "Je bent toegevoegd als nieuwe rekeninghouder aan " + acc.getAccountNo()));
         return "confirm";
     }
 
@@ -116,41 +115,29 @@ public class AddAccountHolderController {
     }*/
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @RestController
     @RequestMapping(value = "/find_users")
+    @SessionAttributes({AttributeMapping.LOGGED_IN_CUSTOMER, AttributeMapping.SELECTED_ACCOUNT})
     class FindUserController{
+
 
         public FindUserController() {
             super();
         }
 
         @GetMapping(value = "/{username}")
-        public String findUser(@PathVariable("username") String username){
-            Optional<Customer> customerOptional = customerRepository.findOneByUsername(username);
-            if (customerOptional.isPresent()) {
-                return customerOptional.get().getUsername();
+        public String findUser(@PathVariable("username") String username,
+                               @ModelAttribute(AttributeMapping.LOGGED_IN_CUSTOMER) Customer loggedInCustomer,
+                               @ModelAttribute(AttributeMapping.SELECTED_ACCOUNT) Account account){
+            String isValid = addAccountHolderService.checkUsernameValidity(username, loggedInCustomer, account);
+            System.out.println(username);
+            System.out.println(loggedInCustomer);
+            System.out.println(account);
+            System.out.println(isValid);
+            if (isValid == null) {
+                return username;
             }
-            return null;
+            return isValid;
         }
     }
 

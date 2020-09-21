@@ -1,16 +1,21 @@
 package dsb.web.controller.beans;
 
-import java.util.List;
-
 public class ConfirmBean {
     private String title;
-    private List<String> messages;
+    private String message;
     private String url;
+    private String urlName;
 
-    public ConfirmBean(String title, List<String> messages, String url) {
+    public ConfirmBean(String title, String message, String url, String urlName) {
         this.title = title;
-        this.messages = messages;
+        this.message = message;
         this.url = url;
+        this.urlName = urlName;
+    }
+
+    public ConfirmBean(String title, String message) {
+        this.title = title;
+        this.message = message;
     }
 
     public ConfirmBean() {
@@ -24,12 +29,12 @@ public class ConfirmBean {
         this.title = title;
     }
 
-    public List<String> getMessages() {
-        return messages;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMessages(List<String> messages) {
-        this.messages = messages;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public String getUrl() {
@@ -40,11 +45,19 @@ public class ConfirmBean {
         this.url = url;
     }
 
+    public String getUrlName() {
+        return urlName;
+    }
+
+    public void setUrlName(String urlName) {
+        this.urlName = urlName;
+    }
+
     @Override
     public String toString() {
         return "ConfirmBean{" +
                 "title='" + title + '\'' +
-                ", messages=" + messages +
+                ", message=" + message +
                 ", url='" + url + '\'' +
                 '}';
     }
