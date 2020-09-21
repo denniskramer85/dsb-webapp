@@ -9,6 +9,9 @@ import dsb.web.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -22,6 +25,8 @@ public class TransactionService {
     private AccountOverviewService accountOverviewService;
     private Account debitAccount;
     private Account creditAccount;
+    @PersistenceContext
+    EntityManager entityManager;
 
     @Autowired
     public TransactionService(TransactionRepository transactionRepository, AccountRepository accountRepository, AccountOverviewService accountOverviewService) {
@@ -80,5 +85,21 @@ public class TransactionService {
         // Update new balances in database
         accountRepository.save(debitAccount);
         accountRepository.save(creditAccount);
+
+        updateBalance(creditAccount);
+    }
+
+    private void updateBalance(Account account) {
+        // Get updated account balance with native SQL query
+        Query query = entityManager.createNativeQuery("SELECT (SELECT SUM(transaction_amount) FROM transaction WHERE debit_account_accountid = ?) - (\n" +
+                "SELECT SUM(transaction_amount) FROM transaction WHERE credit_account_accountid = ?);");
+        query.setParameter(1, account.getAccountID());
+        query.setParameter(2, account.getAccountID());
+
+        Double newBalance = (Double) query.getSingleResult();
+
+        System.out.println("Balance of " + account.getAccountNo() + " = " + newBalance);
+
+
     }
 }
