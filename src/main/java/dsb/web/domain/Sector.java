@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Sector {
+public class Sector implements Comparable<Sector> {
 
     @Id
     @GeneratedValue
@@ -19,6 +19,12 @@ public class Sector {
 
     public Sector() {
     }
+
+    @Override
+    public int compareTo(Sector sector) {
+        return (int)(this.sectorId - sector.getSectorId());
+    }
+
 
     @Override
     public String toString() {

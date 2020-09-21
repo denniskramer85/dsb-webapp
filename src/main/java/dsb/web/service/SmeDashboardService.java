@@ -60,7 +60,7 @@ public class SmeDashboardService {
 
     }
 
-    public Map<Sector, Integer> averageTop10BySector() {
+    public Map<Sector, Integer> averageBySector() {
         Map<Sector, Integer> averageTop10BySector = new HashMap<>();
         for (Sector sec : sectorRepository.findAll()) {
            int average = 0;
@@ -72,8 +72,9 @@ public class SmeDashboardService {
                average = average/list.size();
            averageTop10BySector.put(sec,average);
         }
-        return averageTop10BySector;
-
+        TreeMap<Sector, Integer> sorted = new TreeMap<>(averageTop10BySector);
+        return sorted;
     }
+
 
 }
