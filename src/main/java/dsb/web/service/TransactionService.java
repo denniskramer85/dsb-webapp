@@ -14,6 +14,7 @@ import javax.persistence.Query;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -75,14 +76,17 @@ public class TransactionService {
 
     // Calculate new balance for account based on full transaction history of account
     public void updateBalance(Account account) {
-        // Get updated account balance with native SQL query
-        Query query = entityManager.createNativeQuery("SELECT \n" +
-                "IFNULL((SELECT SUM(transaction_amount) FROM dsb.transaction WHERE credit_account_accountid = ?), 0) - \n" +
-                "IFNULL((SELECT SUM(transaction_amount) FROM dsb.transaction WHERE debit_account_accountid = ?), 0);");
-        query.setParameter(1, account.getAccountID());
-        query.setParameter(2, account.getAccountID());
+        double balance = 0.0;
 
-        Double balance = (Double) query.getSingleResult();
+        // Retrieve all transactions from database and add or subtract from balance
+        List<Transaction> transactions = transactionRepository.findAllTransactionsByAccountID(account.getAccountID());
+        for (Transaction transaction : transactions) {
+            if (transaction.getDebitAccount().getAccountID() == account.getAccountID()) {
+                balance -= transaction.getTransactionAmount();
+            } else if (transaction.getCreditAccount().getAccountID() == account.getAccountID()) {
+                balance += transaction.getTransactionAmount();
+            }
+        }
 
         // Update balance in account attributes and persist to database
         account.setBalance(balance);
