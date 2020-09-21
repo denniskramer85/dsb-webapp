@@ -1,5 +1,6 @@
 package dsb.web.repository;
 
+import dsb.web.domain.Account;
 import dsb.web.domain.Transaction;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -18,6 +19,7 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
 
 
     List<Transaction> findAll();
+
 
 
 
