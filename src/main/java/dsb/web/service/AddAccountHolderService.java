@@ -60,7 +60,7 @@ public class AddAccountHolderService {
             return "Gebruikersnaam niet geldig, probeer opnieuw";
         }else {
             Customer customer = OptionalCustomer.get();
-            if(customer.getCustomerID() == loggedInCustomer.getCustomerID()){
+            if(customer.getUserID() == loggedInCustomer.getUserID()){
                 return "Voer hier de gebruikersnaam van de nieuwe rekeninghouder in";
             }else if (account.getHolders().contains(customer)) {
                 return "Deze gebruiker is reeds rekeninghouder van deze rekening";
