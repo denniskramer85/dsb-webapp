@@ -73,7 +73,6 @@ public class SmeDashboardService {
            averageTop10BySector.put(sec,average);
         }
         TreeMap<Sector, Integer> sorted = new TreeMap<>(averageTop10BySector);
-
         return sorted;
     }
 

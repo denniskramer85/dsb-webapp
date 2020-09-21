@@ -73,8 +73,15 @@
             <div class="card-body">
             <table class="AverageSaldo_sme">
                 <tr th:each=" sector : ${averageBalanceBySector}">
-                    <td th:text="${sector.key}">keyvalue</td>
-                    <td th:text="${sector.value}">num</td>
+                    <td>
+                    <span th:text="${sector.key}"/>
+                    </td>
+                    <td>
+                        <img class="account-icon" th:src="@{/images/icons/wallet2.svg}" alt="">
+                        €&nbsp;
+                    <span th:text="${#numbers.formatDecimal(sector.value, 0, 'POINT', 2, 'COMMA')}"/>
+                    </td>
+
                 </tr>
             </table>
             </div>

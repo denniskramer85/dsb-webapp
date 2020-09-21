@@ -46,9 +46,11 @@ public class SMEDashboardController {
             System.out.println("Rekeningnummer: " + entry.getKey().getAccountNo());
             System.out.println("Aantal: " + entry.getValue());
         }
+        Map<Sector, Integer> averageTop10BySector = smeDashboardService.averageBySector();
+//        if(averageTop10BySector.) {
+//            model.addAttribute("no Data"); }
         List<TokenPaymentMachine> getAllLinkRequests = smeDashboardService.getAllByLinkRequest();
         List<SMEAccount> top10Balance = smeDashboardService.getTop10bySmeBalance();
-        Map<Sector, Integer> averageTop10BySector = smeDashboardService.averageBySector();
         model.addAttribute("selectedEmployee", employee);
         model.addAttribute("linkRequestList", getAllLinkRequests);
         model.addAttribute("transactionsList", top10Transaction);
