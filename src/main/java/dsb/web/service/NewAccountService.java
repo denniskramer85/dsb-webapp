@@ -20,15 +20,15 @@ public class NewAccountService {
     private CompanyRepository companyRepository;
     private SMEAccountRepository accountRepositorySme;
     private ConsumerAccountRepository consumerAccountRepository;
-    private EmployeeRepository employeeRepository;
+    private UserRepository userRepository;
 
 
-    public NewAccountService(CompanyRepository companyRepository, SMEAccountRepository accountRepositorySme, ConsumerAccountRepository consumerAccountRepository, AccountRepository accountRepository, EmployeeRepository employeeRepository) {
+    public NewAccountService(CompanyRepository companyRepository, SMEAccountRepository accountRepositorySme, ConsumerAccountRepository consumerAccountRepository, AccountRepository accountRepository, UserRepository userRepository) {
         this.companyRepository = companyRepository;
         this.accountRepositorySme  = accountRepositorySme;
         this.consumerAccountRepository = consumerAccountRepository;
         this.accountRepository = accountRepository;
-        this.employeeRepository = employeeRepository;
+        this.userRepository = userRepository;
     }
 
     public void saveNewAccount(CompanyBean companyBean){
@@ -38,8 +38,8 @@ public class NewAccountService {
         Company company = null;
         Account account;
         if (companyBean.getName() != null){
-            Employee accountManager = employeeRepository.findById(45).get();
-            company = new Company(companyBean.getName(),companyBean.getKVKno(), companyBean.getBTWno(), accountManager, companyBean.getSector());
+            User accountManager = userRepository.findById(45).get();
+            company = new Company(companyBean.getName(),companyBean.getKVKno(), companyBean.getBTWno(), (Employee) accountManager, companyBean.getSector());
             company = companyRepository.save(company);
             System.out.println("New company created");
             account = accountRepositorySme.save(
