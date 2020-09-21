@@ -46,9 +46,8 @@ public class RequestPaymentMachineController {
     public String confirmPaymentMachineHandler(@ModelAttribute("loginBean") LoginBean loginBean,
                                               @ModelAttribute(AttributeMapping.LOGGED_IN_CUSTOMER) Customer loggedInCustomer,
                                               @ModelAttribute(AttributeMapping.SELECTED_ACCOUNT) SMEAccount smeAccount
-    , Model model){
-        System.out.println(loggedInCustomer);
-        System.out.println(loginBean);
+                                                , Model model){
+
         Customer passwordCorrect = signInService.checkCredentials(loggedInCustomer.getUsername(), loginBean.getPassword());
 
         if (passwordCorrect != null) {
