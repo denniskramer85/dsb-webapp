@@ -1,6 +1,8 @@
 package dsb.web.service;
 
 import dsb.web.domain.Account;
+import dsb.web.domain.ConsumerAccount;
+import dsb.web.domain.SMEAccount;
 import dsb.web.repository.AccountRepository;
 import dsb.web.repository.ConsumerAccountRepository;
 import dsb.web.repository.SMEAccountRepository;
@@ -25,7 +27,7 @@ public class ApplicationStartupService {
     public void setupBalances() {
         List<Account> accounts = accountRepository.findAll();
         for (Account account : accounts) {
-            System.out.println(account);
+            transactionService.updateBalance(account);
         }
     }
 }
