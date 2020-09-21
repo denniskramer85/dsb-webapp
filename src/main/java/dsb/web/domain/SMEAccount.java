@@ -35,6 +35,10 @@ public class SMEAccount extends Account{
                 '}' + super.toString();
     }
 
+    //Overload Method
+    public String getHoldersString(){
+        return getHoldersString(this.getHolders().size());
+    }
 
     @Override
     public String getHoldersString(int maxHoldersShown) {

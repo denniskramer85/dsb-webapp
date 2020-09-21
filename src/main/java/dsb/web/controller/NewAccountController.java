@@ -1,6 +1,7 @@
 package dsb.web.controller;
 
 import dsb.web.controller.beans.CompanyBean;
+import dsb.web.controller.beans.ConfirmBean;
 import dsb.web.domain.Company;
 import dsb.web.domain.Customer;
 import dsb.web.domain.Sector;
@@ -97,17 +98,16 @@ public class NewAccountController {
     }
 
     @PostMapping("account-confirmed")
-    public ModelAndView confirmNewAccountPost(
+    public String confirmNewAccountPost(
             @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean companyBean,
             @ModelAttribute(AttributeMapping.LOGGED_IN_CUSTOMER) Customer loggedInCustomer,
             Model model){
         System.out.println("1: " + loggedInCustomer);
         companyBean.setCurrentCustomer(loggedInCustomer);
-
         System.out.println("2: "+companyBean);
         newAccountService.saveNewAccount(companyBean);
-        model.addAttribute("companyBean", companyBean);
-        return new ModelAndView("redirect:/account_overview");
+        model.addAttribute("confirmBean", new ConfirmBean("Nieuwe rekening aangevraagd", "Gefeliciteerd, je nieuwe rekening is aangevraagd en is vanaf nu te vinden in je rekening overzicht. Vanaf nu ECHT veilig bankieren bij DSB!"));
+        return "confirm";
     }
 
     @RestController

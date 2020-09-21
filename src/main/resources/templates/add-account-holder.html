@@ -13,11 +13,21 @@
         <div class = "card">
             <div class="card-header"><h5>Zoek DSB klant</h5></div>
             <div class="card-body" id="signUpPage">
-                <p>Type hier de gebruikersnaam van de DSB gebruiker die je als rekeninghouder wilt toevoegen.</p>
-                <label name="accountNo">Rekeningnummer: </label>
-                <p th:text="${accountNo}"></p>
-                <label name="username">Gebruikersnaam: </label>
-                <input type="text" id="username" name="username" onchange="checkUser()" th:field="*{username}"/>
+                <p>Type hier de gebruikersnaam van de nog toe te voegen rekeninghouder en kies vervolgens een 5-cijferige beveiligingscode.</p>
+                <div class="form-group">
+                    <p class="control-label">Rekeningnummer: </p>
+                    <p th:text="${accountNo}"></p>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="username">Gebruikersnaam: </label>
+                    <input class="form-control" type="text" id="username" name="username" onchange="checkUser()" th:field="*{username}"/>
+                    <span id="error-msg-un" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="tokenCode">5-cijferige code: </label>
+                    <input class="form-control" type="text" id="tokenCode" onchange="checkCode()" th:field="${tokenCode}"/>
+                    <span id="error-msg-code" class="text-danger"></span>
+                </div>
             </div>
             <div id="auth" th:replace="fragments/user_auth :: user_auth"></div>
         </div>
@@ -29,27 +39,54 @@
 </div>
 <script>
     function checkUser() {
+        if (document.getElementById("username").classList.contains("is-valid")){
+            document.getElementById("username").classList.remove("is-valid")
+        }
         var str = document.getElementById("username").value;
         var xhttp;
         // als het veld leeg is, chill!
         if (str == "") {
-            document.getElementById("txtHint").innerHTML = "";
             return;
         }
         xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                if (this.responseText != "") {
-                    var x = this.responseText
-                    console.log(x)
-                    document.getElementById("username").style.backgroundColor = "#ccffcc";
+                const response = this.responseText;
+                console.log("response: " + response)
+                if (response.valueOf() == "".valueOf()) {
+                    document.getElementById("username").classList.add("is-valid");
+                    document.getElementById("error-msg-un").innerText = "";
                 } else {
-                    document.getElementById("username").style.backgroundColor = "transparent";
+                    document.getElementById("error-msg-un").innerText = response.valueOf();
                 }
             }
         };
         xhttp.open("GET", "/find_users/"+str, true);
         xhttp.send();
+    }
+    function checkCode(){
+        var element = document.getElementById("tokenCode")
+        if (element.classList.contains("is-valid")){
+            element.classList.remove("is-valid")
+        }
+        let code = element.value;
+        console.log("checking")
+        if (code.toString().length === 5 && Number.parseInt(code) && checkDigits(code)){
+            console.log("yes")
+            element.classList.add("is-valid")
+            document.getElementById("error-msg-code").innerText = "";
+        } else {
+            document.getElementById("error-msg-code").innerText = "Incorrecte code - code dient enkel uit cijfers te bestaan en is 5 cijfers lang";
+        }
+    }
+    function checkDigits(string){
+        for (let i = 0; i < string.length; i++) {
+            if (!Number.isInteger(Number.parseInt(string[i]))){
+                console.log(false)
+                return false;
+            }
+        }
+        return true;
     }
 </script>
 </body>
