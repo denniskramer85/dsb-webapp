@@ -2,6 +2,7 @@ package dsb.web.controller;
 
 import dsb.web.controller.beans.CompanyBean;
 import dsb.web.controller.beans.ConfirmBean;
+import dsb.web.domain.Account;
 import dsb.web.domain.Company;
 import dsb.web.domain.Customer;
 import dsb.web.domain.Sector;
@@ -9,33 +10,39 @@ import dsb.web.repository.AccountRepository;
 import dsb.web.repository.CompanyRepository;
 import dsb.web.repository.CustomerRepository;
 import dsb.web.repository.SectorRepository;
+import dsb.web.service.AccountOverviewService;
 import dsb.web.service.NewAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 
 @Controller
 @SessionAttributes({AttributeMapping.COMPANY_BEAN, AttributeMapping.LOGGED_IN_CUSTOMER})
 public class NewAccountController {
     private NewAccountService newAccountService;
-    private AccountRepository accountRepository;
     private CompanyRepository companyRepository;
     private SectorRepository sectorRepository;
+    private AccountOverviewService accountOverviewService;
+
+    public NewAccountController(NewAccountService newAccountService, CompanyRepository companyRepository, SectorRepository sectorRepository, AccountOverviewService accountOverviewService) {
+        this.newAccountService = newAccountService;
+        this.companyRepository = companyRepository;
+        this.sectorRepository = sectorRepository;
+        this.accountOverviewService = accountOverviewService;
+    }
 
     public CompanyBean newAccountBean(){
         return new CompanyBean();
     }
 
     @Autowired
-    public NewAccountController(NewAccountService newAccountService, AccountRepository accountRepository, CompanyRepository companyRepository, SectorRepository sectorRepository) {
-        this.newAccountService = newAccountService;
-        this.accountRepository = accountRepository;
-        this.companyRepository = companyRepository;
-        this.sectorRepository = sectorRepository;
-    }
+
 
     @GetMapping("new-account")
     public String newAccountSetup(){
@@ -79,14 +86,15 @@ public class NewAccountController {
     }
 
     @PostMapping("company-details-completed")
-    public String companyDetailsCompleted(
-            @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean companyBean,
+    public String companyDetailsCompleted(@Valid @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean companyBean, Errors errors,
             Model model){
-        // KVK nr check
-        // BTW nr  check
-        // Naam check
-        // Sector check
-        model.addAttribute("sectors", sectorRepository.findAll());
+
+        if (errors.hasErrors()){
+            model.addAttribute("companyBean", companyBean);
+            model.addAttribute("sectors", sectorRepository.findAll());
+            return "company-details";
+        }
+        //check if kvk exists
         return "confirm-new-account";
     }
 
@@ -96,8 +104,9 @@ public class NewAccountController {
             @ModelAttribute(AttributeMapping.LOGGED_IN_CUSTOMER) Customer loggedInCustomer,
             Model model){
         companyBean.setCurrentCustomer(loggedInCustomer);
-        newAccountService.saveNewAccount(companyBean);
-        model.addAttribute("confirmBean", new ConfirmBean("Nieuwe rekening aangevraagd", "Gefeliciteerd, je nieuwe rekening is aangevraagd en is vanaf nu te vinden in je rekening overzicht. Vanaf nu ECHT veilig bankieren bij DSB!"));
+        Account account = newAccountService.saveNewAccount(companyBean);
+        model.addAttribute(AttributeMapping.SELECTED_ACCOUNT, account);
+        model.addAttribute("confirmBean", new ConfirmBean("Nieuwe rekening aangevraagd", "Gefeliciteerd, je nieuwe rekening is aangevraagd en is vanaf nu te vinden in je rekening overzicht. Vanaf nu ECHT veilig bankieren bij DSB!","accountPage", "Naar rekening"));
         return "confirm";
     }
 
