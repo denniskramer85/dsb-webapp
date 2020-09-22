@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
 
+//TEST DOES NOT FUNCTION - left here for educational purposes
 @Disabled
 @DataJpaTest(properties = "spring.jpa.database-platform=org.hibernate.dialect.H2Dialect")
 class findTopNTransactionByAccountsTest {

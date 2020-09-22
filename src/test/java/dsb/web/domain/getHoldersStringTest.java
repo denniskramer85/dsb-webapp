@@ -34,7 +34,7 @@ class getHoldersStringTest {
     }
 
     @Test
-    @DisplayName("0")
+    @DisplayName("getHoldersStringTest 0")
     void getHoldersString_max0() {
         String actual = account.getHoldersString(0);
         String expected = " - ";
@@ -42,7 +42,7 @@ class getHoldersStringTest {
     }
 
     @Test
-    @DisplayName("1")
+    @DisplayName("getHoldersStringTest 1")
     void getHoldersString_max1() {
         String actual = account.getHoldersString(1);
         String expected = "J.J. de Boer e.a.";
@@ -50,7 +50,7 @@ class getHoldersStringTest {
     }
 
     @Test
-    @DisplayName("2")
+    @DisplayName("getHoldersStringTest 2")
     void getHoldersString_max2() {
         String actual = account.getHoldersString(2);
         String expected = "J.J. de Boer, C. van Loen e.a.";
@@ -58,7 +58,7 @@ class getHoldersStringTest {
     }
 
     @Test
-    @DisplayName("3")
+    @DisplayName("getHoldersStringTest 3")
     void getHoldersString_max3() {
         String actual = account.getHoldersString(3);
         String expected = "J.J. de Boer, C. van Loen, B. ter Schouw e.a.";
@@ -66,7 +66,7 @@ class getHoldersStringTest {
     }
 
     @Test
-    @DisplayName("3_fail")
+    @DisplayName("getHoldersStringTest 3_fail")
     void getHoldersString_max3_fail() {
         String actual = account.getHoldersString(3);
         String expected = "J.J. de Boer, C. van Loen, B. ter Schouw, A.L.S. Visser";
@@ -74,7 +74,7 @@ class getHoldersStringTest {
     }
 
     @Test
-    @DisplayName("4")
+    @DisplayName("getHoldersStringTest 4")
     void getHoldersString_max4() {
         String actual = account.getHoldersString(4);
         String expected = "J.J. de Boer, C. van Loen, B. ter Schouw, A.L.S. Visser";

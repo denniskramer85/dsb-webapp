@@ -1,13 +1,17 @@
 package dsb.web.controller.beans;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.*;
 
-
+@SpringBootTest
 class NameStylerTest {
 
+    @Autowired
     SignUpBean signUpBean;
 
     @BeforeEach
@@ -17,6 +21,7 @@ class NameStylerTest {
 
 
     @Test
+    @DisplayName("NameStylerTest")
     void nameStyler() {
 
         signUpBean.setInitials("s@5.,DD1Q");

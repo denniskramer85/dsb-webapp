@@ -50,7 +50,7 @@ class FindAllByUserNameTest {
 
 
     @Test
-    @DisplayName("1_pass")
+    @DisplayName("FindAllByUserNameTest 1_pass")
     void findAllByUsername() {
         List<Customer> found = customerRepository.findAllByUsername("cornelis");
         assertThat(found.size()).isEqualTo(1);
@@ -58,7 +58,7 @@ class FindAllByUserNameTest {
     }
 
     @Test
-    @DisplayName("2_fail")
+    @DisplayName("FindAllByUserNameTest 2_fail")
     void findAllByUsername_fail() {
         List<Customer> found = customerRepository.findAllByUsername("evert");
         assertThat(found.size()).isEqualTo(0);

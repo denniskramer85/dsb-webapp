@@ -20,7 +20,6 @@ public class PrintTransactionsForAccountPage {
     private String ownAccountNo, timeStamp, counterAccount, message, plusMinus;
     double amount;
     private List<Transaction> transactions;
-    //private List<String> transactionStrings = new ArrayList<>();
 
     private TransactionRepository transactionRepository;
 

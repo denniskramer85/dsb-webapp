@@ -28,9 +28,6 @@ public class UsernameOccupiedController {
 
         List<Customer> customer = customerRepository.findAllByUsername(username);
 
-        System.out.println(customer);
-        System.out.println(customer.size() == 0);
-
         if (customer.size() == 0) {
             return Boolean.FALSE;
         } else return Boolean.TRUE;
