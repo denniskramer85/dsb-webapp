@@ -7,5 +7,5 @@ public interface CompanyRepository extends CrudRepository<Company, Integer> {
 
     Company findCompanyByKVKno(String KNKno);
 
-    Company existsByKVKno(String kvKno);
+    boolean existsByKVKno(String kvKno);
 }

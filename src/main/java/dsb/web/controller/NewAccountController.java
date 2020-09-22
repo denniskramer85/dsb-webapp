@@ -2,16 +2,14 @@ package dsb.web.controller;
 
 import dsb.web.controller.beans.CompanyBean;
 import dsb.web.controller.beans.ConfirmBean;
-import dsb.web.domain.Account;
-import dsb.web.domain.Company;
-import dsb.web.domain.Customer;
-import dsb.web.domain.Sector;
+import dsb.web.domain.*;
 import dsb.web.repository.AccountRepository;
 import dsb.web.repository.CompanyRepository;
 import dsb.web.repository.CustomerRepository;
 import dsb.web.repository.SectorRepository;
 import dsb.web.service.AccountOverviewService;
 import dsb.web.service.NewAccountService;
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,10 +18,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
-@SessionAttributes({AttributeMapping.COMPANY_BEAN, AttributeMapping.LOGGED_IN_CUSTOMER})
+@SessionAttributes({AttributeMapping.COMPANY_BEAN, AttributeMapping.LOGGED_IN_CUSTOMER,AttributeMapping.SELECTED_ACCOUNT})
 public class NewAccountController {
     private NewAccountService newAccountService;
     private CompanyRepository companyRepository;
@@ -86,15 +86,26 @@ public class NewAccountController {
     }
 
     @PostMapping("company-details-completed")
-    public String companyDetailsCompleted(@Valid @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean companyBean, Errors errors,
-            Model model){
-
+    public String companyDetailsCompleted(@Valid @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean companyBean,
+                                          @ModelAttribute(AttributeMapping.LOGGED_IN_CUSTOMER) Customer loggedInCustomer,
+                                          Errors errors,
+                                          Model model){
         if (errors.hasErrors()){
             model.addAttribute("companyBean", companyBean);
             model.addAttribute("sectors", sectorRepository.findAll());
             return "company-details";
         }
         //check if kvk exists
+        String kvkNo = companyBean.getKVKno();
+        if(companyRepository.existsByKVKno(kvkNo)){
+            //check of user gemachtigd is om rekening aan te maken
+            List<Company> companies = new ArrayList<>();
+            for (Account account : loggedInCustomer.getAccounts()){
+                if (account instanceof SMEAccount){
+                    companies.add(((SMEAccount) account).getCompany());
+                }
+            }
+        }
         return "confirm-new-account";
     }
 
