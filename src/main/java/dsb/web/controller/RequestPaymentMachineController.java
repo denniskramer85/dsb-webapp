@@ -2,7 +2,6 @@ package dsb.web.controller;
 
 import dsb.web.controller.beans.ConfirmBean;
 import dsb.web.controller.beans.LoginBean;
-import dsb.web.domain.Account;
 import dsb.web.domain.Customer;
 import dsb.web.domain.SMEAccount;
 import dsb.web.domain.TokenPaymentMachine;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
+
 
 @Controller
 @SessionAttributes({AttributeMapping.SELECTED_ACCOUNT, AttributeMapping.LOGGED_IN_CUSTOMER})
