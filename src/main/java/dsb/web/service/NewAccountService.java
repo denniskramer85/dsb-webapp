@@ -59,4 +59,15 @@ public class NewAccountService {
         transactionService.doInitialTransaction(account);
         System.out.println("New account created");
     }
+
+
+
+    Integer kvkStringToNum(String kvknrStr){
+        try {
+            Integer kvkNr = Integer.valueOf(kvknrStr);
+            return kvkNr;
+        } catch (NumberFormatException e){
+            return null;
+        }
+    }
 }

@@ -9,7 +9,7 @@
 <body>
 <div th:include="fragments/header :: header"></div>
 <div class="container">
-    <form method="post" th:object="${loginBean}" th:action="@{confirm-add-account-holder}">
+    <form method="post" th:action="@{confirm-add-account-holder}">
         <div class = "card">
             <div class="card-header"><h5>Zoek DSB klant</h5></div>
             <div class="card-body" id="signUpPage">
@@ -19,13 +19,13 @@
                     <p th:text="${accountNo}"></p>
                 </div>
                 <div class="form-group">
-                    <label class="control-label" for="username">Gebruikersnaam: </label>
-                    <input class="form-control" type="text" id="username" name="username" onchange="checkUser()" th:field="*{username}"/>
+                    <label class="control-label" for="new_account_holder">Gebruikersnaam: </label>
+                    <input class="form-control" type="text" id="new_account_holder" name="new_account_holder" onchange="checkUser()"/>
                     <span id="error-msg-un" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="tokenCode">5-cijferige code: </label>
-                    <input class="form-control" type="text" id="tokenCode" onchange="checkCode()" th:field="${tokenCode}"/>
+                    <input class="form-control" type="text" id="tokenCode" name="tokenCode" onchange="checkCode()"/>
                     <span id="error-msg-code" class="text-danger"></span>
                 </div>
             </div>
@@ -39,10 +39,11 @@
 </div>
 <script>
     function checkUser() {
-        if (document.getElementById("username").classList.contains("is-valid")){
-            document.getElementById("username").classList.remove("is-valid")
+        var new_account_holder = document.getElementById("new_account_holder");
+        if (new_account_holder.classList.contains("is-valid")){
+            new_account_holder.classList.remove("is-valid")
         }
-        var str = document.getElementById("username").value;
+        var str = new_account_holder.value;
         var xhttp;
         // als het veld leeg is, chill!
         if (str == "") {
@@ -54,7 +55,7 @@
                 const response = this.responseText;
                 console.log("response: " + response)
                 if (response.valueOf() == "".valueOf()) {
-                    document.getElementById("username").classList.add("is-valid");
+                    new_account_holder.classList.add("is-valid");
                     document.getElementById("error-msg-un").innerText = "";
                 } else {
                     document.getElementById("error-msg-un").innerText = response.valueOf();

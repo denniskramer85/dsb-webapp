@@ -50,7 +50,6 @@ public class NewAccountController {
         if (accountType == 0) {                         // if Radio 'partiuculier' was selected
             return "confirm-new-account";
         } else if (accountType == 1) {                  // if Radio 'zakelijk' was selected
-            System.out.println("bla");
             return "redirect:/company-details";
         }
         return "index";
@@ -68,8 +67,6 @@ public class NewAccountController {
     public String companyDetails (
             @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean companyBean,
             Model model) {
-        System.out.println("blasda1");
-        System.out.println(sectorRepository.findAll());
         model.addAttribute("sectors", sectorRepository.findAll());
         return "company-details";
     }
@@ -78,9 +75,6 @@ public class NewAccountController {
     public String companyDetails1 (
             @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean companyBean,
             Model model) {
-        System.out.println("blasda1");
-        //System.out.println(sectorRepository.findAll());
-        //model.addAttribute("sectors", sectorRepository.findAll());
         return "company-details";
     }
 
@@ -88,11 +82,10 @@ public class NewAccountController {
     public String companyDetailsCompleted(
             @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean companyBean,
             Model model){
-        //Check geldigheid KVK-nummer
-        //companyBean.getKVKno()
-        //Check geldigheid BTW-nummer
-        System.out.println("blabla");
-        System.out.println(sectorRepository.findAll());
+        // KVK nr check
+        // BTW nr  check
+        // Naam check
+        // Sector check
         model.addAttribute("sectors", sectorRepository.findAll());
         return "confirm-new-account";
     }
@@ -102,9 +95,7 @@ public class NewAccountController {
             @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean companyBean,
             @ModelAttribute(AttributeMapping.LOGGED_IN_CUSTOMER) Customer loggedInCustomer,
             Model model){
-        System.out.println("1: " + loggedInCustomer);
         companyBean.setCurrentCustomer(loggedInCustomer);
-        System.out.println("2: "+companyBean);
         newAccountService.saveNewAccount(companyBean);
         model.addAttribute("confirmBean", new ConfirmBean("Nieuwe rekening aangevraagd", "Gefeliciteerd, je nieuwe rekening is aangevraagd en is vanaf nu te vinden in je rekening overzicht. Vanaf nu ECHT veilig bankieren bij DSB!"));
         return "confirm";
