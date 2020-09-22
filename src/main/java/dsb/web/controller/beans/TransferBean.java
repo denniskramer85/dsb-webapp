@@ -12,10 +12,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.util.Locale;
 
 /**
  *  This bean is used for currency transfers that have not yet been validated.
