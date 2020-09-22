@@ -26,7 +26,7 @@
 
 
     <nav class="navbar navbar-expand-md navbar-light bg-light">
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" th:href="@{/}">
             <img th:src="@{/images/logo_big.png}" height="40" class="d-inline-block align-top" alt="">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,12 +36,9 @@
             <span th:if="${loggedInCustomer}" class="navbar-nav">
                 <img th:src="@{/images/icons/person-circle.svg}" alt=""><a class="nav-item nav-link" href="account_overview">Mijn rekeningen</a>
             </span>
-
-            <span th:unless="${loggedInCustomer}" class="navbar-nav">
-                <img th:src="@{/images/icons/person-plus-fill.svg}" alt=""><a class="nav-item nav-link" href="pre-sign-up">Klant worden</a>
-            </span>
         </div>
         <div th:unless="${loggedInCustomer}" class="navbar-nav ml-auto">
+            <img th:src="@{/images/icons/person-plus-fill.svg}" alt=""><a class="nav-item nav-link" href="pre-sign-up">Klant worden</a>
             <img th:src="@{/images/icons/box-arrow-in-right.svg}" alt=""><a class="nav-item nav-link" href="sign-in">Inloggen</a>
         </div>
         <div th:if="${loggedInCustomer != null or loggedInEmployee != null}" class="navbar-nav ml-auto">
