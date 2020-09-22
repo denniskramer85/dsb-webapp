@@ -5,7 +5,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.HttpSessionRequiredException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.w3c.dom.Attr;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -26,6 +25,11 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
         // Always add status code to model
         model.addAttribute("statusCode", statusCode);
 
+        // If no exception present, return error with just status code
+        if (exception == null) {
+            return "error";
+        }
+
         // If error is caused by user not logged in, redirect to login page after check for user type
         if (exception.getClass() == HttpSessionRequiredException.class) {
             if (model.containsAttribute(AttributeMapping.LOGGED_IN_EMPLOYEE)) {
@@ -34,7 +38,7 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
             return "redirect:sign-in";
         }
 
-        // Else return generic error, displaying error code
+        // Else return generic error, displaying status code
         model.addAttribute("exception", exception.getMessage());
         return "error";
     }

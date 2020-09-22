@@ -35,21 +35,21 @@
                 <div th:each="account : ${consumerAccounts}">
                     <form method="post" th:action="@{account_overview}">
                         <table class="account-table">
-                            <tr>
-                                <td>
+                            <tr class="d-flex">
+                                <td class="col-5">
                                     <img class="account-icon" th:src="@{/images/icons/credit-card.svg}" alt="">
                                     <span th:text="${account.getAccountNo()}"/>
                                 </td>
-                                <td>
+                                <td class="col-9">
                                     <img class="account-icon" th:src="@{/images/icons/people.svg}" alt="">
-                                    <span th:text="${account.getHoldersString(1)}"/>
+                                    <span th:text="${account.getHoldersString(4)}"/>
                                 </td>
-                                <td>
+                                <td class="col-3">
                                     <img class="account-icon" th:src="@{/images/icons/wallet2.svg}" alt="">
                                     €&nbsp;
                                     <span th:text="${#numbers.formatDecimal(account.getBalance(), 0, 'POINT', 2, 'COMMA')}"/>
                                 </td>
-                                <td>
+                                <td class="col-5">
                                     <input type="hidden" th:name="accountID" th:value="${account.getAccountID()}">
                                     <button type="submit" class="btn btn-outline-dark">
                                         <img th:src="@{/images/icons/arrow-right-short.svg}" alt="">
@@ -83,21 +83,21 @@
                 <div th:each="account : ${smeAccounts}">
                     <form method="post" th:action="@{account_overview}">
                         <table class="account-table">
-                            <tr>
-                                <td>
+                            <tr class="d-flex">
+                                <td class="col-5">
                                     <img class="account-icon" th:src="@{/images/icons/credit-card.svg}" alt="">
                                     <span th:text="${account.getAccountNo()}"/>
                                 </td>
-                                <td>
+                                <td class="col-9">
                                     <img class="account-icon" th:src="@{/images/icons/building.svg}" alt="">
-                                    <span th:text="${account.getHoldersString(1)}"/>
+                                    <span th:text="${account.getHoldersString(4)}"/>
                                 </td>
-                                <td>
+                                <td class="col-3">
                                     <img class="account-icon" th:src="@{/images/icons/wallet2.svg}" alt="">
                                     €&nbsp;
                                     <span th:text="${#numbers.formatDecimal(account.getBalance(), 0, 'POINT', 2, 'COMMA')}"/
                                 </td>
-                                <td>
+                                <td class="col-5">
                                     <input type="hidden" th:name="accountID" th:value="${account.getAccountID()}">
                                     <button type="submit" class="btn btn-outline-dark">
                                         <img th:src="@{/images/icons/arrow-right-short.svg}" alt="">
