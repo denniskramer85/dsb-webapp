@@ -27,12 +27,12 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
         model.addAttribute("statusCode", statusCode);
 
         // If error is caused by user not logged in, redirect to login page after check for user type
-        /*if (exception.getClass() == HttpSessionRequiredException.class) {
+        if (exception.getClass() == HttpSessionRequiredException.class) {
             if (model.containsAttribute(AttributeMapping.LOGGED_IN_EMPLOYEE)) {
                 return "redirect:employee_sign-in";
             }
             return "redirect:sign-in";
-        }*/
+        }
 
         // Else return generic error, displaying error code
         model.addAttribute("exception", exception.getMessage());
