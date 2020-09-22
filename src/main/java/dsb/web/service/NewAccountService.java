@@ -59,4 +59,13 @@ public class NewAccountService {
         transactionService.doInitialTransaction(account);
         System.out.println("New account created");
     }
+
+    public boolean checkKVK(String kvknrStr){
+        try {
+            Integer.valueOf(kvknrStr);
+            return true;
+        } catch (NumberFormatException e){
+            return false;
+        }
+    }
 }

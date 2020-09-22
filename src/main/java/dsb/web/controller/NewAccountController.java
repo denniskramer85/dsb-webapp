@@ -68,8 +68,6 @@ public class NewAccountController {
     public String companyDetails (
             @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean companyBean,
             Model model) {
-        System.out.println("blasda1");
-        System.out.println(sectorRepository.findAll());
         model.addAttribute("sectors", sectorRepository.findAll());
         return "company-details";
     }
@@ -78,9 +76,6 @@ public class NewAccountController {
     public String companyDetails1 (
             @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean companyBean,
             Model model) {
-        System.out.println("blasda1");
-        //System.out.println(sectorRepository.findAll());
-        //model.addAttribute("sectors", sectorRepository.findAll());
         return "company-details";
     }
 
@@ -88,11 +83,10 @@ public class NewAccountController {
     public String companyDetailsCompleted(
             @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean companyBean,
             Model model){
-        //Check geldigheid KVK-nummer
-        //companyBean.getKVKno()
-        //Check geldigheid BTW-nummer
-        System.out.println("blabla");
-        System.out.println(sectorRepository.findAll());
+        // KVK nr check
+        // BTW nr  check
+        // Naam check
+        // Sector check
         model.addAttribute("sectors", sectorRepository.findAll());
         return "confirm-new-account";
     }

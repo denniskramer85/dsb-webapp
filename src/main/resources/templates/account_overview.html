@@ -13,16 +13,12 @@
 <div class="container">
     <br/>
     <br/>
-
     <div th:if="${accountHolderTokenBeans!=null and !accountHolderTokenBeans.isEmpty()}">
+        <div th:replace="fragments/holder_token_alert :: holder_token_alert"></div>
+        <!--<div th:replace="fragments/holder_tokens :: holder_tokens"></div>-->
+        <br/>
+    </div>
 
-    </div>    <div th:if="${accountHolderTokenBeans!=null and !accountHolderTokenBeans.isEmpty()}">
-
-    <div th:replace="fragments/holder_token_alert :: holder_token_alert"></div>
-    <br/>
-</div>
-    <div th:replace="fragments/holder_tokens :: holder_tokens"></div>
-    <br/>
     <div class="card">
         <div class="card-header account-header-div">
             <h5 class="account-header">Persoonlijke rekeningen</h5>

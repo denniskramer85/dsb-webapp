@@ -101,7 +101,12 @@ public class AddAccountHolderController {
                    Model model){
         Account acc = addAccountHolderService.resolveToken(tokenId, tokenCode, loggedInCustomer);
         if (acc != null) {
-            model.addAttribute(new ConfirmBean("Gefeliciteerd!", "Je bent toegevoegd als nieuwe rekeninghouder aan " + acc.getAccountNo(), "account_overview", "OK"));
+            model.addAttribute(
+                    new ConfirmBean(
+                            "Gefeliciteerd!",
+                            "Je bent toegevoegd als nieuwe rekeninghouder aan " + acc.getAccountNo(),
+                            "account_overview",
+                            "OK"));
             return "confirm";
         }
         model.addAttribute("tokenId", tokenId);
