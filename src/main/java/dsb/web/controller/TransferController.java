@@ -43,16 +43,16 @@ public class TransferController {
     public String startTransferPageHandler(Model model) {
 
         //TODO weg: dit is dummydata vw snelle link (data cust en acc uit db halen en in sessie hangen)
-        Optional<Customer> customerOptional = customerRepository.findOneByUsername("dennis");
+        /*Optional<Customer> customerOptional = customerRepository.findOneByUsername("dennis");
         Customer customer = customerOptional.get();
         model.addAttribute("loggedInCustomer", customer);
         Optional<Account> accountOptional = accountRepository.findByAccountID(110);
         Account account = accountOptional.get();
-        model.addAttribute("selectedAccountSession", account);
+        model.addAttribute("selectedAccountSession", account);*/
 
         //TODO aanzetten: dit is de normale flow
         //get account data
-        //Account account = (Account) model.getAttribute("selectedAccountSession");
+        Account account = (Account) model.getAttribute("selectedAccountSession");
 
         //*********************************************************************************//
 
