@@ -14,7 +14,7 @@ input[type=number] {
 
 
 
-/*for ???*/
+/*color scheme*/
 .primary-color {
     background-color: #66bb6a;
 }
@@ -26,6 +26,12 @@ input[type=number] {
 .dark-color {
     background-color: #338a3e;
 }
+
+/*navbar*/
+.navbar .nav-icon {
+    padding-right: 5px;
+}
+
 /*container*/
 .container {
     padding: 25px 10px 10px;

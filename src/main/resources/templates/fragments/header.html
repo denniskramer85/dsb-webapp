@@ -6,21 +6,43 @@
 <body>
 
 <div th:fragment="header">
+
+    <div class="modal fade" id="confirm-logout" tabindex="-1" role="dialog" aria-labelledby="confirmLogout" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Uitloggen
+                </div>
+                <div class="modal-body">
+                    Weet u zeker dat u wilt uitloggen?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Ga terug</button>
+                    <a th:href="sign-out" class="btn btn-outline-dark">Log uit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <nav class="navbar navbar-expand-md navbar-light bg-light">
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" th:href="@{/}">
             <img th:src="@{/images/logo_big.png}" height="40" class="d-inline-block align-top" alt="">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link" href="pre-sign-up">Klant worden</a>
-                <a class="nav-item nav-link" href="sign-in">Inloggen</a>
-                <a class="nav-item nav-link" href="new-account">Rekening openen</a>
-                <a class="nav-item nav-link" href="account_overview">Rekeningoverzicht</a>
-                <a class="nav-item nav-link" href="employee_consumer_dashboard">Particulieren Dashboard</a>
-            </div>
+            <span th:if="${loggedInCustomer}" class="navbar-nav">
+                <img th:src="@{/images/icons/person-circle.svg}" alt=""><a class="nav-item nav-link" href="account_overview">Mijn rekeningen</a>
+            </span>
+        </div>
+        <div th:unless="${loggedInCustomer != null or loggedInEmployee != null}" class="navbar-nav ml-auto">
+            <img th:src="@{/images/icons/person-plus-fill.svg}" alt=""><a class="nav-item nav-link" href="pre-sign-up">Klant worden</a>
+            <img th:src="@{/images/icons/box-arrow-in-right.svg}" alt=""><a class="nav-item nav-link" href="sign-in">Inloggen</a>
+        </div>
+        <div th:if="${loggedInCustomer != null or loggedInEmployee != null}" class="navbar-nav ml-auto">
+            <img th:src="@{/images/icons/box-arrow-right.svg}" alt=""><a class="nav-item nav-link" href="#" data-href="sign-out" data-toggle="modal" data-target="#confirm-logout">Uitloggen</a>
         </div>
     </nav>
 </div>
