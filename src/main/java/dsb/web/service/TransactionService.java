@@ -87,7 +87,6 @@ public class TransactionService {
                 balance += transaction.getTransactionAmount();
             }
         }
-
         // Update balance in account attributes and update in database
         account.setBalance(balance);
         accountRepository.save(account);
