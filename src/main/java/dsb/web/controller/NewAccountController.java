@@ -50,7 +50,6 @@ public class NewAccountController {
         if (accountType == 0) {                         // if Radio 'partiuculier' was selected
             return "confirm-new-account";
         } else if (accountType == 1) {                  // if Radio 'zakelijk' was selected
-            System.out.println("bla");
             return "redirect:/company-details";
         }
         return "index";
@@ -96,9 +95,7 @@ public class NewAccountController {
             @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean companyBean,
             @ModelAttribute(AttributeMapping.LOGGED_IN_CUSTOMER) Customer loggedInCustomer,
             Model model){
-        System.out.println("1: " + loggedInCustomer);
         companyBean.setCurrentCustomer(loggedInCustomer);
-        System.out.println("2: "+companyBean);
         newAccountService.saveNewAccount(companyBean);
         model.addAttribute("confirmBean", new ConfirmBean("Nieuwe rekening aangevraagd", "Gefeliciteerd, je nieuwe rekening is aangevraagd en is vanaf nu te vinden in je rekening overzicht. Vanaf nu ECHT veilig bankieren bij DSB!"));
         return "confirm";

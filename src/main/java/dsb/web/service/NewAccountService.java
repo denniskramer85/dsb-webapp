@@ -60,12 +60,14 @@ public class NewAccountService {
         System.out.println("New account created");
     }
 
-    public boolean checkKVK(String kvknrStr){
+
+
+    Integer kvkStringToNum(String kvknrStr){
         try {
-            Integer.valueOf(kvknrStr);
-            return true;
+            Integer kvkNr = Integer.valueOf(kvknrStr);
+            return kvkNr;
         } catch (NumberFormatException e){
-            return false;
+            return null;
         }
     }
 }
