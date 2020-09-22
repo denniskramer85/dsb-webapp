@@ -47,14 +47,14 @@ public class NewAccountService {
             new SMEAccount(
                             IbanService.randIBAN().toString(),
                             BALANCE,
-                            Arrays.asList(companyBean.getCurrentCustomer()),
+                            new ArrayList<> (Arrays.asList(companyBean.getCurrentCustomer())),
                             company));
         } else {
             account = consumerAccountRepository.save(
                     new ConsumerAccount(
                             IbanService.randIBAN().toString(),
                             BALANCE,
-                            Arrays.asList(companyBean.getCurrentCustomer())));
+                            new ArrayList<> (Arrays.asList(companyBean.getCurrentCustomer()))));
         }
         transactionService.doInitialTransaction(account);
         System.out.println("New account created");
