@@ -6,6 +6,7 @@ import dsb.web.repository.SMEAccountRepository;
 import dsb.web.repository.SectorRepository;
 import dsb.web.service.RequestPaymentMachineService;
 import dsb.web.service.SmeDashboardService;
+import dsb.web.service.service_helpers.SMETransactionHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,20 +40,17 @@ public class SMEDashboardController {
     }
 
     @GetMapping("SME_dashboard")
-    public String smeDashboardOverview(Model model) {
+    public String smeDashboardOverview(Employee employee, Model model) {
 
-        Map<SMEAccount, Integer> top10Transaction = smeDashboardService.getTop10SmeTransaction();
-        for (Map.Entry<SMEAccount, Integer> entry : top10Transaction.entrySet()) {
-            System.out.println("Rekeningnummer: " + entry.getKey().getAccountNo());
-            System.out.println("Aantal: " + entry.getValue());
-        }
-
+//        Map<SMEAccount, Integer> top10Transaction = smeDashboardService.getSmeTransaction();
+        List<SMETransactionHelper> top10 = smeDashboardService.findTop10SMETransactions();
+        Map<Sector, Integer> averageTop10BySector = smeDashboardService.averageBySector();
         List<TokenPaymentMachine> getAllLinkRequests = smeDashboardService.getAllByLinkRequest();
         List<SMEAccount> top10Balance = smeDashboardService.getTop10bySmeBalance();
-        Map<Sector, Integer> averageTop10BySector = smeDashboardService.averageTop10BySector();
-        model.addAttribute("naam", "Naam medewerker");
+
+        model.addAttribute("selectedEmployee", employee);
         model.addAttribute("linkRequestList", getAllLinkRequests);
-        model.addAttribute("transactionsList", top10Transaction);
+        model.addAttribute("transactionsList", top10);
         model.addAttribute("balances", top10Balance);
         model.addAttribute("averageBalanceBySector", averageTop10BySector);
         return "sme_employee_dashboard";

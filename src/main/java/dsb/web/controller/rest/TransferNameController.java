@@ -3,11 +3,9 @@ package dsb.web.controller.rest;
 import dsb.web.controller.beans.TransferNameBean;
 import dsb.web.domain.Account;
 import dsb.web.repository.AccountRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
 @RestController
 @RequestMapping(value = "/transfer-name-checks")
 public class TransferNameController {
