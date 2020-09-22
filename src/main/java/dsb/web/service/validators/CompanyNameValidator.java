@@ -8,6 +8,8 @@ public class CompanyNameValidator implements ConstraintValidator<CompanyNameCons
 
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
+
+
         return false;
     }
 
