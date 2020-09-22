@@ -1,15 +1,19 @@
 package dsb.web.service;
 
 
+import com.sun.source.tree.Tree;
 import dsb.web.domain.*;
 import dsb.web.repository.TokenPaymentMachineRepository;
 import dsb.web.repository.SMEAccountRepository;
 import dsb.web.repository.SectorRepository;
 import dsb.web.repository.TransactionRepository;
+import dsb.web.service.service_helpers.SMETransactionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class SmeDashboardService {
@@ -48,15 +52,31 @@ public class SmeDashboardService {
     // bootstrapalert toevoegen
     }
 
-    public Map<SMEAccount, Integer> getTop10SmeTransaction() {
+    public Map<SMEAccount, Integer> getSmeTransaction() {
         Map<SMEAccount, Integer> result = new HashMap<>();
         for (SMEAccount account : smeAccountRepository.findAll()) {
             int credits = transactionRepository.countTransactionsByCreditAccount(account);
             int debits = transactionRepository.countTransactionsByDebitAccount(account);
             int total = credits + debits;
             result.put(account, total);
+
         }
         return result;
+    }
+
+    public List<SMETransactionHelper> findTop10SMETransactions() {
+        List<SMETransactionHelper> result2 = new ArrayList<>();
+        for(Map.Entry<SMEAccount, Integer> entry : getSmeTransaction().entrySet()) {
+            Account a = entry.getKey();
+            int number = entry.getValue();
+            SMETransactionHelper s = new SMETransactionHelper(a, number);
+            result2.add(s);
+        }
+        Collections.sort(result2);
+        List<SMETransactionHelper> limited =  result2.stream().limit(3).collect(Collectors.toList());
+
+        return limited;
+
 
     }
 
@@ -73,8 +93,8 @@ public class SmeDashboardService {
            averageTop10BySector.put(sec,average);
         }
         TreeMap<Sector, Integer> sorted = new TreeMap<>(averageTop10BySector);
+
         return sorted;
     }
-
 
 }
