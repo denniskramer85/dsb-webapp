@@ -19,7 +19,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 @Controller
-@SessionAttributes(AttributeMapping.LOGGED_IN_CUSTOMER)
+@SessionAttributes({AttributeMapping.LOGGED_IN_CUSTOMER, AttributeMapping.LOGGED_IN_EMPLOYEE})
 public class SignInController {
     private SignInService signInService;
 
@@ -57,10 +57,10 @@ public class SignInController {
         if (employee != null) {
             // Return employee sign-in page
             sessionStatus.setComplete();
-            return "employee_sign-in";
+            return "redirect:/employee_sign-in";
         }
         // Else return consumer landing page
         sessionStatus.setComplete();
-        return "index.html";
+        return "redirect:/";
     }
 }
