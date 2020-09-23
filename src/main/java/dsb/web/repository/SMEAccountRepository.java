@@ -17,6 +17,7 @@ public interface SMEAccountRepository extends PagingAndSortingRepository<SMEAcco
     List<SMEAccount> findAllByCompany_Sector(Sector sector);
 
     List<SMEAccount> findAllByHolders(Customer customer);
+
     List<SMEAccount> findTop10ByOrderByBalanceDesc(); // Find group by Average.
 
 

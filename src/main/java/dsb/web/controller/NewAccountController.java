@@ -26,6 +26,8 @@ import java.util.List;
 @Controller
 @SessionAttributes({AttributeMapping.COMPANY_BEAN, AttributeMapping.LOGGED_IN_CUSTOMER,AttributeMapping.SELECTED_ACCOUNT})
 public class NewAccountController {
+
+    @Autowired
     private NewAccountService newAccountService;
     private CompanyRepository companyRepository;
     private SectorRepository sectorRepository;
@@ -37,12 +39,6 @@ public class NewAccountController {
         this.sectorRepository = sectorRepository;
         this.accountOverviewService = accountOverviewService;
     }
-
-    public CompanyBean newAccountBean(){
-        return new CompanyBean();
-    }
-
-    @Autowired
 
 
     @GetMapping("new-account")
@@ -67,7 +63,6 @@ public class NewAccountController {
     @GetMapping("company-details")
     public String companyDetailsHandler (
             @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean companyBean,
-            @ModelAttribute("companyError") String error,
             Model model) {
         model.addAttribute("sectors", sectorRepository.findAll());
         return "company-details";
@@ -82,21 +77,11 @@ public class NewAccountController {
             model.addAttribute("companyError", null);
             return new ModelAndView( "company-details");
         }
-        Company company = companyRepository.findCompanyByKVKno(cb.getKVKno());
-        if (company != null) {                                                                                          // if kvkNo occurs in DB:
-            if (newAccountService.isCustomerAuthorizedForCompany(cb.getKVKno(), cb.getCurrentCustomer())) {                   // if customer is authorized for account creation on behalf of Company
-                model.addAttribute("company", company);
-                return new ModelAndView(  "confirm-new-account");
-            } else {
-                model.addAttribute("companyBean", cb);
-                model.addAttribute("companyError", "Je bent helaas niet bevoegd om een rekening aan te maken voor dit bedrijf");
-                return new ModelAndView(  "redirect:/company-details", model);
-            }
-        } else {                                                                                                        // if kvkNo doesnt occur in DB
-            model.addAttribute("company", null);
-            return new ModelAndView(  "confirm-new-account");
-        }
+
+        return newAccountService.companyExists(cb,model);
     }
+
+
 
     @GetMapping("confirm-new-account")
     public String confirmNewAccount(
