@@ -34,6 +34,7 @@ public class RequestPaymentMachineService {
         this.signInService = signInService;
     }
 
+
     //pinautomaat aavragen, token aanmaken
     public TokenPaymentMachine createAndSaveToken(SMEAccount smeAccount) {
         TokenPaymentMachine token = new TokenPaymentMachine(smeAccount);
