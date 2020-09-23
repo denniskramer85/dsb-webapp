@@ -38,8 +38,9 @@
 
     <div class="card">
         <div class="card-header account-header-div">
-            <p>Welkom (werknemersnaam toevoegen)</p>
-<!--            <span th:text="${loggedInEmployee.getSurname}"></span>-->
+            <p>Welkom</p>
+            <tr th:each=" loggedInCustomer : ${loggedInEmployee}">
+                <span th:text="${loggedInCustomer.User.getUserFullName()}"></span>
         </div>
     </div>
     <br/>
