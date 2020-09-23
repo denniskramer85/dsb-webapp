@@ -44,21 +44,27 @@
             <div class="card-header">
                 <h2>Transacties</h2>
 
-                <div id="legenda">
-                    <pre>Datum       </pre>
-                    <pre>Tijd   </pre>
-                    <pre>Tegenrekening       </pre>
-                    <pre>Bij/Af   </pre>
-                    <pre>Omschrijving</pre>
-                </div>
+                <table class="transactionTable">
+                    <tr>
+                        <td class="td0">Datum/tijd</td>
+                        <td class="td1">Tegenrekening</td>
+                        <td class="td2">Bij/Af</td>
+                        <td class="td3">Omschrijving</td>
+                    </tr>
+                </table>
 
             </div>
             <div class="card-body">
                 <div id="transactionList">
                     <p class="italic" th:if="*{transactionStrings.empty}">Voor deze rekening zijn geen transacties beschikbaar.</p>
-                    <div  th:each="transaction : *{transactionStrings}">
-                        <p><span th:text="${transaction}"  /></p>
-                    </div>
+                    <table class="transactionTable">
+                        <tr th:each="transaction : *{transactionStrings}">
+                            <td class="td0"><span th:text="${transaction[0]}"  /></td>
+                            <td class="td1"><span th:text="${transaction[1]}"  /></td>
+                            <td class="td2"><span th:text="${transaction[2]}"  /></td>
+                            <td class="td3"><span th:text="${transaction[3]}"  /></td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>

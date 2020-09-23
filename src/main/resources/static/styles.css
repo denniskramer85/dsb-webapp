@@ -234,6 +234,29 @@ input[type=number] {
 }
 
 
+/*#accountPage .transactionTable {*/
+/*    table-layout: fixed;*/
+/*    width: 845px;*/
+/*}*/
+
+#accountPage .td0 {
+    width: 170px;
+}
+#accountPage .td1 {
+    width:185px;
+}
+#accountPage .td2 {
+    width:130px;
+}
+#accountPage .td3 {
+    width:300px;
+}
+
+
+
+
+
+
 
 /*for transfer page*/
 
