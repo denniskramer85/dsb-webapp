@@ -13,8 +13,10 @@ import java.util.List;
 
 @Repository
     public interface TokenPaymentMachineRepository extends CrudRepository<TokenPaymentMachine, Integer> {
+
             List<TokenPaymentMachine> findAll();
 
+            List<TokenPaymentMachine> findTokenPaymentMachineByTokenID(int tokenID);
 
     }
 

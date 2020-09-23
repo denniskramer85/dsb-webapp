@@ -55,7 +55,7 @@ public class Customer extends User implements Comparable<Customer> {
         if (super.getInserts() == null) {
             super.setInitials("");
         }
-        return String.format("%s %s%s", super.getInitials(), super.getInserts(), super.getSurname());
+        return String.format("%s %s %s", super.getInitials(), super.getInserts(), super.getSurname());
     }
 
 
