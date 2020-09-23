@@ -12,19 +12,30 @@
 <div th:include="fragments/header :: header"></div>
 
 <div class="container">
+    <br/>
+    <br/>
     <div class="card">
-        <div class="card-header account-header-div">
-            <h1 class="account-header">Openstaande pinautomaataanvragen</h1>
+        <div class="card-header paymentmachinerequests-header-div">
+            <h5 class="paymentmachinerequests-header">Openstaande pinautomaataanvragen</h5>
         </div>
-
-        <div th:each="request: ${paymentMachineRequests}">
-            <form method="post" th:action="@{sme-confirm-paymentmachine-request}">
-                <input type="hidden" th:name="tokenID" th:value="${request.getTokenID()}">
-                <input type="text" th:field="*{request.getSmeAccount}"/>
-
-                <button type="submit" class="btn btn-outline-dark">Submit</button>
+        <div class="card-body">
+            <div th:each="request: ${paymentMachineRequests}">
+                <form method="post" th:action="@{sme-confirm-paymentmachine-request}">
+                    <table class="paymentmachinerequests-table">
+                        <tr class="d-flex">
+                            <td class="col-3">
+                                <span th:text="${request.SmeAccount.Company.getName()}"/>
+                            </td>
+                            <td class="col-4">
+                                <span th:text="${request.SmeAccount.getAccountNo()}"/>
+                            </td>
+                            <td class="col-3">
+                                <input type="hidden" th:name="tokenID" th:value="${request.getTokenID()}">
+                                <button type="submit" class="btn btn-outline-dark">OK</button>
+                            </td>
+                        </tr>
+                    </table>
             </form>
-
         </div>
     </div>
 </div>

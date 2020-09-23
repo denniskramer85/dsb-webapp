@@ -14,7 +14,7 @@
         </div>
     </span>
     <div class="container">
-        <form method="post" th:object="${loginBean}" th:action="@{sign-in}">
+        <form method="post" th:object="${loginBean}" th:action="@{employee_sign-in}">
             <div class="form-group">
                 <label for="username">Gebruikersnaam</label>
                 <input type="text" class="form-control" id="username" th:field="*{username}" placeholder="Voer gebruikersnaam in">

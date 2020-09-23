@@ -245,3 +245,22 @@ input[type=number] {
     top: 30px;
 }
 
+/*for sme payment machine request overview page */
+.paymentmachinerequests-table {
+    padding: 10px;
+    width: 60%;
+    text-align: left;
+    vertical-align: bottom;
+}
+
+.paymentmachinerequests-header {
+    display:inline-block;
+}
+
+.paymentmachinerequests-header-div {
+    line-height: 38px;
+}
+
+
+
+

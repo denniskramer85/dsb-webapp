@@ -46,18 +46,34 @@ public class SignInController {
             Model model) {
         User loginUser = signInService.checkCredentials(loginBean.getUsername(), loginBean.getPassword());
         if (loginUser != null) {
-            if (loginUser instanceof Customer) {
-                model.addAttribute(AttributeMapping.LOGGED_IN_CUSTOMER, loginUser);
-                return new ModelAndView("redirect:/account_overview");
-            } else {
-                model.addAttribute(AttributeMapping.LOGGED_IN_EMPLOYEE, loginUser);
-                return new ModelAndView("redirect:/sme_employee_dashboard");
-            }
+            model.addAttribute(AttributeMapping.LOGGED_IN_CUSTOMER, loginUser);
+            return new ModelAndView("redirect:/account_overview");
         } else {
             model.addAttribute("username", loginBean.getUsername());
             model.addAttribute("password", loginBean.getPassword());
             model.addAttribute("loginFailed", "true");
             return new ModelAndView("sign-in");
+        }
+    }
+
+    @PostMapping("employee_sign-in")
+    public ModelAndView employeeSignInHandler(
+            @ModelAttribute LoginBean loginBean,
+            Model model) {
+        User loginUser = signInService.checkCredentials(loginBean.getUsername(), loginBean.getPassword());
+        if (loginUser != null) {
+                if ( ( (Employee) loginUser).getRole().getRoleID() == 1 ) {
+                    model.addAttribute(AttributeMapping.LOGGED_IN_EMPLOYEE, loginUser);
+                    return new ModelAndView("redirect:/employee_consumer_dashboard");
+                }  else {
+                    model.addAttribute(AttributeMapping.LOGGED_IN_EMPLOYEE, loginUser);
+                    return new ModelAndView("redirect:/SME_dashboard");
+                }
+        } else {
+            model.addAttribute("username", loginBean.getUsername());
+            model.addAttribute("password", loginBean.getPassword());
+            model.addAttribute("loginFailed", "true");
+            return new ModelAndView("employee_sign-in");
         }
     }
 
