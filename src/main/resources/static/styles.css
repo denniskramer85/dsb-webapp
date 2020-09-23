@@ -28,11 +28,19 @@ input[type=number] {
 }
 
 /*navbar*/
-.navbar .nav-icon {
-    padding-right: 5px;
+
+.dropdown-icon {
+    padding-right: 10px;
+    margin-bottom: 4px;
 }
 
+.logo-navbar {
+    padding-right: 18px;
+}
+
+
 /*container*/
+
 .container {
     padding: 25px 10px 10px;
 
