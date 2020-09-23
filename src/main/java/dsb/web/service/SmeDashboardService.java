@@ -73,7 +73,7 @@ public class SmeDashboardService {
             result2.add(s);
         }
         Collections.sort(result2);
-        List<SMETransactionHelper> limited =  result2.stream().limit(3).collect(Collectors.toList());
+        List<SMETransactionHelper> limited =  result2.stream().limit(9).collect(Collectors.toList());
 
         return limited;
 

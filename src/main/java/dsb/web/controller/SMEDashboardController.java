@@ -20,7 +20,7 @@ import java.util.Map;
 
 
 @Controller
-@SessionAttributes(AttributeMapping.LOGGED_IN_CUSTOMER)
+@SessionAttributes(AttributeMapping.LOGGED_IN_EMPLOYEE)
 public class SMEDashboardController {
     private SmeDashboardService smeDashboardService;
     private SMEAccountRepository smeAccountRepository;
@@ -40,18 +40,17 @@ public class SMEDashboardController {
     }
 
     @GetMapping("SME_dashboard")
-    public String smeDashboardOverview(Employee employee, Model model) {
-
-//        Map<SMEAccount, Integer> top10Transaction = smeDashboardService.getSmeTransaction();
-        List<SMETransactionHelper> top10 = smeDashboardService.findTop10SMETransactions();
+    public String smeDashboardOverview(Model model) {
+        Employee loginEmployee = (Employee)model.getAttribute(AttributeMapping.LOGGED_IN_EMPLOYEE);
+        List<SMETransactionHelper> top10MostValuedCustomers = smeDashboardService.findTop10SMETransactions();
         Map<Sector, Integer> averageTop10BySector = smeDashboardService.averageBySector();
         List<TokenPaymentMachine> getAllLinkRequests = smeDashboardService.getAllByLinkRequest();
-        List<SMEAccount> top10Balance = smeDashboardService.getTop10bySmeBalance();
+        List<SMEAccount> top10ByBalance = smeDashboardService.getTop10bySmeBalance();
 
-        model.addAttribute("selectedEmployee", employee);
+        model.addAttribute("loggedInEmployee", loginEmployee);
         model.addAttribute("linkRequestList", getAllLinkRequests);
-        model.addAttribute("transactionsList", top10);
-        model.addAttribute("balances", top10Balance);
+        model.addAttribute("transactionsList", top10MostValuedCustomers);
+        model.addAttribute("balances", top10ByBalance);
         model.addAttribute("averageBalanceBySector", averageTop10BySector);
         return "sme_employee_dashboard";
     }
