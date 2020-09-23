@@ -36,21 +36,16 @@ public class SmeConfirmPaymentMachineController {
         return "sme-payment-machine-request-overview";
     }
 
-/*    @GetMapping("confirm-paymentmachine-request")
-    public String confirmPaymentMachineRequest(@ModelAttribute ConfirmBean confirmBean, Model model) {
-        System.out.println(confirmBean);
-        model.addAttribute("confirmBean", confirmBean);
-        return "confirm";
-    }*/
-
     @PostMapping("sme-confirm-paymentmachine-request")
     public String paymentMachineRequestOverviewHandler(
             @ModelAttribute("tokenID") int tokenID, Model model) {
         TokenPaymentMachine tokenPaymentMachine = requestPaymentMachineService.generateSecCodeToken(tokenID);
+        System.out.println(tokenPaymentMachine);
+        System.out.println(tokenPaymentMachine.getSecurityCode());
         if (tokenPaymentMachine != null) {
             model.addAttribute(new ConfirmBean("Pinautomaataanvraag koppelcode", "De pinautomaat dient met" +
                     " de volgende code geactiveerd te worden\n" + tokenPaymentMachine.getSecurityCode()));
         }
-        return "confirm";
+        return paymentMachineRequestOverview(model);
     }
 }
