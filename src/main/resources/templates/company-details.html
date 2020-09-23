@@ -10,48 +10,63 @@
 <body>
 <div th:include="fragments/header :: header"></div>
 
-<div class="container ">
+<div class="container">
     <form method="POST" th:object="${companyBean}" th:action="@{company-details-completed}">
         <div class="card" id="new-account">
-
             <div class="card-header account-header-div">
                 <h5 class="account-header">Bedrijfsgegevens</h5>
             </div>
+
             <div class="card-body">
                 <div>
-                    <div class="form-row2">
-                        <p>Vul de volgende velden in:</p>
-                    </div>
-                    <div class="new-account form-row2">
-                        <div>
-                            <label>KVK-nummer:</label>
-                        </div>
-                        <div>
-                            <input class="form-control" id="kvk" type="text" name="input-KVKno" th:field="*{KVKno}" required onchange="showText()">
+                    <div th:if="${companyError ne null}">
+                        <div  class="alert alert-danger">
+                            <span th:text="${companyError}"></span>
                         </div>
                     </div>
-                    <div class="new-account form-row2">
-                        <div>
-                            <label>Bedrijfsnaam:</label>
-                        </div>
-                        <div>
-                            <input class="form-control" id="name" type="text" name="input-name" th:field="*{Name}" required>
+
+                    <div th:if="${fieldsError ne null}">
+                        <div  class="alert alert-danger">
+                            <span th:text="${fieldsError}"></span>
                         </div>
                     </div>
-                    <div class="new-account form-row2">
-                        <div>
-                            <label>BTW-nummer:</label>
-                        </div>
-                        <div>
-                            <input class="form-control" id="btw" type="text" name="input-BTWno" th:field="*{BTWno}" required>
+
+                    <div class="form-group row">
+                        <div class="col-auto col-form-label">
+                            <p>Vul in de onderstaande velden uw bedrijfsgegevens in.</p>
+                            <p>Bent u al rekeninghouder van een bedrijf? Voer dan het kvk-nummer van het betreffende bedrijf in, de overige velden worden dan automatisch aangevuld.</p>
                         </div>
                     </div>
-                    <div class="new-account form-row2">
-                        <div>
-                            <label>Sector:</label>
+
+                    <div class="form-group row">
+                            <label for="kvk" class="col-sm-2 col-form-label">KVK-nummer</label>
+                            <div class="col-sm-10 input-group">
+                                <input class="form-control" id="kvk" type="text" name="input-KVKno" th:field="*{KVKno}" onchange="showText()">
+                            </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="name" class="col-sm-2 col-form-label">Bedrijfsnaam</label>
+                        <div class="col-sm-10 input-group">
+                            <input class="form-control" id="name" type="text" name="input-name" th:field="*{Name}">
                         </div>
-                        <div>
-                            <select class="form-control" th:field="*{sector}">
+                    </div>
+                    <div class="form-group row">
+                        <label for="btw" class="col-sm-2 col-form-label">BTW-nummer</label>
+                        <div class="col-sm-10">
+                            <div>
+                                <input class="form-control" id="btw" type="text" name="input-BTWno" th:field="*{BTWno}">
+                            </div>
+                            <div class="text-danger form-error">
+                                <small>
+                                    <span th:if="${#fields.hasErrors('BTWno')}" th:errors="*{BTWno}"/>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="sector" class="col-sm-2 col-form-label">Sector:</label>
+                        <div class="col-sm-10 input-group">
+                            <select class="form-control" id="sector" th:field="*{sector}">
                             <option value="" text=""></option>
                             <option th:each="sec : ${sectors}" th:value="${sec.sectorId}" th:text="${sec.getSectorName()}"></option>
                             </select>
@@ -59,15 +74,20 @@
                     </div>
                 </div>
             </div>
-
         </div>
-        <div>
-            <input class="btn btn-outline-dark button" type="submit" value="Volgende"/>
-            <input class="btn btn-outline-dark button" type="button" onclick="window.location.href='account_overview';" value="Cancel"/>
+        <div class="buttons">
+            <div class="btn-group">
+                <input class="btn btn-outline-dark" type="submit" value="Volgende"/>
+                <input class="btn btn-outline-dark" type="button" onclick="window.location.href='account_overview';" value="Cancel"/>
+            </div>
         </div>
     </form>
 </div>
-
+<style>
+    .buttons {
+        margin-top: 15px;
+    }
+</style>
 <script>
     function showText() {
         var str = document.getElementById("kvk").value;

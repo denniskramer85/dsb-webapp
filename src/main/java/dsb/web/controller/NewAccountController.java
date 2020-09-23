@@ -13,6 +13,7 @@ import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,6 +27,8 @@ import java.util.List;
 @SessionAttributes({AttributeMapping.COMPANY_BEAN, AttributeMapping.LOGGED_IN_CUSTOMER,AttributeMapping.SELECTED_ACCOUNT})
 
 public class NewAccountController {
+
+    @Autowired
     private NewAccountService newAccountService;
     private CompanyRepository companyRepository;
     private SectorRepository sectorRepository;
@@ -38,12 +41,6 @@ public class NewAccountController {
         this.accountOverviewService = accountOverviewService;
     }
 
-    public CompanyBean newAccountBean(){
-        return new CompanyBean();
-    }
-
-    @Autowired
-
 
     @GetMapping("new-account")
     public String newAccountSetup(){
@@ -53,70 +50,51 @@ public class NewAccountController {
     @PostMapping("new-account")
     public String newAccountType(
             @RequestParam(name = "accountType") int accountType,
+            @ModelAttribute(AttributeMapping.LOGGED_IN_CUSTOMER) Customer loggedInCustomer,
             Model model) {
-        model.addAttribute(AttributeMapping.COMPANY_BEAN, new CompanyBean());
+        CompanyBean cb = new CompanyBean();
+        cb.setCurrentCustomer(loggedInCustomer);
+        model.addAttribute(AttributeMapping.COMPANY_BEAN, cb);
         if (accountType == 0) {                         // if Radio 'partiuculier' was selected
             return "confirm-new-account";
         } else if (accountType == 1) {                  // if Radio 'zakelijk' was selected
-            return "redirect:/company-details";
+            return "redirect:company-details";
         }
         return "index";
     }
 
-
-
-    @GetMapping("confirm-new-account")
-    public String confirmNewAccount(
-            @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean companyBean){
-        return "confirm-new-account";
-    }
-
     @GetMapping("company-details")
-    public String companyDetails (
-            @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean companyBean,
+    public String companyDetailsHandler (
             Model model) {
         model.addAttribute("sectors", sectorRepository.findAll());
         return "company-details";
     }
 
-    @PostMapping("company-details")
-    public String companyDetails1 (
-            @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean companyBean,
-            Model model) {
-        return "company-details";
+    @PostMapping("company-details-completed")
+    public ModelAndView companyDetailsCompleted(@Valid @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean cb,
+                                          Errors errors,
+                                          ModelMap model){
+        model.addAttribute("companyBean", cb);
+        if (errors.hasErrors()){
+            model.addAttribute("sectors", sectorRepository.findAll());
+            return new ModelAndView( "company-details", model);
+        }
+        return newAccountService.companyExists(cb,model);
     }
 
-    @PostMapping("company-details-completed")
-    public String companyDetailsCompleted(@Valid @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean companyBean,
-                                          @ModelAttribute(AttributeMapping.LOGGED_IN_CUSTOMER) Customer loggedInCustomer,
-                                          Errors errors,
-                                          Model model){
-        if (errors.hasErrors()){
-            model.addAttribute("companyBean", companyBean);
-            model.addAttribute("sectors", sectorRepository.findAll());
-            return "company-details";
-        }
-        //check if kvk exists
-        String kvkNo = companyBean.getKVKno();
-        if(companyRepository.existsByKVKno(kvkNo)){
-            //check of user gemachtigd is om rekening aan te maken
-            List<Company> companies = new ArrayList<>();
-            for (Account account : loggedInCustomer.getAccounts()){
-                if (account instanceof SMEAccount){
-                    companies.add(((SMEAccount) account).getCompany());
-                }
-            }
-        }
+    @GetMapping("confirm-new-account")
+    public String confirmNewAccount(
+            @ModelAttribute("company") Company company,
+            @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean companyBean,
+            Model model){
         return "confirm-new-account";
     }
 
     @PostMapping("account-confirmed")
     public String confirmNewAccountPost(
             @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean companyBean,
-            @ModelAttribute(AttributeMapping.LOGGED_IN_CUSTOMER) Customer loggedInCustomer,
             Model model){
-        companyBean.setCurrentCustomer(loggedInCustomer);
-        Account account = newAccountService.saveNewAccount(companyBean);
+        Account account = newAccountService.createAndSaveNewAccountFromBean(companyBean);
         model.addAttribute(AttributeMapping.SELECTED_ACCOUNT, account);
         model.addAttribute("confirmBean", new ConfirmBean("Nieuwe rekening aangevraagd", "Gefeliciteerd, je nieuwe rekening is aangevraagd en is vanaf nu te vinden in je rekening overzicht. Vanaf nu ECHT veilig bankieren bij DSB!","accountPage", "Naar rekening"));
         return "confirm";

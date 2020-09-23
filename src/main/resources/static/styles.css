@@ -47,6 +47,9 @@ input[type=number] {
 }
 
 /*new-account*/
+ .buttons {
+     margin-top: 15px;
+ }
 
 .new-account .form-row{
     overflow: hidden;

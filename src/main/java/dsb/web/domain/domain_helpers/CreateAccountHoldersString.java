@@ -51,6 +51,10 @@ public class CreateAccountHoldersString {
     private String createTotalString() {
         StringBuilder stringBuilder = new StringBuilder();
 
+        // return empty string if account has no holders
+        if (holderNames.isEmpty())
+            return "";
+
         //prevent outOfBound
         int maxLoop = getMaxloop();
 

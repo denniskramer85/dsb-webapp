@@ -6,6 +6,7 @@ import dsb.web.repository.AccountHolderTokenRepository;
 import dsb.web.repository.AccountRepository;
 import dsb.web.repository.SMEAccountRepository;
 import dsb.web.repository.ConsumerAccountRepository;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,7 +63,7 @@ public class AccountOverviewService {
     }
 
     public boolean accessPermitted(Account account, Customer customer) {
-        List<Account> accountsOfCustomer = accountRepository.findAllByHolders(customer);
+        List<Account> accountsOfCustomer = accountRepository.findAllByHolders((User)customer);
         for (Account accountOfCustomer: accountsOfCustomer) {
             if (accountOfCustomer.equals(account)) {
                 return true;

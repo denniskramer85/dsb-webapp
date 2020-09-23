@@ -40,6 +40,13 @@ public class Company {
         this.sector = sector;
     }
 
+    public Company(String name, String KVKno, String BTWno, Sector sector) {
+        this.name = name;
+        this.KVKno = KVKno;
+        this.BTWno = BTWno;
+        this.sector = sector;
+    }
+
     public Company() {
     }
 
