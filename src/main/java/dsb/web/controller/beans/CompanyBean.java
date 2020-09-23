@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Scope;
 import java.util.List;
 
 public class CompanyBean {
+    private boolean existing;
     private String name;
     private String KVKno;
     private String BTWno;
@@ -16,7 +17,8 @@ public class CompanyBean {
     private Employee accountManager;
     private Customer currentCustomer;
 
-    public CompanyBean(String name, String KVKno, String BTWno, Sector sector, Employee accountManager, Customer currentCustomer) {
+    public CompanyBean(boolean existing, String name, String KVKno, String BTWno, Sector sector, Employee accountManager, Customer currentCustomer) {
+        this.existing = existing;
         this.name = name;
         this.KVKno = KVKno;
         this.BTWno = BTWno;
@@ -26,6 +28,14 @@ public class CompanyBean {
     }
 
     public CompanyBean() {
+    }
+
+    public boolean isExisting() {
+        return existing;
+    }
+
+    public void setExisting(boolean existing) {
+        this.existing = existing;
     }
 
     public String getName() {
@@ -79,6 +89,7 @@ public class CompanyBean {
     @Override
     public String toString() {
         return "CompanyBean{" +
+                ", existing='" + existing + '\'' +
                 ", name='" + name + '\'' +
                 ", KVKno='" + KVKno + '\'' +
                 ", BTWno='" + BTWno + '\'' +

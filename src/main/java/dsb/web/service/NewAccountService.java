@@ -21,20 +21,22 @@ public class NewAccountService {
 
     private AccountRepository accountRepository;
     private CompanyRepository companyRepository;
-    private SMEAccountRepository accountRepositorySme;
+    private SMEAccountRepository smeAccountRepository;
     private ConsumerAccountRepository consumerAccountRepository;
     private EmployeeRepository employeeRepository;
     private TransactionService transactionService;
     private IbanService ibanService;
+    private SectorRepository sectorRepository;
 
-    public NewAccountService(AccountRepository accountRepository, CompanyRepository companyRepository, SMEAccountRepository accountRepositorySme, ConsumerAccountRepository consumerAccountRepository, EmployeeRepository employeeRepository, TransactionService transactionService, IbanService ibanService) {
+    public NewAccountService(AccountRepository accountRepository, CompanyRepository companyRepository, SMEAccountRepository smeAccountRepository, ConsumerAccountRepository consumerAccountRepository, EmployeeRepository employeeRepository, TransactionService transactionService, IbanService ibanService, SectorRepository sectorRepository) {
         this.accountRepository = accountRepository;
         this.companyRepository = companyRepository;
-        this.accountRepositorySme = accountRepositorySme;
+        this.smeAccountRepository = smeAccountRepository;
         this.consumerAccountRepository = consumerAccountRepository;
         this.employeeRepository = employeeRepository;
         this.transactionService = transactionService;
         this.ibanService = ibanService;
+        this.sectorRepository = sectorRepository;
     }
 
     public Account saveNewConsumerAccount(Customer accountHolder) {
@@ -44,7 +46,7 @@ public class NewAccountService {
 
     public Account saveNewSMEAccount(Customer accountHolder, Company company) {
         Iban iban = ibanService.getUniqueIban();
-        return accountRepositorySme.save(new SMEAccount(
+        return smeAccountRepository.save(new SMEAccount(
                 iban.toString(),
                 BALANCE,
                 new ArrayList<>(Arrays.asList(accountHolder)),
@@ -53,7 +55,7 @@ public class NewAccountService {
 
     public Account createAndSaveNewAccountFromBean(CompanyBean cb) {
         Account account;
-        if (cb.getName() != null) {                                                  // if consumer account
+        if (cb.getName() == null) {                                                  // if consumer account
             account = saveNewConsumerAccount(cb.getCurrentCustomer());
         } else if (companyRepository.existsByKVKno(cb.getKVKno())) {                // if company exists
             account = saveNewSMEAccount(cb.getCurrentCustomer(), companyRepository.findCompanyByKVKno(cb.getKVKno()));
@@ -82,30 +84,38 @@ public class NewAccountService {
     public ModelAndView companyExists(CompanyBean cb, ModelMap model) {
         Company company = companyRepository.findCompanyByKVKno(cb.getKVKno());
         if (company != null) {                                                                                          // if kvkNo occurs in DB:
-            if (!isCustomerAuthorizedForCompany(company, cb, model) && errorInCompanyFields(company, cb, model)){
-                return new ModelAndView("redirect:/company-details", model);
+            if (isCustomerAuthorizedForCompany(company, cb, model) && areCompanyFieldsValid(company, cb, model)){
+                cb.setExisting(true);
+                model.addAttribute("companyBean", cb);
+                return new ModelAndView("redirect:/confirm-new-account", model);
+            } else {
+                model.addAttribute("sectors", sectorRepository.findAll());
+                return new ModelAndView("company-details", model);
             }
-        } else {
-            model.addAttribute("companyBean", cb);  // if kvkNo doesnt occur in DB
-            model.addAttribute("company", null);
         }
+        cb.setExisting(false);
+        model.addAttribute("companyBean", cb);
         return new ModelAndView("redirect:/confirm-new-account", model);
     }
 
-    private boolean errorInCompanyFields(Company c, CompanyBean cb, ModelMap model) {
+    private boolean areCompanyFieldsValid(Company c, CompanyBean cb, ModelMap model) {
         if (c.getName().equals(cb.getName()) && c.getBTWno().equals(cb.getBTWno()) && c.getSector().equals(cb.getSector())) {
-            System.out.println("checkCompanyFields - false");
-            return false;
-        } else {
             System.out.println("checkCompanyFields - true");
-            model.addAttribute("fieldsError", "Het opgegeven KVK nummer is bij ons reeds bekend, maar niet in combinatie met de overige gegevens. Probeer het nogmaals.");
             return true;
+        } else {
+            System.out.println("checkCompanyFields - false");
+            model.addAttribute("fieldsError", "Het opgegeven KVK nummer is bij ons reeds bekend, maar niet in combinatie met de overige gegevens. Probeer het nogmaals.");
+            return false;
         }
     }
 
     public boolean isCustomerAuthorizedForCompany(Company company, CompanyBean cb, ModelMap model) {
-        List<SMEAccount> accounts = accountRepositorySme.findAllByHolders(cb.getCurrentCustomer());
-        System.out.println(accounts);
+        System.out.println("Accounts for: " + cb.getCurrentCustomer());
+        List<SMEAccount> smeAccountList = smeAccountRepository.findAllByHolders(cb.getCurrentCustomer());
+        List<SMEAccount> accounts = smeAccountRepository.findAllByHolders(cb.getCurrentCustomer());
+
+        for (SMEAccount acc : accounts)
+            System.out.println(((Account) acc).getAccountNo() + acc.getHolders());
         if (accounts.size() > 0) {
             for (SMEAccount account : accounts) {
                 if (account.getCompany().getKVKno().equals(cb.getKVKno())) {
@@ -115,7 +125,7 @@ public class NewAccountService {
                 }
             }
         }
-        model.addAttribute("companyError", "Je bent helaas niet bevoegd om een rekening te openen voor dit KVK nummer");
+        model.addAttribute("companyError", "Je bent helaas niet bevoegd om een rekening te openen namens dit bedrijf");
         System.out.println("isCustomerAuthorizedForCompany - false");
         return false;
     }

@@ -23,9 +23,14 @@
                     <div class="form-row2">
                         <p>Vul de volgende velden in:</p>
                     </div>
-                    <div th:if="${companyError != ''}">
+                    <div th:if="${companyError ne null}">
                         <div  class="alert alert-danger">
                             <span th:text="${companyError}"></span>
+                        </div>
+                    </div>
+                    <div th:if="${fieldsError ne null}">
+                        <div  class="alert alert-danger">
+                            <span th:text="${fieldsError}"></span>
                         </div>
                     </div>
                     <div class="new-account form-row2">

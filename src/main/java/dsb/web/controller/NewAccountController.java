@@ -49,20 +49,21 @@ public class NewAccountController {
     @PostMapping("new-account")
     public String newAccountType(
             @RequestParam(name = "accountType") int accountType,
+            @ModelAttribute(AttributeMapping.LOGGED_IN_CUSTOMER) Customer loggedInCustomer,
             Model model) {
-        model.addAttribute(AttributeMapping.COMPANY_BEAN, new CompanyBean());
+        CompanyBean cb = new CompanyBean();
+        cb.setCurrentCustomer(loggedInCustomer);
+        model.addAttribute(AttributeMapping.COMPANY_BEAN, cb);
         if (accountType == 0) {                         // if Radio 'partiuculier' was selected
             return "confirm-new-account";
         } else if (accountType == 1) {                  // if Radio 'zakelijk' was selected
-            model.addAttribute("companyError",null);
-            return "redirect:/company-details";
+            return "redirect:company-details";
         }
         return "index";
     }
 
     @GetMapping("company-details")
     public String companyDetailsHandler (
-            @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean companyBean,
             Model model) {
         model.addAttribute("sectors", sectorRepository.findAll());
         return "company-details";
@@ -72,20 +73,21 @@ public class NewAccountController {
     public ModelAndView companyDetailsCompleted(@Valid @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean cb,
                                           Errors errors,
                                           ModelMap model){
+        System.out.println(cb);
         model.addAttribute("companyBean", cb);
         if (errors.hasErrors()){
-            model.addAttribute("companyError", null);
+            model.addAttribute("companyError","");
+            model.addAttribute("fieldError","");
             return new ModelAndView( "company-details");
         }
 
         return newAccountService.companyExists(cb,model);
     }
 
-
-
     @GetMapping("confirm-new-account")
     public String confirmNewAccount(
             @ModelAttribute("company") Company company,
+            @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean companyBean,
             Model model){
         return "confirm-new-account";
     }
@@ -93,9 +95,7 @@ public class NewAccountController {
     @PostMapping("account-confirmed")
     public String confirmNewAccountPost(
             @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean companyBean,
-            @ModelAttribute(AttributeMapping.LOGGED_IN_CUSTOMER) Customer loggedInCustomer,
             Model model){
-        companyBean.setCurrentCustomer(loggedInCustomer);
         Account account = newAccountService.createAndSaveNewAccountFromBean(companyBean);
         model.addAttribute(AttributeMapping.SELECTED_ACCOUNT, account);
         model.addAttribute("confirmBean", new ConfirmBean("Nieuwe rekening aangevraagd", "Gefeliciteerd, je nieuwe rekening is aangevraagd en is vanaf nu te vinden in je rekening overzicht. Vanaf nu ECHT veilig bankieren bij DSB!","accountPage", "Naar rekening"));
