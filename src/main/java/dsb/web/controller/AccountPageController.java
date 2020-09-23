@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes("selectedAccountSession")
+@SessionAttributes({"selectedAccountSession", AttributeMapping.LOGGED_IN_CUSTOMER})
 public class AccountPageController {
 
     private AccountPageService accountPageService;
@@ -29,13 +29,7 @@ public class AccountPageController {
 
         //make bean for printing account data
         model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
-
-
-        //TODO weg, ivm test: nu is null
-        PrintAccountDataBean padb = (PrintAccountDataBean) model.getAttribute("printAccountDataBean");
-        System.out.println("print in de controller: " + padb);
-
-
+        model.addAttribute(AttributeMapping.LOGGED_IN_CUSTOMER);
         return "account_page";
     }
 }

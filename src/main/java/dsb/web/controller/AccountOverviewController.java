@@ -55,7 +55,7 @@ public class AccountOverviewController {
 
 
         // Check whether logged in customer has access to selected account
-        /**dit ff uitgezet en gewijzigde versie hieronder:
+        /**TODO dit ff uitgezet en gewijzigde versie hieronder:
          * om sessie te vullen en te werken met model**/
         /*if (accountOverviewService.accessPermitted(selectedAccount, loggedInCustomer)) {
             ModelAndView modelAndView = new ModelAndView();
