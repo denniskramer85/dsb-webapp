@@ -39,7 +39,7 @@ public class SMEDashboardController {
     public SMEDashboardController() {
     }
 
-    @GetMapping("SME_dashboard")
+    @GetMapping("sme_employee_dashboard")
     public String smeDashboardOverview(Employee employee, Model model) {
 
 //        Map<SMEAccount, Integer> top10Transaction = smeDashboardService.getSmeTransaction();
