@@ -58,4 +58,8 @@ public class AccountPageService {
         return temp.substring(0, 1).toUpperCase() + temp.substring(1);
     }
 
+    @Override
+    public String toString() {
+        return "AccountPageService";
+    }
 }

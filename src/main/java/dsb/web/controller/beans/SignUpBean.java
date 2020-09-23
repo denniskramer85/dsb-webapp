@@ -1,12 +1,16 @@
 package dsb.web.controller.beans;
 
 import dsb.web.service.validators.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 
 @FieldsValueMatch(field = "password", fieldMatch = "password2")
+@Component
 public class SignUpBean {
 
     //TODO default message not blank wijz
@@ -52,7 +56,7 @@ public class SignUpBean {
     @NotBlank(message = "Veld is leeg")
     private String password2;
 
-
+    @Autowired
     public SignUpBean() {
     }
 
@@ -195,5 +199,14 @@ public class SignUpBean {
 
     public void setPassword2(String password2) {
         this.password2 = password2;
+    }
+
+    @Override
+    public String toString() {
+        return "SignUpBean{" +
+                "surname='" + surname + '\'' +
+                ", inserts='" + inserts + '\'' +
+                ", initials='" + initials + '\'' +
+                '}';
     }
 }

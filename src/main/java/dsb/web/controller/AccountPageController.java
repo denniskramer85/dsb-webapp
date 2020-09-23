@@ -1,6 +1,8 @@
 package dsb.web.controller;
 
+import dsb.web.controller.beans.PrintAccountDataBean;
 import dsb.web.domain.Account;
+import dsb.web.domain.SMEAccount;
 import dsb.web.service.AccountPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,9 +26,16 @@ public class AccountPageController {
     @GetMapping("accountPage")
     public String startAccountPage (Model model) {
         Account account = (Account) model.getAttribute("selectedAccountSession");
-        System.out.println(account);
+
         //make bean for printing account data
         model.addAttribute("printAccountDataBean", accountPageService.makePrintAccountDataBean(account));
+
+
+        //TODO weg, ivm test: nu is null
+        PrintAccountDataBean padb = (PrintAccountDataBean) model.getAttribute("printAccountDataBean");
+        System.out.println("print in de controller: " + padb);
+
+
         return "account_page";
     }
 }

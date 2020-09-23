@@ -204,7 +204,8 @@ input[type=number] {
     top: 22px;
 }
 
-#accountPage #accountData p {
+#accountPage #accountData p,
+#transferPage #accountData p {
     line-height: 70%;
 }
 

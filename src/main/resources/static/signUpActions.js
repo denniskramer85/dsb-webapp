@@ -40,7 +40,7 @@ function runAll() {
 //contains all checks - logical sequence is important!
 function allChecker(input) {
 
-    normalizeInput(input)
+    normalizeInputField(input)
 
     document.getElementById("confirmButton").disabled = true
 
@@ -214,7 +214,7 @@ function displayMessage(input, message) {
 
 }
 
-function normalizeInput(input) {
+function normalizeInputField(input) {
     input.removeAttribute('placeholder')
     input.style.border = "thin solid black"
 }
@@ -307,8 +307,8 @@ function retrieve_address(id, value) {
             var aResponse = rString.split(";");
             document.getElementById("street").value = aResponse[0];
             document.getElementById("city").value = aResponse[1];
-            normalizeInput(document.getElementById("street"))
-            normalizeInput(document.getElementById("city"))
+            normalizeInputField(document.getElementById("street"))
+            normalizeInputField(document.getElementById("city"))
 
         }
     }

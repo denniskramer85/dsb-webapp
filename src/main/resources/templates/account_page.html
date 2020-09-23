@@ -24,13 +24,7 @@
             </div>
             <div class="card-body">
                 <div id="accountData">
-                    <p class="italic"><span th:text="*{timestamp}"/></p>
-                    <p th:if="*{typeAccount == 'SMEAccount'}"><strong>Bedrijf:</strong> <span th:text="*{companyName}"/></p>
-                    <p><strong>Houder(s):</strong>
-                            <span th:each="name : *{holderNames}" th:text="${name + ' '}"  />
-                    </p>
-                    <p><strong>Rekeningnummer:</strong> <span th:text="*{accountNo}"></span></p>
-                    <p><strong>Saldo:</strong> € <span th:text="*{balance}"/></p>
+                    <div th:include="fragments/accountDataFragment :: accountDataFragment"></div>
                 </div>
 
                 <div id="generalButtons">

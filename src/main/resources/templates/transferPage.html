@@ -8,7 +8,7 @@
     <title>Overboeken</title>
 
 </head>
-<body>
+<body id="transferPage">
     <div th:include="fragments/header :: header"></div>
 
     <div class="modal fade" id="nameError" role="document">
@@ -38,12 +38,7 @@
 
                 <div class="transfer-account-data" id="accountData" th:object="${printAccountDataBean}">
                     <p>
-                        <strong>Rekeningnummer:</strong> <span th:text="*{accountNo}"/><br>
-                        <span th:if="*{typeAccount == 'SMEAccount'}">
-                            <strong>Bedrijf:</strong> <span th:text="*{companyName}"/><br>
-                        </span>
-                        <span><strong>Rekeninghouder(s):</strong> <span th:each="name : *{holderNames}" th:text="${name + ' '}" /></span><br>
-                        <strong>Saldo:</strong> € <span th:text="*{balance}"/><br>
+                    <div th:include="fragments/accountDataFragment :: accountDataFragment"></div>
                     </p>
                 </div>
 

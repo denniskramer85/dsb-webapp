@@ -16,6 +16,7 @@ public class ConsumerAccount extends Account{
     }
 
     public ConsumerAccount() {
+        super();
     }
 
     @Override

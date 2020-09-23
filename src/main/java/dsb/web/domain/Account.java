@@ -3,6 +3,7 @@ package dsb.web.domain;
 import dsb.web.domain.domain_helpers.CreateAccountHoldersString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -38,6 +39,7 @@ public abstract class Account {
     }
 
     public Account() {
+        this.holders = new ArrayList<>();
     }
 
     public abstract String printClassName();
@@ -103,4 +105,10 @@ public abstract class Account {
     public int hashCode() {
         return 0;
     }
+
+
+    public void addHolder(Customer customer) {
+        holders.add(customer);
+    }
+
 }

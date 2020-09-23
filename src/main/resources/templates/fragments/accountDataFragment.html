@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<div th:fragment="accountDataFragment">
+
+    <p class="italic"><span th:text="*{timestamp}"/></p>
+    <p th:if="*{typeAccount == 'SMEAccount'}"><strong>Bedrijf:</strong> <span th:text="*{companyName}"/></p>
+    <p><strong>Houder(s):</strong>
+        <span th:each="name : *{holderNames}" th:text="${name + ' '}"  />
+    </p>
+    <p><strong>Rekeningnummer:</strong> <span th:text="*{accountNo}"></span></p>
+    <p><strong>Saldo:</strong> € <span th:text="*{balance}"/></p>
+
+</div>
+
+
+
+</body>
+</html>
