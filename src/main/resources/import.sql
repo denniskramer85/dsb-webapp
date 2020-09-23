@@ -15,17 +15,26 @@ INSERT INTO dsb.sector VALUES (13, 'Zakelijke diensten')
 
 INSERT INTO `dsb`.`address` (`addressid`, `city`, `house_number`, `street`) VALUES ('99999999', 'Wognum', '6', 'Dick Ketlaan');
 INSERT INTO `dsb`.`address` (`addressid`, `city`, `house_number`, `street`) VALUES ('11', 'Amsterdam', '1', 'Straat');
-INSERT INTO `dsb`.`customer` (`customerid`, `initials`, `password`, `social_security_no`, `surname`, `username`, `address_addressid`) VALUES ('99999999', 'DSB', 'dsbb', '000000', 'Bank', 'dsbb', '99999999');
-INSERT INTO `dsb`.`customer` (`customerid`, `initials`, `password`, `social_security_no`, `surname`, `username`, `address_addressid`) VALUES ('11', 'D.', 'dennis', '123456', 'Kramer', 'dennis', '11');
-INSERT INTO `dsb`.`customer` (`customerid`, `initials`, `password`, `social_security_no`, `surname`, `username`, `address_addressid`) VALUES ('12', 'E.M.', 'miel', '123456', 'van Welzen', 'miel', '11');
-INSERT INTO `dsb`.`customer` (`customerid`, `initials`, `password`, `social_security_no`, `surname`, `username`, `address_addressid`) VALUES ('13', 'M.C.', 'asd', '123456', 'Escher', 'asd', '11');
-INSERT INTO `dsb`.`customer` (`customerid`, `initials`, `password`, `social_security_no`, `surname`, `username`, `address_addressid`) VALUES ('14', 'A.M.G', 'anni', '123456', 'Schmit', 'anni', '11');
+
+INSERT INTO `dsb`.`user` (`userid`, `initials`, `password`, `surname`, `username`) VALUES ('11', 'D.', 'dennis', 'Kramer', 'dennis' );
+INSERT INTO `dsb`.`user` (`userid`, `initials`, `password`, `surname`, `username`) VALUES ('12', 'M.', 'miel', 'van Welzen', 'miel' );
+INSERT INTO `dsb`.`user` (`userid`, `initials`, `password`, `surname`, `username`) VALUES ('13', 'M.C.', 'asd', 'Escher', 'asd');
+INSERT INTO `dsb`.`user` (`userid`, `initials`, `password`, `surname`, `username`) VALUES ('99999999', 'DSB', 'dsbb', 'Bank', 'dsbb');
+
+INSERT INTO `dsb`.`customer` (`social_security_no`, `userid`, `address_addressid`) VALUES ('123456', '11', '11');
+INSERT INTO `dsb`.`customer` (`social_security_no`, `userid`, `address_addressid`) VALUES ('123456', '12', '11');
+INSERT INTO `dsb`.`customer` (`social_security_no`, `userid`, `address_addressid`) VALUES ('123456', '13', '11');
+INSERT INTO `dsb`.`customer` (`social_security_no`, `userid`, `address_addressid`) VALUES ('000000', '99999999', '99999999');
+
 
 INSERT INTO `dsb`.`role` (`roleid`, `role_name`) VALUES('1', 'Retail')
 INSERT INTO `dsb`.`role` (`roleid`, `role_name`) VALUES('2', 'Commercial')
 
-INSERT INTO `dsb`.`employee` (`employeeid`, `employee_user_name`, `initials`, `password`, `surname`, `role_roleid`) VALUES ('44', 'linda', 'L.', 'linda', 'Haest', '1' );
-INSERT INTO `dsb`.`employee` (`employeeid`, `employee_user_name`, `initials`, `password`, `surname`, `role_roleid`) VALUES ('45', 'thijs', 'T.', 'thijs', 'Rodenburg', '2');
+INSERT INTO `dsb`.`user` (`userid`, `initials`, `password`, `surname`, `username`) VALUES ('44', 'L.', 'linda', 'Haest', 'linda' );
+INSERT INTO `dsb`.`user` (`userid`, `initials`, `password`, `surname`, `username`) VALUES ('45', 'T.', 'thijs', 'Rodenburg', 'thijs' );
+
+INSERT INTO `dsb`.`employee` (`userid`, `role_roleid`) VALUES ('44', '1' );
+INSERT INTO `dsb`.`employee` (`userid`, `role_roleid`) VALUES ('45', '2' );
 
 INSERT INTO `dsb`.`company` (`company_id`, `btwno`, `kvkno`, `name`, `sector_sector_id`, `account_manager`) VALUES ('11', 'NL0012345B03', '14729462', 'HvA Corp.', 12, '45');
 INSERT INTO `dsb`.`company` (`company_id`, `btwno`, `kvkno`, `name`, `sector_sector_id`, `account_manager`) VALUES ('12', 'NL0012345B04', '66666666', 'Evil Corp.', 4, '45');
@@ -70,13 +79,13 @@ INSERT INTO `dsb`.`company_accounts` (`company_company_id`, `accounts_accountid`
 INSERT INTO `dsb`.`company_accounts` (`company_company_id`, `accounts_accountid`) VALUES ('12', '118');
 INSERT INTO `dsb`.`company_accounts` (`company_company_id`, `accounts_accountid`) VALUES ('14', '119');
 
-INSERT INTO `dsb`.`account_holders` (`accounts_accountid`, `holders_customerid`) VALUES (110, 11);
-INSERT INTO `dsb`.`account_holders` (`accounts_accountid`, `holders_customerid`) VALUES (111, 11);
-INSERT INTO `dsb`.`account_holders` (`accounts_accountid`, `holders_customerid`) VALUES (112, 11);
-INSERT INTO `dsb`.`account_holders` (`accounts_accountid`, `holders_customerid`) VALUES (113, 11);
-INSERT INTO `dsb`.`account_holders` (`accounts_accountid`, `holders_customerid`) VALUES (114, 11);
-INSERT INTO `dsb`.`account_holders` (`accounts_accountid`, `holders_customerid`) VALUES (115, 11);
-INSERT INTO `dsb`.`account_holders` (`accounts_accountid`, `holders_customerid`) VALUES (110, 13);
+INSERT INTO `dsb`.`account_holders` VALUES (110, 11);
+INSERT INTO `dsb`.`account_holders` VALUES (111, 11);
+INSERT INTO `dsb`.`account_holders` VALUES (112, 11);
+INSERT INTO `dsb`.`account_holders` VALUES (113, 11);
+INSERT INTO `dsb`.`account_holders` VALUES (114, 11);
+INSERT INTO `dsb`.`account_holders` VALUES (115, 11);
+INSERT INTO `dsb`.`account_holders` VALUES (110, 13);
 
 INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, credit_account_accountid, debit_account_accountid) VALUES ('99999980', 'DSB Startkapitaal', 1000, '2020-01-01 01:01:01', 110, 99999999);
 INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, credit_account_accountid, debit_account_accountid) VALUES ('99999981', 'DSB Startkapitaal', 1250, '2020-01-01 01:01:01', 111, 99999999);
@@ -101,15 +110,14 @@ INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount
 INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, credit_account_accountid, debit_account_accountid) VALUES ('306', 'Vissen', '150', '2020-01-05 01:01:01', 117, 119);
 INSERT INTO `dsb`.`transaction` (`transactionid`, `message`, `transaction_amount`, `transaction_timestamp`, credit_account_accountid, debit_account_accountid) VALUES ('307', 'Boekenclub', '1100', '2020-01-05 01:01:01', 119, 117);
 
-INSERT INTO `dsb`.`token_payment_machine` (`tokenid`, `security_code`, `sme_account_accountid`) VALUES ('1', '25481', '113');
-INSERT INTO `dsb`.`token_payment_machine` (`tokenid`, `security_code`, `sme_account_accountid`) VALUES ('2', '26847', '114');
-INSERT INTO `dsb`.`token_payment_machine` (`tokenid`, `security_code`, `sme_account_accountid`) VALUES ('3', '0', '115');
-INSERT INTO `dsb`.`token_payment_machine` (`tokenid`, `security_code`, `sme_account_accountid`) VALUES ('4', '53697', '116');
-INSERT INTO `dsb`.`token_payment_machine` (`tokenid`, `security_code`, `sme_account_accountid`) VALUES ('5', '35875', '117');
-INSERT INTO `dsb`.`token_payment_machine` (`tokenid`, `security_code`, `sme_account_accountid`) VALUES ('6', '0', '118');
-INSERT INTO `dsb`.`token_payment_machine` (`tokenid`, `security_code`, `sme_account_accountid`) VALUES ('7', '88697', '119');
-INSERT INTO `dsb`.`token_payment_machine` (`tokenid`, `security_code`, `sme_account_accountid`) VALUES ('8', '0', '120');
-
+INSERT INTO `dsb`.`token_payment_machine` (`tokenid`, `security_code`, `sme_account_accountid`) VALUES ('1001', '25481', '113');
+INSERT INTO `dsb`.`token_payment_machine` (`tokenid`, `security_code`, `sme_account_accountid`) VALUES ('1002', '26847', '114');
+INSERT INTO `dsb`.`token_payment_machine` (`tokenid`, `security_code`, `sme_account_accountid`) VALUES ('1003', '0', '115');
+INSERT INTO `dsb`.`token_payment_machine` (`tokenid`, `security_code`, `sme_account_accountid`) VALUES ('1004', '53697', '116');
+INSERT INTO `dsb`.`token_payment_machine` (`tokenid`, `security_code`, `sme_account_accountid`) VALUES ('1005', '35875', '117');
+INSERT INTO `dsb`.`token_payment_machine` (`tokenid`, `security_code`, `sme_account_accountid`) VALUES ('1006', '0', '118');
+INSERT INTO `dsb`.`token_payment_machine` (`tokenid`, `security_code`, `sme_account_accountid`) VALUES ('1007', '88697', '119');
+INSERT INTO `dsb`.`token_payment_machine` (`tokenid`, `security_code`, `sme_account_accountid`) VALUES ('1008', '0', '120');
 
 INSERT INTO dsb.account_holder_token VALUES (110,0,110,13)
 

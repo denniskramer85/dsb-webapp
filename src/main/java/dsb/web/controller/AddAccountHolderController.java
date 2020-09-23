@@ -55,7 +55,7 @@ public class AddAccountHolderController {
             @ModelAttribute(AttributeMapping.SELECTED_ACCOUNT) Account account,
             Model model) {
         String usernameValid = addAccountHolderService.checkUsernameValidity(newAccountHolder, loggedInCustomer, account);
-        Customer passwordCorrect = signInService.checkCredentials(loggedInCustomer.getUsername(), password);
+        Customer passwordCorrect = (Customer) signInService.checkCredentials(loggedInCustomer.getUsername(), password);
         if (usernameValid != "" || passwordCorrect == null) {
             model.addAttribute("errorMessage", usernameValid);
             return ("add-account-holder");

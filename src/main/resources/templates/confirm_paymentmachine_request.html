@@ -1,22 +1,40 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <link rel="stylesheet" href="styles.css"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <meta charset="UTF-8">
-    <title>Confirm payment machine request</title>
+    <title>Bevestigen pinautomaat aanvragen</title>
 </head>
 <body>
 
+<div th:include="fragments/header :: header"></div>
 
-<form method="post" th:object="${loginBean}" th:action="@{add-paymentmachine}">
-    <table><tr><td>
-        <label for="password">Wachtwoord</label>
-    </td><td>
-        <input type="password" class="form-control" id="password" name="password" th:field="*{password}">
-    </td></tr>
-    </table>
-    <input type="submit" class="btn btn-outline-dark" value="Bevestigen"/>
+<div class="container">
+        <div class="card cards" >
+            <div class="card-header paymentmachine-header-div">
+                <h5 class="account-header">Vul uw wachtwoord in om de pinautomaat aanvraag te bevestigen</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" th:object="${loginBean}" th:action="@{add-paymentmachine}">
+                    <table><tr><td>
+                        <label for="password">Wachtwoord</label>
+                    </td><td>
+                        <input type="password" class="form-control" id="password" name="password" th:field="*{password}">
+                    </td></tr>
+                    </table>
+                    <br>
+                    <input type="submit" class="btn btn-outline-dark" value="Bevestigen"/>
+                    <input class="btn btn-outline-dark" type="button" value="Annuleren" onclick="location.href='accountPage'">
+
+                </form>
+            </div>
+        </div>
+    </form>
 
 
-</form>
+
+</div>
+
 </body>
 </html>

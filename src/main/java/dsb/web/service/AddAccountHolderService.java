@@ -60,9 +60,9 @@ public class AddAccountHolderService {
             return "Gebruikersnaam niet geldig, probeer opnieuw";
         }else {
             Customer customer = OptionalCustomer.get();
-            System.out.println(customer.getCustomerID());
-            System.out.println(loggedInCustomer.getCustomerID());
-            if (customer.getCustomerID() == loggedInCustomer.getCustomerID()){
+            System.out.println(customer.getUserID());
+            System.out.println(loggedInCustomer.getUserID());
+            if (customer.getUserID() == loggedInCustomer.getUserID()){
                 return "Voer hier de gebruikersnaam van de nieuwe rekeninghouder in";
             }else if (account.getHolders().contains(customer)) {
                 return "Deze gebruiker is reeds rekeninghouder van deze rekening";

@@ -5,6 +5,7 @@ import dsb.web.controller.beans.LoginBean;
 import dsb.web.controller.beans.TransferBean;
 import dsb.web.domain.Account;
 import dsb.web.domain.Customer;
+import dsb.web.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -41,10 +42,10 @@ public class TransferService {
         Customer loggedInCustomer = (Customer) model.getAttribute(AttributeMapping.LOGGED_IN_CUSTOMER);
 
         //check if validation is correct via signInService
-        Customer loginCustomer = signInService.
+        User loginCustomer = signInService.
                 checkCredentials(loginBean.getUsername(), loginBean.getPassword());
 
-        return checkPassword(model, loggedInCustomer, loginCustomer);
+        return checkPassword(model, loggedInCustomer, (Customer) loginCustomer);
     }
 
     private String checkPassword(Model model, Customer loggedInCustomer, Customer loginCustomer) {
@@ -75,5 +76,4 @@ public class TransferService {
             return "/";
         }
     }
-
 }

@@ -20,15 +20,15 @@ public class NewAccountService {
     private CompanyRepository companyRepository;
     private SMEAccountRepository accountRepositorySme;
     private ConsumerAccountRepository consumerAccountRepository;
-    private EmployeeRepository employeeRepository;
+    private UserRepository userRepository;
     private TransactionService transactionService;
 
-    public NewAccountService(AccountRepository accountRepository, CompanyRepository companyRepository, SMEAccountRepository accountRepositorySme, ConsumerAccountRepository consumerAccountRepository, EmployeeRepository employeeRepository, TransactionService transactionService) {
+    public NewAccountService(AccountRepository accountRepository, CompanyRepository companyRepository, SMEAccountRepository accountRepositorySme, ConsumerAccountRepository consumerAccountRepository, UserRepository userRepository, TransactionService transactionService) {
         this.accountRepository = accountRepository;
         this.companyRepository = companyRepository;
         this.accountRepositorySme = accountRepositorySme;
         this.consumerAccountRepository = consumerAccountRepository;
-        this.employeeRepository = employeeRepository;
+        this.userRepository = userRepository;
         this.transactionService = transactionService;
     }
 
@@ -39,8 +39,8 @@ public class NewAccountService {
         Company company = null;
         Account account;
         if (companyBean.getName() != null){
-            Employee accountManager = employeeRepository.findById(45).get();
-            company = new Company(companyBean.getName(),companyBean.getKVKno(), companyBean.getBTWno(), accountManager, companyBean.getSector());
+            User accountManager = userRepository.findById(45).get();
+            company = new Company(companyBean.getName(),companyBean.getKVKno(), companyBean.getBTWno(), (Employee) accountManager, companyBean.getSector());
             company = companyRepository.save(company);
             System.out.println("New company created");
             account = accountRepositorySme.save(
