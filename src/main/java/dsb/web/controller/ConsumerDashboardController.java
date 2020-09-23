@@ -1,6 +1,7 @@
 package dsb.web.controller;
 
 import dsb.web.domain.ConsumerAccount;
+import dsb.web.domain.Customer;
 import dsb.web.domain.Employee;
 import dsb.web.service.ConsumerDashboardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class ConsumerDashboardController {
 
     //afmaken m.b.v. de medewerker sign-in van Dennis (Session meegeven).
     @GetMapping("employee_consumer_dashboard")
-    public String consumerDashboard(Employee employee, Model model) {
+    public String consumerDashboard(@ModelAttribute(AttributeMapping.LOGGED_IN_EMPLOYEE) Employee employee, Model model) {
         model.addAttribute("selectedEmployee", employee);
         List<ConsumerAccount> top10lijst = consumerDashboardService.findHighestAccounts();
         model.addAttribute("consumerAccounts1", top10lijst);

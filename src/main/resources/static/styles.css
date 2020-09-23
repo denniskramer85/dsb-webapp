@@ -28,11 +28,19 @@ input[type=number] {
 }
 
 /*navbar*/
-.navbar .nav-icon {
-    padding-right: 5px;
+
+.dropdown-icon {
+    padding-right: 10px;
+    margin-bottom: 4px;
 }
 
+.logo-navbar {
+    padding-right: 18px;
+}
+
+
 /*container*/
+
 .container {
     padding: 25px 10px 10px;
 
@@ -135,6 +143,10 @@ input[type=number] {
     line-height: 38px;
 }
 
+.inline-form {
+    margin: 0;
+    padding: 0;
+}
 
 
 /*for several pages*/
@@ -232,4 +244,23 @@ input[type=number] {
     position: relative;
     top: 30px;
 }
+
+/*for sme payment machine request overview page */
+.paymentmachinerequests-table {
+    padding: 10px;
+    width: 60%;
+    text-align: left;
+    vertical-align: bottom;
+}
+
+.paymentmachinerequests-header {
+    display:inline-block;
+}
+
+.paymentmachinerequests-header-div {
+    line-height: 38px;
+}
+
+
+
 

@@ -31,7 +31,6 @@ public class TokenPaymentMachine {
         return tokenID;
     }
 
-
     public void setTokenID(int tokenID) {
         this.tokenID = tokenID;
     }

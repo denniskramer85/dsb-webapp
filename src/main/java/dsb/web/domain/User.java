@@ -36,6 +36,18 @@ public abstract class User {
     public User() {
     }
 
+    public String getUserFullName() {
+        String returnString = "";
+        returnString += initials + " ";
+        if (inserts == null || inserts == "") {
+            returnString += surname;
+            return returnString;
+        }
+        returnString += inserts + " ";
+        returnString += surname;
+        return returnString;
+    }
+
     public int getUserID() {
         return userID;
     }
