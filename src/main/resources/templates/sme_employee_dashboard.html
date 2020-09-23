@@ -14,11 +14,24 @@
         width: 80%;
     }
 
-
     #customers td, #customers th {
         border: 1px solid #ddd;
         padding: 8px;
     }
+
+
+    #customersSmall {
+
+        border-collapse: collapse;
+        width: 40%;
+    }
+
+    #customersSmall td, #customersSmall th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+
 
 
 
@@ -97,7 +110,7 @@
             <h5 class="header">Gemiddeld saldo per segment</h5>
         </div>
             <div class="card-body">
-                <table id="customers">
+                <table id="customersSmall">
                     <th>Sector </th>
                     <th>Balans</th>
                     <tr th:each=" sector : ${averageBalanceBySector}">

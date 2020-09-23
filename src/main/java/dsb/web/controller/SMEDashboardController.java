@@ -39,21 +39,24 @@ public class SMEDashboardController {
     public SMEDashboardController() {
     }
 
-    @GetMapping("SME_dashboard")
-    public String smeDashboardOverview(Model model) {
-        Employee loginEmployee = (Employee)model.getAttribute(AttributeMapping.LOGGED_IN_EMPLOYEE);
-        List<SMETransactionHelper> top10MostValuedCustomers = smeDashboardService.findTop10SMETransactions();
+    @GetMapping("sme_employee_dashboard")
+    public String smeDashboardOverview(Employee employee, Model model) {
+
 //        Map<SMEAccount, Integer> top10Transaction = smeDashboardService.getSmeTransaction();
         List<SMETransactionHelper> top10 = smeDashboardService.findTop10SMETransactions();
         Map<Sector, Integer> averageTop10BySector = smeDashboardService.averageBySector();
+//        if(averageTop10BySector.) {
+//            model.addAttribute("no Data"); }
         List<TokenPaymentMachine> getAllLinkRequests = smeDashboardService.getAllPaymentMachineRequests();
-        List<SMEAccount> top10ByBalance = smeDashboardService.getTop10bySmeBalance();
-        model.addAttribute("loggedInEmployee", loginEmployee);
+        List<SMEAccount> top10Balance = smeDashboardService.getTop10bySmeBalance();
+
+        model.addAttribute("selectedEmployee", employee);
         model.addAttribute("linkRequestList", getAllLinkRequests);
-        model.addAttribute("transactionsList", top10MostValuedCustomers);
-        model.addAttribute("balances", top10ByBalance);
+        model.addAttribute("transactionsList", top10);
+        model.addAttribute("balances", top10Balance);
         model.addAttribute("averageBalanceBySector", averageTop10BySector);
         return "sme_employee_dashboard";
     }
 }
+
 
