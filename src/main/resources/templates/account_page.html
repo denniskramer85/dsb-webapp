@@ -27,18 +27,14 @@
                     <div th:include="fragments/accountDataFragment :: accountDataFragment"></div>
                 </div>
 
-                <div id="generalButtons">
+                <div id="allButtons">
                     <input type="button" class="btn btn-outline-dark" onclick="location.href='transfer'" value="Overboeken" />
                     <form method="get" th:action="@{add-account-holder}" th:object="${printAccountDataBean}">
                         <input type="hidden" th:value="*{accountNo}">
                         <input type="submit" class="btn btn-outline-dark" value="Rekeninghouder toevoegen"/>
                     </form>
+                    <input id="SMEAButtons" th:if="*{typeAccount == 'SMEAccount'}" type="button" class="btn btn-outline-dark" onclick="location.href='request-paymentmachine';" value="Aanvragen pinautomaat" />
                 </div>
-
-                <div id="SMEAButtons" th:if="*{typeAccount == 'SMEAccount'}">
-                    <input type="button" class="btn btn-outline-dark" onclick="location.href='request-paymentmachine';" value="Aanvragen pinautomaat" />
-                </div>
-
             </div>
         </div>
 

@@ -226,6 +226,14 @@ input[type=number] {
     font-size: 120%;
 }
 
+#accountPage #allButtons {
+    display: flex;
+}
+#accountPage #allButtons input {
+    margin-right: 10px;
+}
+
+
 
 /*for transfer page*/
 
