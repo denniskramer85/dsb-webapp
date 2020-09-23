@@ -30,12 +30,6 @@ public class RequestPaymentMachineService {
     }
 
 
-
-
-
-
-
-
     //pinautomaat aavragen, token aanmaken
     public TokenPaymentMachine createAndSaveToken(SMEAccount smeAccount) {
         TokenPaymentMachine token = new TokenPaymentMachine(smeAccount);

@@ -23,7 +23,7 @@ import javax.validation.Valid;
 
 
 @Controller
-@SessionAttributes({AttributeMapping.COMPANY_BEAN, AttributeMapping.LOGGED_IN_CUSTOMER})
+@SessionAttributes({AttributeMapping.COMPANY_BEAN, AttributeMapping.LOGGED_IN_CUSTOMER, AttributeMapping.SELECTED_ACCOUNT})
 public class NewAccountController {
     private NewAccountService newAccountService;
     private CompanyRepository companyRepository;
