@@ -48,7 +48,7 @@ public class NewAccountService {
                 company));
     }
 
-    public Account saveNewAccountFromBean(CompanyBean cb){
+    public Account createAndSaveNewAccountFromBean(CompanyBean cb){
         Account account;
         if (cb.getName() != null){                                                  // if consumer account
             account = saveNewConsumerAccount(cb.getCurrentCustomer());

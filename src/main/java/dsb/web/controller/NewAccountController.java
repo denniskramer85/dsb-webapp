@@ -77,14 +77,10 @@ public class NewAccountController {
     public ModelAndView companyDetailsCompleted(@Valid @ModelAttribute(AttributeMapping.COMPANY_BEAN) CompanyBean cb,
                                           Errors errors,
                                           ModelMap model){
+        model.addAttribute("companyBean", cb);
         if (errors.hasErrors()){
-            model.addAttribute("companyBean", cb);
             model.addAttribute("companyError", null);
             return new ModelAndView( "company-details");
-        }
-        if (cb.getKVKno() == null){                                                                                     // if kvkNo is blank: consumerAccount
-            model.addAttribute("company", null);
-            return new ModelAndView(  "confirm-new-account");
         }
         Company company = companyRepository.findCompanyByKVKno(cb.getKVKno());
         if (company != null) {                                                                                          // if kvkNo occurs in DB:
@@ -97,7 +93,7 @@ public class NewAccountController {
                 return new ModelAndView(  "redirect:/company-details", model);
             }
         } else {                                                                                                        // if kvkNo doesnt occur in DB
-            model.addAttribute("company", newAccountService.createAndSaveCompanyFromBean(cb));
+            model.addAttribute("company", null);
             return new ModelAndView(  "confirm-new-account");
         }
     }
@@ -115,8 +111,8 @@ public class NewAccountController {
             @ModelAttribute(AttributeMapping.LOGGED_IN_CUSTOMER) Customer loggedInCustomer,
             Model model){
         companyBean.setCurrentCustomer(loggedInCustomer);
-        //Account account = newAccountService.saveNewAccount(companyBean);
-        //model.addAttribute(AttributeMapping.SELECTED_ACCOUNT, account);
+        Account account = newAccountService.createAndSaveNewAccountFromBean(companyBean);
+        model.addAttribute(AttributeMapping.SELECTED_ACCOUNT, account);
         model.addAttribute("confirmBean", new ConfirmBean("Nieuwe rekening aangevraagd", "Gefeliciteerd, je nieuwe rekening is aangevraagd en is vanaf nu te vinden in je rekening overzicht. Vanaf nu ECHT veilig bankieren bij DSB!","accountPage", "Naar rekening"));
         return "confirm";
     }
