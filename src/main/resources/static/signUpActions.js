@@ -9,6 +9,7 @@ let MIN_SIZES = [["surname", 2], ["username", 6]]
 //all inputs
 let listInputs = document.querySelectorAll('input');
 
+document.getElementById("confirmButton").disabled = true
 runAll()
 
 // //toggle button for choosing validation
