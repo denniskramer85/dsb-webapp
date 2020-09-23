@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.List;
@@ -40,17 +41,14 @@ public class SMEDashboardController {
     }
 
     @GetMapping("sme_employee_dashboard")
-    public String smeDashboardOverview(Employee employee, Model model) {
+    public String smeDashboardOverview(@ModelAttribute(AttributeMapping.LOGGED_IN_EMPLOYEE) Employee employee, Model model) {
 
-//        Map<SMEAccount, Integer> top10Transaction = smeDashboardService.getSmeTransaction();
         List<SMETransactionHelper> top10 = smeDashboardService.findTop10SMETransactions();
         Map<Sector, Integer> averageTop10BySector = smeDashboardService.averageBySector();
-//        if(averageTop10BySector.) {
-//            model.addAttribute("no Data"); }
         List<TokenPaymentMachine> getAllLinkRequests = smeDashboardService.getAllPaymentMachineRequests();
         List<SMEAccount> top10Balance = smeDashboardService.getTop10bySmeBalance();
 
-        model.addAttribute("selectedEmployee", employee);
+        model.addAttribute("selectedEmployee", employee.getUserFullName());
         model.addAttribute("linkRequestList", getAllLinkRequests);
         model.addAttribute("transactionsList", top10);
         model.addAttribute("balances", top10Balance);
@@ -58,4 +56,5 @@ public class SMEDashboardController {
         return "sme_employee_dashboard";
     }
 }
+
 
