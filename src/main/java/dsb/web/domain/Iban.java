@@ -80,6 +80,4 @@ public class Iban {
         result.append(String.format("%02d", this.checkSum));
         return result.toString().toUpperCase();
     }
-
-
 }
