@@ -27,7 +27,7 @@ INSERT INTO `dsb`.`customer` (`social_security_no`, `userid`, `address_addressid
 INSERT INTO `dsb`.`customer` (`social_security_no`, `userid`, `address_addressid`) VALUES ('000000', '99999999', '99999999');
 
 
-INSERT INTO `dsb`.`role` (`roleid`, `role_name`) VALUES('1', 'Retail')
+INSERT INTO `dsb`.`role` (`roleid`, `role_name`) VALUES('1', 'Consumer')
 INSERT INTO `dsb`.`role` (`roleid`, `role_name`) VALUES('2', 'Commercial')
 
 INSERT INTO `dsb`.`user` (`userid`, `initials`, `password`, `surname`, `username`) VALUES ('44', 'L.', 'linda', 'Haest', 'linda' );
