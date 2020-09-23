@@ -3,7 +3,8 @@
 package dsb.web.service.validators;
 
 import dsb.web.domain.Customer;
-import dsb.web.repository.CustomerRepository;
+import dsb.web.domain.User;
+import dsb.web.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.ConstraintValidator;
@@ -12,11 +13,11 @@ import java.util.List;
 
 public class UsernameOccupiedValidator implements ConstraintValidator<UsernameOccupiedConstraint, String> {
 
-    CustomerRepository customerRepository;
+    UserRepository userRepository;
 
     @Autowired
-    public UsernameOccupiedValidator(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
+    public UsernameOccupiedValidator(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -26,7 +27,8 @@ public class UsernameOccupiedValidator implements ConstraintValidator<UsernameOc
         if (string == null || string.trim().equals("")) return true;
 
         //actual check
-        List<Customer> customer = customerRepository.findAllByUsername(string);
-        return customer.size() == 0;
+        List<User> user = userRepository.findAllByUsername(string);
+
+        return user.size() == 0;
     }
 }

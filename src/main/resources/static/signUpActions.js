@@ -9,30 +9,31 @@ let MIN_SIZES = [["surname", 2], ["username", 6]]
 //all inputs
 let listInputs = document.querySelectorAll('input');
 
+runAll()
 
-//toggle button for choosing validation
-let toggleButton = document.getElementById('validationToggle')
-toggleButton.addEventListener('click', function(){
-    if (toggleButton.value == "Selecteer client-side validatie") {
-        runAll()
-        toggleButton.value = "Selecteer server-side validatie"
-    } else {
-        location.href='pre-sign-up'
-        return
-    }
-})
+// //toggle button for choosing validation
+// let toggleButton = document.getElementById('validationToggle')
+// toggleButton.addEventListener('click', function(){
+//     if (toggleButton.value == "Selecteer client-side validatie") {
+//         runAll()
+//         toggleButton.value = "Selecteer server-side validatie"
+//     } else {
+//         location.href='pre-sign-up'
+//         return
+//     }
+// })
 
 
 //start function (toggled on/off)
 function runAll() {
-    if (document.getElementById('validationToggle').value == "Selecteer client-side validatie") {
+    // if (document.getElementById('validationToggle').value == "Selecteer client-side validatie") {
         for (input of listInputs) {
             input.addEventListener('focusout', function() {
                 allChecker(this)
                 checkContents()
             })
         }
-    }
+    // }
 }
 
 
@@ -111,7 +112,7 @@ function onlyLetters(input) {
     }
 
     //actual check
-    if (!/^[a-zA-Z]+$/.test(input.value)) {
+    if (!/^[a-zA-Z -]*$/.test(input.value)) {
         displayMessage(input, "Alleen letters toegestaan")
         return true
     }

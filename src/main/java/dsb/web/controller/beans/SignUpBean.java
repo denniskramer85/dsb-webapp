@@ -79,6 +79,9 @@ public class SignUpBean {
                 .toUpperCase().split("");
         initials = String.join(".", asArray) + ".";
 
+        //styling of inserts
+        inserts = inserts.toLowerCase();
+
         //styling of surname
         String mid = surname.toLowerCase();
         surname = mid.substring(0,1).toUpperCase() + mid.substring(1);
