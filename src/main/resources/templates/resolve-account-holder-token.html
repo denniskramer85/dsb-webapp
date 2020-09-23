@@ -7,8 +7,9 @@
     <title>Mederekeninghouder worden</title>
 </head>
 <body>
+<div th:include="fragments/header :: header"></div>
 <div class="container ">
-    <form method="post" th:action="resolve-account-holder-token-2">
+    <form method="post" th:action="@{resolve-account-holder-token-verify}">
         <div class="card cards" >
             <div class="card-header account-header-div">
                 <h5 class="account-header">Mederekeninghouder worden</h5>
@@ -20,6 +21,7 @@
                 <div>
                     <label for="tokenCode">Code: </label>
                     <input type="text" id="tokenCode" name="tokenCode">
+                    <span th:if="${errorMsg != null}" th:text="${errorMsg}"></span>
                 </div>
             </div>
         </div>

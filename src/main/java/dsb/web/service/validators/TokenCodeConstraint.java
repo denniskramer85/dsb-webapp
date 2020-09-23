@@ -19,13 +19,9 @@ import javax.validation.Payload;
 @Documented
 @Constraint(validatedBy = { SocSecNoValidator.class })
 public @interface TokenCodeConstraint {
-
     String message() default "Dit is geen geldig BSN";
     Class<?>[] groups() default { };
     Class<? extends Payload>[] payload() default { };
-
-
-
 }
 
 

@@ -5,7 +5,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.HttpSessionRequiredException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.w3c.dom.Attr;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 * SessionRequired exceptions are redirected to sign-in page for either consumers or employees
 * */
 @Controller
-@SessionAttributes({AttributeMapping.LOGGED_IN_EMPLOYEE})
+@SessionAttributes({AttributeMapping.LOGGED_IN_EMPLOYEE, AttributeMapping.LOGGED_IN_CUSTOMER})
 public class ErrorController implements org.springframework.boot.web.servlet.error.ErrorController {
 
     @RequestMapping("/error")
@@ -23,8 +22,14 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
         Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
         Exception exception = (Exception) request.getAttribute("javax.servlet.error.exception");
 
-        // Always add status code to model
+        // Always add status code and title to model
+        model.addAttribute("errorTitle", "Error: " + statusCode);
         model.addAttribute("statusCode", statusCode);
+
+        // If no exception present, return error with just status code
+        if (exception == null) {
+            return "error";
+        }
 
         // If error is caused by user not logged in, redirect to login page after check for user type
         if (exception.getClass() == HttpSessionRequiredException.class) {
@@ -34,7 +39,7 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
             return "redirect:sign-in";
         }
 
-        // Else return generic error, displaying error code
+        // Else return generic error, displaying status code
         model.addAttribute("exception", exception.getMessage());
         return "error";
     }

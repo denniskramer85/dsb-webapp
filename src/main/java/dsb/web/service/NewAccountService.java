@@ -32,7 +32,7 @@ public class NewAccountService {
         this.transactionService = transactionService;
     }
 
-    public void saveNewAccount(CompanyBean companyBean){
+    public Account saveNewAccount(CompanyBean companyBean){
         Iban iban = IbanService.randIBAN();
         while (accountRepository.existsByAccountNo(iban.toString()))
             iban = IbanService.randIBAN();
@@ -44,19 +44,25 @@ public class NewAccountService {
             company = companyRepository.save(company);
             System.out.println("New company created");
             account = accountRepositorySme.save(
-            new SMEAccount(
-                            IbanService.randIBAN().toString(),
-                            BALANCE,
-                            new ArrayList<> (Arrays.asList(companyBean.getCurrentCustomer())),
+            new SMEAccount(IbanService.randIBAN().toString(),BALANCE,new ArrayList<> (Arrays.asList(companyBean.getCurrentCustomer())),
                             company));
         } else {
             account = consumerAccountRepository.save(
-                    new ConsumerAccount(
-                            IbanService.randIBAN().toString(),
-                            BALANCE,
-                            new ArrayList<> (Arrays.asList(companyBean.getCurrentCustomer()))));
+                    new ConsumerAccount(IbanService.randIBAN().toString(),BALANCE,new ArrayList<> (Arrays.asList(companyBean.getCurrentCustomer()))));
         }
         transactionService.doInitialTransaction(account);
         System.out.println("New account created");
+        return account;
+    }
+
+
+
+    Integer kvkStringToNum(String kvknrStr){
+        try {
+            Integer kvkNr = Integer.valueOf(kvknrStr);
+            return kvkNr;
+        } catch (NumberFormatException e){
+            return null;
+        }
     }
 }
