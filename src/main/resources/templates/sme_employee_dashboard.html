@@ -51,9 +51,8 @@
 
     <div class="card">
         <div class="card-header account-header-div">
-            <p>Welkom</p>
-            <tr th:each=" loggedInCustomer : ${loggedInEmployee}">
-                <span th:text="${loggedInCustomer.User.getUserFullName()}"></span>
+            <p>Welkom <span th:text="${selectedEmployee}"></span> </p>
+
         </div>
     </div>
     <br/>
@@ -87,7 +86,7 @@
                         <tr th:each="balance : ${balances}">
                             <td>
                                 <img class="account-icon" th:src="@{/images/icons/people.svg}" alt="">
-                                <span th:text="${balance.getHoldersString(0)}"/>
+                                <span th:text="${balance.getHoldersString()}"/>
                             </td>
                             <td>
                                 <img class="account-icon" th:src="@{/images/icons/credit-card.svg}" alt="">
