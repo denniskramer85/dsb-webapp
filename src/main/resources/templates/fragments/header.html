@@ -35,6 +35,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <span th:if="${loggedInCustomer}" class="navbar-nav">
                 <img th:src="@{/images/icons/person-circle.svg}" alt=""><a class="nav-item nav-link" href="account_overview">Mijn rekeningen</a>
+                <img th:src="@{/images/icons/file-earmark-plus.svg}" alt=""><a class="nav-item nav-link" href="/new-account">Rekening openen</a>
             </span>
         </div>
         <div th:unless="${loggedInCustomer != null or loggedInEmployee != null}" class="navbar-nav ml-auto">
