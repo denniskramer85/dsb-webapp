@@ -2,6 +2,7 @@ package dsb.web.controller;
 
 import dsb.web.controller.beans.ConfirmBean;
 import dsb.web.domain.TokenPaymentMachine;
+import dsb.web.repository.TokenPaymentMachineRepository;
 import dsb.web.service.RequestPaymentMachineService;
 import dsb.web.service.SmeDashboardService;
 import org.slf4j.Logger;
@@ -22,8 +23,9 @@ public class SmeConfirmPaymentMachineController {
    private Logger logger = LoggerFactory.getLogger(SmeConfirmPaymentMachineController.class);
 
     @Autowired
-    public SmeConfirmPaymentMachineController(SmeDashboardService smeDashboardService) {
+    public SmeConfirmPaymentMachineController(SmeDashboardService smeDashboardService, RequestPaymentMachineService requestPaymentMachineService) {
         this.smeDashboardService = smeDashboardService;
+        this.requestPaymentMachineService = requestPaymentMachineService;
     }
 
     public SmeConfirmPaymentMachineController() {
@@ -40,11 +42,10 @@ public class SmeConfirmPaymentMachineController {
     public String paymentMachineRequestOverviewHandler(
             @ModelAttribute("tokenID") int tokenID, Model model) {
         TokenPaymentMachine tokenPaymentMachine = requestPaymentMachineService.generateSecCodeToken(tokenID);
-        System.out.println(tokenPaymentMachine);
-        System.out.println(tokenPaymentMachine.getSecurityCode());
-        if (tokenPaymentMachine != null) {
+        if (tokenPaymentMachine.getSecurityCode() != 0) {
             model.addAttribute(new ConfirmBean("Pinautomaataanvraag koppelcode", "De pinautomaat dient met" +
-                    " de volgende code geactiveerd te worden\n" + tokenPaymentMachine.getSecurityCode()));
+                    " de volgende code geactiveerd te worden: " + tokenPaymentMachine.getSecurityCode() + ".", "paymentmachine-request-overview", "OK"));
+            return "confirm";
         }
         return paymentMachineRequestOverview(model);
     }
