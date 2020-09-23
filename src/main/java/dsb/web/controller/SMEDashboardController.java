@@ -43,6 +43,8 @@ public class SMEDashboardController {
     public String smeDashboardOverview(Model model) {
         Employee loginEmployee = (Employee)model.getAttribute(AttributeMapping.LOGGED_IN_EMPLOYEE);
         List<SMETransactionHelper> top10MostValuedCustomers = smeDashboardService.findTop10SMETransactions();
+//        Map<SMEAccount, Integer> top10Transaction = smeDashboardService.getSmeTransaction();
+        List<SMETransactionHelper> top10 = smeDashboardService.findTop10SMETransactions();
         Map<Sector, Integer> averageTop10BySector = smeDashboardService.averageBySector();
         List<TokenPaymentMachine> getAllLinkRequests = smeDashboardService.getAllPaymentMachineRequests();
         List<SMEAccount> top10ByBalance = smeDashboardService.getTop10bySmeBalance();

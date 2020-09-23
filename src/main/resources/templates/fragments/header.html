@@ -33,14 +33,22 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <!--Show only if a customer is logged in-->
             <span th:if="${loggedInCustomer}" class="navbar-nav">
                 <img th:src="@{/images/icons/person-circle.svg}" alt=""><a class="nav-item nav-link" href="account_overview">Mijn rekeningen</a>
+                <img th:src="@{/images/icons/file-earmark-plus.svg}" alt=""><a class="nav-item nav-link" href="/new-account">Rekening openen</a>
+            </span>
+            <!--Show only if an employee with role HoofdMKB is logged in"-->
+            <span th:if="${loggedInEmployee != null and loggedInEmployee.role.roleID == 2}" class="navbar-nav">
+                <img th:src="@{/images/icons/arrow-left-right.svg}" alt=""><a class="nav-item nav-link" href="paymentmachine-request-overview">Pinautomaten koppelen</a>
             </span>
         </div>
+        <!--Show if NO customer or employee is logged in-->
         <div th:unless="${loggedInCustomer != null or loggedInEmployee != null}" class="navbar-nav ml-auto">
             <img th:src="@{/images/icons/person-plus-fill.svg}" alt=""><a class="nav-item nav-link" href="pre-sign-up">Klant worden</a>
             <img th:src="@{/images/icons/box-arrow-in-right.svg}" alt=""><a class="nav-item nav-link" href="sign-in">Inloggen</a>
         </div>
+        <!--Show if a customer or employee is logged in-->
         <div th:if="${loggedInCustomer != null or loggedInEmployee != null}" class="navbar-nav ml-auto">
             <img th:src="@{/images/icons/box-arrow-right.svg}" alt=""><a class="nav-item nav-link" href="#" data-href="sign-out" data-toggle="modal" data-target="#confirm-logout">Uitloggen</a>
         </div>
