@@ -63,7 +63,7 @@ public class AccountOverviewService {
     }
 
     public boolean accessPermitted(Account account, Customer customer) {
-        List<Account> accountsOfCustomer = accountRepository.findAllByHolders((User)customer);
+        List<Account> accountsOfCustomer = accountRepository.findAllByHolders(customer);
         for (Account accountOfCustomer: accountsOfCustomer) {
             if (accountOfCustomer.equals(account)) {
                 return true;

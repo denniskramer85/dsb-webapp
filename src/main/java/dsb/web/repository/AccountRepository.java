@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Integer> {
     List<Account> findAll();
-    List<Account> findAllByHolders(User user);
+    List<Account> findAllByHolders(Customer customer);
     Account findAccountByAccountNo(String accountNo);
     Boolean existsByAccountNo(String accountNo);
     Optional<Account> findByAccountID (int accountID);
