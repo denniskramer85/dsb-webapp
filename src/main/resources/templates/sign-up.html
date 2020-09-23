@@ -114,7 +114,7 @@
                             <table><tr><td>
                                 <label for="street">Straat</label>
                             </td><td>
-                                <input type="text" class="form-control notEmpty" id="street" name="street" th:field="*{street}" readonly>
+                                <input type="text" class="form-control notEmpty" id="street" name="street" th:field="*{street}">
                             </td></tr><tr><td></td><td>
                                 <p class="errors"><span th:if="${#fields.hasErrors('street')}" th:errors="*{street}"/></p>
                             </td></tr>
@@ -124,7 +124,7 @@
                             <table><tr><td>
                                 <label for="city">Plaats</label>
                             </td><td>
-                                <input type="text" class="form-control notEmpty" id="city" name="city" th:field="*{city}" readonly />
+                                <input type="text" class="form-control notEmpty" id="city" name="city" th:field="*{city}"/>
                             </td></tr><tr><td></td><td>
                                 <p class="errors"><span th:if="${#fields.hasErrors('city')}" th:errors="*{city}"/></p>
                             </td></tr>
@@ -173,8 +173,8 @@
 
 
                     <div class="buttons">
-                        <input class="btn btn-outline-dark" id="cancelButton" type="button" value="Annuleren" onclick="location.href='/'">
                         <input class="btn btn-outline-dark" id="confirmButton" type="submit" value="Bevestigen">
+                        <input class="btn btn-outline-dark" id="cancelButton" type="button" value="Annuleren" onclick="location.href='/'">
                     </div>
 
                 </div>
