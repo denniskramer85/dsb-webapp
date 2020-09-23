@@ -1,11 +1,8 @@
 package dsb.web.controller.rest;
 
 
-import dsb.web.controller.beans.SignUpBean;
-import dsb.web.controller.beans.TransferNameBean;
-import dsb.web.domain.Account;
-import dsb.web.domain.Customer;
-import dsb.web.repository.CustomerRepository;
+import dsb.web.domain.User;
+import dsb.web.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,20 +12,20 @@ import java.util.List;
 @RequestMapping(value = "/username-occupied-check")
 public class UsernameOccupiedController {
 
-    CustomerRepository customerRepository;
+    UserRepository userRepository;
 
     @Autowired
-    public UsernameOccupiedController(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
+    public UsernameOccupiedController(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping(value = "/{username}")
     public Boolean usernameExists(@PathVariable("username") String username) {
 
-        List<Customer> customer = customerRepository.findAllByUsername(username);
+        List<User> user = userRepository.findAllByUsername(username);
 
-        if (customer.size() == 0) {
+        if (user.size() == 0) {
             return Boolean.FALSE;
         } else return Boolean.TRUE;
     }

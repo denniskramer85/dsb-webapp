@@ -11,11 +11,11 @@ public class PrintAccountDataBean {
     private String holderNames;
     private String balance;
     private String timestamp;
-    private List<String> transactionStrings;
+    private List<String[]> transactionStrings;
 
 
     public PrintAccountDataBean(String typeAccount, String accountNo, String companyName, String holderNames,
-                                String balance, String timestamp, List<String> transactionStrings) {
+                                String balance, String timestamp, List<String[]> transactionStrings) {
         this.typeAccount = typeAccount;
         this.accountNo = accountNo;
         this.companyName = companyName;
@@ -86,11 +86,11 @@ public class PrintAccountDataBean {
         this.timestamp = timestamp;
     }
 
-    public List<String> getTransactionStrings() {
+    public List<String[]> getTransactionStrings() {
         return transactionStrings;
     }
 
-    public void setTransactionStrings(List<String> transactionStrings) {
+    public void setTransactionStrings(List<String[]> transactionStrings) {
         this.transactionStrings = transactionStrings;
     }
 }

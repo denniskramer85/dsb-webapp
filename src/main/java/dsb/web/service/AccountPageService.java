@@ -33,7 +33,7 @@ public class AccountPageService {
         String holderNames = account.getHoldersString(3);
         String balance = String.format("%.2f", account.getBalance());
         String currentTime = getCurrentTime();
-        List<String> transactionStrings =
+        List<String[]> transactionStrings =
                 printTransactionsForAccountPage.printTransactionsForAccountPage(account);
 
         return new PrintAccountDataBean(typeAccount, accountNo, companyName,

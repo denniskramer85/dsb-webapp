@@ -75,13 +75,11 @@ public class SignUpController {
         //add customer to session
         model.addAttribute(AttributeMapping.LOGGED_IN_CUSTOMER, customer);
 
+        //go to generic confirm page
+        ConfirmBean confirmBean = new ConfirmBean("Aanmelding geslaagd", "Gebruiker is succesvol opgeslagen!", "account_overview", "OK");
+        model.addAttribute(confirmBean);
+        return "confirm";
 
-//        ConfirmBean confirmBean = new ConfirmBean("Aanmelding geslaagd", "Gebruiker is succesvol opgeslagen!", "account_overview", "OK");
-//        model.addAttribute(confirmBean);
-//        return "confirm";
-
-
-        return "account_overview";
     }
 
 }

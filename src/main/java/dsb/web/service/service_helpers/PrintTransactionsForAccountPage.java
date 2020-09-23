@@ -17,8 +17,7 @@ public class PrintTransactionsForAccountPage {
     private static final int MAX_NR_TRANSACTIONS_SHOWN = 10;
 
     private Account account;
-    private String ownAccountNo, timeStamp, counterAccount, message, plusMinus;
-    double amount;
+    private String ownAccountNo, timeStamp, counterAccount, message, plusMinus, amount;
     private List<Transaction> transactions;
 
     private TransactionRepository transactionRepository;
@@ -30,12 +29,12 @@ public class PrintTransactionsForAccountPage {
     }
 
 
-    public List<String> printTransactionsForAccountPage(Account accountMP) {
+    public List<String[]> printTransactionsForAccountPage(Account accountMP) {
 
         //set up variables
         account = accountMP;
         ownAccountNo = account.getAccountNo();
-        List<String> transactionStrings = new ArrayList<>();
+        List<String[]> transactionStrings = new ArrayList<>();
 
         //get all transactions for this account
         transactions = transactionRepository.
@@ -49,18 +48,18 @@ public class PrintTransactionsForAccountPage {
         return transactionStrings;
     }
 
-    private String createIndividualTransaction(Transaction transaction) {
+    private String[] createIndividualTransaction(Transaction transaction) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         timeStamp = transaction.getTransactionTimestamp().format(formatter);
         message = transaction.getMessage();
-        amount = transaction.getTransactionAmount();
+        amount = String.format("%s%.2f", plusMinus, transaction.getTransactionAmount());
 
         determineCounterAccount(transaction);
 
-        //stylize transaction string
-        return String.format("%s    |    %s    |    %s%.2f    |    %s",
-                timeStamp, counterAccount, plusMinus, amount, message);
+        String[] result = {timeStamp, counterAccount, amount, message};
+
+        return result;
     }
 
     private void determineCounterAccount(Transaction transaction) {
