@@ -62,7 +62,8 @@
     </div>
 
     <!--Deel 3-->
-    <div class="card cards" th:if="${companyBean.existing != null}">
+
+    <div class="card cards" th:if="${companyBean.existing != false}">
         <!--Header-->
         <div class="card-header account-header-div">
             <h5 class="account-header">Bedrijfsgegevens</h5>
@@ -98,6 +99,8 @@
                     </div>
                 </div>
 
+
+
                 <div class="new-account form-row">
                     <div class="new-account text">
                         <p>Sector: </p>
@@ -109,7 +112,7 @@
             </div>
         </div>
     </div>
-
+    <form method="post" th:object="${companyBean}" th:action="@{account-confirmed}">
         <div>
             <input class="btn btn-outline-dark" type="submit" value="Bevestig">
             <input class="btn btn-outline-dark" type="button" onclick="window.location.href='account_overview';" value="Cancel"/>
