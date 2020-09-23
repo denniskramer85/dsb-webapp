@@ -11,7 +11,7 @@
 <div class="container">
     <form method="post" th:action="@{confirm-add-account-holder}">
         <div class = "card">
-            <div class="card-header"><h5>Zoek DSB klant</h5></div>
+            <div class="card-header"><h5>Toevoegen rekeninghouder</h5></div>
             <div class="card-body" id="signUpPage">
                 <p>Type hier de gebruikersnaam van de nog toe te voegen rekeninghouder en kies vervolgens een 5-cijferige beveiligingscode.</p>
                 <div class="form-group">
@@ -20,12 +20,12 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="new_account_holder">Gebruikersnaam: </label>
-                    <input class="form-control" type="text" id="new_account_holder" name="new_account_holder" onchange="checkUser()"/>
+                    <input class="form-control" type="text" id="new_account_holder" name="new_account_holder" required onchange="checkUser()"/>
                     <span id="error-msg-un" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="tokenCode">5-cijferige code: </label>
-                    <input class="form-control" type="text" id="tokenCode" name="tokenCode" onchange="checkCode()"/>
+                    <input class="form-control" type="text" id="tokenCode" name="tokenCode" required onchange="checkCode()"/>
                     <span id="error-msg-code" class="text-danger"></span>
                 </div>
             </div>

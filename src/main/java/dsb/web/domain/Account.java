@@ -85,6 +85,11 @@ public abstract class Account {
                 '}';
     }
 
+    // overload method for getholderString
+    public String getHoldersString (){
+        return getHoldersString(holders.size());
+    }
+
     //also define max number of holders shown!
     public String getHoldersString (int maxHoldersShown) {
         CreateAccountHoldersString createAccountHoldersString =

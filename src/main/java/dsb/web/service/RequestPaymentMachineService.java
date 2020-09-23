@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.security.SecureRandom;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -47,7 +48,7 @@ public class RequestPaymentMachineService {
         if (optionalToken.isPresent()) {
             TokenPaymentMachine token = optionalToken.get();
             SecureRandom random = new SecureRandom();
-            int securityCode = random.nextInt(100000);
+            int securityCode = 10000 + random.nextInt(90000);
             token.setSecurityCode(securityCode);
             return tokenPaymentMachineRepository.save(token);
         } else {

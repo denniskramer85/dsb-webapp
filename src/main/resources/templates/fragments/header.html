@@ -46,6 +46,7 @@
         </div>
         <!--Show if NO customer or employee is logged in-->
         <div th:unless="${loggedInCustomer != null or loggedInEmployee != null}" class="navbar-nav ml-auto">
+            <img th:src="@{/images/icons/box-arrow-in-right.svg}" alt=""><a class="nav-item nav-link" href="/employee_sign-in">Portaal Medewerkers</a>
             <img th:src="@{/images/icons/person-plus-fill.svg}" alt=""><a class="nav-item nav-link" href="pre-sign-up">Klant worden</a>
             <img th:src="@{/images/icons/box-arrow-in-right.svg}" alt=""><a class="nav-item nav-link" href="sign-in">Inloggen</a>
         </div>
