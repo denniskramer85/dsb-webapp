@@ -15,17 +15,17 @@
     <div class="card cards">
         <!--Header-->
         <div class="card-header header">
-            <h5 class="header"><span th:text="${confirmBean.title}"></span></h5>
+            <h5 class="header"><span th:text="*{title}"></span></h5>
         </div>
         <!--Body-->
         <!--<div class="card-body new-account">-->
         <div class="card-body">
-            <p th:text="${confirmBean.message}"></p>
+            <p th:text="*{message}"></p>
         </div>
         <!--Button-->
     </div>
     <div>
-        <input class="btn btn-outline-dark button buttons" type="button" th:onclick="|window.location.href='@{${confirmBean.url}}'|" value="OK"/>
+        <input class="btn btn-outline-dark button buttons" type="button" th:onclick="|window.location.href='@{*{url}}'|" th:value="*{urlName}"/>
     </div>
 </div>
 </body>

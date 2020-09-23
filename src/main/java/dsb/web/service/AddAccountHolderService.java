@@ -52,7 +52,7 @@ public class AddAccountHolderService {
      * @param username
      * @param loggedInCustomer
      * @param account
-     * @return
+     * @return A string with error or an empty string if valid
      */
     public String checkUsernameValidity(String username, Customer loggedInCustomer, Account account){
         Optional<Customer> OptionalCustomer = customerRepository.findOneByUsername(username);
@@ -60,7 +60,9 @@ public class AddAccountHolderService {
             return "Gebruikersnaam niet geldig, probeer opnieuw";
         }else {
             Customer customer = OptionalCustomer.get();
-            if(customer.getCustomerID() == loggedInCustomer.getCustomerID()){
+            System.out.println(customer.getCustomerID());
+            System.out.println(loggedInCustomer.getCustomerID());
+            if (customer.getCustomerID() == loggedInCustomer.getCustomerID()){
                 return "Voer hier de gebruikersnaam van de nieuwe rekeninghouder in";
             }else if (account.getHolders().contains(customer)) {
                 return "Deze gebruiker is reeds rekeninghouder van deze rekening";
@@ -81,6 +83,7 @@ public class AddAccountHolderService {
 
     /*TODO fix return value, maybe bool instead of acc*/
     public Account resolveToken(String tokenId, String tokenCode, Customer loggedInCustomer){
+        // Returns an account if securityCode is valid, else null
             Optional<AccountHolderToken> OToken = accountHolderTokenRepository.findById(Integer.parseInt(tokenId));
             if (OToken.isPresent()){
                 AccountHolderToken token = OToken.get();
@@ -94,6 +97,6 @@ public class AddAccountHolderService {
                 }
             }
         //AccountHolderToken token = accountHolderTokenRepository.findById(1);
-        return new ConsumerAccount();
+        return null;
     }
 }
