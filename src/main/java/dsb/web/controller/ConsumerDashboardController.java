@@ -3,6 +3,7 @@ package dsb.web.controller;
 import dsb.web.domain.ConsumerAccount;
 import dsb.web.domain.Customer;
 import dsb.web.domain.Employee;
+import dsb.web.repository.ConsumerAccountRepository;
 import dsb.web.service.ConsumerDashboardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,19 +17,23 @@ import java.util.List;
 public class ConsumerDashboardController {
 
     private ConsumerDashboardService consumerDashboardService;
+    private ConsumerAccountRepository consumerAccountRepository;
 
     @Autowired
-    public ConsumerDashboardController(ConsumerDashboardService consumerDashboardService) {
+    public ConsumerDashboardController(ConsumerDashboardService consumerDashboardService, ConsumerAccountRepository consumerAccountRepository) {
         super();
         this.consumerDashboardService = consumerDashboardService;
+        this.consumerAccountRepository = consumerAccountRepository;
 
     }
 
-    //afmaken m.b.v. de medewerker sign-in van Dennis (Session meegeven).
+
     @GetMapping("employee_consumer_dashboard")
     public String consumerDashboard(@ModelAttribute(AttributeMapping.LOGGED_IN_EMPLOYEE) Employee employee, Model model) {
-        model.addAttribute("selectedEmployee", employee);
-        List<ConsumerAccount> top10lijst = consumerDashboardService.findHighestAccounts();
+        model.addAttribute("selectedEmployee", employee.getUserFullName());
+
+
+        List<ConsumerAccount> top10lijst = consumerDashboardService.getTop10byConsumerBalance();
         model.addAttribute("consumerAccounts1", top10lijst);
         return "employee_consumer_dashboard";
     }
