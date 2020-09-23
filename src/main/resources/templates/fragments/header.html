@@ -35,11 +35,12 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <!--Show only if a customer is logged in-->
             <span th:if="${loggedInCustomer}" class="navbar-nav">
-                <img th:src="@{/images/icons/person-circle.svg}" alt=""><a class="nav-item nav-link" href="account_overview">Mijn rekeningen</a>
+                <img th:src="@{/images/icons/person-lines-fill.svg}" alt=""><a class="nav-item nav-link" href="account_overview">Mijn rekeningen</a>
                 <img th:src="@{/images/icons/file-earmark-plus.svg}" alt=""><a class="nav-item nav-link" href="/new-account">Rekening openen</a>
             </span>
             <!--Show only if an employee with role HoofdMKB is logged in"-->
             <span th:if="${loggedInEmployee != null and loggedInEmployee.role.roleID == 2}" class="navbar-nav">
+                <img th:src="@{/images/icons/graph-up.svg}" alt=""><a class="nav-item nav-link" href="sme_employee_dashboard">MKB Dashboard</a>
                 <img th:src="@{/images/icons/arrow-left-right.svg}" alt=""><a class="nav-item nav-link" href="paymentmachine-request-overview">Pinautomaten koppelen</a>
             </span>
         </div>
