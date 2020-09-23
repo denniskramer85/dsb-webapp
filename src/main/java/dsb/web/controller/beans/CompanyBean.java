@@ -4,14 +4,21 @@ import dsb.web.domain.Company;
 import dsb.web.domain.Customer;
 import dsb.web.domain.Employee;
 import dsb.web.domain.Sector;
+import dsb.web.service.validators.VatNoConstraint;
+import dsb.web.service.validators.ZipCodeConstraint;
 import org.springframework.context.annotation.Scope;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 public class CompanyBean {
     private String name;
     private String KVKno;
+
+    @NotBlank(message = "Veld is leeg")
+    @VatNoConstraint
     private String BTWno;
+
     private Sector sector;
     private Employee accountManager;
     private Customer currentCustomer;
