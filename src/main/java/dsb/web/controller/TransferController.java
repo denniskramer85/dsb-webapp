@@ -18,7 +18,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
-@SessionAttributes({"loggedInCustomer", "selectedAccountSession", "transferBeanSession"})
+@SessionAttributes({AttributeMapping.LOGGED_IN_CUSTOMER, "selectedAccountSession", "transferBeanSession"})
 public class TransferController {
 
     private AccountPageService accountPageService;

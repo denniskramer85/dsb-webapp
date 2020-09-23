@@ -16,7 +16,7 @@ import javax.validation.Valid;
 
 
 @Controller
-@SessionAttributes({"signUpBeanSession", "loggedInCustomer"})
+@SessionAttributes({"signUpBeanSession", AttributeMapping.LOGGED_IN_CUSTOMER})
 public class SignUpController {
 
     private SignupService signupService;
@@ -72,7 +72,7 @@ public class SignUpController {
         Customer customer = signupService.createAndSaveCustomer(signUpBean2);
 
         //add customer to session
-        model.addAttribute("loggedInCustomer", customer);
+        model.addAttribute(AttributeMapping.LOGGED_IN_CUSTOMER, customer);
 
         return "account_overview";
     }
