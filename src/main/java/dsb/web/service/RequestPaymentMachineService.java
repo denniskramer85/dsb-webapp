@@ -4,6 +4,7 @@ package dsb.web.service;
 
 
 import dsb.web.controller.AttributeMapping;
+import dsb.web.controller.SmeConfirmPaymentMachineController;
 import dsb.web.controller.beans.LoginBean;
 import dsb.web.controller.beans.TransferBean;
 import dsb.web.domain.Customer;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.security.SecureRandom;
+import java.util.Optional;
 
 @Service
 @SessionAttributes(AttributeMapping.LOGGED_IN_CUSTOMER)
@@ -39,16 +41,16 @@ public class RequestPaymentMachineService {
         return token;
     }
 
-    public TokenPaymentMachine generateSecCodeToken(TokenPaymentMachine tokenPaymentMachine) {
-        SecureRandom random = new SecureRandom();
-        int securityCode = random.nextInt(100000);
-        tokenPaymentMachine.setSecurityCode(securityCode);
-        return tokenPaymentMachineRepository.save(tokenPaymentMachine);
+    public TokenPaymentMachine generateSecCodeToken(int tokenID) {
+        Optional<TokenPaymentMachine> optionalToken = tokenPaymentMachineRepository.findById(tokenID);
+        if (optionalToken.isPresent()) {
+            TokenPaymentMachine token = optionalToken.get();
+            SecureRandom random = new SecureRandom();
+            int securityCode = random.nextInt(100000);
+            token.setSecurityCode(securityCode);
+            return tokenPaymentMachineRepository.save(token);
+        } else {
+            return null; //TODO: klopt dit?
+        }
     }
-
-
-
-
-
 }
-

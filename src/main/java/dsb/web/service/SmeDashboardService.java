@@ -35,7 +35,7 @@ public class SmeDashboardService {
         return smeAccountsList;
     }
 
-    public List<TokenPaymentMachine> getAllByLinkRequest() {
+    public List<TokenPaymentMachine> getAllPaymentMachineRequests() {
             List<TokenPaymentMachine> listRequest = tokenPaymentMachineRepository.findAll();
             List<TokenPaymentMachine> newRequests = new ArrayList<>();
             for(TokenPaymentMachine token : listRequest) {
@@ -43,8 +43,7 @@ public class SmeDashboardService {
                     newRequests.add(token);
                 }
             }
-
-        return listRequest;
+        return newRequests;
     // bootstrapalert toevoegen
     }
 

@@ -19,7 +19,7 @@ import java.util.Map;
 
 
 @Controller
-@SessionAttributes(AttributeMapping.LOGGED_IN_CUSTOMER)
+@SessionAttributes(AttributeMapping.LOGGED_IN_EMPLOYEE)
 public class SMEDashboardController {
     private SmeDashboardService smeDashboardService;
     private SMEAccountRepository smeAccountRepository;
@@ -49,7 +49,7 @@ public class SMEDashboardController {
         Map<Sector, Integer> averageTop10BySector = smeDashboardService.averageBySector();
 //        if(averageTop10BySector.) {
 //            model.addAttribute("no Data"); }
-        List<TokenPaymentMachine> getAllLinkRequests = smeDashboardService.getAllByLinkRequest();
+        List<TokenPaymentMachine> getAllLinkRequests = smeDashboardService.getAllPaymentMachineRequests();
         List<SMEAccount> top10Balance = smeDashboardService.getTop10bySmeBalance();
         model.addAttribute("selectedEmployee", employee);
         model.addAttribute("linkRequestList", getAllLinkRequests);

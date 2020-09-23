@@ -48,7 +48,7 @@ public class SignInController {
                 return new ModelAndView("redirect:/account_overview");
             } else {
                 model.addAttribute(AttributeMapping.LOGGED_IN_EMPLOYEE, loginUser);
-                return new ModelAndView("redirect:/employee_consumer_dashboard");
+                return new ModelAndView("redirect:/sme_employee_dashboard");
             }
         } else {
             model.addAttribute("username", loginBean.getUsername());
