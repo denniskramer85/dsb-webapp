@@ -1,9 +1,13 @@
 package dsb.web.service;
 
 import dsb.web.domain.Iban;
+import dsb.web.repository.AccountRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Random;
 
+@Service
 public class IbanService {
     private static final String IBAN_COUNTRY_CODE = "NL";
     private static final int IBAN_CHECKSUM_DEFAULT = 00;
@@ -17,6 +21,12 @@ public class IbanService {
     private static final long MAX = 999999999;
     private static final int MODULUS = 97;
 
+    public AccountRepository accountRepository;
+
+    public IbanService(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
+    }
+
     public static int ibanLength(){
         return (IBAN_COUNTRY_CODE.length() +
                 IBAN_CHECKSUM_DEFAULT_LENGTH +
@@ -28,6 +38,13 @@ public class IbanService {
         Iban iban = new Iban(IBAN_COUNTRY_CODE,0,IBAN_BANK_CODE,randomAccountNumber());
         int checksum = calculateMod(iban.toString());
         iban.setCheckSum(98-checksum);
+        return iban;
+    }
+
+    public Iban getUniqueIban(){
+        Iban iban = IbanService.randIBAN();
+        while (accountRepository.existsByAccountNo(iban.toString()))
+            iban = IbanService.randIBAN();
         return iban;
     }
 

@@ -111,5 +111,5 @@ INSERT INTO `dsb`.`token_payment_machine` (`tokenid`, `security_code`, `sme_acco
 INSERT INTO `dsb`.`token_payment_machine` (`tokenid`, `security_code`, `sme_account_accountid`) VALUES ('8', '0', '120');
 
 
-INSERT INTO dsb.account_holder_token VALUES (110,0,110,13)
+INSERT INTO dsb.account_holder_token (account_holder_token_id,token,account_accountid,new_account_holder_customerid)VALUES (1111,0,118,13)
 

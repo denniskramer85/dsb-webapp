@@ -17,10 +17,17 @@
             <div class="card-header account-header-div">
                 <h5 class="account-header">Bedrijfsgegevens</h5>
             </div>
+
+            <span th:text="${companyError}"></span>
             <div class="card-body">
                 <div>
                     <div class="form-row2">
                         <p>Vul de volgende velden in:</p>
+                    </div>
+                    <div th:if="${companyError != ''"}">
+                        <div  class="alert alert-danger">
+                            <span th:text="${companyError}"></span>
+                        </div>
                     </div>
                     <div class="new-account form-row2">
                         <div>

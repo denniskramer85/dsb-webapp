@@ -15,8 +15,8 @@
     <div class="card new-account cards">
         <!--Header-->
         <div class="card-header account-header-div">
-            <h5 class="account-header" th:if="${companyBean.Name == null}">Particuliere rekening openen</h5>
-            <h5 class="account-header" th:if="${companyBean.Name != null}">Zakelijke rekening openen</h5>
+            <h5 class="account-header" th:if="${company == null}">Particuliere rekening openen</h5>
+            <h5 class="account-header" th:if="${company != null}">Zakelijke rekening openen</h5>
         </div>
 
         <!--Body-->
@@ -62,7 +62,7 @@
     </div>
 
     <!--Deel 3-->
-    <div class="card cards" th:if="${companyBean.Name != null}">
+    <div class="card cards" th:if="${company != null}">
         <!--Header-->
         <div class="card-header account-header-div">
             <h5 class="account-header">Bedrijfsgegevens</h5>
@@ -76,7 +76,7 @@
                         <p>Bedrijfsnaam: </p>
                     </div>
                     <div class="new-account field">
-                        <p th:field="*{name}"  th:text="${companyBean.getName()}"></p>
+                        <p th:field="*{name}"  th:text="${company.getName()}"></p>
                     </div>
                 </div>
 
@@ -85,7 +85,7 @@
                         <p>KVK-nummer: </p>
                     </div>
                     <div class="new-account field">
-                        <p th:field="*{KVKno}"  th:text="${companyBean.getKVKno()}"></p>
+                        <p th:field="*{KVKno}"  th:text="${company.getKVKno()}"></p>
                     </div>
                 </div>
 
@@ -94,7 +94,7 @@
                         <p>BTW-nummer: </p>
                     </div>
                     <div class="new-account field">
-                        <p th:field="*{BTWno}" th:text="${companyBean.getBTWno()}"></p>
+                        <p th:field="*{BTWno}" th:text="${company.getBTWno()}"></p>
                     </div>
                 </div>
 
@@ -103,7 +103,7 @@
                         <p>Sector: </p>
                     </div>
                     <div class="new-account field">
-                        <p th:field="*{sector}" th:text="${companyBean.getSector()}"></p>
+                        <p th:field="*{sector}" th:text="${company.getSector()}"></p>
                     </div>
                 </div>
             </div>
