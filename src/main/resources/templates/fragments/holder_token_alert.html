@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css"/>
+    <title>Title</title>
+</head>
+<body>
+<th:block th:fragment="holder_token_alert">
+    <div class="alert alert-info" role="alert">
+        <p>Je bent toegevoegd als mederekeninghouder voor de volgende rekening:</p>
+        <div th:each="tokenBean : ${accountHolderTokenBeans}" class="list-row-div">
+            <div class="list-item-div">
+                <img class="account-icon" th:src="@{/images/icons/credit-card.svg}" alt="">
+                <span th:text="${#strings.substring(tokenBean.accountNo,0,8)}"></span>
+                ******
+                <span th:text="${#strings.substring(tokenBean.accountNo,14,18)}"></span>
+            </div>
+            <form class="list-item-div" method="post" name="form1" th:action="@{resolve-account-holder-token}">
+                <a href="javascript:document.forms['form1'].submit()" class="alert-link">Behandel</a>
+                <input type="hidden" name="tokenId" th:value="${tokenBean.tokenId}">
+            </form>
+        </div>
+    </div>
+
+</th:block>
+</body>
+</html>

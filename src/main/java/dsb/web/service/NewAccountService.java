@@ -14,24 +14,25 @@ import java.util.*;
 
 @Service
 public class NewAccountService {
-    public static final int BAllANCE = 25;
+    public static final int BALANCE = 0;
 
     private AccountRepository accountRepository;
     private CompanyRepository companyRepository;
     private SMEAccountRepository accountRepositorySme;
     private ConsumerAccountRepository consumerAccountRepository;
     private UserRepository userRepository;
+    private TransactionService transactionService;
 
-
-    public NewAccountService(CompanyRepository companyRepository, SMEAccountRepository accountRepositorySme, ConsumerAccountRepository consumerAccountRepository, AccountRepository accountRepository, UserRepository userRepository) {
-        this.companyRepository = companyRepository;
-        this.accountRepositorySme  = accountRepositorySme;
-        this.consumerAccountRepository = consumerAccountRepository;
+    public NewAccountService(AccountRepository accountRepository, CompanyRepository companyRepository, SMEAccountRepository accountRepositorySme, ConsumerAccountRepository consumerAccountRepository, UserRepository userRepository, TransactionService transactionService) {
         this.accountRepository = accountRepository;
+        this.companyRepository = companyRepository;
+        this.accountRepositorySme = accountRepositorySme;
+        this.consumerAccountRepository = consumerAccountRepository;
         this.userRepository = userRepository;
+        this.transactionService = transactionService;
     }
 
-    public void saveNewAccount(CompanyBean companyBean){
+    public Account saveNewAccount(CompanyBean companyBean){
         Iban iban = IbanService.randIBAN();
         while (accountRepository.existsByAccountNo(iban.toString()))
             iban = IbanService.randIBAN();
@@ -43,18 +44,25 @@ public class NewAccountService {
             company = companyRepository.save(company);
             System.out.println("New company created");
             account = accountRepositorySme.save(
-            new SMEAccount(
-                            IbanService.randIBAN().toString(),
-                            BAllANCE,
-                            Arrays.asList(companyBean.getCurrentCustomer()),
+            new SMEAccount(IbanService.randIBAN().toString(),BALANCE,new ArrayList<> (Arrays.asList(companyBean.getCurrentCustomer())),
                             company));
         } else {
             account = consumerAccountRepository.save(
-                    new ConsumerAccount(
-                            IbanService.randIBAN().toString(),
-                            BAllANCE,
-                            Arrays.asList(companyBean.getCurrentCustomer())));
+                    new ConsumerAccount(IbanService.randIBAN().toString(),BALANCE,new ArrayList<> (Arrays.asList(companyBean.getCurrentCustomer()))));
         }
+        transactionService.doInitialTransaction(account);
         System.out.println("New account created");
+        return account;
+    }
+
+
+
+    Integer kvkStringToNum(String kvknrStr){
+        try {
+            Integer kvkNr = Integer.valueOf(kvknrStr);
+            return kvkNr;
+        } catch (NumberFormatException e){
+            return null;
+        }
     }
 }

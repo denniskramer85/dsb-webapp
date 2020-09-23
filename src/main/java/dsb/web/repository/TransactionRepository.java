@@ -18,6 +18,8 @@ public interface TransactionRepository extends CrudRepository<Transaction, Integ
             nativeQuery = true)
     List<Transaction> findTopNTransactionByAccounts(@Param("accountID") int accountID, @Param("limit") int limit);
 
+    @Query(value = "SELECT * FROM dsb.transaction WHERE debit_account_accountid = :accountID OR credit_account_accountid = :accountID ;", nativeQuery = true)
+    List<Transaction> findAllTransactionsByAccountID(@Param("accountID") int accountID);
 
     List<Transaction> findAll();
 

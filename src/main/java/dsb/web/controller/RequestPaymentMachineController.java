@@ -2,10 +2,7 @@ package dsb.web.controller;
 
 import dsb.web.controller.beans.ConfirmBean;
 import dsb.web.controller.beans.LoginBean;
-import dsb.web.domain.Account;
-import dsb.web.domain.Customer;
-import dsb.web.domain.SMEAccount;
-import dsb.web.domain.TokenPaymentMachine;
+import dsb.web.domain.*;
 import dsb.web.repository.CustomerRepository;
 import dsb.web.service.RequestPaymentMachineService;
 import dsb.web.service.SignInService;
@@ -48,7 +45,7 @@ public class RequestPaymentMachineController {
                                               @ModelAttribute(AttributeMapping.SELECTED_ACCOUNT) SMEAccount smeAccount
                                                 , Model model){
 
-        Customer passwordCorrect = signInService.checkCredentials(loggedInCustomer.getUsername(), loginBean.getPassword());
+        Customer passwordCorrect = (Customer) signInService.checkCredentials(loggedInCustomer.getUsername(), loginBean.getPassword());
 
         if (passwordCorrect != null) {
             //happy flow

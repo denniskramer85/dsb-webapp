@@ -10,13 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
+import org.w3c.dom.Attr;
 
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 @Controller
-@SessionAttributes(AttributeMapping.LOGGED_IN_CUSTOMER)
+@SessionAttributes({AttributeMapping.LOGGED_IN_CUSTOMER, AttributeMapping.LOGGED_IN_EMPLOYEE})
 public class SignInController {
     private SignInService signInService;
 
@@ -56,5 +59,20 @@ public class SignInController {
             model.addAttribute("loginFailed", "true");
             return new ModelAndView("sign-in");
         }
+    }
+
+
+    @GetMapping("sign-out")
+    public String signOutHandler(SessionStatus sessionStatus, Model model) {
+        // Check if logged in client is employee
+        Employee employee = (Employee) model.getAttribute(AttributeMapping.LOGGED_IN_EMPLOYEE);
+        if (employee != null) {
+            // Return employee sign-in page
+            sessionStatus.setComplete();
+            return "redirect:/employee_sign-in";
+        }
+        // Else return consumer landing page
+        sessionStatus.setComplete();
+        return "redirect:/";
     }
 }

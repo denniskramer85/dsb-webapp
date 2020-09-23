@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/XSL/Transform">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="styles.css"/>
+    <title th:text="${errorTitle}"></title>
+</head>
+<body>
+
+<div th:include="fragments/header :: header"></div>
+
+<div class="container ">
+    <div class="card">
+        <div class="card-header header">
+            <h5>Er ging iets mis: Error <span th:text="${statusCode}"/></h5>
+        </div>
+        <div class="card-body">
+            <p>
+                Probeer het opnieuw, of neem contact op met de klantenservice.
+                <span th:if="${exception}">Vermeld hierbij onderstaand bericht:</span>
+            </p>
+            <p th:text="${exception}"/>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
