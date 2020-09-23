@@ -11,30 +11,39 @@
 
 <div class="container">
     <br/>
-    <br/>
     <span th:if="${loginFailed == 'true'}">
         <div class="alert alert-warning" role="alert">
             Gebruikersnaam en/of wachtwoord incorrect. Probeer het nog eens.
         </div>
     </span>
 
-    <form method="post" th:object="${loginBean}" th:action="@{sign-in}"><!--class="needs-validation" novalidate-->
-        <div class="form-group">
-            <label for="input_username">Gebruikersnaam</label>
-            <input type="text" class="form-control" id="input_username" th:field="*{username}" placeholder="Voer wachtwoord in" autofocus required>
-            <div class="invalid-feedback">
-                Vul alstublieft een gebruikersnaam in!
-            </div>
+    <div class="card">
+        <div class="card-header">
+            <h5>Inloggen</h5>
         </div>
-        <div class="form-group">
-            <label for="input_password">Wachtwoord</label>
-            <input type="password" class="form-control" id="input_password" th:field="*{password}" placeholder="Voer gebruikersnaam in" required>
-            <div class="invalid-feedback">
-                Vul alstublieft een wachtwoord in!
-            </div>
+        <div class="card-body">
+
+            <form method="post" th:object="${loginBean}" th:action="@{sign-in}" class="needs-validation" novalidate>
+                <div class="form-group">
+                    <label for="input_username">Gebruikersnaam</label>
+                    <input type="text" class="form-control" id="input_username" th:field="*{username}" placeholder="Voer wachtwoord in" autofocus required>
+                    <div class="invalid-feedback">
+                        Vul alstublieft een gebruikersnaam in!
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input_password">Wachtwoord</label>
+                    <input type="password" class="form-control" id="input_password" th:field="*{password}" placeholder="Voer gebruikersnaam in" required>
+                    <div class="invalid-feedback">
+                        Vul alstublieft een wachtwoord in!
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-outline-dark">Log in</button>
+            </form>
+
         </div>
-        <button type="submit" class="btn btn-outline-dark">Submit</button>
-    </form>
+    </div>
+
 </div>
 
 <script>
@@ -43,7 +52,7 @@
         'use strict';
         window.addEventListener('load', function() {
             // Fetch all the forms to be validated
-            var forms = document.getElementsByClassName('needs-validation'):wq
+            var forms = document.getElementsByClassName('needs-validation')
             // Loop over them and prevent submission
             var validation = Array.prototype.filter.call(forms, function(form) {
                 form.addEventListener('submit', function(event) {

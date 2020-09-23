@@ -24,6 +24,7 @@ import java.util.List;
 
 @Controller
 @SessionAttributes({AttributeMapping.COMPANY_BEAN, AttributeMapping.LOGGED_IN_CUSTOMER,AttributeMapping.SELECTED_ACCOUNT})
+
 public class NewAccountController {
     private NewAccountService newAccountService;
     private CompanyRepository companyRepository;

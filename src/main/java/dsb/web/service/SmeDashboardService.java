@@ -39,7 +39,7 @@ public class SmeDashboardService {
         return smeAccountsList;
     }
 
-    public List<TokenPaymentMachine> getAllByLinkRequest() {
+    public List<TokenPaymentMachine> getAllPaymentMachineRequests() {
             List<TokenPaymentMachine> listRequest = tokenPaymentMachineRepository.findAll();
             List<TokenPaymentMachine> newRequests = new ArrayList<>();
             for(TokenPaymentMachine token : listRequest) {
@@ -47,8 +47,7 @@ public class SmeDashboardService {
                     newRequests.add(token);
                 }
             }
-
-        return listRequest;
+        return newRequests;
     // bootstrapalert toevoegen
     }
 
@@ -73,7 +72,7 @@ public class SmeDashboardService {
             result2.add(s);
         }
         Collections.sort(result2);
-        List<SMETransactionHelper> limited =  result2.stream().limit(3).collect(Collectors.toList());
+        List<SMETransactionHelper> limited =  result2.stream().limit(9).collect(Collectors.toList());
 
         return limited;
 

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<head>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="styles.css"/>
+    <meta charset="UTF-8">
+    <title>Openstaande pinautomaataanvragen</title>
+
+</head>
+<body>
+
+<div th:include="fragments/header :: header"></div>
+
+<div class="container">
+    <br/>
+    <br/>
+    <div class="card">
+        <div class="card-header paymentmachinerequests-header-div">
+            <h5 class="paymentmachinerequests-header">Openstaande pinautomaataanvragen</h5>
+        </div>
+        <div class="card-body">
+            <div th:each="request: ${paymentMachineRequests}">
+                <form method="post" th:action="@{sme-confirm-paymentmachine-request}">
+                    <table class="paymentmachinerequests-table">
+                        <tr class="d-flex">
+                            <td class="col-3">
+                                <span th:text="${request.SmeAccount.Company.getName()}"/>
+                            </td>
+                            <td class="col-4">
+                                <span th:text="${request.SmeAccount.getAccountNo()}"/>
+                            </td>
+                            <td class="col-3">
+                                <input type="hidden" th:name="tokenID" th:value="${request.getTokenID()}">
+                                <button type="submit" class="btn btn-outline-dark">OK</button>
+                            </td>
+                        </tr>
+                    </table>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
