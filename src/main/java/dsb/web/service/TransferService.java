@@ -71,6 +71,13 @@ public class TransferService {
         if (transactionService.doTransaction(transferBean, loggedInCustomer)) {
             System.out.println("Transaction succesfull");
             return "redirect:account_overview";
+
+//        ConfirmBean confirmBean = new ConfirmBean("Overboeking geslaagd", "Overboeking is gelukt!", "redirect:account_overview", "ok");
+//        model.addAttribute(confirmBean);
+//        return "confirm";
+
+
+
         } else {
             //TODO: Handle unauthorized transaction
             return "/";

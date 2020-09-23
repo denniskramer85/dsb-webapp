@@ -1,5 +1,6 @@
 package dsb.web.controller;
 
+import dsb.web.controller.beans.ConfirmBean;
 import dsb.web.controller.beans.SignUpBean;
 import dsb.web.domain.Customer;
 import dsb.web.service.SignupService;
@@ -73,6 +74,12 @@ public class SignUpController {
 
         //add customer to session
         model.addAttribute("loggedInCustomer", customer);
+
+
+//        ConfirmBean confirmBean = new ConfirmBean("Aanmelding geslaagd", "Gebruiker is succesvol opgeslagen!", "account_overview", "OK");
+//        model.addAttribute(confirmBean);
+//        return "confirm";
+
 
         return "account_overview";
     }
