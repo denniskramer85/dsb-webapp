@@ -18,41 +18,58 @@
 
         <div class="card-body" th:object="${transferBeanSession}">
 
-            <div class="form-group">
-                <table><tr><td>
-                    <label for="creditAccountNo">Eigen<br>rekeningnummer</label>
-                </td><td>
-                    <input type="text" class="form-control" id="debitAccountNo" name="debitAccountNo" th:field="*{debitAccountNo}" readonly>
-                </td></tr>
-                </table>
-            </div>
+            <table>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <table><tr><td>
+                                <label for="creditAccountNo">Eigen<br>rekening</label>
+                            </td><td>
+                                <input type="text" class="form-control" id="debitAccountNo" name="debitAccountNo" th:field="*{debitAccountNo}" readonly>
+                            </td></tr>
+                            </table>
+                        </div>
+                        <div class="form-group">
+                            <table><tr><td>
+                                <label for="creditAccountNo">Rekening<br>begunstigde</label>
+                            </td><td>
+                                <input type="text" class="form-control" id="creditAccountNo" name="creditAccountNo" th:field="*{creditAccountNo}" readonly>
+                            </td></tr>
+                            </table>
+                        </div>
+                        <div class="form-group">
+                            <table><tr><td>
+                                <label for="counterName">Naam<br>begunstigde</label>
+                            </td><td>
+                                <input type="text" class="form-control" id="counterName" name="counterName" th:field="*{name}" readonly>
+                            </td></tr>
+                            </table>
+                        </div>
+                    </td>
+                    <td id="inputsRight">
+                        <div class="form-group">
+                            <table><tr><td>
+                                <label for="transferAmount">Bedrag (€)</label>
+                            </td><td>
+                                <input type="text" class="form-control" id="transferAmount" name="transferAmount" th:field="*{transferAmountStyled}" readonly>
+                            </td></tr>
+                            </table>
+                        </div>
+                        <div class="form-group">
+                            <table><tr><td>
+                                <label for="message">Mededeling</label>
+                            </td><td>
+                                <input type="text" class="form-control" id="message" name="message" th:field="*{message}" readonly>
+                            </td></tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
 
-            <div class="form-group">
-                <table><tr><td>
-                    <label for="creditAccountNo">Rekeningnummer<br>begunstigde</label>
-                </td><td>
-                    <input type="text" class="form-control" id="creditAccountNo" name="creditAccountNo" th:field="*{creditAccountNo}" readonly>
-                </td></tr>
-                </table>
-            </div>
 
-            <div class="form-group">
-                <table><tr><td>
-                    <label for="transferAmount">Bedrag (€)</label>
-                </td><td>
-                    <input type="text" class="form-control" id="transferAmount" name="transferAmount" th:field="*{transferAmountStyled}" readonly>
-                </td></tr>
-                </table>
-            </div>
 
-            <div class="form-group">
-                <table><tr><td>
-                    <label for="message">Mededeling</label>
-                </td><td>
-                    <input type="text" class="form-control" id="message" name="message" th:field="*{message}" readonly>
-                </td></tr>
-                </table>
-            </div>
+
 
         </div>
     </div>
@@ -75,8 +92,8 @@
                 </div>
 
                 <div class="buttons">
-                    <input class="btn btn-outline-dark" type="button" value="Bewerken" onclick="location.href='transferEdit'">
                     <input class="btn btn-outline-dark" type="submit" value="Bevestigen">
+                    <input class="btn btn-outline-dark" type="button" value="Bewerken" onclick="location.href='transferEdit'">
                 </div>
                 <br>
             </form>
