@@ -4,6 +4,7 @@ import dsb.web.domain.Company;
 import dsb.web.domain.Customer;
 import dsb.web.domain.Employee;
 import dsb.web.domain.Sector;
+import dsb.web.service.validators.IntegerConstraint;
 import dsb.web.service.validators.VatNoConstraint;
 import dsb.web.service.validators.ZipCodeConstraint;
 import org.springframework.context.annotation.Scope;
@@ -12,14 +13,25 @@ import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 public class CompanyBean {
+
     private boolean existing;
+
+
+
+    @NotBlank(message = "Veld is leeg")
+    @VatNoConstraint
     private String name;
+
+    @NotBlank(message = "Veld is leeg")
     private String KVKno;
 
     @NotBlank(message = "Veld is leeg")
     @VatNoConstraint
     private String BTWno;
 
+
+    @NotBlank(message = "Veld is leeg")
+    @IntegerConstraint
     private Sector sector;
     private Employee accountManager;
     private Customer currentCustomer;
