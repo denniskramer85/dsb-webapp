@@ -10,7 +10,6 @@ import java.util.Random;
 @Service
 public class IbanService {
     private static final String IBAN_COUNTRY_CODE = "NL";
-    private static final int IBAN_CHECKSUM_DEFAULT = 00;
     private static final String IBAN_BANK_CODE = "DSBB";
     private static final int IBAN_CHECKSUM_DEFAULT_LENGTH = 2;
     private static final int IBAN_ACCOUNT_NUMBER_LENGTH = 10;
@@ -28,6 +27,7 @@ public class IbanService {
     }
 
     public static int ibanLength(){
+        //returns what the total length of a IBAN number should be, based on constants
         return (IBAN_COUNTRY_CODE.length() +
                 IBAN_CHECKSUM_DEFAULT_LENGTH +
                 IBAN_BANK_CODE.length() +
@@ -35,6 +35,7 @@ public class IbanService {
     }
 
     public static Iban randIBAN(){
+        // generates a random DSBB IBAN number
         Iban iban = new Iban(IBAN_COUNTRY_CODE,0,IBAN_BANK_CODE,randomAccountNumber());
         int checksum = calculateMod(iban.toString());
         iban.setCheckSum(98-checksum);
@@ -42,6 +43,7 @@ public class IbanService {
     }
 
     public Iban getUniqueIban(){
+        // generates a unique DSBB IBAN number
         Iban iban = IbanService.randIBAN();
         while (accountRepository.existsByAccountNo(iban.toString()))
             iban = IbanService.randIBAN();
@@ -68,12 +70,15 @@ public class IbanService {
     }
 
     public static String stringToNumericalString(String str) {
+        // Returns a numerical string, where the numerical value of each character is sequentially added to the return string
+        // Transformation only works on numbers and alphabet letters, not on other symbols.
         String result = "";
         for (int i = 0; i < str.length(); i++) {
             int chr = Character.getNumericValue(str.charAt(i));
             if (chr >= ALPHABET_LOWER_BOUND && chr <= ALPHABET_HIGHER_BOUND) {
                 result += Integer.toString(chr);
             } else {
+                //if char is isnt a letter, add char
                 result += chr;
             }
         }

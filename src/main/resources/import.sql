@@ -36,10 +36,10 @@ INSERT INTO `dsb`.`user` (`userid`, `initials`, `password`, `surname`, `username
 INSERT INTO `dsb`.`employee` (`userid`, `role_roleid`) VALUES ('44', '1' );
 INSERT INTO `dsb`.`employee` (`userid`, `role_roleid`) VALUES ('45', '2' );
 
-INSERT INTO `dsb`.`company` (`company_id`, `btwno`, `kvkno`, `name`, `sector_sector_id`, `account_manager`) VALUES ('11', 'NL0012345B03', '14729462', 'HvA Corp.', 12, '45');
-INSERT INTO `dsb`.`company` (`company_id`, `btwno`, `kvkno`, `name`, `sector_sector_id`, `account_manager`) VALUES ('12', 'NL0012345B04', '66666666', 'Evil Corp.', 4, '45');
-INSERT INTO `dsb`.`company` (`company_id`, `btwno`, `kvkno`, `name`, `sector_sector_id`, `account_manager`) VALUES ('13', 'NL0012345B05', '26492741', 'AvH Corp.', 12, '45');
-INSERT INTO `dsb`.`company` (`company_id`, `btwno`, `kvkno`, `name`, `account_manager`, `sector_sector_id`) VALUES ('14', 'NL0012345B06', '26492744', 'ThijsICT', '45', '6');
+INSERT INTO `dsb`.`company` (`company_id`, `btwno`, `kvkno`, `name`, `sector_sector_id`, `account_manager`) VALUES ('11', 'NL006292227B01', '14729462', 'HvA Corp.', 12, '45');
+INSERT INTO `dsb`.`company` (`company_id`, `btwno`, `kvkno`, `name`, `sector_sector_id`, `account_manager`) VALUES ('12', 'NL121745417B01', '66666666', 'Evil Corp.', 4, '45');
+INSERT INTO `dsb`.`company` (`company_id`, `btwno`, `kvkno`, `name`, `sector_sector_id`, `account_manager`) VALUES ('13', 'NL128297906B01', '26492741', 'AvH Corp.', 12, '45');
+INSERT INTO `dsb`.`company` (`company_id`, `btwno`, `kvkno`, `name`, `account_manager`, `sector_sector_id`) VALUES ('14', 'NL147804668B01', '26492744', 'ThijsICT', '45', '6');
 
 INSERT INTO `dsb`.`account` (`accountid`, `account_no`, `balance`) VALUES ('99999999', 'NL39DSBB0000000001', 0);
 INSERT INTO `dsb`.`account` (`accountid`, `account_no`, `balance`) VALUES ('110', 'NL32DSBB0123456780', 0);

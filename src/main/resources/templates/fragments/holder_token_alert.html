@@ -7,22 +7,23 @@
 </head>
 <body>
 <th:block th:fragment="holder_token_alert">
-    <div class="alert alert-info" role="alert">
-        <p>Je bent toegevoegd als mederekeninghouder voor de volgende rekening:</p>
-        <div th:each="tokenBean : ${accountHolderTokenBeans}" class="list-row-div">
-            <div class="list-item-div">
-                <img class="account-icon" th:src="@{/images/icons/credit-card.svg}" alt="">
-                <span th:text="${#strings.substring(tokenBean.accountNo,0,8)}"></span>
-                ******
-                <span th:text="${#strings.substring(tokenBean.accountNo,14,18)}"></span>
+    <th:span th:each="tokenBean : ${accountHolderTokenBeans}">
+        <div class="alert alert-info" role="alert">
+            <span>Je bent uitgenodigd om rekeninghouder te worden van </span>
+            <span th:text="${#strings.substring(tokenBean.accountNo,0,4)}"></span>
+            <span> </span>
+            <span th:text="${#strings.substring(tokenBean.accountNo,4,8)}"></span>
+            <span> </span>
+            ******
+            <span th:text="${#strings.substring(tokenBean.accountNo,14,18)}"></span>
+            <div  class="list-row-div">
+                <form class="list-item-div" method="post" name="form1" th:action="@{resolve-account-holder-token}">
+                    <a href="javascript:document.forms['form1'].submit()" class="alert-link">Behandel uitnodiging</a>
+                    <input type="hidden" name="tokenId" th:value="${tokenBean.tokenId}">
+                </form>
             </div>
-            <form class="list-item-div" method="post" name="form1" th:action="@{resolve-account-holder-token}">
-                <a href="javascript:document.forms['form1'].submit()" class="alert-link">Behandel</a>
-                <input type="hidden" name="tokenId" th:value="${tokenBean.tokenId}">
-            </form>
         </div>
-    </div>
-
+    </th:span>
 </th:block>
 </body>
 </html>

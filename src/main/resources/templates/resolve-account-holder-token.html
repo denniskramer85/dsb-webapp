@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
-    <link rel="stylesheet" type="text/css" href="../static/styles.css" th:href="@{styles.css}">    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../static/styles.css" th:href="@{styles.css}">
     <meta charset="UTF-8">
     <title>Mederekeninghouder worden</title>
 </head>
@@ -15,19 +15,29 @@
                 <h5 class="account-header">Mederekeninghouder worden</h5>
             </div>
             <div class="card-body">
-                <div>
-                    <p>Ben je uitgenodigd om mederekinghouder te worden en heb je een vijfcijferige code ontvangen? Voer deze dan hieronder in.</p>
+                <div class="form-group row">
+                    <div class="col-auto">
+                        <p>Ben je uitgenodigd om mederekinghouder te worden en heb je een vijfcijferige code ontvangen? Voer deze dan hieronder in.</p>
+                    </div>
                 </div>
-                <div>
-                    <label for="tokenCode">Code: </label>
-                    <input type="text" id="tokenCode" name="tokenCode">
-                    <span th:if="${errorMsg != null}" th:text="${errorMsg}"></span>
+                <div class="form-group row">
+                    <label for="tokenCode" class="col-sm-2 col-form-label">Code</label>
+                    <div class="col-sm-10">
+                        <div>
+                            <input type="text" class="form-control" id="tokenCode" name="tokenCode">
+                        </div>
+                        <div class="text-danger form-error">
+                            <small>
+                                <span th:if="${errorMsg != null}" th:text="${errorMsg}"></span>
+                            </small>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="new-account form-row" style="display:inline;">
             <input type="hidden" name="tokenId" th:value="${tokenId}">
-            <input  class="btn btn-outline-dark" type="submit" value="Volgende"/>
+            <input class="btn btn-outline-dark" type="submit" value="Volgende"/>
             <input class="btn btn-outline-dark" type="button" onclick="window.location.href='account_overview';" value="Cancel"/>
         </div>
     </form>
