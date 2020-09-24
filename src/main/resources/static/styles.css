@@ -197,10 +197,6 @@ input[type=number] {
     font-weight: bold;
 }
 
-#signupConfirmPage {
-    font-size: 140%;
-}
-
 #signupConfirmPage .buttons {
     margin-top: 10px;
 }
