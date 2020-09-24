@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" href="styles.css"/>
@@ -30,10 +30,6 @@
         border: 1px solid #ddd;
         padding: 8px;
     }
-
-
-
-
 
 </style>
 </head>
@@ -139,11 +135,11 @@
             <div class="card-body">
                 <table id="customers">
                     <th>Rekeningnummer</th>
-                    <th>Account-ID</th>
+                    <th>Accountholder</th>
                     <th>Aantal transacties </th>
                     <tr th:each=" transaction : ${transactionsList}">
                         <td th:text="${transaction.getAccount().getAccountNo()}">
-                        <td th:text="${transaction.getAccount().getAccountID()}">
+                        <td th:text="${transaction.getAccount().getHoldersString()}">
                         <td th:text="${transaction.getNumberOfTransactions()}">
                 </table>
             </div>
