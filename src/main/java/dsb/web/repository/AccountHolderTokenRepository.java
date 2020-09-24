@@ -1,5 +1,6 @@
 package dsb.web.repository;
 
+import dsb.web.domain.Account;
 import dsb.web.domain.AccountHolderToken;
 import dsb.web.domain.Customer;
 import org.springframework.data.repository.CrudRepository;
@@ -11,5 +12,7 @@ import java.util.List;
 public interface AccountHolderTokenRepository extends CrudRepository<AccountHolderToken, Integer> {
 
     List<AccountHolderToken> findAccountHolderTokensByNewAccountHolder(Customer newAccountHolder);
+
+
 
 }

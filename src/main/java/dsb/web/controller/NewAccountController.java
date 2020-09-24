@@ -99,24 +99,6 @@ public class NewAccountController {
         model.addAttribute("confirmBean", new ConfirmBean("Nieuwe rekening aangevraagd", "Gefeliciteerd, je nieuwe rekening is aangevraagd en is vanaf nu te vinden in je rekening overzicht. Vanaf nu ECHT veilig bankieren bij DSB!","accountPage", "Naar rekening"));
         return "confirm";
     }
-
-    @RestController
-    @RequestMapping(value = "/kvks")
-    class BussinessDetailsController{
-        public BussinessDetailsController() {
-            super();
-        }
-
-        @GetMapping(value = "/{kvk}")
-        public String findCompanyByKVK(@PathVariable("kvk") String kvkno){
-            Company comp = companyRepository.findCompanyByKVKno(kvkno);
-            if (comp != null) {
-                System.out.println(comp);
-                return (comp.getName() + "," + comp.getBTWno() + "," + comp.getSector().getSectorId());
-            }
-            return null;
-        }
-    }
 }
 
 
