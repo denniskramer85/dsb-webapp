@@ -64,6 +64,7 @@
         </div>
         <!--Show it an employee is logged in-->
         <div th:if="${loggedInEmployee != null}" class="navbar-nav ml-auto">
+            <img th:src="@{/images/icons/person-circle.svg}" alt="">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownEmployee" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span th:text="${loggedInEmployee.getUserFullName()}"/>

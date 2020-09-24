@@ -28,5 +28,8 @@
         <input class="btn btn-outline-dark button buttons" type="button" th:onclick="|window.location.href='@{*{url}}'|" th:value="*{urlName}"/>
     </div>
 </div>
+
+<div th:include="fragments/footer :: scripts"></div>
+
 </body>
 </html>
