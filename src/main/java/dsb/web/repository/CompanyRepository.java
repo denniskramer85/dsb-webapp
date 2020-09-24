@@ -1,7 +1,10 @@
 package dsb.web.repository;
 
 import dsb.web.domain.Company;
+import dsb.web.domain.Customer;
 import org.springframework.data.repository.CrudRepository;
+
+import java.util.Optional;
 
 public interface CompanyRepository extends CrudRepository<Company, Integer> {
 
@@ -10,3 +13,5 @@ public interface CompanyRepository extends CrudRepository<Company, Integer> {
     boolean existsByKVKno(String kvKno);
 
 }
+
+
