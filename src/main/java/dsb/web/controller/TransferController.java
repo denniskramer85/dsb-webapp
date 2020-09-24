@@ -92,6 +92,10 @@ public class TransferController {
     @PostMapping("transferConfirm")
     public String transferConfirmHandler(@ModelAttribute LoginBean loginBean, Model model) {
 
+        //add username to loginbean
+        Customer customer = (Customer) model.getAttribute(AttributeMapping.LOGGED_IN_CUSTOMER);
+        loginBean.setUsername(customer.getUsername());
+
         //determine flow depending on whether validation succeeds
         return transferService.determineFlow(loginBean, model);
     }
