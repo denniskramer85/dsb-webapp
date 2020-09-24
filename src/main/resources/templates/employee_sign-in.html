@@ -5,15 +5,21 @@
     <link rel="stylesheet" href="styles.css"/>
     <title>Inloggen medewerker</title>
 </head>
-<body style="background: darkgray">
-    <br>
-    <br>
+<body style="background: lightgrey">
+
+<div th:include="fragments/header :: header"></div>
     <span th:if="${loginFailed == 'true'}">
         <div class="alert alert-warning" role="alert">
             Gebruikersnaam en/of wachtwoord incorrect. Probeer het nog eens.
         </div>
     </span>
-    <div class="container">
+
+    <div class="card">
+        <div class="card-header">
+            <h5>Inloggen</h5>
+        </div>
+        <div class="card-body">
+
         <form method="post" th:object="${loginBean}" th:action="@{employee_sign-in}">
             <div class="form-group">
                 <label for="username">Gebruikersnaam</label>
@@ -23,7 +29,7 @@
                 <label for="password">Wachtwoord</label></td>
                 <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="Voer wachtwoord in">
             </div>
-            <button type="submit">Enter Dirkies Control Room</button>
+            <button type="submit" class="btn btn-outline-dark">Enter Dirkies Control Room</button>
         </form>
     </div>
 </body>
