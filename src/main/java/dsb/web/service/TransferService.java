@@ -80,7 +80,7 @@ public class TransferService {
             //return "redirect:account_overview";
 
         ConfirmBean confirmBean = new ConfirmBean("Overboeking geslaagd", "Uw overboeking is succesvol verwerkt: " +
-                "€ " + transferAmount.substring(0, transferAmount.length() - 2) + " overgeboekt naar " + transferBean.getCreditAccountNo() + " ten name van " + transferBean.getName() + ".", "account_overview", "OK");
+                "€ " + transferAmount.substring(0, transferAmount.length() - 2) + " overgeboekt naar " + transferBean.getCreditAccountNo() + " ten name van " + transferBean.getName() + ".", "account_overview", "Terug naar rekening");
         model.addAttribute(confirmBean);
         return "confirm";
 

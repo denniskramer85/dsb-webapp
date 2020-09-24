@@ -21,11 +21,9 @@
         <!--<div class="card-body new-account">-->
         <div class="card-body">
             <p th:text="*{message}"></p>
+            <input class="btn btn-outline-dark button buttons" type="button" th:onclick="|window.location.href='@{*{url}}'|" th:value="*{urlName}"/>
         </div>
         <!--Button-->
-    </div>
-    <div>
-        <input class="btn btn-outline-dark button buttons" type="button" th:onclick="|window.location.href='@{*{url}}'|" th:value="*{urlName}"/>
     </div>
 </div>
 
