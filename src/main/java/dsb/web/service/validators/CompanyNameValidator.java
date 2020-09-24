@@ -20,6 +20,7 @@ public class CompanyNameValidator implements ConstraintValidator<CompanyNameCons
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
 
+        if (s == null || s.trim().equals("")) return true;
 
         List<Company> company = companyRepository.findAllByName(s);
         return company.size() == 0;

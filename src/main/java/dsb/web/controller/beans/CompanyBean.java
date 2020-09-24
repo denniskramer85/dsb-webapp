@@ -17,12 +17,12 @@ public class CompanyBean {
     private boolean existing;
 
 
-
     @NotBlank(message = "Veld is leeg")
     @VatNoConstraint
     private String name;
 
     @NotBlank(message = "Veld is leeg")
+    @VatNoConstraint
     private String KVKno;
 
     @NotBlank(message = "Veld is leeg")
