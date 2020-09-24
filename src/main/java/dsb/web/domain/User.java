@@ -36,17 +36,27 @@ public abstract class User{
     public User() {
     }
 
-    public String getUserFullName() {
-        String returnString = "";
-        returnString += initials + " ";
-        if (inserts == null || inserts == "") {
-            returnString += surname;
-            return returnString;
+    public String printWholeName() {
+        if (inserts == null) {
+            inserts = "";
+        } else {
+            inserts=inserts+ " ";
         }
-        returnString += inserts + " ";
-        returnString += surname;
-        return returnString;
+        return String.format("%s %s %s", initials, inserts, surname);
     }
+
+
+//    public String getUserFullName() {
+//        String returnString = "";
+//        returnString += initials + " ";
+//        if (inserts == null || inserts == "") {
+//            returnString += surname;
+//            return returnString;
+//        }
+//        returnString += inserts + " ";
+//        returnString += surname;
+//        return returnString;
+//    }
 
     public int getUserID() {
         return userID;

@@ -51,14 +51,14 @@ public class Customer extends User implements Comparable<Customer> {
                 "} " + super.toString();
     }
 
-    public String printWholeName() {
-        if (super.getInserts() == null) {
-            super.setInserts("");
-        } else {
-            super.setInserts(super.getInserts() + " ");
-        }
-        return String.format("%s %s %s", super.getInitials(), super.getInserts(), super.getSurname());
-    }
+//    public String printWholeName() {
+//        if (super.getInserts() == null) {
+//            super.setInserts("");
+//        } else {
+//            super.setInserts(super.getInserts() + " ");
+//        }
+//        return String.format("%s %s %s", super.getInitials(), super.getInserts(), super.getSurname());
+//    }
 
 
     public int getSocialSecurityNo() {
