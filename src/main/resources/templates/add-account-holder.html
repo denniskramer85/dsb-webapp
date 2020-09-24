@@ -9,7 +9,7 @@
 <body>
 <div th:include="fragments/header :: header"></div>
 <div class="container">
-    <form method="post" th:action="@{confirm-add-account-holder}">
+    <form method="post" th:object="${token}" th:action="@{confirm-add-account-holder}">
         <div class = "card">
             <div class="card-header"><h5>Toevoegen rekeninghouder</h5>
             </div>
@@ -22,10 +22,7 @@
                     <div class="col-sm-10">
                         <div>
                             <label class="col-form-label" th:text="${accountNo}"></label>
-                        </div>
-                        <div class="text-danger form-error">
-                            <small>
-                            </small>
+                            <input type="hidden" th:field="${accountNo}" th:value="${accountNo}"/>
                         </div>
                     </div>
                 </div>
@@ -34,7 +31,7 @@
                     <label class="col-sm-2 col-form-label" for="new_account_holder">Gebruikersnaam</label>
                     <div class="col-sm-10">
                         <div>
-                            <input class="form-control" type="text" id="new_account_holder" name="new_account_holder" required onchange="checkUser()"/>
+                            <input class="form-control" type="text" id="new_account_holder" name="new_account_holder" th:value="${new_account_holder}" required onchange="checkUser()" placeholder="Vul hier de username in van de nieuwe rekeninghouder"/>
                         </div>
                         <div class="text-danger form-error">
                             <small>
@@ -48,7 +45,7 @@
                     <label class="col-sm-2 col-form-label" for="tokenCode">5-cijferige code</label>
                     <div class="col-sm-10">
                         <div>
-                            <input class="form-control" type="text" id="tokenCode" name="tokenCode" required onchange="checkCode()"/>
+                            <input class="form-control" type="text" id="tokenCode" name="tokenCode" th:value="${tokenCode}" required onchange="checkCode()" placeholder="Bedenk een 5 cijferige code, bv. 12345"/>
                         </div>
                         <div class="text-danger form-error">
                             <small>
