@@ -36,7 +36,7 @@
                             <table><tr><td>
                                 <label for="surname">Achternaam*</label>
                             </td><td>
-                                <input type="text" class="form-control notEmpty minSize onlyLetters" id="surname" name="surname" th:field="*{surname}" autofocus>
+                                <input type="text" class="form-control notEmpty minSize onlyLetters" id="surname" name="surname" th:field="*{surname}" autofocus><br><p>asdjkalsdjalksdj</p>
                             </td></tr><tr><td></td><td>
                             </td></tr><tr><td></td><td>
                                 <p class="errors"><span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"/></p>
@@ -173,6 +173,7 @@
 
 
                     <div class="buttons">
+                        <input  style="position:absolute;bottom:1000px;height:0px;width:0px;background:transparent;border:0;" type="submit">
                         <input class="btn btn-outline-dark" id="confirmButton" type="submit" value="Bevestigen">
                         <input class="btn btn-outline-dark" id="cancelButton" type="button" value="Annuleren" onclick="location.href='/'">
                     </div>
