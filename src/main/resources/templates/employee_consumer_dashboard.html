@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" href="styles.css"/>
@@ -31,20 +31,11 @@
             padding: 8px;
         }
 
-
-
-
-
     </style>
 </head>
 <body>
 
 <div th:include="fragments/header :: header"></div>
-
-
-
-
-
 
 <div class="container">
     <br/>
@@ -56,25 +47,16 @@
         </div>
         <div class="card-body">
             <div id="accountData">
-
                 <p> Welkom <strong><span th:text="${selectedEmployee}"></span></strong></p>
-
-
             </div>
         </div>
     </div>
     <br>
-
-
-
     <div class="card">
         <div class="card-header account-header-div">
             <h5 class="account-header">Top 10 Particulieren saldo's </h5>
         </div>
-
         <div class="card">
-
-
                 <div class="card-body">
                     <table id="customers1" class="top10saldo-table">
 
@@ -95,21 +77,13 @@
                         </tr>
                     </table>
                 </div>
-
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
     </div>
+</div>
+
+<div th:fragment="scripts">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </div>
 </body>
