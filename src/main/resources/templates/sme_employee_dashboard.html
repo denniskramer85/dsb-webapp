@@ -4,7 +4,7 @@
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" href="styles.css"/>
     <meta charset="UTF-8">
-    <title>Employee Dashboard head-MKB</title>
+    <title>Dashboard MKB</title>
 
 <style>
 
@@ -42,7 +42,7 @@
     <br/>
     <div class="card">
         <div class="card-header account-header-div">
-            <h3 class="header">Medewerkersdashboard Hoofd-MKB</h3>
+            <h5 class="header">Dashboard MKB</h5>
         </div>
             <div class="card-body">
                 <p class="account-header"> Welkom <span th:text="${selectedEmployee}"></span> </p>
@@ -50,23 +50,20 @@
         </div>
     <br/>
 
-    <div class="card">
+    <div class="card" th:if="${not #lists.isEmpty(linkRequestList)}">
         <div class="card-header account-header-div">
             <h5 class="header">Koppelverzoeken</h5>
         </div>
-
-        <div th:if="${not #lists.isEmpty(linkRequestList)}">
-            <div class="card-body">
-                <div th:if="${not #lists.isEmpty(linkRequestList)}">
-                    <div class="card-body">
-                        <p class="account-header">Er zijn nieuwe koppelverzoeken</p>
-                        <a href="/paymentmachine-request-overview" class="btn-open-account btn btn-outline-dark">Naar koppelverzoeken</a>
-                    </div>
+        <div class="card-body">
+            <div th:if="${not #lists.isEmpty(linkRequestList)}">
+                <div class="card-body">
+                    <span>Er zijn nieuwe koppelverzoeken <a href="/paymentmachine-request-overview" class="btn-open-account btn btn-outline-dark">Naar koppelverzoeken</a></span>
                 </div>
             </div>
         </div>
+        <br>
     </div>
-    <br>
+
 
     <div class="card">
         <div class="card-header account-header-div">
@@ -135,7 +132,7 @@
             <div class="card-body">
                 <table id="customers">
                     <th>Rekeningnummer</th>
-                    <th>Accountholder</th>
+                    <th>MKB-Klant</th>
                     <th>Aantal transacties </th>
                     <tr th:each=" transaction : ${transactionsList}">
                         <td th:text="${transaction.getAccount().getAccountNo()}">

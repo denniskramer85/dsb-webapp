@@ -14,11 +14,10 @@
 
 <div class="container">
     <br/>
-    <br/>
 
     <div class="card">
         <div class="card-header">
-            <h5>Particulieren Dashboard</h5>
+            <h5>Dashboard Particulieren</h5>
         </div>
         <div class="card-body">
             <div id="accountData">
@@ -28,35 +27,33 @@
     </div>
     <br>
 
-    <div class="container ">
-        <div class="card">
-            <div class="card-header header">
-                <h5>Top 10 hoogste saldo's particulieren</h5>
-            </div>
-            <div class="card-body">
-                <table class="account-table">
-                <tr class="d-flex">
-
-                    <tr th:each="account : ${consumerAccounts1}">
-                        <td>
-                            <img class="account-icon" th:src="@{/images/icons/people.svg}" alt="">
-                            <span th:text="${account.getHoldersString()}"/>
-                        </td>
-                        <td>
-                            <img class="account-icon" th:src="@{/images/icons/credit-card.svg}" alt="">
-                            <span th:text="${account.getAccountNo()}"/>
-                        </td>
-                        <td>
-                            <img class="account-icon" th:src="@{/images/icons/wallet2.svg}" alt="">
-                            €
-                            <span th:text="${#numbers.formatDecimal(account.getBalance(), 0, 'POINT', 2, 'COMMA')}"/>
+    <div class="card">
+        <div class="card-header header">
+            <h5>Top 10 hoogste saldo's particulieren</h5>
+        </div>
+        <div class="card-body">
+            <table class="account-table">
+            <tr class="d-flex">
+                <tr th:each="account : ${consumerAccounts1}">
+                    <td col-10>
+                        <img class="account-icon" th:src="@{/images/icons/people.svg}" alt="">
+                        <span th:text="${account.getHoldersString()}"/>
+                    </td>
+                    <td col-12>
+                        <img class="account-icon" th:src="@{/images/icons/credit-card.svg}" alt="">
+                        <span th:text="${account.getAccountNo()}"/>
+                    </td>
+                    <td col-8>
+                        <img class="account-icon" th:src="@{/images/icons/wallet2.svg}" alt="">
+                        €
+                        <span th:text="${#numbers.formatDecimal(account.getBalance(), 0, 'POINT', 2, 'COMMA')}"/>
                     </td>
                 </tr>
-                </table>
-            </div>
-            </div>
+            </table>
+        </div>
         </div>
     </div>
+
 
 
 

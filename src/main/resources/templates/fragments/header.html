@@ -33,6 +33,11 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <!--Show if NO customer or employee is logged in-->
+            <div th:unless="${loggedInCustomer != null or loggedInEmployee != null}" class="navbar-nav">
+                <img th:src="@{/images/icons/person-plus-fill.svg}" alt=""><a class="nav-item nav-link" href="pre-sign-up">Klant worden</a>
+                <img th:src="@{/images/icons/box-arrow-in-right.svg}" alt=""><a class="nav-item nav-link" href="sign-in">Inloggen</a>
+            </div>
             <!--Show only if a customer is logged in-->
             <span th:if="${loggedInCustomer}" class="navbar-nav">
                 <img th:src="@{/images/icons/person-lines-fill.svg}" alt=""><a class="nav-item nav-link" href="account_overview">Mijn rekeningen</a>
@@ -47,8 +52,6 @@
         <!--Show if NO customer or employee is logged in-->
         <div th:unless="${loggedInCustomer != null or loggedInEmployee != null}" class="navbar-nav ml-auto">
             <img th:src="@{/images/icons/box-arrow-in-right.svg}" alt=""><a class="nav-item nav-link" href="/employee_sign-in">Portaal Medewerkers</a>
-            <img th:src="@{/images/icons/person-plus-fill.svg}" alt=""><a class="nav-item nav-link" href="pre-sign-up">Klant worden</a>
-            <img th:src="@{/images/icons/box-arrow-in-right.svg}" alt=""><a class="nav-item nav-link" href="sign-in">Inloggen</a>
         </div>
         <!--Show if a customer is logged in-->
         <div th:if="${loggedInCustomer != null}" class="navbar-nav ml-auto">

@@ -95,8 +95,8 @@ public class AddAccountHolderService {
 
     public ConfirmBean getConfirmBeanAccountHolderToken(){
         return new ConfirmBean(
-                "Aanvraag nieuwe rekeninghouder geslaagd",
-                "Je aanvraag om een nieuwe rekeninghouder toe te voegen is geslaagd. ",
+                "Aanvraag geslaagd",
+                "Het toevoegen van een nieuwe rekeninghouder is aangevraagd",
                 "accountPage",
                 "Volgende");
     }

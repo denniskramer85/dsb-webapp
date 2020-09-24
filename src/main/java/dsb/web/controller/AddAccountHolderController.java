@@ -76,7 +76,7 @@ public class AddAccountHolderController {
             model.addAttribute("accountNo", account.getAccountNo());
             model.addAttribute("new_account_holder", newAccountHolder);
             model.addAttribute("tokenCode", tokenCode);
-            model.addAttribute("errorMessage", "wachtwoord incorrect");
+            model.addAttribute("errorMessage", "Wachtwoord incorrect");
             return ("add-account-holder");
         } else {
             model.addAttribute("confirmBean", addAccountHolderService.getConfirmBeanAccountHolderToken());

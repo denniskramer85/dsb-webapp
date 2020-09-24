@@ -15,7 +15,7 @@
             </div>
             <div class="card-body">
                 <br>
-                <p>Type hier de gebruikersnaam van de nog toe te voegen rekeninghouder en kies vervolgens een 5-cijferige beveiligingscode.</p>
+                <p>Vul hier de gebruikersnaam van de beoogde rekeninghouder in en kies een 5-cijferige beveiligingscode.</p>
                 <br>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Rekeningnummer</label>
@@ -31,7 +31,7 @@
                     <label class="col-sm-2 col-form-label" for="new_account_holder">Gebruikersnaam</label>
                     <div class="col-sm-10">
                         <div>
-                            <input class="form-control" type="text" id="new_account_holder" name="new_account_holder" th:value="${new_account_holder}" required onchange="checkUser()" placeholder="Vul hier de username in van de nieuwe rekeninghouder"/>
+                            <input class="form-control" type="text" id="new_account_holder" name="new_account_holder" th:value="${new_account_holder}" required onchange="checkUser()" placeholder="Vul de gebruikersnaam van de beoogde rekeninghouder in"/>
                         </div>
                         <div class="text-danger form-error">
                             <small>
@@ -45,7 +45,7 @@
                     <label class="col-sm-2 col-form-label" for="tokenCode">5-cijferige code</label>
                     <div class="col-sm-10">
                         <div>
-                            <input class="form-control" type="text" id="tokenCode" name="tokenCode" th:value="${tokenCode}" required onchange="checkCode()" placeholder="Bedenk een 5 cijferige code, bv. 12345"/>
+                            <input class="form-control" type="text" id="tokenCode" name="tokenCode" th:value="${tokenCode}" required onchange="checkCode()" placeholder="Bedenk een 5-cijferige code, bv. 12345"/>
                         </div>
                         <div class="text-danger form-error">
                             <small>
@@ -109,7 +109,7 @@
             element.classList.add("is-valid")
             document.getElementById("error-msg-code").innerText = "";
         } else {
-            document.getElementById("error-msg-code").innerText = "Incorrecte code - code dient enkel uit cijfers te bestaan en is 5 cijfers lang";
+            document.getElementById("error-msg-code").innerText = "Code dient 5 cijfers lang te zijn, en mag enkel cijfers bevatten";
         }
     }
     function checkDigits(string){
