@@ -1,9 +1,9 @@
 package dsb.web.controller;
 
-import dsb.web.controller.beans.PrintAccountDataBean;
 import dsb.web.controller.rest.UsernameOccupiedController;
 import dsb.web.domain.Customer;
-import dsb.web.repository.CustomerRepository;
+import dsb.web.domain.User;
+import dsb.web.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -33,19 +32,19 @@ class UsernameOccupiedControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private CustomerRepository customerRepository;
+    private UserRepository userRepository;
 
 
 
 
-    private Customer customerTest;
-    private List<Customer> listTest;
+    private User userTest;
+    private List<User> listTest;
 
     @BeforeEach
     private void setUpData() {
-        customerTest = new Customer();
-        customerTest.setUsername("Berry");
-        listTest = Arrays.asList(customerTest);
+        userTest = new Customer();
+        userTest.setUsername("Berry");
+        listTest = Arrays.asList(userTest);
     }
 
 
@@ -59,7 +58,7 @@ class UsernameOccupiedControllerTest {
     @DisplayName("UsernameOccupiedControllerTest_pass")
     public void testPass() {
 
-        Mockito.when(customerRepository.findAllByUsername(customerTest.getUsername())).
+        Mockito.when(userRepository.findAllByUsername(userTest.getUsername())).
                 thenReturn(listTest);
 
         try {
@@ -87,7 +86,7 @@ class UsernameOccupiedControllerTest {
     @DisplayName("UsernameOccupiedControllerTest_fail")
     public void testFail() {
 
-        Mockito.when(customerRepository.findAllByUsername(customerTest.getUsername())).
+        Mockito.when(userRepository.findAllByUsername(userTest.getUsername())).
                 thenReturn(listTest);
 
         try {
