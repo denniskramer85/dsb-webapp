@@ -175,7 +175,7 @@ function userOccupied(input) {
 
 
     //TODO let op, werkt niet als niet-lokaal
-    let url = `http://localhost:8080/username-occupied-check/${input.value}`
+    let url = `/username-occupied-check/${input.value}`
 
     fetch(url)
         .then(response => response.json())
