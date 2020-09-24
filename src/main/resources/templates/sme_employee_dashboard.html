@@ -45,18 +45,14 @@
     <br/>
     <br/>
     <div class="card">
-        <h3 class="header">Medewerkersdashboard Hoofd-MKB</h3>
-    </div>
-    <br/>
-
-    <div class="card">
         <div class="card-header account-header-div">
-            <p>Welkom <span th:text="${selectedEmployee}"></span> </p>
-
+            <h3 class="header">Medewerkersdashboard Hoofd-MKB</h3>
         </div>
-    </div>
+            <div class="card-body">
+                <p class="account-header"> Welkom <span th:text="${selectedEmployee}"></span> </p>
+            </div>
+        </div>
     <br/>
-
 
     <div class="card">
         <div class="card-header account-header-div">
@@ -74,9 +70,7 @@
             </div>
         </div>
     </div>
-
     <br>
-
 
     <div class="card">
         <div class="card-header account-header-div">
@@ -118,7 +112,7 @@
                     <th>Balans</th>
                     <tr th:each=" sector : ${averageBalanceBySector}">
                         <td>
-                            <img class="account-icon" th:src="@{/images/icons/business_sector.svg}" alt="">
+                            <img class="account-icon" th:src="@{/images/icons/building.svg}" alt="">
                             <span th:text="${sector.key}"/>
                         </td>
                         <td>
@@ -140,7 +134,7 @@
 
     <div class="card">
         <div class="card-header account-header-div">
-            <h5 class="header">10 meest actieve klanten</h5>
+            <h5 class="header">10 meest actieve MKB-klanten</h5>
         </div>
             <div class="card-body">
                 <table id="customers">
@@ -154,7 +148,6 @@
                 </table>
             </div>
         </div>
-
 </div>
 
 <div th:replace="fragments/footer :: scripts"></div>
