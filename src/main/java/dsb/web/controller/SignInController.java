@@ -45,7 +45,7 @@ public class SignInController {
             @ModelAttribute LoginBean loginBean,
             Model model) {
         User loginUser = signInService.checkCredentials(loginBean.getUsername(), loginBean.getPassword());
-        if (loginUser != null) {
+        if (loginUser != null  && loginUser instanceof Customer) {
             model.addAttribute(AttributeMapping.LOGGED_IN_CUSTOMER, loginUser);
             return new ModelAndView("redirect:/account_overview");
         } else {
@@ -61,7 +61,7 @@ public class SignInController {
             @ModelAttribute LoginBean loginBean,
             Model model) {
         User loginUser = signInService.checkCredentials(loginBean.getUsername(), loginBean.getPassword());
-        if (loginUser != null) {
+        if (loginUser != null && loginUser instanceof Employee) {
                 if ( ( (Employee) loginUser).getRole().getRoleID() == 1 ) {
                     model.addAttribute(AttributeMapping.LOGGED_IN_EMPLOYEE, loginUser);
                     return new ModelAndView("redirect:/employee_consumer_dashboard");
