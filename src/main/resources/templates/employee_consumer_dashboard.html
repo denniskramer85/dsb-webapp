@@ -6,32 +6,7 @@
     <meta charset="UTF-8">
     <title>Dashboard particulieren</title>
 
-    <style>
 
-        #customers1 {
-
-            border-collapse: collapse;
-            width: 80%;
-        }
-
-        #customers td, #customers th {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-
-
-        #customersSmall {
-
-            border-collapse: collapse;
-            width: 40%;
-        }
-
-        #customersSmall td, #customersSmall th {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-
-    </style>
 </head>
 <body>
 
@@ -52,34 +27,38 @@
         </div>
     </div>
     <br>
-    <div class="card">
-        <div class="card-header account-header-div">
-            <h5 class="account-header">Top 10 Particulieren saldo's </h5>
-        </div>
-        <div class="card">
-                <div class="card-body">
-                    <table id="customers1" class="top10saldo-table">
 
-                        <tr th:each="account : ${consumerAccounts1}">
-                            <td>
-                                <img class="account-icon" th:src="@{/images/icons/people.svg}" alt="">
-                                <span th:text="${account.getHoldersString()}"/>
-                            </td>
-                            <td>
-                                <img class="account-icon" th:src="@{/images/icons/credit-card.svg}" alt="">
-                                <span th:text="${account.getAccountNo()}"/>
-                            </td>
-                            <td>
-                                <img class="account-icon" th:src="@{/images/icons/wallet2.svg}" alt="">
-                                €
-                                <span th:text="${#numbers.formatDecimal(account.getBalance(), 0, 'POINT', 2, 'COMMA')}"/>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+    <div class="container ">
+        <div class="card">
+            <div class="card-header header">
+                <h5>Top 10 hoogste saldo's particulieren</h5>
+            </div>
+            <div class="card-body">
+                <table class="account-table">
+                <tr class="d-flex">
+
+                    <tr th:each="account : ${consumerAccounts1}">
+                        <td>
+                            <img class="account-icon" th:src="@{/images/icons/people.svg}" alt="">
+                            <span th:text="${account.getHoldersString()}"/>
+                        </td>
+                        <td>
+                            <img class="account-icon" th:src="@{/images/icons/credit-card.svg}" alt="">
+                            <span th:text="${account.getAccountNo()}"/>
+                        </td>
+                        <td>
+                            <img class="account-icon" th:src="@{/images/icons/wallet2.svg}" alt="">
+                            €
+                            <span th:text="${#numbers.formatDecimal(account.getBalance(), 0, 'POINT', 2, 'COMMA')}"/>
+                    </td>
+                </tr>
+                </table>
+            </div>
+            </div>
         </div>
     </div>
-</div>
+
+
 
 <div th:fragment="scripts">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

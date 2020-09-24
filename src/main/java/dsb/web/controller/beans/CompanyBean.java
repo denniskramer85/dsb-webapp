@@ -28,8 +28,7 @@ public class CompanyBean {
     private String BTWno;
 
 
-    @NotBlank(message = "Veld is leeg")
-    @IntegerConstraint
+
     private Sector sector;
     private Employee accountManager;
     private Customer currentCustomer;

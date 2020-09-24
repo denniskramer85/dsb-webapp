@@ -13,7 +13,7 @@ public class VatNoValidator implements ConstraintValidator<VatNoConstraint, Stri
 
         try {
             Integer.parseInt(string.substring(2, 11));
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             return false;
         }
         //actual check
