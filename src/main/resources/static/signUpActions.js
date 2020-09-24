@@ -173,8 +173,6 @@ function userOccupied(input) {
         return false
     }
 
-
-    //TODO let op, werkt niet als niet-lokaal
     let url = `/username-occupied-check/${input.value}`
 
     fetch(url)
