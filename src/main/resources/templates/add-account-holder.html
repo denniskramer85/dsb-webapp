@@ -11,25 +11,57 @@
 <div class="container">
     <form method="post" th:action="@{confirm-add-account-holder}">
         <div class = "card">
-            <div class="card-header"><h5>Toevoegen rekeninghouder</h5></div>
-            <div class="card-body" id="signUpPage">
+            <div class="card-header"><h5>Toevoegen rekeninghouder</h5>
+            </div>
+            <div class="card-body">
+                <br>
                 <p>Type hier de gebruikersnaam van de nog toe te voegen rekeninghouder en kies vervolgens een 5-cijferige beveiligingscode.</p>
-                <div class="form-group">
-                    <p class="control-label">Rekeningnummer: </p>
-                    <p th:text="${accountNo}"></p>
+                <br>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Rekeningnummer</label>
+                    <div class="col-sm-10">
+                        <div>
+                            <label class="col-form-label" th:text="${accountNo}"></label>
+                        </div>
+                        <div class="text-danger form-error">
+                            <small>
+                            </small>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label" for="new_account_holder">Gebruikersnaam: </label>
-                    <input class="form-control" type="text" id="new_account_holder" name="new_account_holder" required onchange="checkUser()"/>
-                    <span id="error-msg-un" class="text-danger"></span>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="new_account_holder">Gebruikersnaam</label>
+                    <div class="col-sm-10">
+                        <div>
+                            <input class="form-control" type="text" id="new_account_holder" name="new_account_holder" required onchange="checkUser()"/>
+                        </div>
+                        <div class="text-danger form-error">
+                            <small>
+                                <span id="error-msg-un"></span>
+                            </small>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label" for="tokenCode">5-cijferige code: </label>
-                    <input class="form-control" type="text" id="tokenCode" name="tokenCode" required onchange="checkCode()"/>
-                    <span id="error-msg-code" class="text-danger"></span>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="tokenCode">5-cijferige code</label>
+                    <div class="col-sm-10">
+                        <div>
+                            <input class="form-control" type="text" id="tokenCode" name="tokenCode" required onchange="checkCode()"/>
+                        </div>
+                        <div class="text-danger form-error">
+                            <small>
+                                <span id="error-msg-code"></span>
+                            </small>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div id="auth" th:replace="fragments/user_auth :: user_auth"></div>
+        </div>
+        <br>
+        <div id="auth" th:replace="fragments/user_auth :: user_auth">
+
         </div>
         <div class="buttons">
             <input class="btn btn-outline-dark" type="submit" value="Volgende">

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" href="../static/styles.css" th:href="@{styles.css}">
 
     <meta charset="UTF-8">
@@ -27,19 +27,14 @@
                     <div th:include="fragments/accountDataFragment :: accountDataFragment"></div>
                 </div>
 
-                <div id="generalButtons">
+                <div id="allButtons">
                     <input type="button" class="btn btn-outline-dark" onclick="location.href='transfer'" value="Overboeken" />
                     <form method="get" th:action="@{add-account-holder}" th:object="${printAccountDataBean}">
                         <input type="hidden" th:value="*{accountNo}">
                         <input type="submit" class="btn btn-outline-dark" value="Rekeninghouder toevoegen"/>
                     </form>
-                    <input type="button" class="btn btn-outline-dark" onclick="location.href='account_overview';" value="Rekeningoverzicht" />
+                    <input id="SMEAButtons" th:if="*{typeAccount == 'SMEAccount'}" type="button" class="btn btn-outline-dark" onclick="location.href='request-paymentmachine';" value="Aanvragen pinautomaat" />
                 </div>
-
-                <div id="SMEAButtons" th:if="*{typeAccount == 'SMEAccount'}">
-                    <input type="button" class="btn btn-outline-dark" onclick="location.href='request-paymentmachine';" value="Aanvragen pinautomaat" />
-                </div>
-
             </div>
         </div>
 
@@ -49,21 +44,27 @@
             <div class="card-header">
                 <h2>Transacties</h2>
 
-                <div id="legenda">
-                    <pre>Datum       </pre>
-                    <pre>Tijd   </pre>
-                    <pre>Tegenrekening       </pre>
-                    <pre>Bij/Af   </pre>
-                    <pre>Omschrijving</pre>
-                </div>
+                <table class="transactionTable">
+                    <tr>
+                        <td class="td0">Datum/tijd</td>
+                        <td class="td1">Tegenrekening</td>
+                        <td class="td2">Bij/Af</td>
+                        <td class="td3">Omschrijving</td>
+                    </tr>
+                </table>
 
             </div>
             <div class="card-body">
                 <div id="transactionList">
                     <p class="italic" th:if="*{transactionStrings.empty}">Voor deze rekening zijn geen transacties beschikbaar.</p>
-                    <div  th:each="transaction : *{transactionStrings}">
-                        <p><span th:text="${transaction}"  /></p>
-                    </div>
+                    <table class="transactionTable">
+                        <tr th:each="transaction : *{transactionStrings}">
+                            <td class="td0"><span th:text="${transaction[0]}"  /></td>
+                            <td class="td1"><span th:text="${transaction[1]}"  /></td>
+                            <td class="td2"><span th:text="${transaction[2]}"  /></td>
+                            <td class="td3"><span th:text="${transaction[3]}"  /></td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>

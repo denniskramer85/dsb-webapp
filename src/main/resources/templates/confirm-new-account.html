@@ -5,7 +5,6 @@
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <meta charset="UTF-8">
     <title>Confirm new account page</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
 <body>
 <div th:include="fragments/header :: header"></div>
@@ -62,7 +61,8 @@
     </div>
 
     <!--Deel 3-->
-    <div class="card cards" th:if="${companyBean.existing != null}">
+
+    <div class="card cards" th:if="${companyBean.existing != false}">
         <!--Header-->
         <div class="card-header account-header-div">
             <h5 class="account-header">Bedrijfsgegevens</h5>
@@ -98,6 +98,8 @@
                     </div>
                 </div>
 
+
+
                 <div class="new-account form-row">
                     <div class="new-account text">
                         <p>Sector: </p>
@@ -109,12 +111,15 @@
             </div>
         </div>
     </div>
-
+    <form method="post" th:object="${companyBean}" th:action="@{account-confirmed}">
         <div>
             <input class="btn btn-outline-dark" type="submit" value="Bevestig">
             <input class="btn btn-outline-dark" type="button" onclick="window.location.href='account_overview';" value="Cancel"/>
         </div>
     </form>
 </div>
+
+<div th:include="fragments/footer :: scripts"></div>
+
 </body>
 </html>

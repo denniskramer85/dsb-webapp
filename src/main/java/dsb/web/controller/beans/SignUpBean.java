@@ -43,6 +43,7 @@ public class SignUpBean {
 
     @NotBlank(message = "Veld is leeg")
     @IntegerConstraint
+    @SocSecNoConstraint
     private String socialSecurityNoString;
     private Integer socialSecurityNo;
 
@@ -77,6 +78,9 @@ public class SignUpBean {
         String[] asArray = initials.trim().replaceAll("[^a-zA-Z]", "")
                 .toUpperCase().split("");
         initials = String.join(".", asArray) + ".";
+
+        //styling of inserts
+        inserts = inserts.toLowerCase();
 
         //styling of surname
         String mid = surname.toLowerCase();

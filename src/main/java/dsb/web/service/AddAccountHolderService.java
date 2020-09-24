@@ -60,23 +60,28 @@ public class AddAccountHolderService {
             return "Gebruikersnaam niet geldig, probeer opnieuw";
         }else {
             Customer customer = OptionalCustomer.get();
-            System.out.println(customer.getUserID());
-            System.out.println(loggedInCustomer.getUserID());
+            List<String> holders = new ArrayList<>();
+            for (Customer holder : account.getHolders()){
+                holders.add(holder.getUsername());
+            }
             if (customer.getUserID() == loggedInCustomer.getUserID()){
                 return "Voer hier de gebruikersnaam van de nieuwe rekeninghouder in";
-            }else if (account.getHolders().contains(customer)) {
+            }else if (holders.contains(customer.getUsername())) {
                 return "Deze gebruiker is reeds rekeninghouder van deze rekening";
             }
         }
         return "";
+
+
+
     }
 
     public ConfirmBean getConfirmBeanAccountHolderToken(){
         return new ConfirmBean(
                 "Aanvraag nieuwe rekeninghouder geslaagd",
                 "Je aanvraag om een nieuwe rekeninghouder toe te voegen is geslaagd. Klik op volgende om naar de rekeningpagina terug te keren",
-                "",
-                "");
+                "accountPage",
+                "rekening pagina");
     }
 
 

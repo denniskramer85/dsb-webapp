@@ -28,13 +28,11 @@
 
     <div th:unless="${#lists.isEmpty(consumerAccounts)}" class="card">
         <div class="card-header account-header-div">
-
-            <form method="post" th:action="@{/new-account}" class="inline-form">
-            <h5 class="account-header">Persoonlijke rekeningen</h5>
+            <!--<form method="post" th:action="@{/new-account}" class="inline-form">
                 <input type="hidden" th:name="accountType" th:value="0">
                 <button type="submit" class="btn btn-open-account btn-outline-dark">Rekening toevoegen</button>
-            </form>
-
+            </form>-->
+            <h5 class="account-header">Persoonlijke rekeningen</h5>
         </div>
 
         <div th:if="${#lists.isEmpty(consumerAccounts)}">
@@ -80,11 +78,11 @@
 
     <div th:unless="${#lists.isEmpty(smeAccounts)}" class="card">
         <div class="card-header account-header-div">
-            <form method="post" th:action="@{/new-account}" class="inline-form">
-                <h5 class="account-header">Zakelijke rekeningen</h5>
+            <h5 class="account-header">Zakelijke rekeningen</h5>
+            <!--<form method="post" th:action="@{/new-account}" class="inline-form">
                 <input type="hidden" th:name="accountType" th:value="1">
                 <button type="submit" class="btn btn-open-account btn-outline-dark">Rekening toevoegen</button>
-            </form>
+            </form>-->
         </div>
 
         <div th:if="${#lists.isEmpty(smeAccounts)}">
@@ -92,7 +90,6 @@
                 <p>U heeft nog geen zakelijke rekening(en).</p>
             </div>
         </div>
-
 
         <div th:unless="${#lists.isEmpty(smeAccounts)}">
             <div class="card-body">

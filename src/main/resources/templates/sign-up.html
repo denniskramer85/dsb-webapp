@@ -19,172 +19,175 @@
 <div th:include="fragments/header :: header"></div>
 
 <div class="container">
-    <br>
-    <h1>Aanmeldingspagina</h1>
-    <br>
-    <input class="btn btn-outline-dark" style="background-color: cyan" id="validationToggle" type="button" value="Selecteer client-side validatie">
-    <br>
-    <p class="italic">Velden met een * zijn verplicht</p>
-    <br>
-    <form method="POST" th:object="${signUpBean}" th:action="@{customerCompleted}" onSubmit="return pass();">
-        <div class="grid">
-
-            <div id="personalData">
-                <div class="form-group">
-                    <table><tr><td>
-                        <label for="surname">Achternaam*</label>
-                    </td><td>
-                        <input type="text" class="form-control notEmpty minSize onlyLetters" id="surname" name="surname" th:field="*{surname}">
-                    </td></tr><tr><td></td><td>
-                    </td></tr><tr><td></td><td>
-                        <p class="errors"><span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"/></p>
-                    </td></tr>
-                    </table>
-                </div>
-                <div class="form-group">
-                    <table><tr><td>
-                        <label for="inserts">Tussenvoegsels</label>
-                    </td><td>
-                        <input type="text" class="form-control onlyLetters" id="inserts" name="inserts" th:field="*{inserts}">
-                    </td></tr><tr><td></td><td>
-                        <p class="errors"><span th:if="${#fields.hasErrors('inserts')}" th:errors="*{inserts}"/></p>
-                    </td></tr>
-                    </table>
-                </div>
-                <div class="form-group">
-                    <table><tr><td>
-                        <label for="initials">Voorletters*</label>
-                    </td><td>
-                        <input type="text" class="form-control notEmpty onlyLetters" id="initials" name="initials" th:field="*{initials}">
-                    </td></tr><tr><td></td><td>
-                        <p class="errors"><span th:if="${#fields.hasErrors('initials')}" th:errors="*{initials}"/></p>
-                    </td></tr>
-                    </table>
-                </div>
-                <div class="form-group">
-                    <table><tr><td>
-                        <label for="socialSecurityNo">BSN-nummer*</label>
-                    </td><td>
-                        <input type="text" class="form-control notEmpty onlyNumbers elfTest" id="socialSecurityNo" name="socialSecurityNo" th:field="*{socialSecurityNoString}">
-                    </td></tr><tr><td></td><td>
-                        <p class="errors"><span th:if="${#fields.hasErrors('socialSecurityNoString')}" th:errors="*{socialSecurityNoString}"/></p>
-                    </td></tr>
-                    </table>
-                </div>
-            </div>
-
-            <div id="addressData">
-                <div class="form-group">
-                    <table><tr><td>
-                        <label for="zipcode">Postcode*</label>
-                    </td><td>
-                        <input type="text" class="form-control notEmpty" id="zipcode" name="zipcode" th:field="*{zipCode}"
-                               onkeyup="retrieve_address('zipcode',this.value)">
-                    </td></tr><tr><td></td><td>
-                        <p class="errors"><span th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}"/></p>
-                    </td></tr>
-                    </table>
-                </div>
-                <div class="form-group">
-                    <table><tr><td>
-                        <label for="housenumber">Huisnummer*</label>
-                    </td><td>
-                        <input type="text" class="form-control notEmpty onlyNumbers" id="housenumber" name="housenumber"
-                               th:field="*{houseNumberString}" onkeyup="retrieve_address('housenumber', this.value)">
-                    </td></tr><tr><td></td><td>
-                        <p class="errors"><span th:if="${#fields.hasErrors('houseNumberString')}"
-                                                th:errors="*{houseNumberString}"/></p>
-                    </td></tr>
-                    </table>
-                </div>
-                <div class="form-group">
-                    <table><tr><td>
-                        <label for="affix">Toevoeging</label>
-                    </td><td>
-                        <input type="text" class="form-control" id="affix" name="affix" th:field="*{affixes}"
-                               onkeyup="retrieve_address('affix', this.value)">
-                    </td></tr><tr><td></td><td>
-                        <p class="errors"><span th:if="${#fields.hasErrors('affixes')}" th:errors="*{affixes}"/></p>
-                    </td></tr>
-                    </table>
-                </div>
-                <div class="form-group">
-                    <table><tr><td>
-                        <label for="street">Straat</label>
-                    </td><td>
-                        <input type="text" class="form-control notEmpty" id="street" name="street" th:field="*{street}" readonly>
-                    </td></tr><tr><td></td><td>
-                        <p class="errors"><span th:if="${#fields.hasErrors('street')}" th:errors="*{street}"/></p>
-                    </td></tr>
-                    </table>
-                </div>
-                <div class="form-group">
-                    <table><tr><td>
-                        <label for="city">Plaats</label>
-                    </td><td>
-                        <input type="text" class="form-control notEmpty" id="city" name="city" th:field="*{city}" readonly />
-                    </td></tr><tr><td></td><td>
-                        <p class="errors"><span th:if="${#fields.hasErrors('city')}" th:errors="*{city}"/></p>
-                    </td></tr>
-                    </table>
-                </div>
-
-            </div>
+    <div class="card">
+        <div class="card-header"><h5>Aanmeldingspagina</h5></div>
+        <div class="card-body">
 
 
+        <!--    <input class="btn btn-outline-dark" style="background-color: cyan" id="validationToggle" type="button" value="Selecteer client-side validatie">-->
+        <!--    <br>-->
+            <p class="italic">Velden met een * zijn verplicht</p>
+            <br>
+            <form method="POST" th:object="${signUpBean}" th:action="@{customerCompleted}" onSubmit="return pass();">
+                <div class="grid">
 
-            <div id="userData">
-                <div class="form-group">
-                    <table><tr><td>
-                        <label for="username">Gebruikersnaam*</label>
-                    </td><td>
-                        <input type="text" class="form-control notEmpty minSize userOccupied" id="username" name="username" th:field="*{username}">
-                    </td></tr><tr><td></td><td>
-                        <p class="errors"><span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"/></p>
-                    </td></tr>
-                    </table>
+                    <div id="personalData">
+                        <div class="form-group">
+                            <table><tr><td>
+                                <label for="surname">Achternaam*</label>
+                            </td><td>
+                                <input type="text" class="form-control notEmpty minSize onlyLetters" id="surname" name="surname" th:field="*{surname}" autofocus><br><p>asdjkalsdjalksdj</p>
+                            </td></tr><tr><td></td><td>
+                            </td></tr><tr><td></td><td>
+                                <p class="errors"><span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"/></p>
+                            </td></tr>
+                            </table>
+                        </div>
+                        <div class="form-group">
+                            <table><tr><td>
+                                <label for="inserts">Tussenvoegsels</label>
+                            </td><td>
+                                <input type="text" class="form-control onlyLetters" id="inserts" name="inserts" th:field="*{inserts}">
+                            </td></tr><tr><td></td><td>
+                                <p class="errors"><span th:if="${#fields.hasErrors('inserts')}" th:errors="*{inserts}"/></p>
+                            </td></tr>
+                            </table>
+                        </div>
+                        <div class="form-group">
+                            <table><tr><td>
+                                <label for="initials">Voorletters*</label>
+                            </td><td>
+                                <input type="text" class="form-control notEmpty onlyLetters" id="initials" name="initials" th:field="*{initials}">
+                            </td></tr><tr><td></td><td>
+                                <p class="errors"><span th:if="${#fields.hasErrors('initials')}" th:errors="*{initials}"/></p>
+                            </td></tr>
+                            </table>
+                        </div>
+                        <div class="form-group">
+                            <table><tr><td>
+                                <label for="socialSecurityNo">BSN-nummer*</label>
+                            </td><td>
+                                <input type="text" class="form-control notEmpty onlyNumbers elfTest" id="socialSecurityNo" name="socialSecurityNo" th:field="*{socialSecurityNoString}">
+                            </td></tr><tr><td></td><td>
+                                <p class="errors"><span th:if="${#fields.hasErrors('socialSecurityNoString')}" th:errors="*{socialSecurityNoString}"/></p>
+                            </td></tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="addressData">
+                        <div class="form-group">
+                            <table><tr><td>
+                                <label for="zipcode">Postcode*</label>
+                            </td><td>
+                                <input type="text" class="form-control notEmpty" id="zipcode" name="zipcode" th:field="*{zipCode}"
+                                       onkeyup="retrieve_address('zipcode',this.value)">
+                            </td></tr><tr><td></td><td>
+                                <p class="errors"><span th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}"/></p>
+                            </td></tr>
+                            </table>
+                        </div>
+                        <div class="form-group">
+                            <table><tr><td>
+                                <label for="housenumber">Huisnummer*</label>
+                            </td><td>
+                                <input type="text" class="form-control notEmpty onlyNumbers" id="housenumber" name="housenumber"
+                                       th:field="*{houseNumberString}" onkeyup="retrieve_address('housenumber', this.value)">
+                            </td></tr><tr><td></td><td>
+                                <p class="errors"><span th:if="${#fields.hasErrors('houseNumberString')}"
+                                                        th:errors="*{houseNumberString}"/></p>
+                            </td></tr>
+                            </table>
+                        </div>
+                        <div class="form-group">
+                            <table><tr><td>
+                                <label for="affix">Toevoeging</label>
+                            </td><td>
+                                <input type="text" class="form-control" id="affix" name="affix" th:field="*{affixes}"
+                                       onkeyup="retrieve_address('affix', this.value)">
+                            </td></tr><tr><td></td><td>
+                                <p class="errors"><span th:if="${#fields.hasErrors('affixes')}" th:errors="*{affixes}"/></p>
+                            </td></tr>
+                            </table>
+                        </div>
+                        <div class="form-group">
+                            <table><tr><td>
+                                <label for="street">Straat</label>
+                            </td><td>
+                                <input type="text" class="form-control notEmpty" id="street" name="street" th:field="*{street}">
+                            </td></tr><tr><td></td><td>
+                                <p class="errors"><span th:if="${#fields.hasErrors('street')}" th:errors="*{street}"/></p>
+                            </td></tr>
+                            </table>
+                        </div>
+                        <div class="form-group">
+                            <table><tr><td>
+                                <label for="city">Plaats</label>
+                            </td><td>
+                                <input type="text" class="form-control notEmpty" id="city" name="city" th:field="*{city}"/>
+                            </td></tr><tr><td></td><td>
+                                <p class="errors"><span th:if="${#fields.hasErrors('city')}" th:errors="*{city}"/></p>
+                            </td></tr>
+                            </table>
+                        </div>
+
+                    </div>
+
+
+
+                    <div id="userData">
+                        <div class="form-group">
+                            <table><tr><td>
+                                <label for="username">Gebruikersnaam*</label>
+                            </td><td>
+                                <input type="text" class="form-control notEmpty minSize userOccupied" id="username" name="username" th:field="*{username}">
+                            </td></tr><tr><td></td><td>
+                                <p class="errors"><span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"/></p>
+                            </td></tr>
+                            </table>
+                        </div>
+                        <div class="form-group">
+                            <table><tr><td>
+                                <label for="password">Wachtwoord*</label>
+                            </td><td>
+                                <input type="password" class="form-control notEmpty" id="password" name="password" th:field="*{password}">
+                            </td></tr><tr><td></td><td>
+                                <p class="errors"><span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"/></p>
+                            </td></tr>
+                            </table>
+                        </div>
+                        <div class="form-group">
+                            <table><tr><td>
+                                <label for="password2">Herhaal wachtwoord*</label>
+                            </td><td>
+                                <input type="password" class="form-control notEmpty passCheck" id="password2" name="password2">
+                            </td></tr><tr><td></td><td>
+                                <p class="errors"><span th:if="${#fields.hasErrors('password2')}" th:errors="*{password2}"/></p>
+                                <p class="errors" style="position: relative; top: 200px;"><span th:if="${#fields.hasGlobalErrors()}" th:each="error : ${#fields.errors('global')}" th:text="${error}"/></p>
+                            </td></tr>
+                            </table>
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="buttons">
+                        <input  style="position:absolute;bottom:1000px;height:0px;width:0px;background:transparent;border:0;" type="submit">
+                        <input class="btn btn-outline-dark" id="confirmButton" type="submit" value="Bevestigen">
+                        <input class="btn btn-outline-dark" id="cancelButton" type="button" value="Annuleren" onclick="location.href='/'">
+                    </div>
+
                 </div>
-                <div class="form-group">
-                    <table><tr><td>
-                        <label for="password">Wachtwoord*</label>
-                    </td><td>
-                        <input type="password" class="form-control notEmpty" id="password" name="password" th:field="*{password}">
-                    </td></tr><tr><td></td><td>
-                        <p class="errors"><span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"/></p>
-                    </td></tr>
-                    </table>
-                </div>
-                <div class="form-group">
-                    <table><tr><td>
-                        <label for="password2">Herhaal wachtwoord*</label>
-                    </td><td>
-                        <input type="password" class="form-control notEmpty passCheck" id="password2" name="password2">
-                    </td></tr><tr><td></td><td>
-                        <p class="errors"><span th:if="${#fields.hasErrors('password2')}" th:errors="*{password2}"/></p>
-                        <p class="errors" style="position: relative; top: 200px;"><span th:if="${#fields.hasGlobalErrors()}" th:each="error : ${#fields.errors('global')}" th:text="${error}"/></p>
-                    </td></tr>
-                    </table>
-                </div>
+            </form>
 
-
-            </div>
-
-
-            <div class="buttons">
-                <input class="btn btn-outline-dark" id="confirmButton" type="submit" value="Bevestigen">
-                <input class="btn btn-outline-dark" id="cancelButton" type="button" value="Annuleren" onclick="location.href='/'">
-            </div>
+            <br/>
 
         </div>
-    </form>
-
-    <br/>
-    <br/>
-    <br/>
-
+    </div>
 </div>
 
-
+<div th:replace="fragments/footer :: scripts"></div>
 <script type="text/javascript" th:src="@{/signUpActions.js}"></script>
 
 </body>

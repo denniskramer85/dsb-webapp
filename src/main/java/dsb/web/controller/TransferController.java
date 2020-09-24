@@ -15,6 +15,12 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
 import java.util.Optional;
 
 @Controller
@@ -24,17 +30,10 @@ public class TransferController {
     private AccountPageService accountPageService;
     private TransferService transferService;
 
-    //TODO weg als dummygegevs niet meer nodig
-    private CustomerRepository customerRepository;
-    private AccountRepository accountRepository;
-
 
     @Autowired
-    public TransferController(AccountPageService accountPageService, CustomerRepository customerRepository,
-                              AccountRepository accountRepository, TransferService transferService) {
+    public TransferController(AccountPageService accountPageService, TransferService transferService) {
         this.accountPageService = accountPageService;
-        this.customerRepository = customerRepository;
-        this.accountRepository = accountRepository;
         this.transferService = transferService;
 
     }
@@ -42,20 +41,8 @@ public class TransferController {
     @GetMapping("transfer")
     public String startTransferPageHandler(Model model) {
 
-        //TODO weg: dit is dummydata vw snelle link (data cust en acc uit db halen en in sessie hangen)
-        /*Optional<Customer> customerOptional = customerRepository.findOneByUsername("dennis");
-        Customer customer = customerOptional.get();
-        model.addAttribute("loggedInCustomer", customer);
-        Optional<Account> accountOptional = accountRepository.findByAccountID(110);
-        Account account = accountOptional.get();
-        model.addAttribute("selectedAccountSession", account);*/
-
-        //TODO aanzetten: dit is de normale flow
         //get account data
         Account account = (Account) model.getAttribute("selectedAccountSession");
-
-        //*********************************************************************************//
-
 
         //add printable account data (string) to model (only for display purpose)
         model.addAttribute("printAccountDataBean",
@@ -74,7 +61,7 @@ public class TransferController {
 
     @PostMapping("transferPost")
     public String transferDataHandler(@Valid @ModelAttribute TransferBean transferBean,
-                                      Errors errors, Model model) {
+                                      Errors errors, Model model) throws ParseException {
 
         //validate for input errors - if so: return to transferPage
         if (errors.hasErrors()) {
@@ -89,12 +76,32 @@ public class TransferController {
         return "transferConfirmPage";
     }
 
+    @GetMapping("transferEdit")
+    public String transferEditHandler(Model model) {
+
+        //gather account and transfer data for returning to previous screen (transfer page)
+        Account account = (Account) model.getAttribute("selectedAccountSession");
+        model.addAttribute("printAccountDataBean",
+                accountPageService.makePrintAccountDataBean(account));
+
+        TransferBean transferBean = (TransferBean) model.getAttribute("transferBeanSession");
+        model.addAttribute("transferBean", transferBean);
+
+        return "transferPage";
+    }
+
+
     @PostMapping("transferConfirm")
     public String transferConfirmHandler(@ModelAttribute LoginBean loginBean, Model model) {
+
+        //add username to loginbean
+        Customer customer = (Customer) model.getAttribute(AttributeMapping.LOGGED_IN_CUSTOMER);
+        loginBean.setUsername(customer.getUsername());
 
         //determine flow depending on whether validation succeeds
         return transferService.determineFlow(loginBean, model);
     }
+
 }
 
 

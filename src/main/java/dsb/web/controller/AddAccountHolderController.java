@@ -54,10 +54,10 @@ public class AddAccountHolderController {
             @ModelAttribute(AttributeMapping.LOGGED_IN_CUSTOMER) Customer loggedInCustomer,
             @ModelAttribute(AttributeMapping.SELECTED_ACCOUNT) Account account,
             Model model) {
-        String usernameValid = addAccountHolderService.checkUsernameValidity(newAccountHolder, loggedInCustomer, account);
-        Customer passwordCorrect = (Customer) signInService.checkCredentials(loggedInCustomer.getUsername(), password);
-        if (usernameValid != "" || passwordCorrect == null) {
-            model.addAttribute("errorMessage", usernameValid);
+        String returnMessageUsernameCheck = addAccountHolderService.checkUsernameValidity(newAccountHolder, loggedInCustomer, account);
+        Customer authenticatedCustomer = (Customer) signInService.checkCredentials(loggedInCustomer.getUsername(), password);
+        if (returnMessageUsernameCheck != "" || authenticatedCustomer == null) {
+            model.addAttribute("errorMessage", returnMessageUsernameCheck);
             return ("add-account-holder");
         } else {
             model.addAttribute("confirmBean", addAccountHolderService.getConfirmBeanAccountHolderToken());
@@ -83,12 +83,6 @@ public class AddAccountHolderController {
     @PostMapping("resolve-account-holder-token")
     String resolvePageHandler(@RequestParam(name = "tokenId") String tokenId,
                    Model model){
-        //print Map:
-        /*Map<String,Object> map = model.asMap();
-        for (Map.Entry<String,Object> entry : map.entrySet()) {
-            System.out.println("Key: " + entry.getKey());
-            System.out.println("Value: " + entry.getValue());
-        }*/
         model.addAttribute("tokenId", tokenId);
         model.addAttribute("errorMsg", null);
         return "resolve-account-holder-token";
@@ -113,28 +107,4 @@ public class AddAccountHolderController {
         model.addAttribute("errorMsg", "De door jou ingevoerde code is incorrect, probeer het nogmaals");
         return "resolve-account-holder-token";
     }
-
-
-    @RestController
-    @RequestMapping(value = "/find_users")
-    @SessionAttributes({AttributeMapping.LOGGED_IN_CUSTOMER, AttributeMapping.SELECTED_ACCOUNT})
-    class FindUserController{
-
-
-        public FindUserController() {
-            super();
-        }
-
-        @GetMapping(value = "/{usernameCheck}")
-        public String findUser(@PathVariable("usernameCheck") String usernameCheck,
-                               @ModelAttribute(AttributeMapping.LOGGED_IN_CUSTOMER) Customer loggedInCustomer,
-                               @ModelAttribute(AttributeMapping.SELECTED_ACCOUNT) Account account){
-            String isValid = addAccountHolderService.checkUsernameValidity(usernameCheck, loggedInCustomer, account);
-            if (isValid == null) {
-                return usernameCheck;
-            }
-            return isValid;
-        }
-    }
-
 }

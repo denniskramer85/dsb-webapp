@@ -1,6 +1,7 @@
 package dsb.web.service;
 
 import dsb.web.controller.AttributeMapping;
+import dsb.web.controller.beans.ConfirmBean;
 import dsb.web.controller.beans.LoginBean;
 import dsb.web.controller.beans.TransferBean;
 import dsb.web.domain.Account;
@@ -55,7 +56,7 @@ public class TransferService {
         if (loginCustomer == null) {
             return ifPasswordIncorrect(model, transferBean);
         } else {
-            return ifPasswordCorrect(loggedInCustomer, transferBean);
+            return ifPasswordCorrect(loggedInCustomer, transferBean, model);
         }
     }
 
@@ -66,11 +67,16 @@ public class TransferService {
         return "transferConfirmPage";
     }
 
-    private String ifPasswordCorrect(Customer loggedInCustomer, TransferBean transferBean) {
+    private String ifPasswordCorrect(Customer loggedInCustomer, TransferBean transferBean, Model model) {
         // Execute transaction, return to index if passed
         if (transactionService.doTransaction(transferBean, loggedInCustomer)) {
             System.out.println("Transaction succesfull");
-            return "redirect:account_overview";
+            //return "redirect:account_overview";
+
+        ConfirmBean confirmBean = new ConfirmBean("Overboeking geslaagd", "Overboeking is gelukt!", "account_overview", "OK");
+        model.addAttribute(confirmBean);
+        return "confirm";
+
         } else {
             //TODO: Handle unauthorized transaction
             return "/";
