@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
+import java.util.Locale;
 
 /**
  *  This bean is used for currency transfers that have not yet been validated.
@@ -38,6 +39,7 @@ public class TransferBean {
     @NotBlank(message = "Voer een bedrag in")
     @CurrencyFormatConstraint
     private String transferAmountString;
+    private String transferAmountStyled;
 
     @Positive(message = "Voer een bedrag groter dan 0 in")
     @Digits(integer = 50, fraction = 2, message = "Voer maximaal twee cijfers achter de komma in")
@@ -99,6 +101,9 @@ public class TransferBean {
         this.transferAmountString = transferAmountString;
         transferAmount = BigDecimalHelper.parse(transferAmountString);
         checkSufficientFunds();
+
+        //set string with 2 decimals and NL locale
+        transferAmountStyled = String.format(Locale.GERMAN, "%.2f", transferAmount.doubleValue());
     }
 
     public BigDecimal getTransferAmount() {
@@ -123,6 +128,14 @@ public class TransferBean {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getTransferAmountStyled() {
+        return transferAmountStyled;
+    }
+
+    public void setTransferAmountStyled(String transferAmountStyled) {
+        this.transferAmountStyled = transferAmountStyled;
     }
 
     @Override
