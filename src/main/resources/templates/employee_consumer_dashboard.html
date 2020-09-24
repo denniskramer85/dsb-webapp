@@ -1,10 +1,41 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="../static/styles.css" th:href="@{styles.css}">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="styles.css"/>
     <meta charset="UTF-8">
     <title>Dashboard particulieren</title>
+
+    <style>
+
+        #customers1 {
+
+            border-collapse: collapse;
+            width: 80%;
+        }
+
+        #customers td, #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+
+        #customersSmall {
+
+            border-collapse: collapse;
+            width: 40%;
+        }
+
+        #customersSmall td, #customersSmall th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+
+
+
+
+    </style>
 </head>
 <body>
 
@@ -21,14 +52,14 @@
 
     <div class="card">
         <div class="card-header">
-            <h2>Particulieren Dashboard</h2>
+            <h5>Particulieren Dashboard</h5>
         </div>
         <div class="card-body">
             <div id="accountData">
 
-                <p><strong><span th:text="${selectedEmployee}"></span> Medewerker:</strong>
+                <p> Welkom <strong><span th:text="${selectedEmployee}"></span></strong></p>
 
-                </p>
+
             </div>
         </div>
     </div>
@@ -41,47 +72,44 @@
             <h5 class="account-header">Top 10 Particulieren saldo's </h5>
         </div>
 
+        <div class="card">
 
 
-            <div class="card-body">
-                <div th:each="account : ${consumerAccounts1}">
+                <div class="card-body">
+                    <table id="customers1" class="top10saldo-table">
 
-                        <table class="top10saldo-table">
-                            <tr>
-                                <td>
-                                    <img class="account-icon" th:src="@{/images/icons/credit-card.svg}" alt="">
-                                    <span th:text="${account.getAccountNo()}"/>
-                                </td>
-                                <td>
-                                    <img class="account-icon" th:src="@{/images/icons/people.svg}" alt="">
-                                    <span th:text="${account.getHoldersString()}"/>
-                                </td>
-                                <td>
-                                    <img class="account-icon" th:src="@{/images/icons/wallet2.svg}" alt="">
-                                    €&nbsp;
-                                    <span th:text="${#numbers.formatDecimal(account.getBalance(), 0, 'POINT', 2, 'COMMA')}"/>
-                                </td>
-
-                            </tr>
-                        </table>
-
+                        <tr th:each="account : ${consumerAccounts1}">
+                            <td>
+                                <img class="account-icon" th:src="@{/images/icons/people.svg}" alt="">
+                                <span th:text="${account.getHoldersString()}"/>
+                            </td>
+                            <td>
+                                <img class="account-icon" th:src="@{/images/icons/credit-card.svg}" alt="">
+                                <span th:text="${account.getAccountNo()}"/>
+                            </td>
+                            <td>
+                                <img class="account-icon" th:src="@{/images/icons/wallet2.svg}" alt="">
+                                €
+                                <span th:text="${#numbers.formatDecimal(account.getBalance(), 0, 'POINT', 2, 'COMMA')}"/>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
-            </div>
+
         </div>
 
 
 
 
 
-</div>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-        crossorigin="anonymous"></script>
 
+
+
+
+
+
+
+
+    </div>
+</div>
 </body>
