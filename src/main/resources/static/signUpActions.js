@@ -173,6 +173,8 @@ function userOccupied(input) {
         return false
     }
 
+
+    //TODO let op, werkt niet als niet-lokaal
     let url = `http://localhost:8080/username-occupied-check/${input.value}`
 
     fetch(url)
@@ -213,7 +215,6 @@ function displayMessage(input, message) {
     input.value = null
     input.setAttribute("placeholder", message)
     input.style.border = "3px solid red"
-
 }
 
 function normalizeInputField(input) {
