@@ -77,13 +77,17 @@ public class TransferController {
     }
 
     @GetMapping("transferEdit")
-    public String transferEditHandler() {
-        System.out.println("methode aangesproken");
+    public String transferEditHandler(Model model) {
 
+        //gather account and transfer data for returning to previous screen (transfer page)
+        Account account = (Account) model.getAttribute("selectedAccountSession");
+        model.addAttribute("printAccountDataBean",
+                accountPageService.makePrintAccountDataBean(account));
 
+        TransferBean transferBean = (TransferBean) model.getAttribute("transferBeanSession");
+        model.addAttribute("transferBean", transferBean);
 
-
-        return "redirect:transfer";
+        return "transferPage";
     }
 
 
