@@ -30,7 +30,7 @@ public class ConsumerDashboardController {
 
     @GetMapping("employee_consumer_dashboard")
     public String consumerDashboard(@ModelAttribute(AttributeMapping.LOGGED_IN_EMPLOYEE) Employee employee, Model model) {
-        model.addAttribute("selectedEmployee", employee.getUserFullName());
+        model.addAttribute("selectedEmployee", employee.printWholeName());
 
 
         List<ConsumerAccount> top10lijst = consumerDashboardService.getTop10byConsumerBalance();

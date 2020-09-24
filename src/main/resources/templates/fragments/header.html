@@ -55,7 +55,7 @@
             <img th:src="@{/images/icons/person-circle.svg}" alt="">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCustomer" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span th:text="${loggedInCustomer.getUserFullName()}"/>
+                    <span th:text="${loggedInCustomer.printWholeName()}"/>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownCustomer">
                     <a class="dropdown-item" href="#" data-href="sign-out" data-toggle="modal" data-target="#confirm-logout"><img class="dropdown-icon" th:src="@{/images/icons/box-arrow-right.svg}" alt="">Uitloggen</a>
@@ -67,7 +67,7 @@
             <img th:src="@{/images/icons/person-circle.svg}" alt="">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownEmployee" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span th:text="${loggedInEmployee.getUserFullName()}"/>
+                    <span th:text="${loggedInEmployee.printWholeName()}"/>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownEmployee">
                     <a class="dropdown-item" href="#" data-href="sign-out" data-toggle="modal" data-target="#confirm-logout"><img class="dropdown-icon" th:src="@{/images/icons/box-arrow-right.svg}" alt="">Uitloggen</a>

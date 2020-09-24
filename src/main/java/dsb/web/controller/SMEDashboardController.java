@@ -48,7 +48,7 @@ public class SMEDashboardController {
         List<TokenPaymentMachine> getAllLinkRequests = smeDashboardService.getAllPaymentMachineRequests();
         List<SMEAccount> top10Balance = smeDashboardService.getTop10bySmeBalance();
 
-        model.addAttribute("selectedEmployee", employee.getUserFullName());
+        model.addAttribute("selectedEmployee", employee.printWholeName());
         model.addAttribute("linkRequestList", getAllLinkRequests);
         model.addAttribute("transactionsList", top10);
         model.addAttribute("balances", top10Balance);

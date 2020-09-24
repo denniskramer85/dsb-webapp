@@ -273,6 +273,12 @@ input[type=number] {
     top: 30px;
 }
 
+#transferConfirmPage #inputsRight {
+    position: relative;
+    bottom: 38px;
+    left: 25px;
+}
+
 /*for sme payment machine request overview page */
 .paymentmachinerequests-table {
     padding: 10px;
