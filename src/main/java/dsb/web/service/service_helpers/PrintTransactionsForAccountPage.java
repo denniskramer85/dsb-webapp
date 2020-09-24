@@ -50,12 +50,12 @@ public class PrintTransactionsForAccountPage {
 
     private String[] createIndividualTransaction(Transaction transaction) {
 
+        determineCounterAccount(transaction);
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         timeStamp = transaction.getTransactionTimestamp().format(formatter);
         message = transaction.getMessage();
         amount = String.format("%s%.2f", plusMinus, transaction.getTransactionAmount());
-
-        determineCounterAccount(transaction);
 
         String[] result = {timeStamp, counterAccount, amount, message};
 
