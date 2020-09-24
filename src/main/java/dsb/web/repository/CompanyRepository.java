@@ -13,7 +13,6 @@ public interface CompanyRepository extends CrudRepository<Company, Integer> {
 
     boolean existsByKVKno(String kvKno);
 
-    List<Company> findAllByName(String companyName);
 
 }
 

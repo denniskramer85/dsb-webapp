@@ -43,14 +43,14 @@ public class SMEDashboardController {
     @GetMapping("sme_employee_dashboard")
     public String smeDashboardOverview(@ModelAttribute(AttributeMapping.LOGGED_IN_EMPLOYEE) Employee employee, Model model) {
 
-        List<SMETransactionHelper> top10 = smeDashboardService.findTop10SMETransactions();
+        List<SMETransactionHelper> top10MostValuedSMECustomers = smeDashboardService.findTop10SMETransactions();
         Map<Sector, Integer> averageTop10BySector = smeDashboardService.averageBySector();
         List<TokenPaymentMachine> getAllLinkRequests = smeDashboardService.getAllPaymentMachineRequests();
         List<SMEAccount> top10Balance = smeDashboardService.getTop10bySmeBalance();
 
         model.addAttribute("selectedEmployee", employee.printWholeName());
         model.addAttribute("linkRequestList", getAllLinkRequests);
-        model.addAttribute("transactionsList", top10);
+        model.addAttribute("transactionsList", top10MostValuedSMECustomers);
         model.addAttribute("balances", top10Balance);
         model.addAttribute("averageBalanceBySector", averageTop10BySector);
         return "sme_employee_dashboard";
