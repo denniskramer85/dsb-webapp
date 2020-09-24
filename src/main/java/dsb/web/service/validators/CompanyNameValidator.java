@@ -7,23 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class CompanyNameValidator implements ConstraintValidator<CompanyNameConstraint, String> {
-
-    CompanyRepository companyRepository;
-
-    @Autowired
-    public CompanyNameValidator(CompanyRepository companyRepository) {
-        this.companyRepository = companyRepository;
-    }
 
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
 
+
         if (s == null || s.trim().equals("")) return true;
 
-        List<Company> company = companyRepository.findAllByName(s);
-        return company.size() == 0;
+
+        return s.matches("^[a-zA-Z0-9@&]*$");
 
     }
 

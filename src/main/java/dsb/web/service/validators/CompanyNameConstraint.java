@@ -17,7 +17,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 public @interface CompanyNameConstraint {
 
-    String message() default "Bedrijfsnaam bestaat al";
+    String message() default "Speciale tekens niet toegestaan(uitgezonderd &,@)";
 
     Class<?>[] groups() default { };
 
