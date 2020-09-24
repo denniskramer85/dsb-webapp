@@ -30,17 +30,10 @@ public class TransferController {
     private AccountPageService accountPageService;
     private TransferService transferService;
 
-    //TODO weg als dummygegevs niet meer nodig
-    private CustomerRepository customerRepository;
-    private AccountRepository accountRepository;
-
 
     @Autowired
-    public TransferController(AccountPageService accountPageService, CustomerRepository customerRepository,
-                              AccountRepository accountRepository, TransferService transferService) {
+    public TransferController(AccountPageService accountPageService, TransferService transferService) {
         this.accountPageService = accountPageService;
-        this.customerRepository = customerRepository;
-        this.accountRepository = accountRepository;
         this.transferService = transferService;
 
     }
@@ -48,20 +41,8 @@ public class TransferController {
     @GetMapping("transfer")
     public String startTransferPageHandler(Model model) {
 
-        //TODO weg: dit is dummydata vw snelle link (data cust en acc uit db halen en in sessie hangen)
-        /*Optional<Customer> customerOptional = customerRepository.findOneByUsername("dennis");
-        Customer customer = customerOptional.get();
-        model.addAttribute("loggedInCustomer", customer);
-        Optional<Account> accountOptional = accountRepository.findByAccountID(110);
-        Account account = accountOptional.get();
-        model.addAttribute("selectedAccountSession", account);*/
-
-        //TODO aanzetten: dit is de normale flow
         //get account data
         Account account = (Account) model.getAttribute("selectedAccountSession");
-
-        //*********************************************************************************//
-
 
         //add printable account data (string) to model (only for display purpose)
         model.addAttribute("printAccountDataBean",
@@ -95,6 +76,17 @@ public class TransferController {
         return "transferConfirmPage";
     }
 
+    @GetMapping("transferEdit")
+    public String transferEditHandler() {
+        System.out.println("methode aangesproken");
+
+
+
+
+        return "redirect:transfer";
+    }
+
+
     @PostMapping("transferConfirm")
     public String transferConfirmHandler(@ModelAttribute LoginBean loginBean, Model model) {
 
@@ -105,6 +97,7 @@ public class TransferController {
         //determine flow depending on whether validation succeeds
         return transferService.determineFlow(loginBean, model);
     }
+
 }
 
 
