@@ -173,9 +173,7 @@ function userOccupied(input) {
         return false
     }
 
-
-    //TODO let op, werkt niet als niet-lokaal
-    let url = `http://localhost:8080/username-occupied-check/${input.value}`
+    let url = `/username-occupied-check/${input.value}`
 
     fetch(url)
         .then(response => response.json())
@@ -222,22 +220,6 @@ function normalizeInputField(input) {
     input.style.border = "thin solid black"
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Code for retrieving ZIP information from bwnr.nl API
 // Declare empty variables
 var zipcode = "";
@@ -245,12 +227,10 @@ var housenumber = "";
 var affix = "";
 
 function retrieve_address(id, value) {
-    console.log("Methode wordt aangeroepen")
     // Load form data into variables
     // Return if no valid input (yet)
     if (id == "zipcode") {
         var zip = value.trim();
-        console.log(zip);
         // Check for minimum of 6 characters
         if (zip.length < 6) {
             return;
