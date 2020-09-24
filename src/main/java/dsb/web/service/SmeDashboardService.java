@@ -1,41 +1,34 @@
 package dsb.web.service;
 
 
-import com.sun.source.tree.Tree;
 import dsb.web.domain.*;
 import dsb.web.repository.TokenPaymentMachineRepository;
 import dsb.web.repository.SMEAccountRepository;
 import dsb.web.repository.SectorRepository;
 import dsb.web.repository.TransactionRepository;
 import dsb.web.service.service_helpers.SMETransactionHelper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class SmeDashboardService {
-    private SMEAccountRepository smeAccountRepository;
-    private TransactionRepository transactionRepository;
-    private SectorRepository sectorRepository;
-    private TokenPaymentMachineRepository tokenPaymentMachineRepository;
+    private final SMEAccountRepository smeAccountRepository;
+    private final TransactionRepository transactionRepository;
+    private final SectorRepository sectorRepository;
+    private final TokenPaymentMachineRepository tokenPaymentMachineRepository;
 
-    @Autowired
-    public SmeDashboardService(SMEAccountRepository smeAccountRepository, TransactionRepository transactionRepository, SectorRepository sectorRepository, TokenPaymentMachineRepository tokenPaymentMachineRepository) {
+    public SmeDashboardService(SMEAccountRepository smeAccountRepository, TransactionRepository transactionRepository,
+                               SectorRepository sectorRepository, TokenPaymentMachineRepository tokenPaymentMachineRepository) {
         this.smeAccountRepository = smeAccountRepository;
         this.transactionRepository = transactionRepository;
         this.sectorRepository = sectorRepository;
         this.tokenPaymentMachineRepository = tokenPaymentMachineRepository;
     }
 
-    public SmeDashboardService() {
-    }
-
     public List<SMEAccount> getTop10bySmeBalance() {
         List<SMEAccount> smeAccountsList = smeAccountRepository.findTop10ByOrderByBalanceDesc();
-        System.out.println();
         return smeAccountsList;
     }
 
@@ -48,7 +41,6 @@ public class SmeDashboardService {
                 }
             }
         return newRequests;
-    // bootstrapalert toevoegen
     }
 
     public Map<SMEAccount, Integer> getSmeTransaction() {
@@ -75,8 +67,6 @@ public class SmeDashboardService {
         List<SMETransactionHelper> limited =  result2.stream().limit(9).collect(Collectors.toList());
 
         return limited;
-
-
     }
 
     public Map<Sector, Integer> averageBySector() {
@@ -95,5 +85,4 @@ public class SmeDashboardService {
 
         return sorted;
     }
-
 }
