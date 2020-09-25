@@ -19,7 +19,7 @@ INSERT INTO `dsb`.`address` (`addressid`, `city`, `house_number`, `street`) VALU
 INSERT INTO `dsb`.`user` (`userid`, `initials`, `password`, `surname`, `username`) VALUES ('11', 'D.', 'dennis', 'Kramer', 'dennis' );
 INSERT INTO `dsb`.`user` (`userid`, `initials`, `password`, `surname`, `username`) VALUES ('12', 'M.', 'miel', 'van Welzen', 'miel' );
 INSERT INTO `dsb`.`user` (`userid`, `initials`, `password`, `surname`, `username`) VALUES ('13', 'M.C.', 'asd', 'Escher', 'asd');
-INSERT INTO `dsb`.`user` (`userid`, `initials`, `password`, `surname`, `username`) VALUES ('99999999', 'DSB', 'dsbb', 'Bank', 'dsbb');
+INSERT INTO `dsb`.`user` (`userid`, `initials`, `password`, `surname`, `username`) VALUES ('99999999', 'D.S.B', 'dsbb', 'Bank', 'dsbb');
 
 INSERT INTO `dsb`.`customer` (`social_security_no`, `userid`, `address_addressid`) VALUES ('123456', '11', '11');
 INSERT INTO `dsb`.`customer` (`social_security_no`, `userid`, `address_addressid`) VALUES ('123456', '12', '11');

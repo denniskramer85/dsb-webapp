@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 @Service
 @SessionAttributes({"selectedAccountSession", "transferBeanSession"})
 public class TransferService {
@@ -68,12 +71,16 @@ public class TransferService {
     }
 
     private String ifPasswordCorrect(Customer loggedInCustomer, TransferBean transferBean, Model model) {
+        // Load transferAmount into String
+        String transferAmount = NumberFormat.getCurrencyInstance(Locale.GERMAN).format(transferBean.getTransferAmount());
+
         // Execute transaction, return to index if passed
         if (transactionService.doTransaction(transferBean, loggedInCustomer)) {
             System.out.println("Transaction succesfull");
             //return "redirect:account_overview";
 
-        ConfirmBean confirmBean = new ConfirmBean("Overboeking geslaagd", "Overboeking is gelukt!", "account_overview", "OK");
+        ConfirmBean confirmBean = new ConfirmBean("Overboeking geslaagd", "Uw overboeking is succesvol verwerkt: " +
+                "€ " + transferAmount.substring(0, transferAmount.length() - 2) + " overgeboekt naar " + transferBean.getCreditAccountNo() + " ten name van " + transferBean.getName() + ".", "account_overview", "Terug naar rekening");
         model.addAttribute(confirmBean);
         return "confirm";
 
