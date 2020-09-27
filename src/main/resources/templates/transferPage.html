@@ -44,8 +44,7 @@
 
 
                 <div id="inputTransferData">
-                    <form method="post" id="transferForm" th:action="@{transferPost}" th:object="${transferBean}"
-                          onkeydown="return event.key != 'Enter';">
+                    <form method="post" id="transferForm" th:action="@{transferPost}" th:object="${transferBean}">
                         <input type="hidden" th:field="*{accountBalance}">
                         <input type="hidden" th:field="*{debitAccountNo}">
 

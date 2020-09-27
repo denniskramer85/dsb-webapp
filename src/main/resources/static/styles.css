@@ -275,6 +275,14 @@ input[type=number] {
     left: 25px;
 }
 
+/*for signup page*/
+
+#signUpPage #fakeButton {
+    background:transparent;
+    border:none;
+    outline: none;
+}
+
 /*for sme payment machine request overview page */
 .paymentmachinerequests-table {
     padding: 10px;
