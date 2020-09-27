@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class AccountPageService {
@@ -31,7 +32,7 @@ public class AccountPageService {
         String accountNo = account.getAccountNo();
         String companyName = getCompanyName(account);
         String holderNames = account.getHoldersString(3);
-        String balance = String.format("%.2f", account.getBalance());
+        String balance = String.format(Locale.GERMAN, "%.2f", account.getBalance());
         String currentTime = getCurrentTime();
         List<String[]> transactionStrings =
                 printTransactionsForAccountPage.printTransactionsForAccountPage(account);
