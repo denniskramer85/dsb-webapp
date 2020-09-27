@@ -28,7 +28,8 @@
         <!--    <br>-->
             <p class="italic">Velden met een * zijn verplicht</p>
             <br>
-            <form method="POST" th:object="${signUpBean}" th:action="@{customerCompleted}" onSubmit="return pass();">
+            <form method="POST" th:object="${signUpBean}" th:action="@{customerCompleted}" onSubmit="return pass();" novalidate
+                  onkeydown="return event.key != 'Enter';">
                 <div class="grid">
 
                     <div id="personalData">
@@ -67,7 +68,7 @@
                             <table><tr><td>
                                 <label for="socialSecurityNo">BSN-nummer*</label>
                             </td><td>
-                                <input type="text" class="form-control notEmpty onlyNumbers elfTest" id="socialSecurityNo" name="socialSecurityNo" th:field="*{socialSecurityNoString}">
+                                <input type="number" class="form-control notEmpty onlyNumbers elfTest" id="socialSecurityNo" name="socialSecurityNo" th:field="*{socialSecurityNoString}">
                             </td></tr><tr><td></td><td>
                                 <p class="errors"><span th:if="${#fields.hasErrors('socialSecurityNoString')}" th:errors="*{socialSecurityNoString}"/></p>
                             </td></tr>
@@ -91,7 +92,7 @@
                             <table><tr><td>
                                 <label for="housenumber">Huisnummer*</label>
                             </td><td>
-                                <input type="text" class="form-control notEmpty onlyNumbers" id="housenumber" name="housenumber"
+                                <input type="number" class="form-control notEmpty onlyNumbers" id="housenumber" name="housenumber"
                                        th:field="*{houseNumberString}" onkeyup="retrieve_address('housenumber', this.value)">
                             </td></tr><tr><td></td><td>
                                 <p class="errors"><span th:if="${#fields.hasErrors('houseNumberString')}"
