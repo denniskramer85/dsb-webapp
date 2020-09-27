@@ -38,6 +38,7 @@ public class PrintAccountDataBean {
                 '}';
     }
 
+
     public String getTypeAccount() {
         return typeAccount;
     }

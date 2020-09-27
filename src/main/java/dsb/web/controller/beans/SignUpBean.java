@@ -16,7 +16,7 @@ public class SignUpBean {
     //TODO default message not blank wijz
     //TODO alles 1 annotatie
 
-    @Size(min=2, message = "Moet minimaal 2 letters zijn")
+    @Size(min=2, message = "Minimaal 2 letters")
     private String surname;
 
     private String inserts;
@@ -47,7 +47,7 @@ public class SignUpBean {
     private String socialSecurityNoString;
     private Integer socialSecurityNo;
 
-    @Size(min=6, message = "Moet minimaal 6 tekens zijn")
+    @Size(min=6, message = "Minimaal 6 tekens")
     @UsernameOccupiedConstraint
     private String username;
 

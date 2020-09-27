@@ -1,8 +1,10 @@
 package dsb.web.domain;
 
+import dsb.web.repository.AccountRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,7 +16,8 @@ class getHoldersStringTest {
 
     private ConsumerAccount account;
 
-
+    @Autowired
+    AccountRepository accountRepository;
 
     @BeforeEach
     public void createData() {

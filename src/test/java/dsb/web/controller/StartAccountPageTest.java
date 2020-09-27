@@ -39,20 +39,19 @@ class StartAccountPageTest {
         super();
     }
 
-    /*@Test
-    //TODO deze moet nog aan(gepast)
+    @Test
     @DisplayName("StartAccountPageTest")
     public void startTest() {
         Account account = new SMEAccount();
 
         //dummy bean
-        List<String> testList = Arrays.asList("test", "test");
+        String[] sa = {"test", "test", "test", "test"};
+        List<String[]> testList = Arrays.asList(sa, sa, sa);
         PrintAccountDataBean expected = new PrintAccountDataBean(
                 "test", "test", "test",
                 "test", "test", "test", testList);
 
         Mockito.when(accountPageService.makePrintAccountDataBean(account)).thenReturn(expected);
-
 
         try {
             MockHttpServletRequestBuilder getRequest =
@@ -68,13 +67,12 @@ class StartAccountPageTest {
             Map<String, Object> map = response.getModelAndView().getModel();
             PrintAccountDataBean actual = (PrintAccountDataBean) map.get("printAccountDataBean");
 
-
             assertThat(expected).isEqualTo(actual);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }*/
+    }
 
 
 
