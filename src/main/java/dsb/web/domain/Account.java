@@ -106,12 +106,6 @@ public abstract class Account {
         return accountNo.equals(account.accountNo);
     }
 
-    @Override
-    public int hashCode() {
-        return 0;
-    }
-
-
     public void addHolder(Customer customer) {
         holders.add(customer);
     }

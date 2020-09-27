@@ -49,7 +49,6 @@ public class Transaction {
                 '}';
     }
 
-    //TODO breedte alles constant, ongeacht monospace
     public String printStyledTransaction() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         String timeStamp = transactionTimestamp.format(formatter);
@@ -70,10 +69,6 @@ public class Transaction {
                 getTransactionTimestamp().equals(that.getTransactionTimestamp());
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getTransactionID(), getDebitAccount(), getCreditAccount(), getTransactionAmount(), getMessage(), getTransactionTimestamp());
-    }
 
     public int getTransactionID() {
         return transactionID;

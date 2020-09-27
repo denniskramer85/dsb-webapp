@@ -177,7 +177,6 @@ public class SignUpBean {
         this.password = password;
     }
 
-    //TODO dit moet nog opgelost
     public String getHouseNumberString() {
         setHouseNumber(checkIfInteger(houseNumberString));
         setSocialSecurityNo(checkIfInteger(socialSecurityNoString));
