@@ -71,7 +71,7 @@
                             <table><tr><td>
                                 <label for="socialSecurityNo">BSN-nummer*</label>
                             </td><td>
-                                <input type="text" class="form-control notEmpty onlyNumbers elfTest" id="socialSecurityNo" name="socialSecurityNo" th:field="*{socialSecurityNoString}"
+                                <input type="text" class="form-control notEmpty onlyNumbers elfTest SSNOccupied" id="socialSecurityNo" name="socialSecurityNo" th:field="*{socialSecurityNoString}"
                                        onkeydown="return event.key != 'Enter';">
                             </td></tr><tr><td></td><td>
                                 <p class="errors"><span th:if="${#fields.hasErrors('socialSecurityNoString')}" th:errors="*{socialSecurityNoString}"/></p>

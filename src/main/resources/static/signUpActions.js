@@ -38,7 +38,9 @@ function allChecker(input) {
     if (minSize(input)) return;
     if (pass(input)) return;
     if (elftest(input)) return;
+    if (SSNOccupied(input)) return;
     if (userOccupied(input)) return;
+
 }
 
 
@@ -153,6 +155,30 @@ function elftest(input){
     } else return false
 
 }
+
+function SSNOccupied(input) {
+    if (!input.classList.contains("SSNOccupied")) {
+        return false
+    }
+
+    let url = `/ssn-occupied-check/${input.value}`
+
+    fetch(url)
+        .then(response => response.json())
+        .then(jsonObject => {
+
+            if (jsonObject) {
+                displayMessage(input, "BSN al in gebruik")
+                alert("Dit BSN-nummer is reeds in gebruik. Log in met de bestaande gebruiker.")
+                return true
+            }
+            return false
+        })
+        .catch(function (error) {
+            console.log(error)
+        })
+}
+
 
 function userOccupied(input) {
     if (!input.classList.contains("userOccupied")) {
