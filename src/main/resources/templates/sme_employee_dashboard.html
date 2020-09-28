@@ -31,6 +31,47 @@
         padding: 8px;
     }
 
+    .dropbtn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown-content a:hover {background-color: #f1f1f1}
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .dropdown:hover .dropbtn {
+        background-color: #3e8e41;
+    }
+
+
 </style>
 </head>
 <body>
@@ -38,6 +79,45 @@
 <div th:include="fragments/header :: header"></div>
 
 <div class="container">
+
+    <h2>Dropdown Menu</h2>
+    <p>Move the mouse over the button to open the dropdown menu.</p>
+
+    <div class="dropdown">
+        <button onclick="findElementById()" class="dropbtn">Dropdown</button>
+        <div id="myDropdown" class="dropdown-content">
+            <a id="option1" href="#" onclick="showTable(this.id);">10 hoogste saldo's MKB klanten</a>
+            <a id="option2" href="#" onclick="showTable(this.id);">Gemiddeld saldo per segment</a>
+            <a id="option3" href="#" onclick="showTable(this.id);">10 meest actieve MKB-klanten</a>
+        </div>
+    </div>
+
+    <script>
+        function showTable(id) {
+            let highestSaldoMKB = document.getElementById("highestSaldosMkb").classList;
+            let averageBalanceMKB = document.getElementById("averageBalanceBySector").classList;
+            let mostActiveCus = document.getElementById("mostActiveMkbCustomers").classList;
+
+            if (id === "option1") {
+                highestSaldoMKB.replace("d-none", "d-block");
+                averageBalanceMKB.replace("d-block", "d-none");
+                mostActiveCus.replace("d-block", "d-none");
+            }
+
+            if(id === "option2") {
+                averageBalanceMKB.replace("d-none", "d-block");
+                mostActiveCus.replace("d-block", "d-none");
+                highestSaldoMKB.replace("d-block", "d-none");
+            }
+
+            if (id === "option3") {
+                mostActiveCus.replace("d-none", "d-block");
+                averageBalanceMKB.replace("d-block", "d-none");
+                highestSaldoMKB.replace("d-block", "d-none");
+            }
+        }
+    </script>
+
     <br/>
     <br/>
     <div class="card">
@@ -65,7 +145,8 @@
     </div>
 
 
-    <div class="card">
+
+    <div class="card d-none" id="highestSaldosMkb">
         <div class="card-header account-header-div">
             <h5 class="header">10 hoogste saldo's MKB klanten</h5>
         </div>
@@ -73,7 +154,7 @@
                     <table id="customers">
                         <th>Bedrijfsnaam</th>
                         <th>Rekeninghouder </th>
-                        <th>Balans</th>
+                        <th>10 meest actieve MKB-klante</th>
                         <tr th:each="balance : ${balances}">
                             <td>
                                 <img class="account-icon" th:src="@{/images/icons/people.svg}" alt="">
@@ -95,7 +176,7 @@
         </div>
     <br>
 
-    <div class="card">
+    <div class="card d-none" id="averageBalanceBySector">
         <div class="card-header account-header-div">
             <h5 class="header">Gemiddeld saldo per segment</h5>
         </div>
@@ -125,7 +206,7 @@
 
     <br>
 
-    <div class="card">
+    <div class="card d-none" id="mostActiveMkbCustomers">
         <div class="card-header account-header-div">
             <h5 class="header">10 meest actieve MKB-klanten</h5>
         </div>
@@ -141,9 +222,12 @@
                 </table>
             </div>
         </div>
+        </div>
 </div>
 
 <div th:replace="fragments/footer :: scripts"></div>
+<!--<script type="text/javascript" th:src="@{/sme_employee_dashboard_actions.js}"></script>-->
+
 
 </body>
 </html>
