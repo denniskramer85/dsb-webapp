@@ -14,4 +14,6 @@ public interface CustomerRepository extends CrudRepository<Customer, Integer> {
 
     List<Customer> findAllByUsername(String username);
 
+    List<Customer> findAll();
+
 }

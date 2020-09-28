@@ -38,25 +38,10 @@ public abstract class User{
 
     public String printWholeName() {
         if (inserts == null) {
-            inserts = "";
-        } else {
-            inserts=inserts+ " ";
+            return String.format("%s %s", initials, surname);
         }
         return String.format("%s %s %s", initials, inserts, surname);
     }
-
-
-//    public String getUserFullName() {
-//        String returnString = "";
-//        returnString += initials + " ";
-//        if (inserts == null || inserts == "") {
-//            returnString += surname;
-//            return returnString;
-//        }
-//        returnString += inserts + " ";
-//        returnString += surname;
-//        return returnString;
-//    }
 
     public int getUserID() {
         return userID;

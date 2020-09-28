@@ -23,10 +23,10 @@ public class WebApplicationSetup implements ApplicationListener<ApplicationReady
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         try {
             applicationStartupService.createCustomers();
+            applicationStartupService.createCompanies();
         } catch (IOException e) {
             logger.debug(e.toString());
         }
-
 
         applicationStartupService.setupBalances();
     }
