@@ -179,7 +179,6 @@ function SSNOccupied(input) {
         })
 }
 
-
 function userOccupied(input) {
     if (!input.classList.contains("userOccupied")) {
         return false
@@ -231,6 +230,9 @@ function normalizeInputField(input) {
     input.removeAttribute('placeholder')
     input.style.border = "thin solid black"
 }
+
+
+
 
 // Code for retrieving ZIP information from bwnr.nl API
 // Declare empty variables
