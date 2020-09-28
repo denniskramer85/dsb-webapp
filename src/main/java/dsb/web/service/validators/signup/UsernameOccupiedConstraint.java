@@ -1,4 +1,6 @@
-package dsb.web.service.validators;
+
+
+package dsb.web.service.validators.signup;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.CONSTRUCTOR;
@@ -7,6 +9,7 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.ElementType.TYPE_USE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -14,16 +17,17 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 
-@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
+@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RUNTIME)
 @Documented
-@Constraint(validatedBy = { IntegerValidator.class })
-public @interface IntegerConstraint {
+@Constraint(validatedBy = {UsernameOccupiedValidator.class})
+public @interface UsernameOccupiedConstraint {
 
-    String message() default "Dit is geen geldige waarde";
-    Class<?>[] groups() default { };
-    Class<? extends Payload>[] payload() default { };
+    String message() default "Gebruikersnaam al bezet";
 
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
 
 
 }

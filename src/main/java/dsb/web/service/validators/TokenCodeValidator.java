@@ -2,14 +2,10 @@
 
 package dsb.web.service.validators;
 
-import dsb.web.domain.Customer;
-import dsb.web.repository.CustomerRepository;
-import org.hibernate.query.criteria.internal.expression.function.AggregationFunction;
-import org.springframework.beans.factory.annotation.Autowired;
+import dsb.web.service.validators.signup.UsernameOccupiedConstraint;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.List;
 
 public class TokenCodeValidator implements ConstraintValidator<UsernameOccupiedConstraint, String> {
     private static final int MAX_CODE = 99999;

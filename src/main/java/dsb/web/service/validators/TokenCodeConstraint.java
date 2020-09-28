@@ -1,5 +1,7 @@
 package dsb.web.service.validators;
 
+import dsb.web.service.validators.signup.SSNFormalValidator;
+
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.CONSTRUCTOR;
 import static java.lang.annotation.ElementType.FIELD;

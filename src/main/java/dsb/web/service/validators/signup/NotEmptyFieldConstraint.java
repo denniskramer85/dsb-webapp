@@ -1,4 +1,4 @@
-package dsb.web.service.validators;
+package dsb.web.service.validators.signup;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.CONSTRUCTOR;
@@ -17,10 +17,10 @@ import javax.validation.Payload;
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Retention(RUNTIME)
 @Documented
-@Constraint(validatedBy = { ZipCodeValidator.class })
-public @interface ZipCodeConstraint {
+@Constraint(validatedBy = { NotEmptyFieldValidator.class })
+public @interface NotEmptyFieldConstraint {
 
-    String message() default "Geen geldige postcode";
+    String message() default "Veld is leeg";
     Class<?>[] groups() default { };
     Class<? extends Payload>[] payload() default { };
 

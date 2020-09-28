@@ -1,11 +1,8 @@
 package dsb.web.controller.beans;
 
-import dsb.web.service.validators.*;
+import dsb.web.service.validators.signup.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Size;
 
 
 @FieldsValueMatch(field = "password", fieldMatch = "password2")

@@ -1,4 +1,4 @@
-package dsb.web.service.validators;
+package dsb.web.service.validators.signup;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.CONSTRUCTOR;
@@ -17,13 +17,12 @@ import javax.validation.Payload;
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Retention(RUNTIME)
 @Documented
-@Constraint(validatedBy = { MinSizeValidator.class })
-public @interface MinSizeConstraint {
+@Constraint(validatedBy = { SSNFormalValidator.class })
+public @interface SSNFormalConstraint {
 
-    String message() default "Te weinig tekens";
+    String message() default "Dit is geen geldig BSN";
     Class<?>[] groups() default { };
     Class<? extends Payload>[] payload() default { };
-    int minSize();
 
 
 

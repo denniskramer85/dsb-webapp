@@ -1,8 +1,7 @@
 
 
-package dsb.web.service.validators;
+package dsb.web.service.validators.signup;
 
-import dsb.web.domain.Customer;
 import dsb.web.domain.User;
 import dsb.web.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

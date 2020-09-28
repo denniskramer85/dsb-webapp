@@ -1,4 +1,4 @@
-package dsb.web.service.validators;
+package dsb.web.service.validators.signup;
 
 import dsb.web.domain.Customer;
 import dsb.web.repository.CustomerRepository;

@@ -1,4 +1,4 @@
-package dsb.web.service.validators;
+package dsb.web.service.validators.signup;
 
 
 import javax.validation.Constraint;
