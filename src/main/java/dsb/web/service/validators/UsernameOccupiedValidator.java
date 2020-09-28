@@ -14,7 +14,6 @@ import java.util.List;
 public class UsernameOccupiedValidator implements ConstraintValidator<UsernameOccupiedConstraint, String> {
 
     UserRepository userRepository;
-
     @Autowired
     public UsernameOccupiedValidator(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -23,12 +22,11 @@ public class UsernameOccupiedValidator implements ConstraintValidator<UsernameOc
     @Override
     public boolean isValid(String string, ConstraintValidatorContext constraintValidatorContext) {
 
-        //already covered by @NotBlank
-        if (string == null || string.trim().equals("")) return true;
+        return actualCheck(string);
+    }
 
-        //actual check
+    private boolean actualCheck(String string) {
         List<User> user = userRepository.findAllByUsername(string);
-
         return user.size() == 0;
     }
 }

@@ -13,8 +13,6 @@ import javax.validation.constraints.Size;
 @Component
 public class SignUpBean {
 
-    //TODO default message not blank wijz
-    //TODO alles 1 annotatie
 
     @Size(min=2, message = "Minimaal 2 letters")
     private String surname;
