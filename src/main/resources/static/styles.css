@@ -281,6 +281,8 @@ input[type=number] {
     background:transparent;
     border:none;
     outline: none;
+    position: relative;
+    left:-1000px;
 }
 
 /*for sme payment machine request overview page */
