@@ -1,17 +1,27 @@
 package dsb.web.service.validators;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+@Component
 public class IntegerValidator implements ConstraintValidator<IntegerConstraint, String> {
+
+    @Autowired
+    NotEmptyFieldValidator notEmptyFieldValidator;
 
     @Override
     public boolean isValid(String string, ConstraintValidatorContext constraintValidatorContext) {
 
-        //already covered by @NotBlank
-        if (string == null || string.trim().equals("")) return true;
+        //already covered by more basic validations
+        if (!notEmptyFieldValidator.actualCheck(string)) return true;
 
-        //actual check
+        return actualCheck(string);
+    }
+
+    public boolean actualCheck(String string) {
         try {
             Integer.parseInt(string);
             return true;

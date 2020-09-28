@@ -20,7 +20,7 @@ import javax.validation.Payload;
 @Constraint(validatedBy = { ZipCodeValidator.class })
 public @interface ZipCodeConstraint {
 
-    String message() default "Dit is geen geldige postcode";
+    String message() default "Geen geldige postcode";
     Class<?>[] groups() default { };
     Class<? extends Payload>[] payload() default { };
 

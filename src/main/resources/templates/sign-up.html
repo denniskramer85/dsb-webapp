@@ -71,7 +71,7 @@
                             <table><tr><td>
                                 <label for="socialSecurityNo">BSN-nummer*</label>
                             </td><td>
-                                <input type="number" class="form-control notEmpty onlyNumbers elfTest" id="socialSecurityNo" name="socialSecurityNo" th:field="*{socialSecurityNoString}"
+                                <input type="text" class="form-control notEmpty onlyNumbers elfTest" id="socialSecurityNo" name="socialSecurityNo" th:field="*{socialSecurityNoString}"
                                        onkeydown="return event.key != 'Enter';">
                             </td></tr><tr><td></td><td>
                                 <p class="errors"><span th:if="${#fields.hasErrors('socialSecurityNoString')}" th:errors="*{socialSecurityNoString}"/></p>
@@ -96,7 +96,7 @@
                             <table><tr><td>
                                 <label for="housenumber">Huisnummer*</label>
                             </td><td>
-                                <input type="number" class="form-control notEmpty onlyNumbers" id="housenumber" name="housenumber"
+                                <input type="text" class="form-control notEmpty onlyNumbers" id="housenumber" name="housenumber"
                                        th:field="*{houseNumberString}" onkeyup="retrieve_address('housenumber', this.value)"
                                        onkeydown="return event.key != 'Enter';">
                             </td></tr><tr><td></td><td>

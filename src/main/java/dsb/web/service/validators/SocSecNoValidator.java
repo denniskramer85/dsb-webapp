@@ -1,27 +1,29 @@
 package dsb.web.service.validators;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 public class SocSecNoValidator implements ConstraintValidator<SocSecNoConstraint, String> {
 
+    @Autowired
+    NotEmptyFieldValidator notEmptyFieldValidator;
+    @Autowired
+    IntegerValidator integerValidator;
 
     @Override
     public boolean isValid(String string, ConstraintValidatorContext constraintValidatorContext) {
 
-        //two checks alreay covered by other annotations (@NotBlank & @IntegerValidator)
-        if (string == null || string.trim().equals("")) return true;
-        try {
-            Integer.parseInt(string);
-        } catch(NumberFormatException e){
-            return true;
-        }
+        //already covered by more basic validations
+        if (!notEmptyFieldValidator.actualCheck(string)) return true;
+        if (!integerValidator.actualCheck(string)) return true;
 
         //actual check
-        return SocSecNoValidator(Integer.parseInt(string));
+        return actualCheck(Integer.parseInt(string));
     }
 
-    private boolean SocSecNoValidator(int socialSecurityNo) {
+    private boolean actualCheck(int socialSecurityNo) {
         if (socialSecurityNo <= 9999999 || socialSecurityNo > 999999999) {
             return false;
         }
