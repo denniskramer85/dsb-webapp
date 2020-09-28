@@ -3,9 +3,7 @@ package dsb.web.controller.beans;
 import dsb.web.service.validators.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 
@@ -44,7 +42,8 @@ public class SignUpBean {
 
     @NotEmptyFieldConstraint
     @IntegerConstraint
-    @SocSecNoConstraint
+    @SSNFormalConstraint
+    @SSNOccupiedConstraint
     private String socialSecurityNoString;
     private Integer socialSecurityNo;
 

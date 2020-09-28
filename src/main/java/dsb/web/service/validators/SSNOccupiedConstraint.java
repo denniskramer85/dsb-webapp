@@ -17,11 +17,15 @@ import javax.validation.Payload;
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Retention(RUNTIME)
 @Documented
-@Constraint(validatedBy = { SSNFormalValidator.class })
-public @interface TokenCodeConstraint {
-    String message() default "Dit is geen geldig BSN";
+@Constraint(validatedBy = { SSNOccupiedValidator.class })
+public @interface SSNOccupiedConstraint {
+
+
+
+    String message() default "BSN reeds in gebruik. Log in met bestaande gebruiker.";
     Class<?>[] groups() default { };
     Class<? extends Payload>[] payload() default { };
+
+
+
 }
-
-

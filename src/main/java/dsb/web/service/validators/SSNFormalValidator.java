@@ -1,11 +1,13 @@
 package dsb.web.service.validators;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class SocSecNoValidator implements ConstraintValidator<SocSecNoConstraint, String> {
+@Component
+public class SSNFormalValidator implements ConstraintValidator<SSNFormalConstraint, String> {
 
     @Autowired
     NotEmptyFieldValidator notEmptyFieldValidator;
@@ -23,7 +25,7 @@ public class SocSecNoValidator implements ConstraintValidator<SocSecNoConstraint
         return actualCheck(Integer.parseInt(string));
     }
 
-    private boolean actualCheck(int socialSecurityNo) {
+    public boolean actualCheck(int socialSecurityNo) {
         if (socialSecurityNo <= 9999999 || socialSecurityNo > 999999999) {
             return false;
         }
