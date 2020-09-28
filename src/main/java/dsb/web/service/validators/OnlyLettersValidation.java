@@ -12,6 +12,7 @@ public class OnlyLettersValidation implements ConstraintValidator<OnlyLettersCon
     @Autowired
     NotEmptyFieldValidator notEmptyFieldValidator;
     private String specific;
+        private static final int MIN_SIZE = 2;
 
     @Override
     public void initialize (OnlyLettersConstraint onlyLettersConstraint) {
@@ -22,6 +23,7 @@ public class OnlyLettersValidation implements ConstraintValidator<OnlyLettersCon
     @Override
     public boolean isValid(String string, ConstraintValidatorContext constraintValidatorContext) {
 
+
         return actualTest(string, specific);
 
     }
@@ -29,7 +31,10 @@ public class OnlyLettersValidation implements ConstraintValidator<OnlyLettersCon
     public boolean actualTest(String string, String specific) {
         String regex = "";
 
-        if (specific.equals("surname")) regex = "^[a-zA-Z -]*$";
+        if (specific.equals("surname")) {
+            if (string.length() < MIN_SIZE) return true;
+            regex = "^[a-zA-Z -]*$";
+        }
         if (specific.equals("inserts")) regex = "^[a-zA-Z ]*$";
         if (specific.equals("initials")) regex = "^[a-zA-Z.]*$";
 

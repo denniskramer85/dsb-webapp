@@ -21,7 +21,7 @@ import javax.validation.constraints.Size;
 @Constraint(validatedBy = { OnlyLettersValidation.class })
 public @interface OnlyLettersConstraint {
 
-    String message() default "Geen geldige waarde";
+    String message() default "Alleen letters";
     Class<?>[] groups() default { };
     Class<? extends Payload>[] payload() default { };
     String specific();

@@ -14,6 +14,8 @@ import java.util.List;
 public class UsernameOccupiedValidator implements ConstraintValidator<UsernameOccupiedConstraint, String> {
 
     UserRepository userRepository;
+    private static final int MIN_SIZE = 6;
+
     @Autowired
     public UsernameOccupiedValidator(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -21,6 +23,8 @@ public class UsernameOccupiedValidator implements ConstraintValidator<UsernameOc
 
     @Override
     public boolean isValid(String string, ConstraintValidatorContext constraintValidatorContext) {
+
+        if (string.length() < MIN_SIZE) return true;
 
         return actualCheck(string);
     }
