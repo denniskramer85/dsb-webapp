@@ -12,29 +12,15 @@ let listInputs = document.querySelectorAll('input');
 document.getElementById("confirmButton").disabled = true
 runAll()
 
-// //toggle button for choosing validation
-// let toggleButton = document.getElementById('validationToggle')
-// toggleButton.addEventListener('click', function(){
-//     if (toggleButton.value == "Selecteer client-side validatie") {
-//         runAll()
-//         toggleButton.value = "Selecteer server-side validatie"
-//     } else {
-//         location.href='pre-sign-up'
-//         return
-//     }
-// })
-
 
 //start function (toggled on/off)
 function runAll() {
-    // if (document.getElementById('validationToggle').value == "Selecteer client-side validatie") {
         for (input of listInputs) {
             input.addEventListener('focusout', function() {
                 allChecker(this)
                 checkContents()
             })
         }
-    // }
 }
 
 

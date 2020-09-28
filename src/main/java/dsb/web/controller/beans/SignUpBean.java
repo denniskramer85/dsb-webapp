@@ -15,12 +15,15 @@ public class SignUpBean {
 
 
     @Size(min=2, message = "Minimaal 2 letters")
+    @OnlyLettersConstraint(specific = "surname")
     private String surname;
 
     private String inserts;
 
     @NotEmptyFieldConstraint
     private String initials;
+
+
 
     @NotEmptyFieldConstraint
     private String street;
