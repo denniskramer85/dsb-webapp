@@ -5,27 +5,45 @@
     <link rel="stylesheet" href="styles.css"/>
     <title>Inloggen medewerker</title>
 </head>
-<body style="background: darkgray">
-    <br>
-    <br>
+<body>
+
+<div th:include="fragments/header :: header"></div>
+
+<div class="container">
+    <br/>
     <span th:if="${loginFailed == 'true'}">
         <div class="alert alert-warning" role="alert">
             Gebruikersnaam en/of wachtwoord incorrect. Probeer het nog eens.
         </div>
     </span>
-    <div class="container">
-        <form method="post" th:object="${loginBean}" th:action="@{employee_sign-in}">
+
+    <div class="card">
+        <div class="card-header">
+            <h5>Medewerkersportaal</h5>
+        </div>
+        <div class="card-body">
+
+        <form method="post" th:object="${loginBean}" th:action="@{employee_sign-in}" class="needs-validation" novalidate>
             <div class="form-group">
                 <label for="username">Gebruikersnaam</label>
-                <input type="text" class="form-control" id="username" th:field="*{username}" placeholder="Voer gebruikersnaam in">
+                <input type="text" class="form-control" id="username" th:field="*{username}" placeholder="Voer gebruikersnaam in" autofocus required>
+                <div class="invalid-feedback">
+                    Vul alstublieft een gebruikersnaam in!
+                </div>
             </div>
             <div class="form-group">
                 <label for="password">Wachtwoord</label></td>
-                <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="Voer wachtwoord in">
+                <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="Voer wachtwoord in" required>
+                <div class="invalid-feedback">
+                    Vul alstublieft een wachtwoord in!
+                </div>
             </div>
-            <button type="submit">Enter Dirkies Control Room</button>
+            <button type="submit" class="btn btn-outline-dark">Enter Dirkies Control Room</button>
         </form>
     </div>
+    </div>
+    <div th:replace="fragments/footer :: scripts"></div>
+
 </body>
 </html>
 

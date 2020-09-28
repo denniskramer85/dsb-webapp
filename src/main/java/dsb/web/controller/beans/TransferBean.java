@@ -36,12 +36,12 @@ public class TransferBean {
     @Length(max = 100, message = "Gebruik maximaal 100 karakters")
     private String name;
 
-    @NotBlank(message = "Voer een bedrag in")
+    @NotBlank(message = "Vul een bedrag in")
     @CurrencyFormatConstraint
     private String transferAmountString;
-    /*private String transferAmountStyled;*/
+    private String transferAmountStyled;
 
-    @Positive(message = "Voer een bedrag groter dan 0 in")
+    @Positive(message = "Vul een bedrag groter dan 0 in")
     @Digits(integer = 50, fraction = 2, message = "Voer maximaal twee cijfers achter de komma in")
     private BigDecimal transferAmount;
 
@@ -82,7 +82,7 @@ public class TransferBean {
     }
 
     public void setCreditAccountNo(String creditAccountNo) {
-        this.creditAccountNo = creditAccountNo;
+        this.creditAccountNo = creditAccountNo.trim();
     }
 
     public String getName() {
@@ -101,9 +101,6 @@ public class TransferBean {
         this.transferAmountString = transferAmountString;
         transferAmount = BigDecimalHelper.parse(transferAmountString);
         checkSufficientFunds();
-
-       /* //set string with 2 decimals and NL locale
-        transferAmountStyled = String.format(Locale.GERMAN, "%.2f", transferAmount.doubleValue());*/
     }
 
     public BigDecimal getTransferAmount() {
@@ -130,14 +127,19 @@ public class TransferBean {
         this.message = message;
     }
 
-    /*public String getTransferAmountStyled() {
+    public String getTransferAmountStyled() {
         return transferAmountStyled;
     }
 
     public void setTransferAmountStyled(String transferAmountStyled) {
         this.transferAmountStyled = transferAmountStyled;
     }
-*/
+
+    public void styleAmount() {
+        transferAmountStyled = String.format(
+                Locale.GERMAN, "%.2f", transferAmount.doubleValue());
+    }
+
     @Override
     public String toString() {
         return "TransferBean{" +

@@ -14,12 +14,8 @@ INSERT INTO dsb.sector VALUES (13, 'Overig')
 INSERT INTO dsb.sector VALUES (14, 'Zakelijke diensten')
 
 INSERT INTO `dsb`.`address` (`addressid`, `city`, `house_number`, `street`) VALUES ('99999999', 'Wognum', '6', 'Dick Ketlaan');
-
 INSERT INTO `dsb`.`user` (`userid`, `initials`, `password`, `surname`, `username`) VALUES ('99999999', 'DSB', 'dsbb', 'Bank', 'dsbb');
-
-
 INSERT INTO `dsb`.`customer` (`social_security_no`, `userid`, `address_addressid`) VALUES ('000000', '99999999', '99999999');
-
 
 INSERT INTO `dsb`.`role` (`roleid`, `role_name`) VALUES('1', 'Consumer')
 INSERT INTO `dsb`.`role` (`roleid`, `role_name`) VALUES('2', 'Commercial')
@@ -29,7 +25,6 @@ INSERT INTO `dsb`.`user` (`userid`, `initials`, `password`, `surname`, `username
 
 INSERT INTO `dsb`.`employee` (`userid`, `role_roleid`) VALUES ('999999999', '1' );
 INSERT INTO `dsb`.`employee` (`userid`, `role_roleid`) VALUES ('999999998', '2' );
-
 
 INSERT INTO `dsb`.`account` (`accountid`, `account_no`, `balance`) VALUES ('99999999', 'NL39DSBB0000000001', 0);
 

@@ -40,7 +40,7 @@ public abstract class User{
         if (inserts == null) {
             return String.format("%s %s", initials, surname);
         }
-        return String.format("%s %s %s", initials, inserts, surname);
+        return String.format("%s %s%s", initials, inserts, surname);
     }
 
     public int getUserID() {

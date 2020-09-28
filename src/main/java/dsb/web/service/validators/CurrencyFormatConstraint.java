@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = { CurrencyFormatValidator.class })
 public @interface CurrencyFormatConstraint {
 
-    String message() default "Voer enkel getallen in, gescheiden door één komma";
+    String message() default "Voer enkel positieve getallen in, gescheiden door één komma";
     Class<?>[] groups() default { };
     Class<? extends Payload>[] payload() default { };
 }

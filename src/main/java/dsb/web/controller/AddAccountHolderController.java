@@ -38,26 +38,45 @@ public class AddAccountHolderController {
         this.customerRepository = customerRepository;
     }
 
-    @GetMapping("add-account-holder")
+/*    @GetMapping("add-account-holder")
     ModelAndView addAccountHolderHandler(Model model){
         ModelAndView mav = new ModelAndView("add-account-holder");
         Account account = (Account) model.getAttribute(AttributeMapping.SELECTED_ACCOUNT);
+
         mav.addObject("accountNo", account.getAccountNo());
+        mav.addObject("password", "");
+        mav.addObject("new_account_holder", "");
+        mav.addObject("tokenCode", "");
+        mav.addObject("errorMessage", "");
         return mav;
+    }*/
+    @GetMapping("add-account-holder")
+    public String addAccountHolderHandler(
+            @ModelAttribute(AttributeMapping.SELECTED_ACCOUNT) Account account,
+            Model model) {
+        model.addAttribute("accountNo", account.getAccountNo());
+        model.addAttribute("new_account_holder", "");
+        model.addAttribute("tokenCode", "");
+        model.addAttribute("errorMessage", "");
+        model.addAttribute("password", "");
+        return "add-account-holder";
     }
 
     @PostMapping("confirm-add-account-holder")
     public String addAccountHolderVerifyHandler(
-            @RequestParam(name = "password") String password,
-            @RequestParam(name = "new_account_holder") String newAccountHolder,
-            @RequestParam(name = "tokenCode") String tokenCode,
             @ModelAttribute(AttributeMapping.LOGGED_IN_CUSTOMER) Customer loggedInCustomer,
             @ModelAttribute(AttributeMapping.SELECTED_ACCOUNT) Account account,
+            @RequestParam( name = "tokenCode") String tokenCode,
+            @RequestParam( name = "new_account_holder") String newAccountHolder,
+            @RequestParam( name = "password") String password,
             Model model) {
         String returnMessageUsernameCheck = addAccountHolderService.checkUsernameValidity(newAccountHolder, loggedInCustomer, account);
         Customer authenticatedCustomer = (Customer) signInService.checkCredentials(loggedInCustomer.getUsername(), password);
         if (returnMessageUsernameCheck != "" || authenticatedCustomer == null) {
-            model.addAttribute("errorMessage", returnMessageUsernameCheck);
+            model.addAttribute("accountNo", account.getAccountNo());
+            model.addAttribute("new_account_holder", newAccountHolder);
+            model.addAttribute("tokenCode", tokenCode);
+            model.addAttribute("errorMessage", "Wachtwoord incorrect");
             return ("add-account-holder");
         } else {
             model.addAttribute("confirmBean", addAccountHolderService.getConfirmBeanAccountHolderToken());

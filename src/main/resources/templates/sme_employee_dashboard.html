@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" href="styles.css"/>
     <meta charset="UTF-8">
-    <title>Employee Dashboard head-MKB</title>
+    <title>Dashboard MKB</title>
 
 <style>
 
@@ -31,10 +31,6 @@
         padding: 8px;
     }
 
-
-
-
-
 </style>
 </head>
 <body>
@@ -45,37 +41,28 @@
     <br/>
     <br/>
     <div class="card">
-        <h3 class="header">Medewerkersdashboard Hoofd-MKB</h3>
-    </div>
-    <br/>
-
-    <div class="card">
         <div class="card-header account-header-div">
-            <p>Welkom <span th:text="${selectedEmployee}"></span> </p>
-
+            <h5 class="header">Dashboard MKB</h5>
         </div>
-    </div>
+            <div class="card-body">
+                <p class="account-header"> Welkom <span th:text="${selectedEmployee}"></span> </p>
+            </div>
+        </div>
     <br/>
 
-
-    <div class="card">
+    <div class="card" th:if="${not #lists.isEmpty(linkRequestList)}">
         <div class="card-header account-header-div">
             <h5 class="header">Koppelverzoeken</h5>
         </div>
-
-        <div th:if="${not #lists.isEmpty(linkRequestList)}">
-            <div class="card-body">
-                <div th:if="${not #lists.isEmpty(linkRequestList)}">
-                    <div class="card-body">
-                        <p class="account-header">Er zijn nieuwe koppelverzoeken</p>
-                        <a href="/paymentmachine-request-overview" class="btn-open-account btn btn-outline-dark">Naar koppelverzoeken</a>
-                    </div>
+        <div class="card-body">
+            <div th:if="${not #lists.isEmpty(linkRequestList)}">
+                <div class="card-body">
+                    <span>Er zijn nieuwe koppelverzoeken <a href="/paymentmachine-request-overview" class="btn-open-account btn btn-outline-dark">Naar koppelverzoeken</a></span>
                 </div>
             </div>
         </div>
+        <br>
     </div>
-
-    <br>
 
 
     <div class="card">
@@ -118,7 +105,7 @@
                     <th>Balans</th>
                     <tr th:each=" sector : ${averageBalanceBySector}">
                         <td>
-                            <img class="account-icon" th:src="@{/images/icons/business_sector.svg}" alt="">
+                            <img class="account-icon" th:src="@{/images/icons/building.svg}" alt="">
                             <span th:text="${sector.key}"/>
                         </td>
                         <td>
@@ -140,21 +127,20 @@
 
     <div class="card">
         <div class="card-header account-header-div">
-            <h5 class="header">10 meest actieve klanten</h5>
+            <h5 class="header">10 meest actieve MKB-klanten</h5>
         </div>
             <div class="card-body">
                 <table id="customers">
                     <th>Rekeningnummer</th>
-                    <th>Account-ID</th>
+                    <th>MKB-Klant</th>
                     <th>Aantal transacties </th>
                     <tr th:each=" transaction : ${transactionsList}">
                         <td th:text="${transaction.getAccount().getAccountNo()}">
-                        <td th:text="${transaction.getAccount().getAccountID()}">
+                        <td th:text="${transaction.getAccount().getHoldersString()}">
                         <td th:text="${transaction.getNumberOfTransactions()}">
                 </table>
             </div>
         </div>
-
 </div>
 
 <div th:replace="fragments/footer :: scripts"></div>

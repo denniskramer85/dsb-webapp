@@ -1,115 +1,65 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" href="styles.css"/>
     <meta charset="UTF-8">
     <title>Dashboard particulieren</title>
 
-    <style>
 
-        #customers1 {
-
-            border-collapse: collapse;
-            width: 80%;
-        }
-
-        #customers td, #customers th {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-
-
-        #customersSmall {
-
-            border-collapse: collapse;
-            width: 40%;
-        }
-
-        #customersSmall td, #customersSmall th {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-
-
-
-
-
-    </style>
 </head>
 <body>
 
 <div th:include="fragments/header :: header"></div>
 
-
-
-
-
-
 <div class="container">
-    <br/>
     <br/>
 
     <div class="card">
         <div class="card-header">
-            <h5>Particulieren Dashboard</h5>
+            <h5>Dashboard Particulieren</h5>
         </div>
         <div class="card-body">
             <div id="accountData">
-
                 <p> Welkom <strong><span th:text="${selectedEmployee}"></span></strong></p>
-
-
             </div>
         </div>
     </div>
     <br>
 
-
-
     <div class="card">
-        <div class="card-header account-header-div">
-            <h5 class="account-header">Top 10 Particulieren saldo's </h5>
+        <div class="card-header header">
+            <h5>Top 10 hoogste saldo's particulieren</h5>
         </div>
-
-        <div class="card">
-
-
-                <div class="card-body">
-                    <table id="customers1" class="top10saldo-table">
-
-                        <tr th:each="account : ${consumerAccounts1}">
-                            <td>
-                                <img class="account-icon" th:src="@{/images/icons/people.svg}" alt="">
-                                <span th:text="${account.getHoldersString()}"/>
-                            </td>
-                            <td>
-                                <img class="account-icon" th:src="@{/images/icons/credit-card.svg}" alt="">
-                                <span th:text="${account.getAccountNo()}"/>
-                            </td>
-                            <td>
-                                <img class="account-icon" th:src="@{/images/icons/wallet2.svg}" alt="">
-                                €
-                                <span th:text="${#numbers.formatDecimal(account.getBalance(), 0, 'POINT', 2, 'COMMA')}"/>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-
+        <div class="card-body">
+            <table class="account-table">
+            <tr class="d-flex">
+                <tr th:each="account : ${consumerAccounts1}">
+                    <td col-10>
+                        <img class="account-icon" th:src="@{/images/icons/people.svg}" alt="">
+                        <span th:text="${account.getHoldersString()}"/>
+                    </td>
+                    <td col-12>
+                        <img class="account-icon" th:src="@{/images/icons/credit-card.svg}" alt="">
+                        <span th:text="${account.getAccountNo()}"/>
+                    </td>
+                    <td col-8>
+                        <img class="account-icon" th:src="@{/images/icons/wallet2.svg}" alt="">
+                        €
+                        <span th:text="${#numbers.formatDecimal(account.getBalance(), 0, 'POINT', 2, 'COMMA')}"/>
+                    </td>
+                </tr>
+            </table>
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
+        </div>
     </div>
+
+
+
+
+<div th:fragment="scripts">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </div>
 </body>

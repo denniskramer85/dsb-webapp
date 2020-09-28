@@ -7,6 +7,7 @@ import dsb.web.domain.AccountHolderToken;
 import dsb.web.domain.ConsumerAccount;
 import dsb.web.domain.Customer;
 import dsb.web.repository.*;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -60,28 +61,44 @@ public class AddAccountHolderService {
             return "Gebruikersnaam niet geldig, probeer opnieuw";
         }else {
             Customer customer = OptionalCustomer.get();
-            List<String> holders = new ArrayList<>();
-            for (Customer holder : account.getHolders()){
-                holders.add(holder.getUsername());
+            System.out.println(customer);
+            List<String> holders1 = new ArrayList<>();
+            for (Customer holdr : account.getHolders()){
+                holders1.add(holdr.getUsername());
             }
             if (customer.getUserID() == loggedInCustomer.getUserID()){
                 return "Voer hier de gebruikersnaam van de nieuwe rekeninghouder in";
-            }else if (holders.contains(customer.getUsername())) {
+            }else if (holders1.contains(customer.getUsername())) {
                 return "Deze gebruiker is reeds rekeninghouder van deze rekening";
+            }else if (checkIfTokenExists(username,account)){
+                return "Deze gebruiker heeft al een uitnoging gekregen voor deze rekening";
             }
         }
         return "";
-
-
-
     }
+
+
+    public boolean checkIfTokenExists(String newAccountHolder, Account account) {
+
+        Optional<Customer> newHolder = customerRepository.findOneByUsername(newAccountHolder);
+        if (newHolder.isPresent()){
+            Customer holder = newHolder.get();
+            for (AccountHolderToken token : accountHolderTokenRepository.findAccountHolderTokensByNewAccountHolder(holder)){
+                if (token.getAccount().getAccountNo().equals(account.getAccountNo())){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 
     public ConfirmBean getConfirmBeanAccountHolderToken(){
         return new ConfirmBean(
-                "Aanvraag nieuwe rekeninghouder geslaagd",
-                "Je aanvraag om een nieuwe rekeninghouder toe te voegen is geslaagd. Klik op volgende om naar de rekeningpagina terug te keren",
+                "Aanvraag geslaagd",
+                "Na goedkeuring van de beoogde mede-rekeninghouder wordt de rekening gekoppeld.",
                 "accountPage",
-                "rekening pagina");
+                "Volgende");
     }
 
 
@@ -104,4 +121,19 @@ public class AddAccountHolderService {
         //AccountHolderToken token = accountHolderTokenRepository.findById(1);
         return null;
     }
+
+    public boolean checkTokenCode(String code){
+        int intCode = Integer.MAX_VALUE;
+        try {
+            intCode = Integer.parseInt(code);
+        } catch (Exception e){
+            return false;
+        }
+        if (intCode < 0 || intCode > 49999){
+            return false;
+        }
+        return true;
+    }
+
+
 }

@@ -68,6 +68,9 @@ public class TransferController {
             return transferService.validateTransferData(transferBean, model);
         }
 
+        //briefly style amount for display
+        transferBean.styleAmount();
+
         //put transferBean and loginBean in session (and model)
         model.addAttribute("transferBeanSession", transferBean);
         model.addAttribute("loginBean", new LoginBean());

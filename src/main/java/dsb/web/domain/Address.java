@@ -74,10 +74,6 @@ public class Address {
                 getCity().equals(address.getCity());
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getAddressID(), getStreet(), getHouseNumber(), getAffixes(), getZipCode(), getCity());
-    }
 
     public int getAddressID() {
         return addressID;

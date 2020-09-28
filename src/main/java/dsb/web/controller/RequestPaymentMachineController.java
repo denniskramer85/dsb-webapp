@@ -52,7 +52,7 @@ public class RequestPaymentMachineController {
         if (passwordCorrect != null) {
             //happy flow
             TokenPaymentMachine token = requestPaymentMachineService.createAndSaveToken(smeAccount);
-            ConfirmBean confirmBean = new ConfirmBean("aanvraag geslaagd", "De pinautomaat is succesvol aangevraagd!", "accountPage", "ok");
+            ConfirmBean confirmBean = new ConfirmBean("Aanvraag geslaagd", "De pinautomaat is succesvol aangevraagd. U ontvangt deze binnen 5 werkdagen per post.", "accountPage", "Terug naar rekening");
             model.addAttribute(confirmBean);
             return "confirm";
 

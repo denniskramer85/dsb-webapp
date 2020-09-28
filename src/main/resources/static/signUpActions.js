@@ -302,18 +302,3 @@ function retrieve_address(id, value) {
 }
 
 
-
-
-/*TODO Dit moet nog aan*/
-
-// function pass() {
-//     var password = document.getElementById("password").value
-//     var password2 = document.getElementById("password2").value
-//     if (password != password2) {
-//         alert("Wachtwoorden komen niet overeen");
-//         return false;
-//     }
-//     return true;
-//
-//
-// }
