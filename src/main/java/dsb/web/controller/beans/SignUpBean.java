@@ -21,27 +21,27 @@ public class SignUpBean {
 
     private String inserts;
 
-    @NotBlank(message = "Veld is leeg")
+    @NotEmptyFieldConstraint
     private String initials;
 
-    @NotBlank(message = "Veld is leeg")
+    @NotEmptyFieldConstraint
     private String street;
 
-    @NotBlank(message = "Veld is leeg")
+    @NotEmptyFieldConstraint
     @IntegerConstraint
     private String houseNumberString;
     private Integer houseNumber;
 
     private String affixes;
 
-    @NotBlank(message = "Veld is leeg")
+    @NotEmptyFieldConstraint
     @ZipCodeConstraint
     private String zipCode;
 
-    @NotBlank(message = "Veld is leeg")
+    @NotEmptyFieldConstraint
     private String city;
 
-    @NotBlank(message = "Veld is leeg")
+    @NotEmptyFieldConstraint
     @IntegerConstraint
     @SocSecNoConstraint
     private String socialSecurityNoString;
@@ -51,10 +51,10 @@ public class SignUpBean {
     @UsernameOccupiedConstraint
     private String username;
 
-    @NotBlank(message = "Veld is leeg")
+    @NotEmptyFieldConstraint
     private String password;
 
-    @NotBlank(message = "Veld is leeg")
+    @NotEmptyFieldConstraint
     private String password2;
 
     @Autowired
