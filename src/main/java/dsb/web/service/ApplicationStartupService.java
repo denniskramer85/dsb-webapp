@@ -10,29 +10,28 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Service
 public class ApplicationStartupService {
     private Logger logger = LoggerFactory.getLogger(AccountOverviewController.class);
-    private static final int accountManagerID = 999999998;
+    private static final int ACCOUNT_MANAGER_ID = 999999998;
+    private static final double TRANSACTION_LOW = 2.99;
+    private static final double TRANSACTION_HIGH = 800.0;
     private AccountRepository accountRepository;
-    private ConsumerAccountRepository consumerAccountRepository;
-    private SMEAccountRepository smeAccountRepository;
     private TransactionService transactionService;
+    private TransactionRepository transactionRepository;
     private CustomerRepository customerRepository;
     private NewAccountService newAccountService;
     private EmployeeRepository employeeRepository;
     private SectorRepository sectorRepository;
     private CompanyRepository companyRepository;
 
-    public ApplicationStartupService(AccountRepository accountRepository, ConsumerAccountRepository consumerAccountRepository, SMEAccountRepository smeAccountRepository, TransactionService transactionService, CustomerRepository customerRepository, NewAccountService newAccountService, EmployeeRepository employeeRepository, SectorRepository sectorRepository, CompanyRepository companyRepository) {
+    public ApplicationStartupService(AccountRepository accountRepository, TransactionService transactionService, TransactionRepository transactionRepository, CustomerRepository customerRepository, NewAccountService newAccountService, EmployeeRepository employeeRepository, SectorRepository sectorRepository, CompanyRepository companyRepository) {
         this.accountRepository = accountRepository;
-        this.consumerAccountRepository = consumerAccountRepository;
-        this.smeAccountRepository = smeAccountRepository;
         this.transactionService = transactionService;
+        this.transactionRepository = transactionRepository;
         this.customerRepository = customerRepository;
         this.newAccountService = newAccountService;
         this.employeeRepository = employeeRepository;
@@ -94,7 +93,7 @@ public class ApplicationStartupService {
         long startTime = System.currentTimeMillis();
 
         // Get needed entities
-        Employee accountManager = employeeRepository.findById(accountManagerID).get();
+        Employee accountManager = employeeRepository.findById(ACCOUNT_MANAGER_ID).get();
         List<Sector> sectors = sectorRepository.findAll();
         List<Customer> customers = customerRepository.findAll();
 
@@ -127,9 +126,64 @@ public class ApplicationStartupService {
 
     }
 
+    public void TransactionGenerator(long numberOfTransactions) throws IOException {
+        // Open file, load messages in variable
+        File messagesFile = new ClassPathResource("data/transaction-data.csv").getFile();
+        List<String> messages = new ArrayList<>();
+        long transactionsGenerated = 0;
+
+        try (Scanner scanner = new Scanner(messagesFile)) {
+            while (scanner.hasNext()) {
+                messages.add(scanner.nextLine());
+            }
+        }
+
+        // Get needed entities
+        List<Account> accounts = accountRepository.findAll();
+
+        logger.debug("Generating " + numberOfTransactions + " transactions...");
+        long startTime = System.currentTimeMillis();
+
+        // For given number, create a transaction and save to database
+        for (int i = 0; i < numberOfTransactions; i++) {
+            // Generate two random accounts, make sure they are not the same
+            Account account1 = null;
+            Account account2 = null;
+            boolean sameAccount = true;
+            while (sameAccount == true) {
+                account1 = getRandomAccount(accounts);
+                account2 = getRandomAccount(accounts);
+                sameAccount = account1.equals(account2);
+            }
+
+            // Make  new transaction object and fill fields
+            Transaction transaction = new Transaction();
+            transaction.setDebitAccount(account1);
+            transaction.setCreditAccount(account2);
+            transaction.setTransactionAmount(createRandomDouble(TRANSACTION_LOW, TRANSACTION_HIGH));
+            transaction.setMessage(getRandomString(messages));
+            transaction.setTransactionTimestamp(LocalDateTime.now());
+
+            // Persist to database
+            transactionRepository.save(transaction);
+            transactionsGenerated++;
+
+            logger.debug("Transaction generated: " + transaction.getTransactionID());
+        }
+
+        long endTime = System.currentTimeMillis();
+        logger.debug(numberOfTransactions + " transactions generated in " +
+                ((endTime - startTime) / 1000) + " seconds.");
+    }
+
     private int createRandomInteger(int bandwidth) {
         int random = (int) (Math.random() * bandwidth) + 1;
         return random;
+    }
+
+    private double createRandomDouble(double low, double high) {
+        double random = new Random().nextDouble();
+        return low + (random * (high - low));
     }
 
     private Sector getRandomSector(List<Sector> sectors) {
@@ -142,6 +196,20 @@ public class ApplicationStartupService {
         return customers.get(randomInt);
     }
 
+    private Account getRandomAccount(List<Account> accounts) {
+        int randomInt = (int) (Math.random() * accounts.size());
+        return accounts.get(randomInt);
+    }
+
+    private String getRandomString(List<String> strings) {
+        int randomInt = (int) (Math.random() * strings.size());
+        return strings.get(randomInt);
+    }
+
+   /* private <E> E getRandomFromList(List<E> list) {
+
+    }
+*/
 
 }
 

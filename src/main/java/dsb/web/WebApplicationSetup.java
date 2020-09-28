@@ -21,12 +21,13 @@ public class WebApplicationSetup implements ApplicationListener<ApplicationReady
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
-        try {
+       /*try {
             applicationStartupService.createCustomers();
             applicationStartupService.createCompanies();
+            applicationStartupService.TransactionGenerator(1000000);
         } catch (IOException e) {
             logger.debug(e.toString());
-        }
+        }*/
 
         applicationStartupService.setupBalances();
     }

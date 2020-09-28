@@ -24,8 +24,6 @@ public class TransactionService {
     private AccountOverviewService accountOverviewService;
     private Account debitAccount;
     private Account creditAccount;
-    @PersistenceContext
-    EntityManager entityManager;
 
     private final static int DSB_ACCOUNT = 99999999;
     private final static double SEED_CAPITAL_CONSUMER = 1000.0;
@@ -116,24 +114,4 @@ public class TransactionService {
         transactionRepository.save(initialTransaction);
         updateBalance(account);
     }
-
-    /*    // Calculate new balance through BigDecimal conversion and arithmetics
-    private void adjustBalances(Transaction transaction) {
-        // Get BigDecimal values of account balances and transfer amount
-        BigDecimal debitBalanceBefore = BigDecimal.valueOf(debitAccount.getBalance()).stripTrailingZeros();
-        BigDecimal creditBalanceBefore = BigDecimal.valueOf(creditAccount.getBalance()).stripTrailingZeros();
-        BigDecimal transferAmount = BigDecimal.valueOf(transaction.getTransactionAmount()).stripTrailingZeros();
-
-        // Adjust balance for debit account
-        debitAccount.setBalance(debitBalanceBefore.subtract(transferAmount).setScale(2, RoundingMode.HALF_UP).doubleValue());
-
-        // Adjust balance for credit account
-        creditAccount.setBalance(creditBalanceBefore.add(transferAmount).setScale(2, RoundingMode.HALF_UP).doubleValue());
-
-        // Update new balances in database
-        accountRepository.save(debitAccount);
-        accountRepository.save(creditAccount);
-
-        updateBalance(debitAccount);
-    }*/
 }
