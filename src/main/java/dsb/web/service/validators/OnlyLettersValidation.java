@@ -22,18 +22,18 @@ public class OnlyLettersValidation implements ConstraintValidator<OnlyLettersCon
     @Override
     public boolean isValid(String string, ConstraintValidatorContext constraintValidatorContext) {
 
-        System.out.println(specific);
-
-        return checkOnlyLetters(string);
-
-
+        return actualTest(string, specific);
 
     }
 
-    public boolean checkOnlyLetters(String string) {
+    public boolean actualTest(String string, String specific) {
+        String regex = "";
 
-        return string.matches("^[a-zA-Z -]*$");
+        if (specific.equals("surname")) regex = "^[a-zA-Z -]*$";
+        if (specific.equals("inserts")) regex = "^[a-zA-Z ]*$";
+        if (specific.equals("initials")) regex = "^[a-zA-Z.]*$";
 
+        return string.matches(regex);
     }
 
 

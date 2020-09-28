@@ -18,12 +18,12 @@ public class SignUpBean {
     @OnlyLettersConstraint(specific = "surname")
     private String surname;
 
+    @OnlyLettersConstraint(specific = "inserts")
     private String inserts;
 
     @NotEmptyFieldConstraint
+    @OnlyLettersConstraint(specific = "initials")
     private String initials;
-
-
 
     @NotEmptyFieldConstraint
     private String street;
