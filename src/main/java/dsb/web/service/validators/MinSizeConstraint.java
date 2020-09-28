@@ -12,19 +12,18 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
-import javax.validation.ReportAsSingleViolation;
-import javax.validation.constraints.Size;
+
 
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Retention(RUNTIME)
 @Documented
-@Constraint(validatedBy = { OnlyLettersValidation.class })
-public @interface OnlyLettersConstraint {
+@Constraint(validatedBy = { MinSizeValidator.class })
+public @interface MinSizeConstraint {
 
-    String message() default "Alleen letters toegestaan";
+    String message() default "Te weinig tekens";
     Class<?>[] groups() default { };
     Class<? extends Payload>[] payload() default { };
-    String specific();
+    int minSize();
 
 
 
