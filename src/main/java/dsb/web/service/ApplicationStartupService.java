@@ -16,7 +16,7 @@ import java.util.*;
 @Service
 public class ApplicationStartupService {
     private Logger logger = LoggerFactory.getLogger(AccountOverviewController.class);
-    private static final int ACCOUNT_MANAGER_ID = 999999998;
+    private static final int ACCOUNT_MANAGER_ID = 45;
     private static final double TRANSACTION_LOW = 2.99;
     private static final double TRANSACTION_HIGH = 800.0;
     private AccountRepository accountRepository;
