@@ -1,14 +1,13 @@
 package dsb.web.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 public class Address {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_generator")
+    @SequenceGenerator(name="address_generator", initialValue = 1000, sequenceName = "address_seq")
     private int addressID;
     private String street;
     private int houseNumber;
