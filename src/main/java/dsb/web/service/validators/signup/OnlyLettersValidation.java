@@ -1,4 +1,4 @@
-package dsb.web.service.validators;
+package dsb.web.service.validators.signup;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,12 +10,13 @@ import javax.validation.ConstraintValidatorContext;
 public class OnlyLettersValidation implements ConstraintValidator<OnlyLettersConstraint, String> {
 
     @Autowired
-    NotEmptyFieldValidator notEmptyFieldValidator;
+    MinSizeValidator minSizeValidator;
     private String specific;
-        private static final int MIN_SIZE = 2;
+    private static final int MIN_SIZE = 2;
+
 
     @Override
-    public void initialize (OnlyLettersConstraint onlyLettersConstraint) {
+    public void initialize(OnlyLettersConstraint onlyLettersConstraint) {
         this.specific = onlyLettersConstraint.specific();
     }
 
@@ -23,6 +24,8 @@ public class OnlyLettersValidation implements ConstraintValidator<OnlyLettersCon
     @Override
     public boolean isValid(String string, ConstraintValidatorContext constraintValidatorContext) {
 
+        //already covered by more basic validations
+        if (!minSizeValidator.actualCheck(string, MIN_SIZE)) return true;
 
         return actualTest(string, specific);
 
@@ -40,7 +43,6 @@ public class OnlyLettersValidation implements ConstraintValidator<OnlyLettersCon
 
         return string.matches(regex);
     }
-
 
 
 }

@@ -1,6 +1,4 @@
-package dsb.web.service.validators;
-
-import dsb.web.service.validators.signup.SSNFormalValidator;
+package dsb.web.service.validators.signup;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.CONSTRUCTOR;
@@ -15,15 +13,17 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Retention(RUNTIME)
 @Documented
-@Constraint(validatedBy = { SSNFormalValidator.class })
-public @interface TokenCodeConstraint {
-    String message() default "Dit is geen geldig BSN";
+@Constraint(validatedBy = { OnlyLettersValidation.class })
+public @interface OnlyLettersConstraint {
+
+    String message() default "Alleen letters toegestaan";
     Class<?>[] groups() default { };
     Class<? extends Payload>[] payload() default { };
+    String specific();
+
+
+
 }
-
-

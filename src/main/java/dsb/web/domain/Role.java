@@ -1,14 +1,13 @@
 package dsb.web.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Role {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_generator")
+    @SequenceGenerator(name="role_generator", initialValue = 1000, sequenceName = "role_seq")
     private int roleID;
     private String roleName;
 

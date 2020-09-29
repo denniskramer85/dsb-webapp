@@ -1,4 +1,4 @@
-package dsb.web.service.validators;
+package dsb.web.service.validators.signup;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.CONSTRUCTOR;
@@ -17,12 +17,10 @@ import javax.validation.Payload;
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Retention(RUNTIME)
 @Documented
-@Constraint(validatedBy = { SSNOccupiedValidator.class })
-public @interface SSNOccupiedConstraint {
+@Constraint(validatedBy = { ZipCodeValidator.class })
+public @interface ZipCodeConstraint {
 
-
-
-    String message() default "BSN reeds in gebruik. Log in met bestaande gebruiker.";
+    String message() default "Geen geldige postcode";
     Class<?>[] groups() default { };
     Class<? extends Payload>[] payload() default { };
 

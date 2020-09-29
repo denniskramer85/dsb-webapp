@@ -19,15 +19,11 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
-class IntegrationTestSicco {
+class AccountDataBeanTest {
 
 
     @Autowired
     private AccountPageService accountPageService;
-
-    @Autowired
-    private PrintTransactionsForAccountPage printTransactionsForAccountPage;
-
 
     @MockBean
     private CreateAccountHoldersString createAccountHoldersString;
@@ -36,7 +32,7 @@ class IntegrationTestSicco {
     private TransactionRepository transactionRepository;
 
 
-    public IntegrationTestSicco() {
+    public AccountDataBeanTest() {
     }
 
     /**tests integration of AccountPageService and printTransactionsForAccountPage with mocked repository

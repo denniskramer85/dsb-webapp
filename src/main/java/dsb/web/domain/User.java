@@ -7,7 +7,8 @@ import javax.persistence.*;
 public abstract class User{
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
+    @SequenceGenerator(name="user_generator", initialValue = 1000, sequenceName = "user_seq")
     private int userID;
     private String initials;
     private String inserts;
@@ -25,22 +26,15 @@ public abstract class User{
     }
 
     public User(String initials, String inserts, String surname, String username, String password) {
-        this.userID = 0;
-        this.initials = initials;
-        this.inserts = inserts;
-        this.surname = surname;
-        this.username = username;
-        this.password = password;
+        this(0, initials, inserts, surname, username, password);
     }
 
     public User() {
     }
 
     public String printWholeName() {
-        if (inserts == null || inserts == "") {
-            inserts = "";
-        } else {
-            inserts=inserts+ " ";
+        if (inserts == null) {
+            return String.format("%s %s", initials, surname);
         }
         return String.format("%s %s%s", initials, inserts, surname);
     }

@@ -1,4 +1,4 @@
-package dsb.web.service.validators;
+package dsb.web.service.validators.signup;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.CONSTRUCTOR;
@@ -17,10 +17,10 @@ import javax.validation.Payload;
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Retention(RUNTIME)
 @Documented
-@Constraint(validatedBy = { NotEmptyFieldValidator.class })
-public @interface NotEmptyFieldConstraint {
+@Constraint(validatedBy = { SSNFormalValidator.class })
+public @interface SSNFormalConstraint {
 
-    String message() default "Veld is leeg";
+    String message() default "Dit is geen geldig BSN";
     Class<?>[] groups() default { };
     Class<? extends Payload>[] payload() default { };
 

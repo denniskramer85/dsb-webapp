@@ -10,11 +10,12 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Account {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_generator")
+    @SequenceGenerator(name="account_generator", initialValue = 1000, sequenceName = "account_seq")
     private int accountID;
     private String accountNo;
     private double balance;
-    @ManyToMany ( fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Customer> holders;
 
     public Account(int accountID, String accountNo, double balance, List<Customer> holders) {
@@ -25,18 +26,17 @@ public abstract class Account {
     }
 
     public Account(String accountNo, double balance, List<Customer> holders) {
-        this.accountNo = accountNo;
-        this.balance = balance;
-        this.holders = holders;
+        this(0, accountNo, balance, holders);
     }
 
+    //TODO remove?
     //copy constructor
-    public Account(Account account) {
-        this.accountID = account.accountID;
-        this.accountNo = account.accountNo;
-        this.balance = account.balance;
-        this.holders = account.holders;
-    }
+//    public Account(Account account) {
+//        this.accountID = account.accountID;
+//        this.accountNo = account.accountNo;
+//        this.balance = account.balance;
+//        this.holders = account.holders;
+//    }
 
     public Account() {
         this.holders = new ArrayList<>();
@@ -86,12 +86,12 @@ public abstract class Account {
     }
 
     // overload method for getholderString
-    public String getHoldersString (){
+    public String getHoldersString() {
         return getHoldersString(holders.size());
     }
 
     //also define max number of holders shown!
-    public String getHoldersString (int maxHoldersShown) {
+    public String getHoldersString(int maxHoldersShown) {
         CreateAccountHoldersString createAccountHoldersString =
                 new CreateAccountHoldersString(holders, maxHoldersShown);
         return createAccountHoldersString.createAccountHoldersString();

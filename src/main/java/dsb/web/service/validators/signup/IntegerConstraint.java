@@ -1,4 +1,4 @@
-package dsb.web.service.validators;
+package dsb.web.service.validators.signup;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.CONSTRUCTOR;
@@ -12,19 +12,17 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
-import javax.validation.ReportAsSingleViolation;
-import javax.validation.constraints.Size;
+
 
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Retention(RUNTIME)
 @Documented
-@Constraint(validatedBy = { OnlyLettersValidation.class })
-public @interface OnlyLettersConstraint {
+@Constraint(validatedBy = { IntegerValidator.class })
+public @interface IntegerConstraint {
 
-    String message() default "Alleen letters";
+    String message() default "Dit is geen geldige waarde";
     Class<?>[] groups() default { };
     Class<? extends Payload>[] payload() default { };
-    String specific();
 
 
 

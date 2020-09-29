@@ -1,14 +1,13 @@
 package dsb.web.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Sector implements Comparable<Sector> {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sector_generator")
+    @SequenceGenerator(name="sector_generator", initialValue = 1000, sequenceName = "sector_seq")
     private int sectorId;
     private String sectorName;
 

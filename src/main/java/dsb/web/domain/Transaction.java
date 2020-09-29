@@ -1,17 +1,14 @@
 package dsb.web.domain;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Objects;
 
 @Entity
 public class Transaction {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transaction_generator")
+    @SequenceGenerator(name="transaction_generator", initialValue = 1000, sequenceName = "transaction_seq")
     private int transactionID;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -49,12 +46,13 @@ public class Transaction {
                 '}';
     }
 
-    public String printStyledTransaction() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        String timeStamp = transactionTimestamp.format(formatter);
-        return String.format("%s    |    %s    |    %30s    |    %7.2f    |    %s",
-                timeStamp, debitAccount.getAccountNo(), creditAccount.getAccountNo(), transactionAmount, message);
-    }
+    //TODO kan weg?
+//    public String printStyledTransaction() {
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+//        String timeStamp = transactionTimestamp.format(formatter);
+//        return String.format("%s    |    %s    |    %30s    |    %7.2f    |    %s",
+//                timeStamp, debitAccount.getAccountNo(), creditAccount.getAccountNo(), transactionAmount, message);
+//    }
 
 
     @Override
