@@ -61,8 +61,6 @@ public class SignUpBean {
 
 
     public Integer checkIfInteger(String ageString) {
-
-
         try {
             return Integer.parseInt(ageString);
         } catch(NumberFormatException e){
