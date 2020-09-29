@@ -20,9 +20,10 @@ public class CreateAccountHoldersString {
         this.maxHoldersShown = maxHoldersShown;
     }
 
-    public CreateAccountHoldersString() {
-        this.listHolders = new ArrayList<>();
-    }
+    //TODO kan weg?
+//    public CreateAccountHoldersString() {
+//        this.listHolders = new ArrayList<>();
+//    }
 
     public String createAccountHoldersString() {
 
@@ -52,8 +53,9 @@ public class CreateAccountHoldersString {
         StringBuilder stringBuilder = new StringBuilder();
 
         // return empty string if account has no holders
-        if (holderNames.isEmpty())
+        if (holderNames.isEmpty()) {
             return "";
+        }
 
         //prevent outOfBound
         int maxLoop = getMaxloop();
@@ -83,9 +85,10 @@ public class CreateAccountHoldersString {
         return maxLoop;
     }
 
-    public void addHolder(Customer customer) {
+    //TODO kan weg?
+/*    public void addHolder(Customer customer) {
         listHolders.add(customer);
-    }
+    }*/
 
 
 }

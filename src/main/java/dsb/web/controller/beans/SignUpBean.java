@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 public class SignUpBean {
 
 
-    //@Size(min=2, message = "Minimaal 2 letters")
     @MinSizeConstraint(minSize = 2)
     @OnlyLettersConstraint(specific = "surname")
     private String surname;
@@ -46,7 +45,6 @@ public class SignUpBean {
     private String socialSecurityNoString;
     private Integer socialSecurityNo;
 
-    //@Size(min=6, message = "Minimaal 6 tekens")
     @MinSizeConstraint(minSize = 6)
     @UsernameOccupiedConstraint
     private String username;

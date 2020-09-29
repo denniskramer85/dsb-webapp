@@ -247,10 +247,6 @@ input[type=number] {
 
 
 
-
-
-
-
 /*for transfer page*/
 
 .transfer-account-data {
@@ -284,6 +280,10 @@ input[type=number] {
     position: relative;
     left:-1000px;
 }
+
+
+
+
 
 /*for sme payment machine request overview page */
 .paymentmachinerequests-table {
