@@ -9,7 +9,8 @@ import java.util.Optional;
 public class Company {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "company_generator")
+    @SequenceGenerator(name="company_generator", initialValue = 1000, sequenceName = "company_seq")
     private int companyId;
     private String name;
     private String KVKno;

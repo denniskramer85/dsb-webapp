@@ -6,7 +6,8 @@ import javax.persistence.*;
 public class TokenPaymentMachine {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tpm_generator")
+    @SequenceGenerator(name="tpm_generator", initialValue = 1000, sequenceName = "tpm_seq")
     private int tokenID;
 
     @ManyToOne

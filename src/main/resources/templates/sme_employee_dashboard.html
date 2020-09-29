@@ -31,6 +31,46 @@
         padding: 8px;
     }
 
+    .dropbtn {
+        background-color: dimgray;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown-content a:hover {background-color: #f1f1f1}
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .dropdown:hover .dropbtn {
+        background-color: #3e8e41;
+    }
+
 </style>
 </head>
 <body>
@@ -39,16 +79,15 @@
 
 <div class="container">
     <br/>
-    <br/>
+
     <div class="card">
         <div class="card-header account-header-div">
             <h5 class="header">Dashboard MKB</h5>
         </div>
-            <div class="card-body">
-                <p class="account-header"> Welkom <span th:text="${selectedEmployee}"></span> </p>
-            </div>
+        <div class="card-body">
+            <p class="account-header"> Welkom <span th:text="${selectedEmployee}"></span> </p>
         </div>
-    <br/>
+    </div>
 
     <div class="card" th:if="${not #lists.isEmpty(linkRequestList)}">
         <div class="card-header account-header-div">
@@ -56,85 +95,101 @@
         </div>
         <div class="card-body">
             <div th:if="${not #lists.isEmpty(linkRequestList)}">
-                <div class="card-body">
-                    <span>Er zijn nieuwe koppelverzoeken <a href="/paymentmachine-request-overview" class="btn-open-account btn btn-outline-dark">Naar koppelverzoeken</a></span>
-                </div>
+                <span>Er zijn nieuwe koppelverzoeken <a href="/paymentmachine-request-overview" class="btn-open-account btn btn-outline-dark">Naar koppelverzoeken</a></span>
             </div>
         </div>
-        <br>
+    </div>
+
+    <div class="card">
+        <div class="card-header account-header-div">
+            <h5 class="header">Overzicht MKB Dashboard</h5>
+        </div>
+        <div class="card-body">
+            <span>Gebruikt onderstaand menu om een keuze te maken</span>
+        </div>
+        <div class="card-body btn-group dropright">
+            <button type="button" class="btn btn-secondary btn-lg">
+                <a class="text-white" id="option4" href="#" onclick="showTable(this.id);">Overzicht</a>
+            </button>
+                <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropright</span>
+                </button>
+            <br>
+            <div class="dropdown-menu">
+                <a class="text-dark" id="option1" href="#" onclick="showTable(this.id);">10 hoogste saldo's MKB klanten ||</a>
+                <a class="text-dark" id="option2" href="#" onclick="showTable(this.id);">Gemiddeld saldo per segment ||</a>
+                <a class="text-dark" id="option3" href="#" onclick="showTable(this.id);">10 meest actieve MKB-klanten ||</a>
+            </div>
+        </div>
     </div>
 
 
-    <div class="card">
+    <div class="card d-none" id="highestSaldosMkb">
         <div class="card-header account-header-div">
             <h5 class="header">10 hoogste saldo's MKB klanten</h5>
         </div>
-             <div class="card-body">
-                    <table id="customers">
-                        <th>Bedrijfsnaam</th>
-                        <th>Rekeninghouder </th>
-                        <th>Balans</th>
-                        <tr th:each="balance : ${balances}">
-                            <td>
-                                <img class="account-icon" th:src="@{/images/icons/people.svg}" alt="">
-                                <span th:text="${balance.getHoldersString()}"/>
-                            </td>
-                            <td>
-                                <img class="account-icon" th:src="@{/images/icons/credit-card.svg}" alt="">
-                                <span th:text="${balance.getAccountNo()}"/>
-
-                            </td>
-                            <td>
-                                <img class="account-icon" th:src="@{/images/icons/wallet2.svg}" alt="">
-                                €
-                                <span th:text="${#numbers.formatDecimal(balance.getBalance(), 0, 'POINT', 2, 'COMMA')}"/>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+        <div class="card-body">
+            <table id="customers">
+                <th>Bedrijfsnaam</th>
+                <th>Rekeninghouder </th>
+                <th>10 meest actieve MKB-klante</th>
+                <tr th:each="balance : ${balances}">
+                    <td>
+                        <img class="account-icon" th:src="@{/images/icons/people.svg}" alt="">
+                            <span th:text="${balance.getHoldersString()}"/>
+                    </td>
+                    <td>
+                        <img class="account-icon" th:src="@{/images/icons/credit-card.svg}" alt="">
+                            <span th:text="${balance.getAccountNo()}"/>
+                    </td>
+                    <td>
+                        <img class="account-icon" th:src="@{/images/icons/wallet2.svg}" alt="">
+                            €
+                            <span th:text="${#numbers.formatDecimal(balance.getBalance(), 0, 'POINT', 2, 'COMMA')}"/>
+                    </td>
+                </tr>
+            </table>
         </div>
-    <br>
+    </div>
 
-    <div class="card">
+    <div class="card d-none" id="averageBalanceBySector">
         <div class="card-header account-header-div">
             <h5 class="header">Gemiddeld saldo per segment</h5>
         </div>
-            <div class="card-body">
-                <table id="customersSmall">
-                    <th>Sector </th>
-                    <th>Balans</th>
-                    <tr th:each=" sector : ${averageBalanceBySector}">
-                        <td>
-                            <img class="account-icon" th:src="@{/images/icons/building.svg}" alt="">
+        <div class="card-body">
+            <table id="customersSmall">
+                <th>Sector </th>
+                <th>Balans</th>
+                <tr th:each=" sector : ${averageBalanceBySector}">
+                    <td>
+                        <img class="account-icon" th:src="@{/images/icons/building.svg}" alt="">
                             <span th:text="${sector.key}"/>
-                        </td>
-                        <td>
-                            <img class="account-icon" th:src="@{/images/icons/wallet2.svg}" alt="">
+                    </td>
+                    <td>
+                        <img class="account-icon" th:src="@{/images/icons/wallet2.svg}" alt="">
                             €
-                            <span th:if="${sector.value == 0}">
-                                <span>0</span>
-                            </span>
-                            <span th:unless="${sector.value == 0}">
-                                <span th:text="${#numbers.formatDecimal(sector.value, 0, 'POINT', 2, 'COMMA')}"/>
-                            </span>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+                        <span th:if="${sector.value == 0}">
+                            <span>0</span>
+                        </span>
+                        <span th:unless="${sector.value == 0}">
+                            <span th:text="${#numbers.formatDecimal(sector.value, 0, 'POINT', 2, 'COMMA')}"/>
+                        </span>
+                    </td>
+                </tr>
+            </table>
         </div>
+    </div>
 
-    <br>
-
-    <div class="card">
+    <div class="card d-none" id="mostActiveMkbCustomers">
         <div class="card-header account-header-div">
             <h5 class="header">10 meest actieve MKB-klanten</h5>
         </div>
-            <div class="card-body">
-                <table id="customers">
-                    <th>Rekeningnummer</th>
-                    <th>MKB-Klant</th>
-                    <th>Aantal transacties </th>
-                    <tr th:each=" transaction : ${transactionsList}">
+        <div class="card-body">
+            <table id="customers">
+                <th>Rekeningnummer</th>
+                <th>MKB-Klant</th>
+                <th>Aantal transacties </th>
+                        <tr th:each=" transaction : ${transactionsList}">
                         <td th:text="${transaction.getAccount().getAccountNo()}">
                         <td th:text="${transaction.getAccount().getHoldersString()}">
                         <td th:text="${transaction.getNumberOfTransactions()}">
@@ -143,7 +198,10 @@
         </div>
 </div>
 
+
 <div th:replace="fragments/footer :: scripts"></div>
+<script type="text/javascript" th:src="@{/sme_employee_dashboard_actions.js}"></script>
+
 
 </body>
 </html>

@@ -10,7 +10,8 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Account {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_generator")
+    @SequenceGenerator(name="account_generator", initialValue = 1000, sequenceName = "account_seq")
     private int accountID;
     private String accountNo;
     private double balance;

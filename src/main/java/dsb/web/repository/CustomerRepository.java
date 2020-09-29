@@ -16,4 +16,5 @@ public interface CustomerRepository extends CrudRepository<Customer, Integer> {
 
     List<Customer> findAllBySocialSecurityNo(int socialSecurityNumber);
 
+    List<Customer> findAll();
 }
