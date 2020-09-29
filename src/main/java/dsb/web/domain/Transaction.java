@@ -11,7 +11,8 @@ import java.util.Objects;
 public class Transaction {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transaction_generator")
+    @SequenceGenerator(name="transaction_generator", initialValue = 1000, sequenceName = "transaction_seq")
     private int transactionID;
 
     @ManyToOne(fetch = FetchType.LAZY)

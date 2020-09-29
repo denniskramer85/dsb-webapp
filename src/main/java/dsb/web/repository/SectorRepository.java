@@ -10,5 +10,5 @@ import java.util.Optional;
 
 @Repository
 public interface SectorRepository extends CrudRepository<Sector, Integer> {
-
+    List<Sector> findAll();
 }

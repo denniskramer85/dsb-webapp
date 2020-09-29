@@ -5,7 +5,8 @@ import javax.persistence.*;
 @Entity
 public class AccountHolderToken {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "aht_generator")
+    @SequenceGenerator(name="aht_generator", initialValue = 1000, sequenceName = "aht_seq")
     private int accountHolderTokenId;
 
     @ManyToOne
