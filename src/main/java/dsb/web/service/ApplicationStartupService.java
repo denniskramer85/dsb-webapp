@@ -5,6 +5,7 @@ import dsb.web.domain.*;
 import dsb.web.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,7 @@ public class ApplicationStartupService {
     private SectorRepository sectorRepository;
     private CompanyRepository companyRepository;
 
+    @Autowired
     public ApplicationStartupService(AccountRepository accountRepository, TransactionService transactionService, TransactionRepository transactionRepository, CustomerRepository customerRepository, NewAccountService newAccountService, EmployeeRepository employeeRepository, SectorRepository sectorRepository, CompanyRepository companyRepository) {
         this.accountRepository = accountRepository;
         this.transactionService = transactionService;
@@ -37,6 +39,9 @@ public class ApplicationStartupService {
         this.employeeRepository = employeeRepository;
         this.sectorRepository = sectorRepository;
         this.companyRepository = companyRepository;
+    }
+
+    public ApplicationStartupService() {
     }
 
     public void setupBalances() {
@@ -172,16 +177,16 @@ public class ApplicationStartupService {
     }
 
     // Generic method to return a random item from a list of any size
-    private <E> E getRandomFromList(List<E> list) {
+    public <E> E getRandomFromList(List<E> list) {
         return list.get(createRandomInteger(list.size(), 0));
     }
 
-    private double createRandomDouble(double low, double high) {
+    public double createRandomDouble(double low, double high) {
         double random = new Random().nextDouble();
         return low + (random * (high - low));
     }
 
-    private int createRandomInteger(int bandwidth, int start) {
+    public int createRandomInteger(int bandwidth, int start) {
         int random = (int) (Math.random() * bandwidth) + start;
         return random;
     }

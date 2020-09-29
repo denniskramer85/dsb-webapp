@@ -11,10 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @Controller
-//TODO: Oplosssen zonder account in sessie
 @SessionAttributes({AttributeMapping.LOGGED_IN_CUSTOMER, AttributeMapping.SELECTED_ACCOUNT})
 public class AccountOverviewController {
     private AccountOverviewService accountOverviewService;
@@ -31,13 +31,13 @@ public class AccountOverviewController {
     @GetMapping("account_overview")
     public String accountOverview(@ModelAttribute(AttributeMapping.LOGGED_IN_CUSTOMER) Customer loggedInCustomer, Model model) {
         // Retrieve list of consumer- and SME-accounts for logged in customer
+        List<ConsumerAccount> consumerAccountList = accountOverviewService.getConsumerAccountsForCustomer(loggedInCustomer);
+        List<SMEAccount> smeAccountList = accountOverviewService.getSMEAccountsForCustomer(loggedInCustomer);
 
-        // find all addAccountHolderTokens and add to model
+        // Find all addAccountHolderTokens and add to model
         model.addAttribute("accountHolderTokenBeans", accountOverviewService.getAccountHolderTokens(loggedInCustomer) );
         model.addAttribute("NewAccountHolderTokenBean", new AccountHolderTokenBean());
 
-        List<ConsumerAccount> consumerAccountList = accountOverviewService.getConsumerAccountsForCustomer(loggedInCustomer);
-        List<SMEAccount> smeAccountList = accountOverviewService.getSMEAccountsForCustomer(loggedInCustomer);
         logger.debug("ConsumerAccounts: " + consumerAccountList.toString());
         logger.debug("SMEAccounts: " + smeAccountList.toString());
 
@@ -53,30 +53,11 @@ public class AccountOverviewController {
         // Get selected account from DB
         Account selectedAccount = accountOverviewService.getAccountByID(accountID);
 
-
         // Check whether logged in customer has access to selected account
-        /**TODO dit ff uitgezet en gewijzigde versie hieronder:
-         * om sessie te vullen en te werken met model**/
-        /*if (accountOverviewService.accessPermitted(selectedAccount, loggedInCustomer)) {
-            ModelAndView modelAndView = new ModelAndView();
-            modelAndView.setViewName("redirect:/accountPage");
-
-            // Add selected account to session and redirectAttributes
-            modelAndView.addObject(AttributeMapping.SELECTED_ACCOUNT, selectedAccount);
-            redirectAttributes.addAttribute(AttributeMapping.SELECTED_ACCOUNT, selectedAccount);
-
-            return modelAndView;
-        }*/
-
-
-        //versie sicco nu
         if (accountOverviewService.accessPermitted(selectedAccount, loggedInCustomer)) {
             model.addAttribute(AttributeMapping.SELECTED_ACCOUNT, selectedAccount);
             return "redirect:/accountPage";
         }
-
-
-
-        return null; // TODO: Return Access Denied
+        return null;
     }
 }
