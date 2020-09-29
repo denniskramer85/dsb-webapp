@@ -22,13 +22,13 @@ public class WebApplicationSetup implements ApplicationListener<ApplicationReady
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         // TODO: Turn on to load dummy data in database; will take approx. 40 minutes
-       try {
+       /*try {
             applicationStartupService.createCustomers();
             applicationStartupService.createCompanies();
-            applicationStartupService.TransactionGenerator(100);
+            applicationStartupService.TransactionGenerator(5000000);
         } catch (IOException e) {
             logger.debug(e.toString());
-        }
+        }*/
 
         applicationStartupService.setupBalances();
     }
