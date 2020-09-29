@@ -67,7 +67,7 @@ public class ApplicationStartupService {
                 customerRepository.save(customer);
 
                 // Create random amount of new accounts for customer
-                for (int i = 0; i < createRandomInteger(3); i++) {
+                for (int i = 0; i < createRandomInteger(3, 1); i++) {
                     Account account = newAccountService.saveNewConsumerAccount(customer);
                     // Do initial transaction for account
                     transactionService.doInitialTransaction(account);
@@ -76,11 +76,9 @@ public class ApplicationStartupService {
                 logger.debug("Customer " + customer.printWholeName() + "(" + customer.getUserID() + ") " +  "created");
             }
         }
-
         long endTime = System.currentTimeMillis();
         logger.debug("5k customers and " + accountsGenerated + " consumer accounts generated in " +
                 ((endTime - startTime) / 1000) + " seconds.");
-
     }
 
     public void createCompanies() throws IOException {
@@ -103,10 +101,10 @@ public class ApplicationStartupService {
                 String[] data = scanner.nextLine().split(separator);
 
                 // Find random customer
-                Customer customer = getRandomCustomer(customers);
+                Customer customer = getRandomFromList(customers);
 
                 // Create new company from pulled entities and persist in database
-                Company company = new Company(data[2], data[0], data[1], accountManager, getRandomSector(sectors));
+                Company company = new Company(data[2], data[0], data[1], accountManager, getRandomFromList(sectors));
                 companyRepository.save(company);
 
                 // Create new SMEAccount for company and random holder
@@ -119,18 +117,16 @@ public class ApplicationStartupService {
                 logger.debug("Company " + company.getName() + " (" + company.getCompanyId() + ")" + " created.");
             }
         }
-
         long endTime = System.currentTimeMillis();
         logger.debug("1k companies and " + accountsGenerated + " accounts generated in " +
                 ((endTime - startTime) / 1000) + " seconds.");
-
     }
 
     public void TransactionGenerator(long numberOfTransactions) throws IOException {
         // Open file, load messages in variable
         File messagesFile = new ClassPathResource("data/transaction-data.csv").getFile();
         List<String> messages = new ArrayList<>();
-        long transactionsGenerated = 0;
+        long transactionsGenerated;
 
         try (Scanner scanner = new Scanner(messagesFile)) {
             while (scanner.hasNext()) {
@@ -145,14 +141,14 @@ public class ApplicationStartupService {
         long startTime = System.currentTimeMillis();
 
         // For given number, create a transaction and save to database
-        for (int i = 0; i < numberOfTransactions; i++) {
+        for (transactionsGenerated = 0; transactionsGenerated < numberOfTransactions; transactionsGenerated++) {
             // Generate two random accounts, make sure they are not the same
             Account account1 = null;
             Account account2 = null;
             boolean sameAccount = true;
             while (sameAccount == true) {
-                account1 = getRandomAccount(accounts);
-                account2 = getRandomAccount(accounts);
+                account1 = getRandomFromList(accounts);
+                account2 = getRandomFromList(accounts);
                 sameAccount = account1.equals(account2);
             }
 
@@ -161,12 +157,11 @@ public class ApplicationStartupService {
             transaction.setDebitAccount(account1);
             transaction.setCreditAccount(account2);
             transaction.setTransactionAmount(createRandomDouble(TRANSACTION_LOW, TRANSACTION_HIGH));
-            transaction.setMessage(getRandomString(messages));
+            transaction.setMessage(getRandomFromList(messages));
             transaction.setTransactionTimestamp(LocalDateTime.now());
 
             // Persist to database
             transactionRepository.save(transaction);
-            transactionsGenerated++;
 
             logger.debug("Transaction generated: " + transaction.getTransactionID());
         }
@@ -176,9 +171,9 @@ public class ApplicationStartupService {
                 ((endTime - startTime) / 1000) + " seconds.");
     }
 
-    private int createRandomInteger(int bandwidth) {
-        int random = (int) (Math.random() * bandwidth) + 1;
-        return random;
+    // Generic method to return a random item from a list of any size
+    private <E> E getRandomFromList(List<E> list) {
+        return list.get(createRandomInteger(list.size(), 0));
     }
 
     private double createRandomDouble(double low, double high) {
@@ -186,30 +181,10 @@ public class ApplicationStartupService {
         return low + (random * (high - low));
     }
 
-    private Sector getRandomSector(List<Sector> sectors) {
-        int randomInt = (int) (Math.random() * sectors.size());
-        return sectors.get(randomInt);
+    private int createRandomInteger(int bandwidth, int start) {
+        int random = (int) (Math.random() * bandwidth) + start;
+        return random;
     }
-
-    private Customer getRandomCustomer(List<Customer> customers) {
-        int randomInt = (int) (Math.random() * customers.size());
-        return customers.get(randomInt);
-    }
-
-    private Account getRandomAccount(List<Account> accounts) {
-        int randomInt = (int) (Math.random() * accounts.size());
-        return accounts.get(randomInt);
-    }
-
-    private String getRandomString(List<String> strings) {
-        int randomInt = (int) (Math.random() * strings.size());
-        return strings.get(randomInt);
-    }
-
-   /* private <E> E getRandomFromList(List<E> list) {
-
-    }
-*/
 
 }
 
