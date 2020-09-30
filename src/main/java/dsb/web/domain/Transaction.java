@@ -34,6 +34,14 @@ public class Transaction {
         this.transactionTimestamp = transactionTimestamp;
     }
 
+    public Transaction(Account debitAccount, Account creditAccount, double transactionAmount, String message, LocalDateTime transactionTimestamp) {
+        this.debitAccount = debitAccount;
+        this.creditAccount = creditAccount;
+        this.transactionAmount = transactionAmount;
+        this.message = message;
+        this.transactionTimestamp = transactionTimestamp;
+    }
+
     public Transaction() {
     }
 
