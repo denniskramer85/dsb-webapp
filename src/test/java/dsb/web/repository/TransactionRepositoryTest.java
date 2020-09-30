@@ -19,17 +19,17 @@ import static org.assertj.core.api.Assertions.*;
 @DataJpaTest(properties = "spring.jpa.database-platform=org.hibernate.dialect.H2Dialect")
 public class TransactionRepositoryTest {
     @Autowired
-    TransactionRepository transactionRepository;
+    private TransactionRepository transactionRepository;
     @Autowired
-    AccountRepository accountRepository;
+    private AccountRepository accountRepository;
 
-    Account account1;
-    Account account2;
-    Account account3;
-    Transaction transaction1;
-    Transaction transaction2;
-    Transaction transaction3;
-    List<Transaction> transactions;
+    private Account account1;
+    private Account account2;
+    private Account account3;
+    private Transaction transaction1;
+    private Transaction transaction2;
+    private Transaction transaction3;
+    private List<Transaction> transactions;
 
     @BeforeEach
     void setup() {

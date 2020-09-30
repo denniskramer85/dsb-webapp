@@ -21,18 +21,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /*
 * Integration test to see if controller AccountOverviewController is properly allowing requests
 * Tests response with loggedInCustomer session attribute
-* Tests if proper html template is returned
+* Tests if correct html template is returned
 * */
 @ExtendWith(MockitoExtension.class)
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = AccountOverviewController.class)
 public class AccountOverviewControllerTest {
     @Autowired
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
     @MockBean
-    AccountOverviewService accountOverviewService;
-    User user;
-    Account account;
+    private AccountOverviewService accountOverviewService;
+    private User user;
+    private Account account;
 
     @BeforeEach
     void setup() {

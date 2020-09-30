@@ -21,8 +21,6 @@ import java.util.Arrays;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-
-
 /*
 * Integration test to check if REST controller TransferNameController behaves as expected
 * Tests basic response acceptance and denial and all three possible response bodies
@@ -31,13 +29,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(controllers = TransferNameController.class)
 public class TransferNameControllerTest {
     @Autowired
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
     @Autowired
-    ObjectMapper objectMapper;
+    private ObjectMapper objectMapper;
     @MockBean
-    AccountRepository accountRepository;
-    Account account;
-    Customer customer;
+    private AccountRepository accountRepository;
+    private Account account;
+    private Customer customer;
 
     @BeforeEach
     void setup() {

@@ -18,14 +18,14 @@ import static org.assertj.core.api.Assertions.*;
 * Test various edge cases for password
 * */
 @ExtendWith(MockitoExtension.class)
-public class checkCredentialsTest {
+public class CheckCredentialsTest {
     @Mock
-    UserRepository userRepository;
+    private UserRepository userRepository;
     @InjectMocks
-    SignInService signInService;
+    private SignInService signInService;
 
-    Customer customer1;
-    Customer customer2;
+    private Customer customer1;
+    private Customer customer2;
 
     @BeforeEach
     void setup() {

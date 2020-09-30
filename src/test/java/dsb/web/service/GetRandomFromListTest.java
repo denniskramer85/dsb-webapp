@@ -13,11 +13,11 @@ import static org.assertj.core.api.Assertions.*;
  * Test if generic method getRandomFromList is able to extract an object from any given list of objects
  * Test if generic method getRandomFromList reaches list edges
  * */
-public class getRandomFromListTest {
+public class GetRandomFromListTest {
     private ApplicationStartupService applicationStartupService = new ApplicationStartupService();
-    List<Integer> integerList;
-    List<String> stringList;
-    List<Iban> ibanList;
+    private List<Integer> integerList;
+    private List<String> stringList;
+    private List<Iban> ibanList;
 
     @BeforeEach
     void setup() {

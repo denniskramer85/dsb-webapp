@@ -1,6 +1,7 @@
 package dsb.web.domain;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -42,6 +43,14 @@ public abstract class User{
             return String.format("%s %s", initials, surname);
         }
         return String.format("%s %s %s", initials, inserts, surname);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return userID == user.userID &&
+                username.equals(user.username);
     }
 
     public int getUserID() {
