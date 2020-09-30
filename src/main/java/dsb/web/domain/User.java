@@ -27,12 +27,7 @@ public abstract class User{
     }
 
     public User(String initials, String inserts, String surname, String username, String password) {
-        this.userID = 0;
-        this.initials = initials;
-        this.inserts = inserts;
-        this.surname = surname;
-        this.username = username;
-        this.password = password;
+        this(0, initials, inserts, surname, username, password);
     }
 
     public User() {

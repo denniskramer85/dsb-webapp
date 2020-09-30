@@ -12,13 +12,11 @@ public class SMETransactionHelper implements Comparable<SMETransactionHelper> {
         this.numberOfTransactions = numberOfTransactions;
     }
 
-
     @Override
     public int compareTo(SMETransactionHelper o) {
 
         return o.numberOfTransactions - this.numberOfTransactions;
     }
-
 
     public Account getAccount() {
         return account;

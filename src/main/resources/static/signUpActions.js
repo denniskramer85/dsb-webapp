@@ -6,32 +6,31 @@
 //fields with minimum sizes
 let MIN_SIZES = [["surname", 2], ["username", 6]]
 
+
+
 //all inputs
 let listInputs = document.querySelectorAll('input');
 
+//disable confirm button for starters
 document.getElementById("confirmButton").disabled = true
-runAll()
 
-
-//start function (toggled on/off)
-function runAll() {
-        for (input of listInputs) {
-            input.addEventListener('focusout', function() {
-                allChecker(this)
-                checkContents()
-            })
-        }
+//run checks for each input at focusout
+for (input of listInputs) {
+    input.addEventListener('focusout', function() {
+        allChecker(this)
+        checkContents()
+    })
 }
-
 
 
 //contains all checks - logical sequence is important!
 function allChecker(input) {
 
+    //reset normal non-error layout for starters
     normalizeInputField(input)
-
     document.getElementById("confirmButton").disabled = true
 
+    //link to subsequent checks
     if (isEmpty(input)) return;
     if (onlyNumbers(input)) return;
     if (onlyLetters(input)) return;
@@ -179,7 +178,6 @@ function SSNOccupied(input) {
         })
 }
 
-
 function userOccupied(input) {
     if (!input.classList.contains("userOccupied")) {
         return false
@@ -231,6 +229,14 @@ function normalizeInputField(input) {
     input.removeAttribute('placeholder')
     input.style.border = "thin solid black"
 }
+
+
+
+
+
+
+
+
 
 // Code for retrieving ZIP information from bwnr.nl API
 // Declare empty variables
