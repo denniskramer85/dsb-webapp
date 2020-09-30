@@ -5,7 +5,6 @@ import dsb.web.domain.Account;
 import dsb.web.repository.AccountRepository;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
 @RestController
 @RequestMapping(value = "/transfer-name-checks")
 public class TransferNameController {
@@ -20,15 +19,16 @@ public class TransferNameController {
                                              @PathVariable("name") String name) {
 
         Account matchingAccount = accountRepository.findAccountByAccountNo(accountNo);
+
         if (matchingAccount == null) {
             return new TransferNameBean(false, null);
         }
 
-        if (matchingAccount.getHoldersString(10).toLowerCase().equals(name.toLowerCase())) {
+        if (matchingAccount.getHoldersString(matchingAccount.getHolders().size()).toLowerCase().equals(name.toLowerCase())) {
             return new TransferNameBean(true, null);
         }
 
-        return new TransferNameBean(false, matchingAccount.getHoldersString(10));
+        return new TransferNameBean(false, matchingAccount.getHoldersString(matchingAccount.getHolders().size()));
     }
 
 }

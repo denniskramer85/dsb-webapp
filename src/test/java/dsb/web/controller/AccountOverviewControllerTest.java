@@ -1,5 +1,6 @@
 package dsb.web.controller;
 
+import dsb.web.domain.Account;
 import dsb.web.domain.Customer;
 import dsb.web.domain.User;
 import dsb.web.service.AccountOverviewService;
@@ -15,10 +16,12 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 /*
-* Integration test to see if controller AccountOverviewController is proply allowing requests
+* Integration test to see if controller AccountOverviewController is properly allowing requests
 * Tests response with loggedInCustomer session attribute
+* Tests if proper html template is returned
 * */
 @ExtendWith(MockitoExtension.class)
 @ExtendWith(SpringExtension.class)
@@ -29,6 +32,7 @@ public class AccountOverviewControllerTest {
     @MockBean
     AccountOverviewService accountOverviewService;
     User user;
+    Account account;
 
     @BeforeEach
     void setup() {
@@ -36,9 +40,14 @@ public class AccountOverviewControllerTest {
     }
 
     @Test
-    void allowRequest() throws Exception {
-        mockMvc.perform(get("/account_overview").sessionAttr(AttributeMapping.LOGGED_IN_CUSTOMER, user))
-                .andExpect(status().isOk());
+    void allowRequest() {
+        try {
+            mockMvc.perform(get("/account_overview").sessionAttr(AttributeMapping.LOGGED_IN_CUSTOMER, user))
+                    .andExpect(view().name("account_overview"))
+                    .andExpect(status().isOk());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 

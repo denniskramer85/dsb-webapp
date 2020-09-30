@@ -1,4 +1,4 @@
-package dsb.web.controller;
+package dsb.web.controller.rest;
 
 import dsb.web.controller.rest.UsernameOccupiedController;
 import dsb.web.domain.Customer;
